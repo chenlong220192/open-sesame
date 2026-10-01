@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADR-0001 单仓库多项目 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · ADR-0001 单仓库多项目">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/docs.css">
+</head>
+<body data-page="docs/00-meta/decisions/ADR-0001-monorepo-layout.md">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="../../../home.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#背景">背景</a></li><li class="lv2"><a href="#决策">决策</a></li><li class="lv2"><a href="#备选方案与取舍">备选方案与取舍</a></li><li class="lv2"><a href="#后果">后果</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="../../../README.html">项目说明</a></li><li><a href="../../README.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="../glossary.html">术语表</a></li><li><a href="../roadmap.html">阶段路线图</a></li><li><a href="../dev-environment.html">开发环境基线</a></li><li><a href="../publish-pipeline.html">文档发布流程</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="README.html">决策记录索引</a></li><li><a href="ADR-0001-monorepo-layout.html" class="active">ADR-0001 单仓库多项目</a></li><li><a href="ADR-0002-multi-tenant-saas-from-day-one.html">ADR-0002 第一天就多租户</a></li><li><a href="ADR-0003-cloud-deployment.html">ADR-0003 公有云部署</a></li><li><a href="ADR-0004-backend-stack.html">ADR-0004 后端技术栈</a></li><li><a href="ADR-0005-frontend-stack.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp"><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="../../01-requirements/README.html">需求分析索引</a></li><li><a href="../../01-requirements/01-vision-and-scope.html">01 愿景与范围</a></li><li><a href="../../01-requirements/02-stakeholders-and-roles.html">02 干系人与角色</a></li><li><a href="../../01-requirements/03-information-domains.html">03 信息域全景</a></li><li><a href="../../01-requirements/04-functional-requirements.html">04 功能需求池</a></li><li><a href="../../01-requirements/05-identity-and-tenancy.html">05 身份·租户·权限</a></li><li><a href="../../01-requirements/06-dashboard-requirements.html">06 大屏 Dashboard 需求</a></li><li><a href="../../01-requirements/07-non-functional-requirements.html">07 非功能需求</a></li><li><a href="../../01-requirements/08-scope-and-phasing.html">08 分期与范围</a></li><li><a href="../../01-requirements/09-open-questions.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../../02-functional-design/README.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../../03-architecture/README.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../../04-api/README.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="../../../backend/README.html">backend 后端服务</a></li><li><a href="../../../frontend/README.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="../../../home.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">00 · 决策记录</div>
+      <h1 class="doc-title">ADR-0001 采用单仓库多项目（monorepo）组织方式</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/00-meta/decisions/ADR-0001-monorepo-layout.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#背景">背景</a></li><li class="lv2"><a href="#决策">决策</a></li><li class="lv2"><a href="#备选方案与取舍">备选方案与取舍</a></li><li class="lv2"><a href="#后果">后果</a></li></ul></nav>
+    <div class="doc-body">
+<ul>
+<li>状态：已接受</li>
+<li>日期：2026-10-01</li>
+<li>决策者：项目所有者</li>
+<li>影响范围：仓库结构、CI、文档归属、发布流程</li>
+</ul>
+<h2 id="背景">背景</h2>
+<p>项目包含后端服务、前端 Web、大量文档，未来可能还有移动端与运维脚本。需要一个仓库组织方式，且当前只有一个 GitHub 私有仓库 <code>family-buddy</code>。</p>
+<h2 id="决策">决策</h2>
+<p><strong>单仓库多项目</strong>。根目录下并列：</p>
+<div class="code"><pre><code>family-buddy/
+├── docs/        文档（需求/设计/架构/API）
+├── backend/     后端工程（独立可构建）
+└── frontend/    前端工程（独立可构建）
+</code></pre></div>
+<p><code>backend/</code> 与 <code>frontend/</code> 各自拥有独立的构建体系（Maven / npm），互不依赖，可单独构建、单独部署。</p>
+<h2 id="备选方案与取舍">备选方案与取舍</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+<th>采纳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单仓库多项目</td>
+<td>文档与代码同源；一次 commit 完成跨端改动；CI 集中；重构（改字段）时前后端同步率最高</td>
+<td>仓库体积随时间增长；需配置按路径触发 CI 避免全量构建</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>双仓库（前后端各一）</td>
+<td>权限与发布完全隔离；仓库小</td>
+<td>「改一个接口」要跨两次提交、两次 PR，早期单人开发收益低；文档归属尴尬</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>三仓库 + submodule</td>
+<td>隔离最彻底</td>
+<td>submodule 日常操作成本高、易出错；单人开发严重过度设计</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="后果">后果</h2>
+<ul>
+<li><strong>正面</strong>：早期开发（大量跨端改动）成本最低；文档不会与代码脱节。</li>
+<li><strong>成本</strong>：需在 CI 中做路径过滤（<code>backend/**</code> 变更才跑后端流水线），否则构建浪费。此配置留到工程初始化阶段。</li>
+<li><strong>预留退路</strong>：任一子目录后续可独立拆仓（<code>git subtree split</code> / <code>git filter-repo</code>）。拆分成本随时间上升，故本决策需在进入开发前确认，之后不再复议。</li>
+<li>移动端将来若立项，作为第四个并列目录加入，不改变本决策。</li>
+</ul>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="README.html"><span class="pg-k">← 上一篇</span><span class="pg-t">决策记录索引</span></a><a class="pg pg-next" href="ADR-0002-multi-tenant-saas-from-day-one.html"><span class="pg-k">下一篇 →</span><span class="pg-t">ADR-0002 第一天就多租户</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/00-meta/decisions/ADR-0001-monorepo-layout.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="../../../assets/docs.js"></script>
+</body>
+</html>

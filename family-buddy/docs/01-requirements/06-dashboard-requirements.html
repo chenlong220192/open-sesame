@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>06 大屏 Dashboard 需求 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · 06 大屏 Dashboard 需求">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/docs.css">
+</head>
+<body data-page="docs/01-requirements/06-dashboard-requirements.md">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="../../home.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一使用场景">一、使用场景</a></li><li class="lv2"><a href="#二终端与形态需求">二、终端与形态需求</a></li><li class="lv3"><a href="#必须实测的前置风险架构阶段第一件事">⚠️ 必须实测的前置风险（架构阶段第一件事）</a></li><li class="lv2"><a href="#三功能需求">三、功能需求</a></li><li class="lv3"><a href="#31-设备管理">3.1 设备管理</a></li><li class="lv3"><a href="#32-布局与定制核心诉求">3.2 布局与定制（核心诉求）</a></li><li class="lv3"><a href="#33-卡片库">3.3 卡片库</a></li><li class="lv3"><a href="#34-展示与运行策略">3.4 展示与运行策略</a></li><li class="lv3"><a href="#35-隐私脱敏需求级别最高">3.5 隐私脱敏（需求级别最高）</a></li><li class="lv2"><a href="#四体验要求">四、体验要求</a></li><li class="lv2"><a href="#五明确不做v1-范围外">五、明确不做（v1 范围外）</a></li><li class="lv2"><a href="#六待确认">六、待确认</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="../../README.html">项目说明</a></li><li><a href="../README.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="../00-meta/glossary.html">术语表</a></li><li><a href="../00-meta/roadmap.html">阶段路线图</a></li><li><a href="../00-meta/dev-environment.html">开发环境基线</a></li><li><a href="../00-meta/publish-pipeline.html">文档发布流程</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="../00-meta/decisions/README.html">决策记录索引</a></li><li><a href="../00-meta/decisions/ADR-0001-monorepo-layout.html">ADR-0001 单仓库多项目</a></li><li><a href="../00-meta/decisions/ADR-0002-multi-tenant-saas-from-day-one.html">ADR-0002 第一天就多租户</a></li><li><a href="../00-meta/decisions/ADR-0003-cloud-deployment.html">ADR-0003 公有云部署</a></li><li><a href="../00-meta/decisions/ADR-0004-backend-stack.html">ADR-0004 后端技术栈</a></li><li><a href="../00-meta/decisions/ADR-0005-frontend-stack.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="README.html">需求分析索引</a></li><li><a href="01-vision-and-scope.html">01 愿景与范围</a></li><li><a href="02-stakeholders-and-roles.html">02 干系人与角色</a></li><li><a href="03-information-domains.html">03 信息域全景</a></li><li><a href="04-functional-requirements.html">04 功能需求池</a></li><li><a href="05-identity-and-tenancy.html">05 身份·租户·权限</a></li><li><a href="06-dashboard-requirements.html" class="active">06 大屏 Dashboard 需求</a></li><li><a href="07-non-functional-requirements.html">07 非功能需求</a></li><li><a href="08-scope-and-phasing.html">08 分期与范围</a></li><li><a href="09-open-questions.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../02-functional-design/README.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../03-architecture/README.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../04-api/README.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="../../backend/README.html">backend 后端服务</a></li><li><a href="../../frontend/README.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="../../home.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">01 · 需求分析</div>
+      <h1 class="doc-title">06 大屏 Dashboard 需求</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/01-requirements/06-dashboard-requirements.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一使用场景">一、使用场景</a></li><li class="lv2"><a href="#二终端与形态需求">二、终端与形态需求</a></li><li class="lv3"><a href="#必须实测的前置风险架构阶段第一件事">⚠️ 必须实测的前置风险（架构阶段第一件事）</a></li><li class="lv2"><a href="#三功能需求">三、功能需求</a></li><li class="lv3"><a href="#31-设备管理">3.1 设备管理</a></li><li class="lv3"><a href="#32-布局与定制核心诉求">3.2 布局与定制（核心诉求）</a></li><li class="lv3"><a href="#33-卡片库">3.3 卡片库</a></li><li class="lv3"><a href="#34-展示与运行策略">3.4 展示与运行策略</a></li><li class="lv3"><a href="#35-隐私脱敏需求级别最高">3.5 隐私脱敏（需求级别最高）</a></li><li class="lv2"><a href="#四体验要求">四、体验要求</a></li><li class="lv2"><a href="#五明确不做v1-范围外">五、明确不做（v1 范围外）</a></li><li class="lv2"><a href="#六待确认">六、待确认</a></li></ul></nav>
+    <div class="doc-body">
+<div class="callout"><div class="callout-b">
+<p>你的诉求：<strong>可定制的大屏，用电视机打开</strong>。
+这是本项目<strong>最具差异化</strong>的功能，也是<strong>技术风险最集中</strong>的功能（电视浏览器兼容性、常驻稳定性、隐私暴露）。</p>
+<p>本文只写需求。技术方案（是否独立前端工程、用什么渲染、如何部署到电视）留到架构阶段。</p>
+</div></div>
+<h2 id="一使用场景">一、使用场景</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>描述</th>
+<th>隐含需求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>日常常驻</td>
+<td>早起到睡前一直开着，家人随时瞥一眼</td>
+<td>7×24 稳定、低资源占用、无内存泄漏</td>
+</tr>
+<tr>
+<td>早晚高峰</td>
+<td>出门前看天气/日程/待办</td>
+<td>首屏信息优先级可配</td>
+</tr>
+<tr>
+<td>晚间家庭</td>
+<td>晚饭后看相册、家务轮值、留言</td>
+<td>无操作也能自动轮播</td>
+</tr>
+<tr>
+<td>有客来访</td>
+<td>客厅有外人</td>
+<td><strong>敏感信息必须不可见</strong></td>
+</tr>
+<tr>
+<td>节日/纪念日</td>
+<td>生日、结婚纪念日</td>
+<td>可切换节日主题布局</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="二终端与形态需求">二、终端与形态需求</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-Q1</td>
+<td>运行载体</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>目标为<strong>电视浏览器</strong>打开一个 Web 页面（无需安装 App）</td>
+</tr>
+<tr>
+<td>D-Q2</td>
+<td>显示尺寸</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>主要面向 <strong>1920×1080</strong>，兼容 4K；固定 16:9 布局</td>
+</tr>
+<tr>
+<td>D-Q3</td>
+<td>观看距离</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>3 米外可读 → 主信息字号下限需明确（建议正文 ≥24px，关键数字更大；最终值在功能设计阶段以实机确认）</td>
+</tr>
+<tr>
+<td>D-Q4</td>
+<td>交互方式</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>遥控器（方向键 + 确认）/ 触摸 / 无交互；<strong>不允许出现只能鼠标操作的控件</strong></td>
+</tr>
+<tr>
+<td>D-Q5</td>
+<td>无输入即用</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>遥控器打字极难 → 配置操作全部在手机/电脑端完成，大屏只负责<strong>展示</strong></td>
+</tr>
+<tr>
+<td>D-Q6</td>
+<td>自动启动</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>电视开机后自动进入大屏（Kiosk 模式）</td>
+</tr>
+<tr>
+<td>D-Q7</td>
+<td>免登录</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>通过设备配对码接入，不输入账号密码</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="必须实测的前置风险架构阶段第一件事">⚠️ 必须实测的前置风险（架构阶段第一件事）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>风险</th>
+<th>为什么是风险</th>
+<th>现在必须做的事</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>电视浏览器内核版本未知</td>
+<td>智能电视/机顶盒浏览器常停留在数年前的 Chromium 或自研内核，可能不支持新 ES 语法、CSS 新特性、WebGL 等</td>
+<td><strong>实测目标电视的浏览器 UA 与内核版本</strong>，据此决定构建目标与降级策略。<strong>在此之前不得假设&quot;能跑现代 Vue 3 构建产物&quot;</strong></td>
+</tr>
+<tr>
+<td>电视端可能无浏览器 / 无法输入网址</td>
+<td>部分电视生态封闭</td>
+<td>确认实际可用的访问路径；若必须用电视盒子/投屏，会影响方案</td>
+</tr>
+<tr>
+<td>长时运行内存泄漏</td>
+<td>电视浏览器长期不刷新容易 OOM 崩掉</td>
+<td>需求上要求&quot;可无人值守连续运行&quot;，具体策略（定时自刷新等）架构阶段定</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p>以上三项<strong>均为未验证项</strong>。<code>01-vision-and-scope.md</code> 假设 A2 依赖于此，若证伪需重评大屏方案。</p>
+</div></div>
+<h2 id="三功能需求">三、功能需求</h2>
+<h3 id="31-设备管理">3.1 设备管理</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-01</td>
+<td>设备注册</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>大屏打开后显示配对码；管理员在 Web 端输入并确认</td>
+</tr>
+<tr>
+<td>D-02</td>
+<td>设备命名与绑定</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>设备可命名（客厅电视 / 卧室电视）；一个家庭可绑定多台</td>
+</tr>
+<tr>
+<td>D-03</td>
+<td>在线状态</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>Web 端可见各设备最后在线时间</td>
+</tr>
+<tr>
+<td>D-04</td>
+<td>远程撤销</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>撤销后设备立即无法拉取数据</td>
+</tr>
+<tr>
+<td>D-05</td>
+<td>无写权限</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>设备令牌不得具备任何写操作能力</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="32-布局与定制核心诉求">3.2 布局与定制（<strong>核心诉求</strong>）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-10</td>
+<td>栅格布局</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>基于栅格的卡片排布；卡片可跨行列</td>
+</tr>
+<tr>
+<td>D-11</td>
+<td>卡片增删</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>从卡片库拖入 / 移除</td>
+</tr>
+<tr>
+<td>D-12</td>
+<td>卡片拖拽换位</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>拖拽后布局持久化</td>
+</tr>
+<tr>
+<td>D-13</td>
+<td>卡片缩放</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>支持至少 3 档尺寸（小/中/大）</td>
+</tr>
+<tr>
+<td>D-14</td>
+<td>布局实时生效</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>保存后大屏无需刷新即生效（或最多延迟一个刷新周期）</td>
+</tr>
+<tr>
+<td>D-15</td>
+<td>多套布局</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>可保存并命名多套布局，可指定默认布局</td>
+</tr>
+<tr>
+<td>D-16</td>
+<td>卡片级配置</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>每张卡片可配参数（如日历卡片选哪些成员、相册选哪个相簿、健康卡片选哪些指标）</td>
+</tr>
+<tr>
+<td>D-17</td>
+<td>布局模板</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>提供几套预置模板（极简 / 信息密集 / 相册主导）供快速起步</td>
+</tr>
+<tr>
+<td>D-18</td>
+<td>预览</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>编辑时可预览实际效果</td>
+</tr>
+<tr>
+<td>D-19</td>
+<td>撤销</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>编辑历史可回退</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p><strong>需求约束</strong>：编辑操作全部在<strong>管理端</strong>（手机/电脑）完成，大屏端<strong>只读</strong>。理由：遥控器无法完成拖拽配置。</p>
+</div></div>
+<h3 id="33-卡片库">3.3 卡片库</h3>
+<p><strong>P0 必备卡片（v1）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>卡片</th>
+<th>数据来源</th>
+<th>关键展示要素</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>时钟 / 日期</td>
+<td>本地</td>
+<td>大字号时间、日期、星期、农历</td>
+</tr>
+<tr>
+<td>天气</td>
+<td>外部天气服务</td>
+<td>当前温度、天气、今日高低温、未来几天（<strong>需接入第三方 API，见 Q-012</strong>）</td>
+</tr>
+<tr>
+<td>家庭日历</td>
+<td>D07</td>
+<td>今日/本周事件，含参与人</td>
+</tr>
+<tr>
+<td>待办清单</td>
+<td>D07</td>
+<td>未完成待办，按负责人分组</td>
+</tr>
+<tr>
+<td>生日与纪念日倒计时</td>
+<td>D07</td>
+<td>最近 N 个纪念日 + 剩余天数</td>
+</tr>
+<tr>
+<td>家庭相册</td>
+<td>D13</td>
+<td>自动轮播照片</td>
+</tr>
+<tr>
+<td>纪念日/节日主题</td>
+<td>D07</td>
+<td>节日当天自动切换氛围样式</td>
+</tr>
+<tr>
+<td>留言板</td>
+<td>D07</td>
+<td>家庭成员互相留言</td>
+</tr>
+<tr>
+<td>家务轮值</td>
+<td>D07</td>
+<td>本周/今日谁负责什么</td>
+</tr>
+<tr>
+<td>快捷信息</td>
+<td>D11</td>
+<td>近期到期提醒（证件/账单/车检）</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P1 卡片</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>卡片</th>
+<th>数据来源</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>健康概览</td>
+<td>D03</td>
+<td><strong>默认脱敏</strong>（仅显示趋势或模糊数值）</td>
+</tr>
+<tr>
+<td>财务概览</td>
+<td>D04</td>
+<td><strong>默认隐藏</strong>，仅在特定场景开启</td>
+</tr>
+<tr>
+<td>家庭相册 / 成长记录</td>
+<td>D08</td>
+<td>儿童成长里程碑</td>
+</tr>
+<tr>
+<td>快递 / 物流</td>
+<td>外部</td>
+<td>需第三方接口</td>
+</tr>
+<tr>
+<td>倒计时（自定义）</td>
+<td>D07</td>
+<td>如考试、旅行</td>
+</tr>
+<tr>
+<td>待领取 / 采购清单</td>
+<td>D06</td>
+<td>家庭库存补货</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>P2 卡片</strong>：股市行情、新闻、用电量、IoT（门锁/摄像头状态）、运动步数榜</p>
+<div class="callout"><div class="callout-b">
+<p><strong>需求约束</strong>：任何需要外部数据源的卡片，必须能<strong>优雅降级</strong> —— 接口不可用时显示占位而非报错或白屏。</p>
+</div></div>
+<h3 id="34-展示与运行策略">3.4 展示与运行策略</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-30</td>
+<td>自动刷新</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>可配置刷新周期（如 5/15/60 分钟）；不同卡片可不同</td>
+</tr>
+<tr>
+<td>D-31</td>
+<td>增量刷新</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>只更新变化的卡片，避免整页闪烁</td>
+</tr>
+<tr>
+<td>D-32</td>
+<td>失败隔离</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>单卡片加载失败只影响该卡片，其余正常；失败卡片显示重试提示</td>
+</tr>
+<tr>
+<td>D-33</td>
+<td>断网表现</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>断网时展示最后一次成功数据 + 离线提示；不白屏</td>
+</tr>
+<tr>
+<td>D-34</td>
+<td>防烧屏</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>长时间静态元素（时钟、边框）需支持位置微移或透明度周期变化</td>
+</tr>
+<tr>
+<td>D-35</td>
+<td>夜间模式</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>按时间自动降低亮度或熄屏（电视端可能需系统配合）</td>
+</tr>
+<tr>
+<td>D-36</td>
+<td>相册轮播</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>照片按时长自动切换，避免固定图停留过久</td>
+</tr>
+<tr>
+<td>D-37</td>
+<td>长时稳定性</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td><strong>连续运行 7 天不崩、不显著卡顿</strong>（验收需实测）</td>
+</tr>
+<tr>
+<td>D-38</td>
+<td>资源占用</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>低端电视上不明显掉帧；避免高频动画</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="35-隐私脱敏需求级别最高">3.5 隐私脱敏（<strong>需求级别最高</strong>）</h3>
+<p>客厅大屏是<strong>物理公开</strong>的。这是本项目最容易被忽视、也最容易造成真实伤害的地方（例如把体检异常、账户余额、工资条投在客厅）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-40</td>
+<td>敏感卡片默认关闭</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>财务类、健康类、证件类卡片<strong>默认不添加</strong>，需管理员显式开启</td>
+</tr>
+<tr>
+<td>D-41</td>
+<td>脱敏模式</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>金融/健康数值可配置为：隐藏 / 模糊 / 区间化（如&quot;正常范围&quot;）/ 完整显示</td>
+</tr>
+<tr>
+<td>D-42</td>
+<td>场景切换</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>&quot;日常 / 节日 / 来客&quot;场景可绑定不同的脱敏级别，一键切换</td>
+</tr>
+<tr>
+<td>D-43</td>
+<td>敏感内容不入相册轮播</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>相册卡片不展示被标记为敏感的照片</td>
+</tr>
+<tr>
+<td>D-44</td>
+<td>未授权设备不可访问</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>配对码未确认前，设备无法获取任何数据</td>
+</tr>
+<tr>
+<td>D-45</td>
+<td>单卡片锁定</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>可对单张卡片设置&quot;仅管理员可见&quot;（如账单卡片在无管理员在场时隐藏）</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="四体验要求">四、体验要求</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>要求</th>
+<th>判据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>一眼可读</td>
+<td>3 米外能看清核心信息；层级分明（时间/日期 &gt; 日程 &gt; 次要信息）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>信息密度可控</td>
+<td>至少支持&quot;极简（3-5 张卡）&quot;到&quot;密集（10+ 张卡）&quot;两档</td>
+</tr>
+<tr>
+<td>3</td>
+<td>视觉统一</td>
+<td>同一布局内颜色/字号/间距统一；不同卡片不打架</td>
+</tr>
+<tr>
+<td>4</td>
+<td>无操作可用</td>
+<td>全流程不需要遥控器点击即可长期运行</td>
+</tr>
+<tr>
+<td>5</td>
+<td>主题可配</td>
+<td>支持浅色/深色/节日主题；<strong>深色为默认</strong>（客厅夜间观感更好，且更省电）</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="五明确不做v1-范围外">五、明确不做（v1 范围外）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>不做</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在大屏上录入/编辑数据</td>
+<td>遥控器无法完成；且破坏&quot;只读展示&quot;的安全前提</td>
+</tr>
+<tr>
+<td>大屏端账号密码登录</td>
+<td>客厅场景不适用，且泄漏风险高</td>
+</tr>
+<tr>
+<td>大屏体感/语音交互</td>
+<td>依赖特定硬件，范围外</td>
+</tr>
+<tr>
+<td>多屏拼接/超宽屏</td>
+<td>需求未出现，先不做</td>
+</tr>
+<tr>
+<td>视频播放/直播</td>
+<td>非本项目目标</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="六待确认">六、待确认</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>问题</th>
+<th>编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>目标电视的具体型号与浏览器内核（<strong>架构阶段第一优先级</strong>）</td>
+<td>Q-004</td>
+</tr>
+<tr>
+<td>2</td>
+<td>电视是否可安装第三方浏览器 / 是否用电视盒子</td>
+<td>Q-004</td>
+</tr>
+<tr>
+<td>3</td>
+<td>是否需要自动开机启动（Kiosk）</td>
+<td>Q-004</td>
+</tr>
+<tr>
+<td>4</td>
+<td>天气/快递等外部数据源用哪家、是否付费</td>
+<td>Q-012</td>
+</tr>
+<tr>
+<td>5</td>
+<td>相册照片从哪来（手动上传 / 手机相册同步 / 云盘）</td>
+<td>Q-013</td>
+</tr>
+</tbody>
+</table></div>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="05-identity-and-tenancy.html"><span class="pg-k">← 上一篇</span><span class="pg-t">05 身份·租户·权限</span></a><a class="pg pg-next" href="07-non-functional-requirements.html"><span class="pg-k">下一篇 →</span><span class="pg-t">07 非功能需求</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/01-requirements/06-dashboard-requirements.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="../../assets/docs.js"></script>
+</body>
+</html>

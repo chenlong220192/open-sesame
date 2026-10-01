@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>04 功能需求池 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · 04 功能需求池">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/docs.css">
+</head>
+<body data-page="docs/01-requirements/04-functional-requirements.md">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="../../home.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一跨域通用能力-fr-g">一、跨域通用能力 FR-G</a></li><li class="lv2"><a href="#二d01-家庭与成员">二、D01 家庭与成员</a></li><li class="lv2"><a href="#三d02-工作与职业">三、D02 工作与职业</a></li><li class="lv2"><a href="#四d03-健康与医疗">四、D03 健康与医疗</a></li><li class="lv2"><a href="#五d04-财务与资产">五、D04 财务与资产</a></li><li class="lv2"><a href="#六d05-房产与车辆">六、D05 房产与车辆</a></li><li class="lv2"><a href="#七d06-家居与设备">七、D06 家居与设备</a></li><li class="lv2"><a href="#八d07-日历与日程">八、D07 日历与日程</a></li><li class="lv2"><a href="#九d08-子女与教育">九、D08 子女与教育</a></li><li class="lv2"><a href="#十d09-长辈照护">十、D09 长辈照护</a></li><li class="lv2"><a href="#十一d10-关系与人情">十一、D10 关系与人情</a></li><li class="lv2"><a href="#十二d11-生活事务与行政">十二、D11 生活事务与行政</a></li><li class="lv2"><a href="#十三d12-旅行与出行整体-p2">十三、D12 旅行与出行（整体 P2）</a></li><li class="lv2"><a href="#十四d13-文档与知识库">十四、D13 文档与知识库</a></li><li class="lv2"><a href="#十五d14-大屏与展示">十五、D14 大屏与展示</a></li><li class="lv2"><a href="#十六d15-平台与系统">十六、D15 平台与系统</a></li><li class="lv2"><a href="#十七需求统计">十七、需求统计</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="../../README.html">项目说明</a></li><li><a href="../README.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="../00-meta/glossary.html">术语表</a></li><li><a href="../00-meta/roadmap.html">阶段路线图</a></li><li><a href="../00-meta/dev-environment.html">开发环境基线</a></li><li><a href="../00-meta/publish-pipeline.html">文档发布流程</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="../00-meta/decisions/README.html">决策记录索引</a></li><li><a href="../00-meta/decisions/ADR-0001-monorepo-layout.html">ADR-0001 单仓库多项目</a></li><li><a href="../00-meta/decisions/ADR-0002-multi-tenant-saas-from-day-one.html">ADR-0002 第一天就多租户</a></li><li><a href="../00-meta/decisions/ADR-0003-cloud-deployment.html">ADR-0003 公有云部署</a></li><li><a href="../00-meta/decisions/ADR-0004-backend-stack.html">ADR-0004 后端技术栈</a></li><li><a href="../00-meta/decisions/ADR-0005-frontend-stack.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="README.html">需求分析索引</a></li><li><a href="01-vision-and-scope.html">01 愿景与范围</a></li><li><a href="02-stakeholders-and-roles.html">02 干系人与角色</a></li><li><a href="03-information-domains.html">03 信息域全景</a></li><li><a href="04-functional-requirements.html" class="active">04 功能需求池</a></li><li><a href="05-identity-and-tenancy.html">05 身份·租户·权限</a></li><li><a href="06-dashboard-requirements.html">06 大屏 Dashboard 需求</a></li><li><a href="07-non-functional-requirements.html">07 非功能需求</a></li><li><a href="08-scope-and-phasing.html">08 分期与范围</a></li><li><a href="09-open-questions.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../02-functional-design/README.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../03-architecture/README.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../04-api/README.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="../../backend/README.html">backend 后端服务</a></li><li><a href="../../frontend/README.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="../../home.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">01 · 需求分析</div>
+      <h1 class="doc-title">04 功能需求池 Functional Requirements</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/01-requirements/04-functional-requirements.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一跨域通用能力-fr-g">一、跨域通用能力 FR-G</a></li><li class="lv2"><a href="#二d01-家庭与成员">二、D01 家庭与成员</a></li><li class="lv2"><a href="#三d02-工作与职业">三、D02 工作与职业</a></li><li class="lv2"><a href="#四d03-健康与医疗">四、D03 健康与医疗</a></li><li class="lv2"><a href="#五d04-财务与资产">五、D04 财务与资产</a></li><li class="lv2"><a href="#六d05-房产与车辆">六、D05 房产与车辆</a></li><li class="lv2"><a href="#七d06-家居与设备">七、D06 家居与设备</a></li><li class="lv2"><a href="#八d07-日历与日程">八、D07 日历与日程</a></li><li class="lv2"><a href="#九d08-子女与教育">九、D08 子女与教育</a></li><li class="lv2"><a href="#十d09-长辈照护">十、D09 长辈照护</a></li><li class="lv2"><a href="#十一d10-关系与人情">十一、D10 关系与人情</a></li><li class="lv2"><a href="#十二d11-生活事务与行政">十二、D11 生活事务与行政</a></li><li class="lv2"><a href="#十三d12-旅行与出行整体-p2">十三、D12 旅行与出行（整体 P2）</a></li><li class="lv2"><a href="#十四d13-文档与知识库">十四、D13 文档与知识库</a></li><li class="lv2"><a href="#十五d14-大屏与展示">十五、D14 大屏与展示</a></li><li class="lv2"><a href="#十六d15-平台与系统">十六、D15 平台与系统</a></li><li class="lv2"><a href="#十七需求统计">十七、需求统计</a></li></ul></nav>
+    <div class="doc-body">
+<div class="callout"><div class="callout-b">
+<p>编号规则：<code>FR-D{域号}-{序号}</code>；跨域能力用 <code>FR-G-{序号}</code>。
+优先级：<code class="chip tag-p0">P0</code> v1 必做 / <code class="chip tag-p1">P1</code> v1.1~v2 / <code class="chip tag-p2">P2</code> 远期。
+<strong>&quot;验收要点&quot;列只写可判定的判据</strong>，不写主观描述。详细用例留到功能设计阶段。</p>
+<p>需求条目数量参考：P0 = 主线交付；P1 = 主线跑通后的增强；P2 = 需求池，不排期。</p>
+</div></div>
+<h2 id="一跨域通用能力-fr-g">一、跨域通用能力 FR-G</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-G-01</td>
+<td>附件上传与关联</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>任意业务对象可挂附件；单文件 ≤20MB；支持 pdf/jpg/png/heic</td>
+</tr>
+<tr>
+<td>FR-G-02</td>
+<td>富文本备注</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>备注支持纯文本 + 换行；不支持 HTML 注入</td>
+</tr>
+<tr>
+<td>FR-G-03</td>
+<td>标签体系</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>可给记录打自定义标签，可按标签筛选</td>
+</tr>
+<tr>
+<td>FR-G-04</td>
+<td>全局搜索</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>输入关键词可跨域检索，结果按域分组；不检索他人不可见数据</td>
+</tr>
+<tr>
+<td>FR-G-05</td>
+<td>通用列表能力</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>所有列表支持：分页、排序、按时间/成员筛选、导出当前筛选结果</td>
+</tr>
+<tr>
+<td>FR-G-06</td>
+<td>批量录入</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>支持 Excel/CSV 模板导入；导入前提供预览与错误行报告</td>
+</tr>
+<tr>
+<td>FR-G-07</td>
+<td>时间序列展示</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>数值型记录可按时间轴绘制趋势；缺失点不插值</td>
+</tr>
+<tr>
+<td>FR-G-08</td>
+<td>变更审计</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>敏感域的增删改留痕（谁、何时、改了什么）</td>
+</tr>
+<tr>
+<td>FR-G-09</td>
+<td>回收站</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>删除进回收站，≥30 天可恢复；超期自动清除</td>
+</tr>
+<tr>
+<td>FR-G-10</td>
+<td>统一提醒引擎</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>所有&quot;到期类&quot;需求只调用此引擎，不各自实现</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="二d01-家庭与成员">二、D01 家庭与成员</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D01-01</td>
+<td>创建家庭</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>注册后自动成为家庭管理员；家庭有唯一标识</td>
+</tr>
+<tr>
+<td>FR-D01-02</td>
+<td>管理员新增/编辑/停用成员</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>可创建<strong>无账号成员</strong>；停用后其数据保留</td>
+</tr>
+<tr>
+<td>FR-D01-03</td>
+<td>邀请成员加入</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>生成邀请码/链接，有有效期；接受后绑定为家庭成员</td>
+</tr>
+<tr>
+<td>FR-D01-04</td>
+<td>成员基础档案维护</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>姓名/称谓/性别/生日（含农历）/头像；姓名与生日必填</td>
+</tr>
+<tr>
+<td>FR-D01-05</td>
+<td>成员可变属性维护</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>尺码/血型/过敏源等，支持历史值</td>
+</tr>
+<tr>
+<td>FR-D01-06</td>
+<td>家庭关系与同住标记</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>每个成员标记与管理员关系、是否同住</td>
+</tr>
+<tr>
+<td>FR-D01-07</td>
+<td>角色分配</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>管理员可为成员指定内置角色或自定义角色</td>
+</tr>
+<tr>
+<td>FR-D01-08</td>
+<td>管理员变更（移交）</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>可指定另一成员为管理员；原管理员降级，不丢数据</td>
+</tr>
+<tr>
+<td>FR-D01-09</td>
+<td>证件档案</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>证件号加密存储；到期日推送提醒；查看需二次确认</td>
+</tr>
+<tr>
+<td>FR-D01-10</td>
+<td>紧急联系人</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>每个成员可设≥1 名紧急联系人</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="三d02-工作与职业">三、D02 工作与职业</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D02-01</td>
+<td>任职信息维护</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>单位/职位/入职日期；支持多段任职历史</td>
+</tr>
+<tr>
+<td>FR-D02-02</td>
+<td>薪酬结构记录</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>记录构成项与发薪日；<strong>默认仅本人+管理员可见</strong></td>
+</tr>
+<tr>
+<td>FR-D02-03</td>
+<td>社保公积金记录</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>缴纳基数/比例/城市；与 D04 账户不重复录入</td>
+</tr>
+<tr>
+<td>FR-D02-04</td>
+<td>假勤额度</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>年假总额/已用/剩余可维护；剩余量可被提醒</td>
+</tr>
+<tr>
+<td>FR-D02-05</td>
+<td>证书与技能</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>证书含有效期；到期推送提醒</td>
+</tr>
+<tr>
+<td>FR-D02-06</td>
+<td>工作日程（排班/出差）</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>可在家庭日历中体现可见部分</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="四d03-健康与医疗">四、D03 健康与医疗</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D03-01</td>
+<td>指标字典（含自定义）</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>内置常用指标；家庭可新增自定义指标（名称/单位/参考区间）</td>
+</tr>
+<tr>
+<td>FR-D03-02</td>
+<td>指标记录录入</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>记录值+时间；超出参考区间有视觉标记</td>
+</tr>
+<tr>
+<td>FR-D03-03</td>
+<td>指标趋势图</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>单指标多时间点折线；支持选时间段</td>
+</tr>
+<tr>
+<td>FR-D03-04</td>
+<td>体检记录</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>机构/日期/结论 + 报告附件；可标记异常项</td>
+</tr>
+<tr>
+<td>FR-D03-05</td>
+<td>体检异常项跟进</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>异常项可转为待办并跟踪复查</td>
+</tr>
+<tr>
+<td>FR-D03-06</td>
+<td>用药记录</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>药品/剂量/频次/起止；可设提醒时间</td>
+</tr>
+<tr>
+<td>FR-D03-07</td>
+<td>用药提醒与服药打卡</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>到点提醒；可标记&quot;已服/漏服&quot;</td>
+</tr>
+<tr>
+<td>FR-D03-08</td>
+<td>疫苗记录</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>疫苗/剂次/日期；可设下次时间提醒</td>
+</tr>
+<tr>
+<td>FR-D03-09</td>
+<td>过敏与病史</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>过敏源/既往史/手术史/家族史；在成员详情页显著展示</td>
+</tr>
+<tr>
+<td>FR-D03-10</td>
+<td>就诊记录</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>医院/科室/诊断/费用 + 单据附件</td>
+</tr>
+<tr>
+<td>FR-D03-11</td>
+<td>医疗费用与报销</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>记录总额/医保/自付；汇总至 D04</td>
+</tr>
+<tr>
+<td>FR-D03-12</td>
+<td>儿童成长曲线</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>身高/体重/头围按月龄绘制</td>
+</tr>
+<tr>
+<td>FR-D03-13</td>
+<td>运动与睡眠记录</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>手工录入；预留外部设备同步扩展点</td>
+</tr>
+<tr>
+<td>FR-D03-14</td>
+<td>女性健康</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>经期/孕期记录</td>
+</tr>
+<tr>
+<td>FR-D03-15</td>
+<td><strong>禁止诊疗建议</strong></td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>系统任何位置不得输出诊断、用药建议；仅展示客观数据与参考区间</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="五d04-财务与资产">五、D04 财务与资产</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D04-01</td>
+<td>账户管理</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>账户类型/名称/机构；支持标记&quot;共享账户&quot;</td>
+</tr>
+<tr>
+<td>FR-D04-02</td>
+<td>收支记账</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>3 次点击内完成一笔；支持成员归属与账户归属</td>
+</tr>
+<tr>
+<td>FR-D04-03</td>
+<td>收支分类</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>内置一套分类，可自定义增删改；支持二级分类</td>
+</tr>
+<tr>
+<td>FR-D04-04</td>
+<td>流水查询与统计</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>按月/成员/分类筛选并汇总；支持导出</td>
+</tr>
+<tr>
+<td>FR-D04-05</td>
+<td>批量导入流水</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>Excel/CSV 导入，导入前预览去重</td>
+</tr>
+<tr>
+<td>FR-D04-06</td>
+<td>预算与超支预警</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>按月设总预算与分项预算；达阈值推送提醒</td>
+</tr>
+<tr>
+<td>FR-D04-07</td>
+<td>资产负债快照</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>按月记录总资产/负债/净值并看趋势</td>
+</tr>
+<tr>
+<td>FR-D04-08</td>
+<td>负债与月供管理</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>贷款本金/利率/剩余期数/还款日；还款日推送提醒</td>
+</tr>
+<tr>
+<td>FR-D04-09</td>
+<td>账单与订阅管理</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>固定扣费项与订阅；到期前提醒；可一键标记已付</td>
+</tr>
+<tr>
+<td>FR-D04-10</td>
+<td>保险保单管理</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>保单关键字段 + 保单附件；缴费日提醒</td>
+</tr>
+<tr>
+<td>FR-D04-11</td>
+<td>投资持仓记录</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>仅记录成本与份额，<strong>不接行情、不做建议</strong></td>
+</tr>
+<tr>
+<td>FR-D04-12</td>
+<td>财务目标</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>目标金额与进度展示</td>
+</tr>
+<tr>
+<td>FR-D04-13</td>
+<td>账户级可见性</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>可设置某账户对指定成员完全不可见</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="六d05-房产与车辆">六、D05 房产与车辆</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D05-01</td>
+<td>房产档案</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>地址/面积/产权人/购入信息 + 产权证附件</td>
+</tr>
+<tr>
+<td>FR-D05-02</td>
+<td>房产贷款与出租</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>关联 D04 负债；租客与租期管理</td>
+</tr>
+<tr>
+<td>FR-D05-03</td>
+<td>车辆档案</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>车牌/型号/VIN/里程</td>
+</tr>
+<tr>
+<td>FR-D05-04</td>
+<td>车辆到期提醒</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>保险、年检、保养三类到期日提醒</td>
+</tr>
+<tr>
+<td>FR-D05-05</td>
+<td>车辆维保记录</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>保养/维修历史，含费用</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="七d06-家居与设备">七、D06 家居与设备</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D06-01</td>
+<td>家电设备档案</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>型号/购入日期/价格 + 发票说明书附件</td>
+</tr>
+<tr>
+<td>FR-D06-02</td>
+<td>保修到期提醒</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>保修期到期前提醒</td>
+</tr>
+<tr>
+<td>FR-D06-03</td>
+<td>维修记录</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>设备维保历史</td>
+</tr>
+<tr>
+<td>FR-D06-04</td>
+<td>家庭药箱库存</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>药品/数量/有效期；<strong>临期提醒</strong>；用药时自动扣减</td>
+</tr>
+<tr>
+<td>FR-D06-05</td>
+<td>日用品库存</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>最低库存阈值触发补货提醒</td>
+</tr>
+<tr>
+<td>FR-D06-06</td>
+<td>固定费用户号管理</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>水电燃气/宽带/物业户号与缴费周期；关联 D04</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="八d07-日历与日程">八、D07 日历与日程</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D07-01</td>
+<td>家庭共享日历</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>创建事件、指定参与成员；成员可在同一视图中看到</td>
+</tr>
+<tr>
+<td>FR-D07-02</td>
+<td>个人日程</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>可设为仅本人可见</td>
+</tr>
+<tr>
+<td>FR-D07-03</td>
+<td>纪念日与生日</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>支持公历/农历；支持年重复；支持&quot;提前 N 天提醒&quot;</td>
+</tr>
+<tr>
+<td>FR-D07-04</td>
+<td>待办事项</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>负责人/截止日/优先级/状态；可指派给其他成员</td>
+</tr>
+<tr>
+<td>FR-D07-05</td>
+<td>重复任务规则</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>支持每天/每周/每月/自定义重复</td>
+</tr>
+<tr>
+<td>FR-D07-06</td>
+<td>家务分工与轮值</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>定义轮值规则、自动排班、完成打卡</td>
+</tr>
+<tr>
+<td>FR-D07-07</td>
+<td><strong>统一提醒中心</strong></td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>聚合全部域的到期项；统一设置提前量与渠道；可标记已处理</td>
+</tr>
+<tr>
+<td>FR-D07-08</td>
+<td>日历视图</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>月视图 + 周视图 + 议程列表；移动端可读</td>
+</tr>
+<tr>
+<td>FR-D07-09</td>
+<td>iCal 订阅导出</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>可导出只读日历订阅地址</td>
+</tr>
+<tr>
+<td>FR-D07-10</td>
+<td>家庭会议记录</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>议题/决议/跟进项</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="九d08-子女与教育">九、D08 子女与教育</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D08-01</td>
+<td>学校与班级信息</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>学校/年级/班级/班主任联系方式</td>
+</tr>
+<tr>
+<td>FR-D08-02</td>
+<td>课表</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>周课表可维护，可在日历视图中展示</td>
+</tr>
+<tr>
+<td>FR-D08-03</td>
+<td>成绩记录</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>考试/科目/分数/满分；可选记录排名</td>
+</tr>
+<tr>
+<td>FR-D08-04</td>
+<td><strong>课时余额管理</strong></td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>记录总课时、每次消课、剩余自动计算并提醒</td>
+</tr>
+<tr>
+<td>FR-D08-05</td>
+<td>成长记录</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>复用 D03 成长曲线；支持里程碑与照片</td>
+</tr>
+<tr>
+<td>FR-D08-06</td>
+<td>素质档案</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>获奖/考级证书 + 附件</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十d09-长辈照护">十、D09 长辈照护</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D09-01</td>
+<td>照护档案</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>行动能力/认知状态/护理等级</td>
+</tr>
+<tr>
+<td>FR-D09-02</td>
+<td>照护排班</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>陪护值班表；可提醒当班人</td>
+</tr>
+<tr>
+<td>FR-D09-03</td>
+<td>极简打卡</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>单按钮完成服药/体征打卡；长辈可独立操作</td>
+</tr>
+<tr>
+<td>FR-D09-04</td>
+<td>医疗资源档案</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>常去医院/主治医生/医保信息</td>
+</tr>
+<tr>
+<td>FR-D09-05</td>
+<td>养老规划</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>养老资金与机构意向记录</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十一d10-关系与人情">十一、D10 关系与人情</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D10-01</td>
+<td>亲友通讯录</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>姓名/关系/生日（含农历）；生日进提醒中心</td>
+</tr>
+<tr>
+<td>FR-D10-02</td>
+<td>亲属关系图谱</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>可表达父系/母系分支与称谓</td>
+</tr>
+<tr>
+<td>FR-D10-03</td>
+<td><strong>人情往来账</strong></td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>记录收/送礼（对象/事由/金额/日期）；可按对象汇总</td>
+</tr>
+<tr>
+<td>FR-D10-04</td>
+<td><strong>还礼提示</strong></td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>同一对象再次有事时，提示历史上往来记录</td>
+</tr>
+<tr>
+<td>FR-D10-05</td>
+<td>社交分组</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>同事/同学/亲戚等分组</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十二d11-生活事务与行政">十二、D11 生活事务与行政</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D11-01</td>
+<td>证件到期统一管理</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>汇总全部证件到期日；支持提前量配置；进提醒中心</td>
+</tr>
+<tr>
+<td>FR-D11-02</td>
+<td>会员订阅管理</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>与 D04 订阅统一，不重复录入</td>
+</tr>
+<tr>
+<td>FR-D11-03</td>
+<td>宠物档案</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>品种/疫苗/驱虫/就诊</td>
+</tr>
+<tr>
+<td>FR-D11-04</td>
+<td>签证与出入境</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>签证有效期与出入境记录</td>
+</tr>
+<tr>
+<td>FR-D11-05</td>
+<td>家庭日记</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>图文记录，可在大屏展示</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十三d12-旅行与出行整体-p2">十三、D12 旅行与出行（整体 P2）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D12-01</td>
+<td>行程计划</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>目的地/日期/参与人/预算</td>
+</tr>
+<tr>
+<td>FR-D12-02</td>
+<td>订单管理</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>交通与住宿订单关键信息</td>
+</tr>
+<tr>
+<td>FR-D12-03</td>
+<td>行李清单模板</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>可按目的地/季节套用模板</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十四d13-文档与知识库">十四、D13 文档与知识库</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D13-01</td>
+<td>家庭文件库</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>按类型/标签/归属组织；支持预览与下载</td>
+</tr>
+<tr>
+<td>FR-D13-02</td>
+<td>附件与业务对象关联</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>从各域详情页可直接上传并回看</td>
+</tr>
+<tr>
+<td>FR-D13-03</td>
+<td>文件检索</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>按文件名/标签/上传时间检索</td>
+</tr>
+<tr>
+<td>FR-D13-04</td>
+<td>应急手册</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>集中展示急救信息、常去医院、紧急联系人</td>
+</tr>
+<tr>
+<td>FR-D13-05</td>
+<td>重要信息保管</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>强加密 + 访问审计；<strong>若无法保证安全则 v1 不做</strong>（见 Q-010）</td>
+</tr>
+<tr>
+<td>FR-D13-06</td>
+<td>家谱与纪念</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>家族故事与老照片长期沉淀</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十五d14-大屏与展示">十五、D14 大屏与展示</h2>
+<div class="callout"><div class="callout-b">
+<p>详细需求见 <a href="06-dashboard-requirements.html">06-dashboard-requirements.md</a>。</p>
+</div></div>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D14-01</td>
+<td>大屏设备注册与配对</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>通过一次性配对码授权，无需输入账号密码</td>
+</tr>
+<tr>
+<td>FR-D14-02</td>
+<td>可拖拽布局编辑</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>增删/拖拽/缩放卡片；保存后大屏实时生效</td>
+</tr>
+<tr>
+<td>FR-D14-03</td>
+<td>多布局保存</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>一个家庭可保存多套布局并切换</td>
+</tr>
+<tr>
+<td>FR-D14-04</td>
+<td>卡片库</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>提供 ≥10 种预置卡片</td>
+</tr>
+<tr>
+<td>FR-D14-05</td>
+<td>敏感卡片脱敏</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>财务/健康卡片默认隐藏或模糊；可按场景切换</td>
+</tr>
+<tr>
+<td>FR-D14-06</td>
+<td>自动刷新</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>数据按配置周期自动刷新，失败不白屏</td>
+</tr>
+<tr>
+<td>FR-D14-07</td>
+<td>防烧屏</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>支持像素偏移/定时微移，长时间静态元素不残留</td>
+</tr>
+<tr>
+<td>FR-D14-08</td>
+<td>夜间模式</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>按时间段自动调暗或熄屏</td>
+</tr>
+<tr>
+<td>FR-D14-09</td>
+<td>场景切换</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>布局+主题+脱敏级别的组合切换</td>
+</tr>
+<tr>
+<td>FR-D14-10</td>
+<td>加载态与错误态</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>单卡片失败只影响该卡片，其它卡片正常展示</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十六d15-平台与系统">十六、D15 平台与系统</h2>
+<div class="callout"><div class="callout-b">
+<p>详细需求见 <a href="05-identity-and-tenancy.html">05-identity-and-tenancy.md</a>。
+本节仅列条目，验收要点在该文档展开。</p>
+</div></div>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D15-01</td>
+<td>家庭（租户）注册与创建</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-02</td>
+<td>账号注册 / 登录 / 登出</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-03</td>
+<td>密码策略与找回</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-04</td>
+<td>二次验证</td>
+<td><code class="chip tag-p1">P1</code></td>
+</tr>
+<tr>
+<td>FR-D15-05</td>
+<td>第三方登录（微信等）</td>
+<td><code class="chip tag-p1">P1</code></td>
+</tr>
+<tr>
+<td>FR-D15-06</td>
+<td>角色与权限点管理</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-07</td>
+<td>成员间可见性规则配置</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-08</td>
+<td>租户数据隔离</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-09</td>
+<td>通知中心（站内）</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-10</td>
+<td>外部通知渠道（短信/邮件/微信）</td>
+<td><code class="chip tag-p1">P1</code></td>
+</tr>
+<tr>
+<td>FR-D15-11</td>
+<td>通知偏好设置</td>
+<td><code class="chip tag-p1">P1</code></td>
+</tr>
+<tr>
+<td>FR-D15-12</td>
+<td>审计日志</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-13</td>
+<td>数据导入（Excel/CSV）</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-14</td>
+<td>全量数据导出</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-15</td>
+<td>家庭注销与数据删除</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-16</td>
+<td>备份与恢复</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>FR-D15-17</td>
+<td>平台运营后台</td>
+<td><code class="chip tag-p1">P1</code></td>
+</tr>
+<tr>
+<td>FR-D15-18</td>
+<td>帮助与新手引导</td>
+<td><code class="chip tag-p1">P1</code></td>
+</tr>
+<tr>
+<td>FR-D15-19</td>
+<td>开放接口 / 集成扩展点</td>
+<td><code class="chip tag-p2">P2</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十七需求统计">十七、需求统计</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>条目数（含 05/06 引用项）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code class="chip tag-p0">P0</code></td>
+<td>约 55</td>
+</tr>
+<tr>
+<td><code class="chip tag-p1">P1</code></td>
+<td>约 50</td>
+</tr>
+<tr>
+<td><code class="chip tag-p2">P2</code></td>
+<td>约 20</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p><strong>P0 数量偏多是当前最大风险</strong>。v1 实际应再砍 30% 左右，取舍方法见 <a href="08-scope-and-phasing.html">08-scope-and-phasing.md</a>。</p>
+</div></div>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="03-information-domains.html"><span class="pg-k">← 上一篇</span><span class="pg-t">03 信息域全景</span></a><a class="pg pg-next" href="05-identity-and-tenancy.html"><span class="pg-k">下一篇 →</span><span class="pg-t">05 身份·租户·权限</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/01-requirements/04-functional-requirements.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="../../assets/docs.js"></script>
+</body>
+</html>

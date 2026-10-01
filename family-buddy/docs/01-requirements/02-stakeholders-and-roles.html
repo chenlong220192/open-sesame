@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 干系人与角色 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · 02 干系人与角色">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/docs.css">
+</head>
+<body data-page="docs/01-requirements/02-stakeholders-and-roles.md">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="../../home.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一干系人清单">一、干系人清单</a></li><li class="lv2"><a href="#二角色矩阵">二、角色矩阵</a></li><li class="lv3"><a href="#21-权限的三个维度授权模型需求">2.1 权限的三个维度（授权模型需求）</a></li><li class="lv2"><a href="#三典型用户画像-persona">三、典型用户画像 Persona</a></li><li class="lv3"><a href="#p1-管理员户主最重要的画像">P1 · 管理员&quot;户主&quot;（最重要的画像）</a></li><li class="lv3"><a href="#p2-普通成员配偶">P2 · 普通成员&quot;配偶&quot;</a></li><li class="lv3"><a href="#p3-受限成员孩子">P3 · 受限成员&quot;孩子&quot;</a></li><li class="lv3"><a href="#p4-大屏前的一家人">P4 · 大屏前的一家人</a></li><li class="lv3"><a href="#p5-你开发者本人">P5 · 你（开发者本人）</a></li><li class="lv2"><a href="#四干系人对需求的影响映射">四、干系人对需求的影响映射</a></li><li class="lv2"><a href="#五待确认">五、待确认</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="../../README.html">项目说明</a></li><li><a href="../README.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="../00-meta/glossary.html">术语表</a></li><li><a href="../00-meta/roadmap.html">阶段路线图</a></li><li><a href="../00-meta/dev-environment.html">开发环境基线</a></li><li><a href="../00-meta/publish-pipeline.html">文档发布流程</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="../00-meta/decisions/README.html">决策记录索引</a></li><li><a href="../00-meta/decisions/ADR-0001-monorepo-layout.html">ADR-0001 单仓库多项目</a></li><li><a href="../00-meta/decisions/ADR-0002-multi-tenant-saas-from-day-one.html">ADR-0002 第一天就多租户</a></li><li><a href="../00-meta/decisions/ADR-0003-cloud-deployment.html">ADR-0003 公有云部署</a></li><li><a href="../00-meta/decisions/ADR-0004-backend-stack.html">ADR-0004 后端技术栈</a></li><li><a href="../00-meta/decisions/ADR-0005-frontend-stack.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="README.html">需求分析索引</a></li><li><a href="01-vision-and-scope.html">01 愿景与范围</a></li><li><a href="02-stakeholders-and-roles.html" class="active">02 干系人与角色</a></li><li><a href="03-information-domains.html">03 信息域全景</a></li><li><a href="04-functional-requirements.html">04 功能需求池</a></li><li><a href="05-identity-and-tenancy.html">05 身份·租户·权限</a></li><li><a href="06-dashboard-requirements.html">06 大屏 Dashboard 需求</a></li><li><a href="07-non-functional-requirements.html">07 非功能需求</a></li><li><a href="08-scope-and-phasing.html">08 分期与范围</a></li><li><a href="09-open-questions.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../02-functional-design/README.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../03-architecture/README.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../04-api/README.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="../../backend/README.html">backend 后端服务</a></li><li><a href="../../frontend/README.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="../../home.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">01 · 需求分析</div>
+      <h1 class="doc-title">02 干系人与角色 Stakeholders &amp; Roles</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/01-requirements/02-stakeholders-and-roles.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一干系人清单">一、干系人清单</a></li><li class="lv2"><a href="#二角色矩阵">二、角色矩阵</a></li><li class="lv3"><a href="#21-权限的三个维度授权模型需求">2.1 权限的三个维度（授权模型需求）</a></li><li class="lv2"><a href="#三典型用户画像-persona">三、典型用户画像 Persona</a></li><li class="lv3"><a href="#p1-管理员户主最重要的画像">P1 · 管理员&quot;户主&quot;（最重要的画像）</a></li><li class="lv3"><a href="#p2-普通成员配偶">P2 · 普通成员&quot;配偶&quot;</a></li><li class="lv3"><a href="#p3-受限成员孩子">P3 · 受限成员&quot;孩子&quot;</a></li><li class="lv3"><a href="#p4-大屏前的一家人">P4 · 大屏前的一家人</a></li><li class="lv3"><a href="#p5-你开发者本人">P5 · 你（开发者本人）</a></li><li class="lv2"><a href="#四干系人对需求的影响映射">四、干系人对需求的影响映射</a></li><li class="lv2"><a href="#五待确认">五、待确认</a></li></ul></nav>
+    <div class="doc-body">
+<h2 id="一干系人清单">一、干系人清单</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>干系人</th>
+<th>与本系统的关系</th>
+<th>核心诉求</th>
+<th>关键约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>平台所有者</strong>（你）</td>
+<td>开发 + 运维 + 首个用户</td>
+<td>系统稳定、可长期维护、自己家能用</td>
+<td>单人、业余时间、自付成本</td>
+</tr>
+<tr>
+<td><strong>家庭管理员</strong></td>
+<td>租户内最高权限者</td>
+<td>灵活配置家庭成员与角色、掌控家庭数据</td>
+<td>不希望操作复杂</td>
+</tr>
+<tr>
+<td><strong>普通成员</strong></td>
+<td>录入/查看自己的数据</td>
+<td>快速录入、隐私可控</td>
+<td>不愿学复杂操作；手机端为主</td>
+</tr>
+<tr>
+<td><strong>受限成员</strong>（儿童、不便操作的长辈）</td>
+<td>通常无账号，作为被管理对象</td>
+<td>—（由管理员代管）</td>
+<td>涉及未成年人数据合规</td>
+</tr>
+<tr>
+<td><strong>大屏观看者</strong></td>
+<td>客厅所有人，含客人</td>
+<td>一眼看清、不需要操作</td>
+<td>无键盘鼠标；公开可见 → 需脱敏</td>
+</tr>
+<tr>
+<td><strong>平台运营者</strong>（未来）</td>
+<td>客服/运维</td>
+<td>能定位问题</td>
+<td><strong>不应能读租户业务数据</strong></td>
+</tr>
+<tr>
+<td><strong>未来外部家庭</strong></td>
+<td>SaaS 客户</td>
+<td>注册即用、数据隔离可信</td>
+<td>信任门槛高（尤其健康/财务）</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="二角色矩阵">二、角色矩阵</h2>
+<p>系统内置 <strong>4 种家庭角色模板</strong> + 1 种平台角色。家庭管理员可基于模板自定义角色（见 <a href="05-identity-and-tenancy.html">05-identity-and-tenancy.md</a>）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>范围</th>
+<th>关键权限</th>
+<th>典型绑定对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>家庭管理员</strong> <code>HOUSEHOLD_ADMIN</code></td>
+<td>家庭</td>
+<td>成员增删改、角色配置、可见性规则、家庭设置、导出、注销家庭</td>
+<td>户主 / 主要维护者</td>
+</tr>
+<tr>
+<td><strong>普通成员</strong> <code>MEMBER</code></td>
+<td>家庭</td>
+<td>查看家庭共享信息；维护<strong>本人</strong>各域数据；查看被授权可见的他人数据</td>
+<td>配偶、成年子女</td>
+</tr>
+<tr>
+<td><strong>受限成员</strong> <code>RESTRICTED_MEMBER</code></td>
+<td>家庭</td>
+<td>仅查看被明确授权的内容；数据由管理员代管；有账号场景下只能看自己的</td>
+<td>儿童、青少年</td>
+</tr>
+<tr>
+<td><strong>只读访客</strong> <code>GUEST_VIEWER</code></td>
+<td>家庭</td>
+<td>只读，且仅限管理员勾选的域（如仅日历）</td>
+<td>临时来访的亲属 / 家政</td>
+</tr>
+<tr>
+<td><strong>平台运营</strong> <code>PLATFORM_OPERATOR</code></td>
+<td>平台</td>
+<td>租户列表、用量、状态开关、公告</td>
+<td>⚠️ <strong>默认不含业务数据读取权</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="21-权限的三个维度授权模型需求">2.1 权限的三个维度（授权模型需求）</h3>
+<p>授权不是简单的&quot;角色→菜单&quot;，而是三维叠加。这是本项目权限设计的关键，需在功能设计阶段细化：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>含义</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>① 功能权限</strong></td>
+<td>能不能操作这个功能</td>
+<td>&quot;能否新增健康记录&quot;</td>
+</tr>
+<tr>
+<td><strong>② 数据范围</strong></td>
+<td>操作谁的数据</td>
+<td>&quot;只能改自己的&quot; / &quot;能改全家的&quot;</td>
+</tr>
+<tr>
+<td><strong>③ 可见性</strong></td>
+<td>能看到谁的数据</td>
+<td>&quot;配偶的健康数据不可见&quot;（成员间隐私）</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p><strong>核心需求</strong>：维度③（成员间隐私）是家庭场景的<strong>刚需</strong>而非可选项。现实冲突例子：成年子女不希望父母看到自己的体检异常；配偶不希望对方看到某笔支出。系统必须支持<strong>按信息域 × 按人</strong>的可见性控制，且默认值需谨慎（见 Q-005）。</p>
+</div></div>
+<h2 id="三典型用户画像-persona">三、典型用户画像 Persona</h2>
+<h3 id="p1-管理员户主最重要的画像">P1 · 管理员&quot;户主&quot;（最重要的画像）</h3>
+<ul>
+<li>场景：晚上在电脑前录一次数据，白天用手机随手记</li>
+<li>行为：负责建家庭、拉人进来、配置谁能看什么</li>
+<li>痛点：<strong>配置太复杂就放弃</strong>；录入步骤超过 3 步就抵触</li>
+<li>关键需求：批量录入、快捷录入、Excel 导入、能看到&quot;缺什么没录&quot;</li>
+</ul>
+<h3 id="p2-普通成员配偶">P2 · 普通成员&quot;配偶&quot;</h3>
+<ul>
+<li>场景：手机上偶尔打开，多数时候只看</li>
+<li>行为：只看自己的 + 家庭共享的日历/待办</li>
+<li>痛点：被要求&quot;你也要录&quot;但没有动力</li>
+<li>关键需求：<strong>极低录入成本</strong>、自动提醒、看得见价值（大屏展示）</li>
+</ul>
+<h3 id="p3-受限成员孩子">P3 · 受限成员&quot;孩子&quot;</h3>
+<ul>
+<li>场景：不登录，或只有一个只读账号</li>
+<li>关键需求：数据由家长代管；不能看到家庭财务</li>
+</ul>
+<h3 id="p4-大屏前的一家人">P4 · 大屏前的一家人</h3>
+<ul>
+<li>场景：晚饭后客厅，无人操作</li>
+<li>关键需求：字号大、一眼可读、自动刷新、失败时不能白屏</li>
+<li>关键约束：<strong>所有内容对客人可见</strong> → 敏感卡片必须默认隐藏或模糊</li>
+</ul>
+<h3 id="p5-你开发者本人">P5 · 你（开发者本人）</h3>
+<ul>
+<li>场景：一人维护全部</li>
+<li>关键需求：可观测（出问题能知道）、可回滚、数据可修复（误删能救）、部署简单</li>
+</ul>
+<h2 id="四干系人对需求的影响映射">四、干系人对需求的影响映射</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>干系人</th>
+<th>主要影响的信息域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>家庭管理员</td>
+<td>D01、D15、所有域的权限与可见性</td>
+</tr>
+<tr>
+<td>普通成员</td>
+<td>D02、D03、D07、D13（本人数据）</td>
+</tr>
+<tr>
+<td>受限成员</td>
+<td>D08（子女教育）、D03（儿童健康）</td>
+</tr>
+<tr>
+<td>长辈（被照护）</td>
+<td>D09、D03</td>
+</tr>
+<tr>
+<td>大屏观看者</td>
+<td>D14</td>
+</tr>
+<tr>
+<td>平台运营</td>
+<td>D15</td>
+</tr>
+<tr>
+<td>你（开发者）</td>
+<td>07 全部非功能需求</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="五待确认">五、待确认</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>问题</th>
+<th>见</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>成员间可见性默认值：默认互相可见，还是默认仅自己可见？</td>
+<td>Q-005</td>
+</tr>
+<tr>
+<td>2</td>
+<td>是否允许一个账号同时属于多个家庭？</td>
+<td>Q-006</td>
+</tr>
+<tr>
+<td>3</td>
+<td>平台运营者是否需要&quot;经授权后才能查看脱敏数据&quot;的应急通道？</td>
+<td>Q-011</td>
+</tr>
+</tbody>
+</table></div>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="01-vision-and-scope.html"><span class="pg-k">← 上一篇</span><span class="pg-t">01 愿景与范围</span></a><a class="pg pg-next" href="03-information-domains.html"><span class="pg-k">下一篇 →</span><span class="pg-t">03 信息域全景</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/01-requirements/02-stakeholders-and-roles.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="../../assets/docs.js"></script>
+</body>
+</html>

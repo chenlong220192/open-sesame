@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>09 待确认问题 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · 09 待确认问题">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/docs.css">
+</head>
+<body data-page="docs/01-requirements/09-open-questions.md">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="../../home.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#q-001-是否存在商业化套餐计费支付">Q-001 是否存在商业化（套餐/计费/支付）</a></li><li class="lv2"><a href="#q-002-注册与验证方式">Q-002 注册与验证方式</a></li><li class="lv2"><a href="#q-003-家庭成员上限与配额">Q-003 家庭成员上限与配额</a></li><li class="lv2"><a href="#q-004-大屏目标电视的型号与浏览器内核-最高优先级">Q-004 大屏目标电视的型号与浏览器内核 ★最高优先级</a></li><li class="lv2"><a href="#q-005-成员间可见性的默认值">Q-005 成员间可见性的默认值</a></li><li class="lv2"><a href="#q-006-一个账号能否属于多个家庭">Q-006 一个账号能否属于多个家庭</a></li><li class="lv2"><a href="#q-007-跨域数据归属冲突">Q-007 跨域数据归属冲突</a></li><li class="lv2"><a href="#q-008-同上并入-q-007">Q-008 同上（并入 Q-007）</a></li><li class="lv2"><a href="#q-009-v1-首批业务域与-v1-边界">Q-009 v1 首批业务域与 v1 边界</a></li><li class="lv2"><a href="#q-010-是否做d13-02-重要信息保管密码类">Q-010 是否做&quot;D13-02 重要信息保管&quot;（密码类）</a></li><li class="lv2"><a href="#q-011-平台运营是否需要应急数据访问通道">Q-011 平台运营是否需要应急数据访问通道</a></li><li class="lv2"><a href="#q-012-大屏需要的外部数据源">Q-012 大屏需要的外部数据源</a></li><li class="lv2"><a href="#q-013-相册照片的来源">Q-013 相册照片的来源</a></li><li class="lv2"><a href="#q-014-月度云成本上限">Q-014 月度云成本上限</a></li><li class="lv2"><a href="#q-015-数据保留与注销后的删除期限">Q-015 数据保留与注销后的删除期限</a></li><li class="lv2"><a href="#q-016-记账的录入负担与形态">Q-016 记账的录入负担与形态</a></li><li class="lv2"><a href="#q-017-通知渠道">Q-017 通知渠道</a></li><li class="lv2"><a href="#状态汇总">状态汇总</a></li><li class="lv2"><a href="#已移交给架构阶段的问题不在本清单内决策">已移交给架构阶段的问题（不在本清单内决策）</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="../../README.html">项目说明</a></li><li><a href="../README.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="../00-meta/glossary.html">术语表</a></li><li><a href="../00-meta/roadmap.html">阶段路线图</a></li><li><a href="../00-meta/dev-environment.html">开发环境基线</a></li><li><a href="../00-meta/publish-pipeline.html">文档发布流程</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="../00-meta/decisions/README.html">决策记录索引</a></li><li><a href="../00-meta/decisions/ADR-0001-monorepo-layout.html">ADR-0001 单仓库多项目</a></li><li><a href="../00-meta/decisions/ADR-0002-multi-tenant-saas-from-day-one.html">ADR-0002 第一天就多租户</a></li><li><a href="../00-meta/decisions/ADR-0003-cloud-deployment.html">ADR-0003 公有云部署</a></li><li><a href="../00-meta/decisions/ADR-0004-backend-stack.html">ADR-0004 后端技术栈</a></li><li><a href="../00-meta/decisions/ADR-0005-frontend-stack.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="README.html">需求分析索引</a></li><li><a href="01-vision-and-scope.html">01 愿景与范围</a></li><li><a href="02-stakeholders-and-roles.html">02 干系人与角色</a></li><li><a href="03-information-domains.html">03 信息域全景</a></li><li><a href="04-functional-requirements.html">04 功能需求池</a></li><li><a href="05-identity-and-tenancy.html">05 身份·租户·权限</a></li><li><a href="06-dashboard-requirements.html">06 大屏 Dashboard 需求</a></li><li><a href="07-non-functional-requirements.html">07 非功能需求</a></li><li><a href="08-scope-and-phasing.html">08 分期与范围</a></li><li><a href="09-open-questions.html" class="active">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../02-functional-design/README.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../03-architecture/README.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../04-api/README.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="../../backend/README.html">backend 后端服务</a></li><li><a href="../../frontend/README.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="../../home.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">01 · 需求分析</div>
+      <h1 class="doc-title">09 待确认问题清单 Open Questions</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/01-requirements/09-open-questions.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#q-001-是否存在商业化套餐计费支付">Q-001 是否存在商业化（套餐/计费/支付）</a></li><li class="lv2"><a href="#q-002-注册与验证方式">Q-002 注册与验证方式</a></li><li class="lv2"><a href="#q-003-家庭成员上限与配额">Q-003 家庭成员上限与配额</a></li><li class="lv2"><a href="#q-004-大屏目标电视的型号与浏览器内核-最高优先级">Q-004 大屏目标电视的型号与浏览器内核 ★最高优先级</a></li><li class="lv2"><a href="#q-005-成员间可见性的默认值">Q-005 成员间可见性的默认值</a></li><li class="lv2"><a href="#q-006-一个账号能否属于多个家庭">Q-006 一个账号能否属于多个家庭</a></li><li class="lv2"><a href="#q-007-跨域数据归属冲突">Q-007 跨域数据归属冲突</a></li><li class="lv2"><a href="#q-008-同上并入-q-007">Q-008 同上（并入 Q-007）</a></li><li class="lv2"><a href="#q-009-v1-首批业务域与-v1-边界">Q-009 v1 首批业务域与 v1 边界</a></li><li class="lv2"><a href="#q-010-是否做d13-02-重要信息保管密码类">Q-010 是否做&quot;D13-02 重要信息保管&quot;（密码类）</a></li><li class="lv2"><a href="#q-011-平台运营是否需要应急数据访问通道">Q-011 平台运营是否需要应急数据访问通道</a></li><li class="lv2"><a href="#q-012-大屏需要的外部数据源">Q-012 大屏需要的外部数据源</a></li><li class="lv2"><a href="#q-013-相册照片的来源">Q-013 相册照片的来源</a></li><li class="lv2"><a href="#q-014-月度云成本上限">Q-014 月度云成本上限</a></li><li class="lv2"><a href="#q-015-数据保留与注销后的删除期限">Q-015 数据保留与注销后的删除期限</a></li><li class="lv2"><a href="#q-016-记账的录入负担与形态">Q-016 记账的录入负担与形态</a></li><li class="lv2"><a href="#q-017-通知渠道">Q-017 通知渠道</a></li><li class="lv2"><a href="#状态汇总">状态汇总</a></li><li class="lv2"><a href="#已移交给架构阶段的问题不在本清单内决策">已移交给架构阶段的问题（不在本清单内决策）</a></li></ul></nav>
+    <div class="doc-body">
+<div class="callout"><div class="callout-b">
+<p>编号 <code class="chip chip-ref">Q-0XX</code>。每项包含：<strong>问题 / 为什么重要 / 选项 / 不决定的后果 / 我的建议</strong>。
+状态取值：<code class="chip tag-p0">待你回答</code> / <code class="chip tag-ok">已关闭</code> / <code>已移交架构阶段</code>。</p>
+<p><strong>本清单不关闭，需求阶段不算结束</strong>（见 <code>00-meta/roadmap.md</code> 准出条件）。
+我的建议只是<strong>建议</strong>，不是结论 —— 最终由你定。</p>
+</div></div>
+<hr />
+<h2 id="q-001-是否存在商业化套餐计费支付">Q-001 是否存在商业化（套餐/计费/支付）</h2>
+<ul>
+<li><strong>为什么重要</strong>：直接决定是否要引入套餐、配额、计费、发票、退款等一整套体系，是<strong>数量级</strong>的差异。</li>
+<li><strong>选项</strong>：A. 纯自用 + 亲友免费；B. 免费公测，暂不收费；C. 明确要收费（需单独立项）</li>
+<li><strong>不决定的后果</strong>：数据模型里缺少&quot;套餐/配额&quot;概念，后期补代价大；但过早引入则是纯浪费。</li>
+<li><strong>建议</strong>：选 B（免费公测）。但<strong>预留配额字段</strong>（如家庭成员数上限、附件容量上限），留出但不实现计费。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-002-注册与验证方式">Q-002 注册与验证方式</h2>
+<ul>
+<li><strong>为什么重要</strong>：决定是否需要短信通道（实名认证 + 按条计费 + 模板备案），影响成本与上线门槛。</li>
+<li><strong>选项</strong>：A. 手机号 + 短信验证码（体验好，有成本和备案门槛）；B. 邮箱 + 邮件验证（几乎零成本，国内用户感知略差）；C. <strong>仅邀请制</strong>（管理员生成邀请码，不开自助注册）</li>
+<li><strong>不决定的后果</strong>：无法开始做账号模块。</li>
+<li><strong>建议</strong>：早期选 B 或 C。C 最省事且对&quot;亲友家庭&quot;场景完全够用，还能有效防止滥用。短信留到确需大规模外部分发时再上。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-003-家庭成员上限与配额">Q-003 家庭成员上限与配额</h2>
+<ul>
+<li><strong>为什么重要</strong>：涉及防滥用与存储成本。</li>
+<li><strong>建议</strong>：默认成员上限 20，附件容量 5GB/家庭，均可配置。数值仅为工程建议，不是结论。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-004-大屏目标电视的型号与浏览器内核-最高优先级">Q-004 大屏目标电视的型号与浏览器内核 ★最高优先级</h2>
+<ul>
+<li><strong>为什么重要</strong>：<strong>这是全项目最大的技术不确定性。</strong> 大屏方案（能否用现代 Vue 3 构建产物、是否需要降级、是否需要改用其它终端）完全取决于目标电视的浏览器能力。在未实测前，任何方案都是猜测。</li>
+<li><strong>需要你提供</strong>：
+<ol>
+<li>电视的具体品牌型号</li>
+<li>电视自带浏览器的内核版本（电视上打开 <code>about:version</code> 或访问 UA 检测页可查）</li>
+<li>电视是否能安装第三方浏览器（如通过应用商店 / U 盘安装）</li>
+<li>是否考虑改用<strong>电视盒子</strong>（如带较新 Chromium 的 Android TV 盒子）——通常比电视自带浏览器可靠得多</li>
+<li>是否要求开机自动启动</li>
+</ol>
+</li>
+<li><strong>不决定的后果</strong>：架构阶段无法定前端方案；可能出现&quot;写完发现电视打不开&quot;的最坏情况。</li>
+<li><strong>建议</strong>：<strong>进入架构阶段的第一件事就是实测这件事</strong>，最好在写任何前端代码之前。若电视浏览器过旧，可直接改用电视盒子，成本很低且能规避大部分兼容性问题。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-005-成员间可见性的默认值">Q-005 成员间可见性的默认值</h2>
+<ul>
+<li><strong>为什么重要</strong>：安全与体验的直接取舍，且<strong>事后无法挽回</strong>（数据一旦被家人看到就收不回了）。</li>
+<li><strong>选项</strong>：A. 默认互相可见（体验好，符合&quot;一家人不分彼此&quot;的直觉）；B. <strong>默认仅本人 + 管理员可见</strong>（最严格）；C. 按域设不同默认（健康/财务严格，日历/待办开放）</li>
+<li><strong>不决定的后果</strong>：无法实现权限模块的默认值逻辑。</li>
+<li><strong>建议</strong>：<strong>C</strong>。日历/待办/纪念日默认家庭共享（协作需要）；健康、财务、证件、薪酬默认仅本人 + 管理员（隐私需要）。这是一条<strong>技术建议</strong>，不是已验证结论；具体域清单可在功能设计阶段定。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-006-一个账号能否属于多个家庭">Q-006 一个账号能否属于多个家庭</h2>
+<ul>
+<li><strong>为什么重要</strong>：影响账号模型与登录后的&quot;选择家庭&quot;流程，属于<strong>难以事后修改</strong>的设计。</li>
+<li><strong>选项</strong>：A. 一个账号只能属于一个家庭（模型简单）；B. 可属于多个家庭，登录后切换</li>
+<li><strong>不决定的后果</strong>：数据模型需要重做。</li>
+<li><strong>建议</strong>：<strong>技术上按 B 设计（多对多），交互上按 A 呈现</strong>（只有一个家庭时不显示切换器）。理由：模型改起来贵，交互改起来便宜；现实场景确实存在（子女同时管自己家和父母家）。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-007-跨域数据归属冲突">Q-007 跨域数据归属冲突</h2>
+<ul>
+<li><strong>为什么重要</strong>：同一件事在多个域都能录入时，必然出现数据不一致（这是本项目最容易失控的地方）。</li>
+<li><strong>已知冲突</strong>：<div class="tw"><table>
+<thead>
+<tr>
+<th>数据</th>
+<th>可能归属</th>
+<th>建议唯一归属</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>社保公积金账户余额</td>
+<td>D02 工作 / D04 财务</td>
+<td>缴纳记录归 D02，资金余额归 D04</td>
+</tr>
+<tr>
+<td>房贷/车贷</td>
+<td>D04 / D05</td>
+<td>归 D04 负债；D05 只引用</td>
+</tr>
+<tr>
+<td>保险</td>
+<td>D04 / D05</td>
+<td>归 D04；车辆保险在 D05 展示视图</td>
+</tr>
+<tr>
+<td>会员订阅</td>
+<td>D04 / D11</td>
+<td>归 D04 账单与订阅</td>
+</tr>
+<tr>
+<td>水电物业费</td>
+<td>D04 / D06</td>
+<td>户号归 D06，缴费流水归 D04</td>
+</tr>
+<tr>
+<td>儿童成长数据</td>
+<td>D03 / D08</td>
+<td>归 D03，D08 引用</td>
+</tr>
+</tbody>
+</table></div>
+</li>
+<li><strong>建议</strong>：上表作为功能设计阶段的<strong>强制约束</strong>，逐个确认。原则：<strong>一个数据只有一个可写入口</strong>。</li>
+<li><strong>状态</strong>：待你回答（是否接受上述归属方案）</li>
+</ul>
+<h2 id="q-008-同上并入-q-007">Q-008 同上（并入 Q-007）</h2>
+<h2 id="q-009-v1-首批业务域与-v1-边界">Q-009 v1 首批业务域与 v1 边界</h2>
+<ul>
+<li><strong>为什么重要</strong>：决定接下来所有工作的范围。</li>
+<li><strong>建议方案</strong>：见 <a href="08-scope-and-phasing.html"><code>08-scope-and-phasing.md</code> 第二节</a>。摘要：
+<ul>
+<li>底座 + D01 + D13 附件 + 通用能力</li>
+<li>业务域首批：D03 健康 / D04 财务（记账+账单+负债）/ D07 日历与提醒 / D11-01 证件到期 / D02 任职与薪酬</li>
+<li>大屏只做 4 张卡</li>
+</ul>
+</li>
+<li><strong>需要你回答</strong>：
+<ol>
+<li>是否接受这个首批范围？</li>
+<li>D10 人情往来（还礼提醒）成本低价值高，是否提前到 v1？</li>
+<li>大屏只有 4 张卡是否可接受？</li>
+</ol>
+</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-010-是否做d13-02-重要信息保管密码类">Q-010 是否做&quot;D13-02 重要信息保管&quot;（密码类）</h2>
+<ul>
+<li><strong>为什么重要</strong>：存密码是<strong>高风险功能</strong>。做不好就是给全家数据装了个后门。</li>
+<li><strong>选项</strong>：A. v1 不做，引导用专业密码管理器；B. 做，但强加密 + 二次确认 + 全量审计</li>
+<li><strong>建议</strong>：<strong>A（v1 不做）</strong>。理由：单人业余开发的项目，承担&quot;保管密码&quot;的责任不划算；一旦出事后果极重。若确有需求，见 Q-010 的 B 方案需要在功能设计阶段专门论证。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-011-平台运营是否需要应急数据访问通道">Q-011 平台运营是否需要应急数据访问通道</h2>
+<ul>
+<li><strong>为什么重要</strong>：SaaS 运营上，客服有时需要看用户数据排查问题；但这与&quot;运营者不应读业务数据&quot;的原则冲突。</li>
+<li><strong>选项</strong>：A. 完全不开放（安全最好，但排障只能靠日志）；B. 开放但需用户显式授权 + 全程留痕 + 数据自动脱敏</li>
+<li><strong>建议</strong>：早期（你既是运营也是开发者）选 A，因为你能直接查数据库。等真有外部用户且真有客服角色时再考虑 B。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-012-大屏需要的外部数据源">Q-012 大屏需要的外部数据源</h2>
+<ul>
+<li><strong>为什么重要</strong>：每个外部 API 都是一份成本 + 一个可能失效的依赖。</li>
+<li><strong>需要确认</strong>：天气（用哪家？免费额度够吗？）、快递物流、新闻、股市</li>
+<li><strong>建议</strong>：v1 天气也先不做（见 08 文档大屏最小版）。若要做，选<strong>免费额度足够且无强制实名</strong>的源，并做好失效降级。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-013-相册照片的来源">Q-013 相册照片的来源</h2>
+<ul>
+<li><strong>为什么重要</strong>：决定是否需要手机相册同步（实现成本不低）还是仅支持手动上传。</li>
+<li><strong>选项</strong>：A. 仅手动上传；B. 手机相册自动同步（需要移动端，属远期）</li>
+<li><strong>建议</strong>：v1 选 A，且不做相册卡片（08 文档已排除）。相册留到移动端立项时一起做。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-014-月度云成本上限">Q-014 月度云成本上限</h2>
+<ul>
+<li><strong>为什么重要</strong>：决定服务器规格、是否上对象存储、是否上托管数据库。</li>
+<li><strong>建议</strong>：需要你给一个数字。早期建议尽量低（最低配云主机 + 本地磁盘或廉价对象存储），把成本留给真正需要的地方。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-015-数据保留与注销后的删除期限">Q-015 数据保留与注销后的删除期限</h2>
+<ul>
+<li><strong>为什么重要</strong>：合规要求&quot;注销后删除&quot;，但&quot;立即删除&quot;与&quot;保留一段时间以防误操作&quot;需要平衡。</li>
+<li><strong>建议</strong>：注销后进入 30 天冷静期（可撤销），期满后彻底删除，并保留删除操作记录（不含业务数据）。此建议为工程建议，合规层面需后续评审。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-016-记账的录入负担与形态">Q-016 记账的录入负担与形态</h2>
+<ul>
+<li><strong>为什么重要</strong>：<strong>记账功能最常见的失败原因不是功能不够，而是家人不录。</strong></li>
+<li><strong>选项</strong>：A. 完整逐笔流水记账；B. 只记大额与固定支出 + 月度汇总；C. 只记固定负债与账单（房贷/订阅），不做日常记账</li>
+<li><strong>建议</strong>：v1 选 B 或 C 起步。先把**固定支出（房贷、账单、订阅）**管起来 —— 这部分少而重要，录入成本低，价值立即可见。逐笔记账等有真实需求再加。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<h2 id="q-017-通知渠道">Q-017 通知渠道</h2>
+<ul>
+<li><strong>为什么重要</strong>：短信需企业实名、模板备案、按条付费；微信模板消息需公众号/服务号主体。</li>
+<li><strong>选项</strong>：A. 仅站内通知（零成本，但&quot;到点提醒&quot;价值大打折扣 —— 没人主动打开就收不到）；B. 邮件（成本低，国内查看频率低）；C. 短信（触达最好，有身份与费用门槛）；D. 微信（需公众号）</li>
+<li><strong>建议</strong>：早期选 A + B；若&quot;到期提醒&quot;是你的核心诉求（很可能是），则 C 值得投入 —— 因为<strong>提醒不触达等于没有提醒</strong>。这一项需要在功能设计前定。</li>
+<li><strong>状态</strong>：待你回答</li>
+</ul>
+<hr />
+<h2 id="状态汇总">状态汇总</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>主题</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q-001</td>
+<td>商业化/计费</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-002</td>
+<td>注册与验证方式</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-003</td>
+<td>成员上限与配额</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-004</td>
+<td><strong>大屏目标电视与内核</strong></td>
+<td>待你回答（最高优先）</td>
+</tr>
+<tr>
+<td>Q-005</td>
+<td>可见性默认值</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-006</td>
+<td>账号是否可多家庭</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-007</td>
+<td>跨域数据归属</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-009</td>
+<td>v1 范围</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-010</td>
+<td>密码类信息保管</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-011</td>
+<td>运营应急通道</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-012</td>
+<td>外部数据源</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-013</td>
+<td>相册照片来源</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-014</td>
+<td>云成本上限</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-015</td>
+<td>注销删除期限</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-016</td>
+<td>记账形态</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+<tr>
+<td>Q-017</td>
+<td>通知渠道</td>
+<td><code class="chip tag-p0">待你回答</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="已移交给架构阶段的问题不在本清单内决策">已移交给架构阶段的问题（不在本清单内决策）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>问题</th>
+<th>移交原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据库选型（PostgreSQL / MySQL）</td>
+<td>实现选型，需结合隔离方案评估</td>
+</tr>
+<tr>
+<td>持久层框架（JPA / MyBatis / jOOQ）</td>
+<td>实现选型</td>
+</tr>
+<tr>
+<td>租户隔离的具体机制（字段隔离 / Schema 隔离 / 库隔离）</td>
+<td>需结合成本与运维复杂度</td>
+</tr>
+<tr>
+<td>认证方案（Session / JWT / OAuth2）</td>
+<td>实现选型</td>
+</tr>
+<tr>
+<td>大屏与管理端是否同一前端工程</td>
+<td>需结合 Q-004 的实测结果</td>
+</tr>
+<tr>
+<td>是否容器化部署、云厂商与区域</td>
+<td>部署选型</td>
+</tr>
+<tr>
+<td>对象存储选型</td>
+<td>成本与实现选型</td>
+</tr>
+</tbody>
+</table></div>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="08-scope-and-phasing.html"><span class="pg-k">← 上一篇</span><span class="pg-t">08 分期与范围</span></a><a class="pg pg-next" href="../02-functional-design/README.html"><span class="pg-k">下一篇 →</span><span class="pg-t">功能设计</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/01-requirements/09-open-questions.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="../../assets/docs.js"></script>
+</body>
+</html>

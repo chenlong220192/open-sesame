@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADR-0002 第一天就多租户 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · ADR-0002 第一天就多租户">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../../assets/docs.css">
+</head>
+<body data-page="docs/00-meta/decisions/ADR-0002-multi-tenant-saas-from-day-one.md">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="../../../home.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#背景">背景</a></li><li class="lv2"><a href="#决策">决策</a></li><li class="lv2"><a href="#备选方案与取舍">备选方案与取舍</a></li><li class="lv2"><a href="#后果">后果</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="../../../README.html">项目说明</a></li><li><a href="../../README.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="../glossary.html">术语表</a></li><li><a href="../roadmap.html">阶段路线图</a></li><li><a href="../dev-environment.html">开发环境基线</a></li><li><a href="../publish-pipeline.html">文档发布流程</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="README.html">决策记录索引</a></li><li><a href="ADR-0001-monorepo-layout.html">ADR-0001 单仓库多项目</a></li><li><a href="ADR-0002-multi-tenant-saas-from-day-one.html" class="active">ADR-0002 第一天就多租户</a></li><li><a href="ADR-0003-cloud-deployment.html">ADR-0003 公有云部署</a></li><li><a href="ADR-0004-backend-stack.html">ADR-0004 后端技术栈</a></li><li><a href="ADR-0005-frontend-stack.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp"><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="../../01-requirements/README.html">需求分析索引</a></li><li><a href="../../01-requirements/01-vision-and-scope.html">01 愿景与范围</a></li><li><a href="../../01-requirements/02-stakeholders-and-roles.html">02 干系人与角色</a></li><li><a href="../../01-requirements/03-information-domains.html">03 信息域全景</a></li><li><a href="../../01-requirements/04-functional-requirements.html">04 功能需求池</a></li><li><a href="../../01-requirements/05-identity-and-tenancy.html">05 身份·租户·权限</a></li><li><a href="../../01-requirements/06-dashboard-requirements.html">06 大屏 Dashboard 需求</a></li><li><a href="../../01-requirements/07-non-functional-requirements.html">07 非功能需求</a></li><li><a href="../../01-requirements/08-scope-and-phasing.html">08 分期与范围</a></li><li><a href="../../01-requirements/09-open-questions.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../../02-functional-design/README.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../../03-architecture/README.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../../04-api/README.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="../../../backend/README.html">backend 后端服务</a></li><li><a href="../../../frontend/README.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="../../../home.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">00 · 决策记录</div>
+      <h1 class="doc-title">ADR-0002 从第一天起就按多租户 SaaS 设计</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/00-meta/decisions/ADR-0002-multi-tenant-saas-from-day-one.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#背景">背景</a></li><li class="lv2"><a href="#决策">决策</a></li><li class="lv2"><a href="#备选方案与取舍">备选方案与取舍</a></li><li class="lv2"><a href="#后果">后果</a></li></ul></nav>
+    <div class="doc-body">
+<ul>
+<li>状态：已接受</li>
+<li>日期：2026-10-01</li>
+<li>决策者：项目所有者</li>
+<li>影响范围：<strong>全部</strong> 需求、数据模型、权限模型、部署、合规</li>
+</ul>
+<h2 id="背景">背景</h2>
+<p>项目最初动因是&quot;给自家用&quot;。但所有者明确：<strong>目标是做成 SaaS 服务，可以给很多家庭使用</strong>，且&quot;需要家庭管理员灵活定制家庭成员&quot;。</p>
+<p>这带来一个根本分叉：先做单家庭版再改多租户，还是第一天就多租户？</p>
+<h2 id="决策">决策</h2>
+<p><strong>第一天就多租户。</strong> 租户（家庭）是数据隔离的最小单位，所有业务数据从第一条记录起就带租户归属。家庭管理员可灵活定义本家庭成员及其角色。</p>
+<h2 id="备选方案与取舍">备选方案与取舍</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+<th>采纳</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一天多租户</td>
+<td>不存在后期&quot;数据没有租户字段&quot;的灾难性重构；早期就能验证真实场景（邀请、隔离、越权）</td>
+<td>每条查询都必须带租户过滤，认知负担与出错面扩大；需要更早引入租户上下文机制</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>先单家庭后改</td>
+<td>早期开发最快</td>
+<td>后期改造要触及<strong>每一张表、每一条查询、每一个接口</strong>，且历史数据要回填；几乎必然产生越权漏洞</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p>反向论证：把&quot;单家庭&quot;当作多租户下 <code>tenant_count = 1</code> 的特例，<strong>不会</strong>损失任何功能表达力。也就是说，多租户设计下&quot;只服务一个家庭&quot;是零成本的；反过来则不成立。这是本决策的核心依据。</p>
+</div></div>
+<h2 id="后果">后果</h2>
+<ul>
+<li><strong>正面</strong>：数据模型一次到位；隔离与越权风险在设计阶段就被强制思考。</li>
+<li><strong>成本</strong>：
+<ul>
+<li>所有数据访问必须携带租户上下文，需要统一的机制（架构阶段决策）而非靠开发者自觉。</li>
+<li>需求侧必须回答&quot;租户如何注册/创建/邀请&quot;（见 <code>01-requirements/05-identity-and-tenancy.md</code>）。</li>
+</ul>
+</li>
+<li><strong>强制约束（写入需求，不可协商）</strong>：
+<ol>
+<li><strong>默认拒绝</strong>：任何未显式声明租户归属的查询不得返回业务数据。</li>
+<li><strong>越权必须可测</strong>：必须存在自动化测试，用家庭 A 的凭据访问家庭 B 的资源，断言返回 404/403。</li>
+</ol>
+</li>
+<li><strong>需要接受的现实</strong>：SaaS 化意味着要处理个人信息保护合规（PIPL）与数据删除义务，成本远高于自用。若未来放弃 SaaS 目标，本决策可被新 ADR 取代（届时需付出数据模型简化之外的合规体系拆除成本）。<strong>该取舍在 2026-10-01 已向所有者说明并确认。</strong></li>
+</ul>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="ADR-0001-monorepo-layout.html"><span class="pg-k">← 上一篇</span><span class="pg-t">ADR-0001 单仓库多项目</span></a><a class="pg pg-next" href="ADR-0003-cloud-deployment.html"><span class="pg-k">下一篇 →</span><span class="pg-t">ADR-0003 公有云部署</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/00-meta/decisions/ADR-0002-multi-tenant-saas-from-day-one.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="../../../assets/docs.js"></script>
+</body>
+</html>
