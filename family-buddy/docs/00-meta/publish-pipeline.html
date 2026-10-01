@@ -33,7 +33,7 @@
     </button>
   </div>
 </header>
-<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一发布目标">一、发布目标</a></li><li class="lv2"><a href="#二命名与结构约定2026-10-02-定">二、命名与结构约定（2026-10-02 定）</a></li><li class="lv2"><a href="#三脱敏公开仓库的前置硬要求">三、脱敏（公开仓库的前置硬要求）</a></li><li class="lv2"><a href="#四流程五步每次执行都是幂等的全量覆盖">四、流程（五步，每次执行都是幂等的全量覆盖）</a></li><li class="lv2"><a href="#五用法">五、用法</a></li><li class="lv2"><a href="#六已知注意事项">六、已知注意事项</a></li><li class="lv2"><a href="#七相关">七、相关</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="../../README.html">项目说明</a></li><li><a href="../README.html">文档总索引</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="glossary.html">术语表</a></li><li><a href="roadmap.html">阶段路线图</a></li><li><a href="dev-environment.html">开发环境基线</a></li><li><a href="publish-pipeline.html" class="active">文档发布流程</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="decisions/README.html">决策记录索引</a></li><li><a href="decisions/ADR-0001-monorepo-layout.html">ADR-0001 单仓库多项目</a></li><li><a href="decisions/ADR-0002-multi-tenant-saas-from-day-one.html">ADR-0002 第一天就多租户</a></li><li><a href="decisions/ADR-0003-cloud-deployment.html">ADR-0003 公有云部署</a></li><li><a href="decisions/ADR-0004-backend-stack.html">ADR-0004 后端技术栈</a></li><li><a href="decisions/ADR-0005-frontend-stack.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp"><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="../01-requirements/README.html">需求分析索引</a></li><li><a href="../01-requirements/01-vision-and-scope.html">01 愿景与范围</a></li><li><a href="../01-requirements/02-stakeholders-and-roles.html">02 干系人与角色</a></li><li><a href="../01-requirements/03-information-domains.html">03 信息域全景</a></li><li><a href="../01-requirements/04-functional-requirements.html">04 功能需求池</a></li><li><a href="../01-requirements/05-identity-and-tenancy.html">05 身份·租户·权限</a></li><li><a href="../01-requirements/06-dashboard-requirements.html">06 大屏 Dashboard 需求</a></li><li><a href="../01-requirements/07-non-functional-requirements.html">07 非功能需求</a></li><li><a href="../01-requirements/08-scope-and-phasing.html">08 分期与范围</a></li><li><a href="../01-requirements/09-open-questions.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../02-functional-design/README.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../03-architecture/README.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../04-api/README.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="../../backend/README.html">backend 后端服务</a></li><li><a href="../../frontend/README.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="../../home.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一发布目标">一、发布目标</a></li><li class="lv2"><a href="#二命名与结构约定2026-10-02-定">二、命名与结构约定（2026-10-02 定）</a></li><li class="lv2"><a href="#三脱敏公开仓库的前置硬要求">三、脱敏（公开仓库的前置硬要求）</a></li><li class="lv2"><a href="#四流程六步两段式先暂存再复制">四、流程（六步，两段式：先暂存，再复制）</a></li><li class="lv2"><a href="#四之二临时区-tmp仓库根">四之二、临时区 .tmp/（仓库根）</a></li><li class="lv2"><a href="#五用法">五、用法</a></li><li class="lv2"><a href="#六已知注意事项">六、已知注意事项</a></li><li class="lv2"><a href="#七相关">七、相关</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="../../README.html">项目说明</a></li><li><a href="../README.html">文档总索引</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="glossary.html">术语表</a></li><li><a href="roadmap.html">阶段路线图</a></li><li><a href="dev-environment.html">开发环境基线</a></li><li><a href="publish-pipeline.html" class="active">文档发布流程</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="decisions/README.html">决策记录索引</a></li><li><a href="decisions/ADR-0001-monorepo-layout.html">ADR-0001 单仓库多项目</a></li><li><a href="decisions/ADR-0002-multi-tenant-saas-from-day-one.html">ADR-0002 第一天就多租户</a></li><li><a href="decisions/ADR-0003-cloud-deployment.html">ADR-0003 公有云部署</a></li><li><a href="decisions/ADR-0004-backend-stack.html">ADR-0004 后端技术栈</a></li><li><a href="decisions/ADR-0005-frontend-stack.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp"><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="../01-requirements/README.html">需求分析索引</a></li><li><a href="../01-requirements/01-vision-and-scope.html">01 愿景与范围</a></li><li><a href="../01-requirements/02-stakeholders-and-roles.html">02 干系人与角色</a></li><li><a href="../01-requirements/03-information-domains.html">03 信息域全景</a></li><li><a href="../01-requirements/04-functional-requirements.html">04 功能需求池</a></li><li><a href="../01-requirements/05-identity-and-tenancy.html">05 身份·租户·权限</a></li><li><a href="../01-requirements/06-dashboard-requirements.html">06 大屏 Dashboard 需求</a></li><li><a href="../01-requirements/07-non-functional-requirements.html">07 非功能需求</a></li><li><a href="../01-requirements/08-scope-and-phasing.html">08 分期与范围</a></li><li><a href="../01-requirements/09-open-questions.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../02-functional-design/README.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../03-architecture/README.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="../04-api/README.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="../../backend/README.html">backend 后端服务</a></li><li><a href="../../frontend/README.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="../../home.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
 <main class="main">
   <article class="page">
     <header class="doc-head">
@@ -45,7 +45,7 @@
         <span class="dm"><b>阶段</b>调研 · 需求分析</span>
       </div>
     </header>
-    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一发布目标">一、发布目标</a></li><li class="lv2"><a href="#二命名与结构约定2026-10-02-定">二、命名与结构约定（2026-10-02 定）</a></li><li class="lv2"><a href="#三脱敏公开仓库的前置硬要求">三、脱敏（公开仓库的前置硬要求）</a></li><li class="lv2"><a href="#四流程五步每次执行都是幂等的全量覆盖">四、流程（五步，每次执行都是幂等的全量覆盖）</a></li><li class="lv2"><a href="#五用法">五、用法</a></li><li class="lv2"><a href="#六已知注意事项">六、已知注意事项</a></li><li class="lv2"><a href="#七相关">七、相关</a></li></ul></nav>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一发布目标">一、发布目标</a></li><li class="lv2"><a href="#二命名与结构约定2026-10-02-定">二、命名与结构约定（2026-10-02 定）</a></li><li class="lv2"><a href="#三脱敏公开仓库的前置硬要求">三、脱敏（公开仓库的前置硬要求）</a></li><li class="lv2"><a href="#四流程六步两段式先暂存再复制">四、流程（六步，两段式：先暂存，再复制）</a></li><li class="lv2"><a href="#四之二临时区-tmp仓库根">四之二、临时区 .tmp/（仓库根）</a></li><li class="lv2"><a href="#五用法">五、用法</a></li><li class="lv2"><a href="#六已知注意事项">六、已知注意事项</a></li><li class="lv2"><a href="#七相关">七、相关</a></li></ul></nav>
     <div class="doc-body">
 <div class="callout"><div class="callout-b">
 <p>把本项目的 HTML 文档站发布到<strong>共享的 GitHub Pages 仓库</strong>，使其可在任意设备上直接打开。
@@ -157,26 +157,68 @@
 <p>规则集中在 <code>docs/tools/publish.py</code> 顶部的 <code>SANITIZE_RULES</code>（按最长优先匹配）。
 脚本每次都会打印<strong>每类规则的命中次数</strong>：命中数出现计划外类别，说明源文档新增了泄漏点，应补规则后重跑。</p>
 <p>发布副本不含邮箱、真实姓名与任何凭据。唯一保留的 <code>git@github.com</code> 出现在通用命令 <code>ssh -T git@github.com</code> 中，非个人信息。</p>
-<h2 id="四流程五步每次执行都是幂等的全量覆盖">四、流程（五步，每次执行都是幂等的全量覆盖）</h2>
+<h2 id="四流程六步两段式先暂存再复制">四、流程（六步，两段式：先暂存，再复制）</h2>
 <div class="code"><pre><code>1. 重新构建文档站        docs/site/
-2. 脱敏                  把只对本地/私有环境有意义的字符串替换为占位符
-3. 全量覆盖写入          目标仓库的 family-buddy/ 子目录
-4. 提交                  一条 commit
-5. 推送                  origin/main
+2. 脱敏 → 写入暂存区      .tmp/publish-stage/     ← 人工核对点，含本次完整产物
+3. 暂存区 → 目标目录      复制到 open-sesame/family-buddy/
+4. 清理目标目录陈旧文件    移入 .tmp/trash/&lt;时间戳&gt;/from-open-sesame/
+5. 提交                  一条 commit
+6. 推送                  origin/main
 </code></pre></div>
+<p><strong>两段式的意义</strong>：<code>.tmp/publish-stage/</code> 是脱敏后的成品落地点，发布前后都可以直接打开核对；
+同时它与目标仓库解耦，不会出现&quot;写到一半目标已经被改&quot;的状态。</p>
 <p><strong>覆盖语义</strong>：目标目录里不属于本次产出的文件会被移除，保证远端与本地构建结果严格一致。</p>
 <div class="callout"><div class="callout-b">
-<p>⚠️ <strong>本卷禁止删除</strong>（安全层拦截 <code>unlink</code> / <code>rm</code>），因此陈旧文件会被 <strong><code>mv</code> 到
-<code>open-sesame/.tmp/publish-trash/&lt;时间戳&gt;/</code></strong> 并保留原相对路径。属废弃文件，可由所有者直接清理。
+<p>⚠️ <strong>本卷禁止删除</strong>（安全层拦截 <code>unlink</code> / <code>rm</code> / <code>rmdir</code>），因此陈旧文件是
+<strong><code>mv</code> 到 <code>family-buddy/.tmp/trash/&lt;时间戳&gt;/</code></strong> 并保留原相对路径，由所有者集中清理。
 清理范围<strong>严格锁定在 <code>family-buddy/</code> 内</strong>，不会越界影响同仓的其它项目。</p>
+</div></div>
+<h2 id="四之二临时区-tmp仓库根">四之二、临时区 <code>.tmp/</code>（仓库根）</h2>
+<p><strong>所有临时文件、待删除文件、没有权限删除的文件都集中在 <code>.tmp/</code></strong>，且<strong>绝不允许提交</strong>。</p>
+<div class="code"><pre><code>.tmp/
+├── publish-stage/          发布暂存区
+└── trash/&lt;时间戳&gt;/
+    ├── site/                 构建遗留的旧产物
+    ├── stale-stage/          暂存区自身的历史遗留
+    └── from-open-sesame/     从目标仓库清理下来的
+</code></pre></div>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>保护措施</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.gitignore</code> 排除</td>
+<td><code>git check-ignore .tmp/x</code> 可验证</td>
+</tr>
+<tr>
+<td><strong>提交前拦截</strong></td>
+<td>发布脚本 <code>git add -A</code> 后检查暂存内容，若含 <code>.tmp/</code> 下的文件则<strong>回滚暂存并中止</strong></td>
+</tr>
+<tr>
+<td>目标仓库隔离</td>
+<td>发布脚本只往 <code>open-sesame/family-buddy/</code> 写；<code>.tmp/</code> 不再出现在目标仓库里</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p>2026-10-02 曾发生一次：清理下来的 28 个废弃文件被放进 <code>open-sesame/.tmp/</code>，
+随后被 <code>git add -A</code> 一并提交到公开仓库。内容为已脱敏的旧发布副本（无敏感信息），
+且 GitHub Pages 不服务 <code>.tmp/</code>（实测线上 404）。现已移出，并在该仓库根加了 <code>.gitignore</code> 防回归。</p>
 </div></div>
 <h2 id="五用法">五、用法</h2>
 <div class="code" data-lang="bash"><span class="code-lang">bash</span><pre><code>PY=&lt;WorkBuddy venv&gt;/bin/python
 
-# 正式发布（构建 → 脱敏 → 覆盖 → 提交 → 推送）
+# 正式发布（构建 → 暂存 → 复制 → 清理 → 提交 → 推送）
 $PY docs/tools/publish.py
 
-# 试运行：只构建 + 复制 + 报告，不碰 git
+# 只构建 + 写 .tmp/publish-stage/ 供人工核对，不碰目标仓库与 git
+$PY docs/tools/publish.py --stage-only
+
+# 试运行：构建 + 在临时目录试跑，报告会改动什么；不碰目标仓库与 git
 $PY docs/tools/publish.py --dry-run
 
 # 提交但不推送
