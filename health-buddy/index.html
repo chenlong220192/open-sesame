@@ -1,0 +1,4911 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>需求分析说明书 | Health Buddy 健康伙伴</title>
+<meta name="author" content="Health Buddy 项目组">
+<meta name="description" content="Health Buddy（健康伙伴）需求分析说明书 HB-SRS-001 v0.1.0">
+<meta name="theme-color" content="#0D3B45">
+<style>
+
+:root{
+  --navy:#0D3B45; --navy-2:#062830; --navy-3:#155F6B;
+  --teal:#0E7C7B; --teal-soft:#E3F2F1; --teal-line:#A9D6D4;
+
+  --ink:#17242A; --ink-2:#39474E; --muted:#5A6870; --muted-2:#7C888F;
+
+  --red:#AF3327; --red-soft:#FBEAE7;
+  --amber:#9A6410; --amber-soft:#FDF4E3;
+  --green:#2C6B4C; --green-soft:#E6F2EB;
+  --violet:#54457F; --violet-soft:#EEEAF7;
+
+  --paper:#FFFFFF; --surface:#F7F9FA; --surface-2:#EDF1F3; --surface-3:#E2E8EB;
+  --line:#DAE1E5; --line-strong:#B6C1C7;
+
+  --font-serif:"Source Han Serif SC","Noto Serif SC","Songti SC","SimSun",serif;
+  --font-sans:"Source Han Sans SC","Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,sans-serif;
+  --font-mono:"JetBrains Mono","SF Mono","Menlo","Consolas",monospace;
+
+  --sidebar-w:306px; --radius:3px;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:74px;}
+body{
+  margin:0;font-family:var(--font-sans);font-size:15.5px;line-height:1.85;
+  color:var(--ink);background:var(--surface-2);
+  -webkit-font-smoothing:antialiased;text-wrap:pretty;
+}
+
+/* ---------------- 滚动进度 ---------------- */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--teal);z-index:300;transition:width .1s linear;}
+
+/* ---------------- 顶栏 ---------------- */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:56px;z-index:200;
+  background:rgba(255,255,255,.93);backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;padding:0 18px;
+}
+.topbar .mark{display:flex;align-items:center;gap:10px;}
+.topbar .brand-t{font-size:13.5px;font-weight:600;color:var(--navy);letter-spacing:.02em;white-space:nowrap;}
+.topbar .brand-s{font-size:11.5px;color:var(--muted-2);white-space:nowrap;border-left:1px solid var(--line-strong);padding-left:11px;}
+.topbar .spacer{flex:1;}
+.topbar .tools{display:flex;align-items:center;gap:8px;}
+
+.btn{
+  height:32px;padding:0 12px;border:1px solid var(--line);background:#fff;border-radius:var(--radius);
+  font-family:var(--font-sans);font-size:13px;color:var(--ink-2);cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;transition:.16s;white-space:nowrap;
+}
+.btn:hover{border-color:var(--navy-3);color:var(--navy);background:var(--surface);}
+.btn:active{transform:translateY(1px);}
+.btn-primary{background:var(--navy);border-color:var(--navy);color:#fff;}
+.btn-primary:hover{background:var(--navy-2);border-color:var(--navy-2);color:#fff;}
+.btn-icon{padding:0 9px;font-size:15px;line-height:1;}
+.btn-sm{height:30px;font-size:12.5px;}
+
+.search{
+  display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--surface);padding:0 9px;height:32px;transition:.16s;
+}
+.search:focus-within{border-color:var(--teal);background:#fff;box-shadow:0 0 0 3px rgba(14,124,123,.10);}
+.search input{border:0;outline:0;background:transparent;font-family:var(--font-sans);font-size:13px;width:150px;color:var(--ink);}
+.search input::placeholder{color:var(--muted-2);}
+.qcount{font-size:12px;color:var(--muted-2);display:none;white-space:nowrap;}
+
+/* ---------------- 侧栏 ---------------- */
+.sidebar{
+  position:fixed;top:56px;bottom:0;left:0;width:var(--sidebar-w);
+  background:var(--paper);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;z-index:100;
+  transition:transform .24s cubic-bezier(.4,0,.2,1);padding:18px 0 64px;
+}
+.sidebar::-webkit-scrollbar{width:9px;}
+.sidebar::-webkit-scrollbar-thumb{background:var(--surface-3);border-radius:9px;border:3px solid #fff;}
+.sidebar::-webkit-scrollbar-thumb:hover{background:var(--line-strong);}
+body.nav-collapsed .sidebar{transform:translateX(-100%);}
+
+.toc-head{
+  padding:0 20px 11px;margin-bottom:6px;border-bottom:1px solid var(--line);
+  font-family:var(--font-serif);font-size:12px;font-weight:700;color:var(--navy);
+  letter-spacing:.14em;
+}
+.toc-head span{display:block;font-family:var(--font-sans);font-size:10.5px;font-weight:400;color:var(--muted-2);letter-spacing:.06em;margin-top:3px;}
+
+.toc{list-style:none;margin:0;padding:8px 0;}
+.toc li{list-style:none;}
+.toc a{
+  display:block;padding:5px 20px 5px 22px;font-size:13px;color:var(--ink-2);
+  text-decoration:none;border-left:2px solid transparent;transition:.14s;line-height:1.5;
+}
+.toc a:hover{background:var(--surface);color:var(--navy);}
+.toc a.active{border-left-color:var(--teal);background:var(--teal-soft);color:var(--navy);font-weight:600;}
+.toc a .num{font-family:var(--font-mono);font-size:11px;color:var(--muted-2);margin-right:7px;}
+.toc a.active .num{color:var(--teal);}
+.toc > li > a.lv1{font-weight:600;color:var(--navy);font-size:13.5px;margin-top:2px;}
+.toc > li > a.lv1.active{border-left-color:var(--navy);background:var(--surface-2);}
+.toc .sub{margin:0;padding:0;}
+.toc .sub a{padding-left:40px;font-size:12.5px;color:var(--muted);}
+.toc .sub a.active{color:var(--navy);font-weight:600;}
+.toc-group{
+  padding:14px 20px 5px;margin-top:6px;
+  font-family:var(--font-serif);font-size:11px;font-weight:700;color:var(--teal);
+  letter-spacing:.12em;border-top:1px solid var(--line);
+}
+.toc-group:first-of-type{border-top:0;margin-top:0;}
+
+/* ---------------- 主内容 ---------------- */
+.main{margin-left:var(--sidebar-w);padding:56px 0 0;transition:margin-left .24s cubic-bezier(.4,0,.2,1);}
+body.nav-collapsed .main{margin-left:0;}
+.page{
+  max-width:1030px;margin:0 auto;background:var(--paper);
+  border:1px solid var(--line);box-shadow:0 1px 3px rgba(13,59,69,.07),0 12px 40px -18px rgba(13,59,69,.14);
+  padding:0 0 72px;
+}
+
+/* ---------------- 封面 ---------------- */
+.cover{position:relative;padding:56px 64px 48px;background:linear-gradient(160deg,#FBFDFD 0%,#EAF1F2 100%);border-bottom:3px solid var(--navy);overflow:hidden;}
+.cover::before{content:"";position:absolute;right:-130px;top:-130px;width:420px;height:420px;background:radial-gradient(circle,rgba(14,124,123,.10) 0%,transparent 68%);}
+.cover::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--line-strong);}
+.cover-top{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;position:relative;}
+.cover-brand{display:flex;align-items:center;gap:14px;}
+.cover-brand .logo{flex:none;display:flex;}
+.cb-name{font-family:var(--font-serif);font-size:19px;font-weight:700;color:var(--navy);letter-spacing:.01em;}
+.cb-sub{font-size:12px;color:var(--muted);margin-top:1px;}
+.cover-meta-r{flex:none;background:rgba(255,255,255,.72);border:1px solid var(--line);border-radius:var(--radius);padding:11px 15px;min-width:214px;}
+.cm-row{display:flex;justify-content:space-between;gap:16px;font-size:12px;line-height:2;}
+.cm-row span{color:var(--muted-2);}
+.cm-row b{color:var(--navy);font-family:var(--font-mono);font-size:11.5px;font-weight:600;}
+
+.cover-hero{position:relative;margin-top:48px;}
+.cover-title{font-family:var(--font-serif);font-size:40px;line-height:1.25;font-weight:700;color:var(--navy);margin:0;letter-spacing:.01em;}
+.cover-en{font-family:var(--font-mono);font-size:12px;letter-spacing:.22em;color:var(--teal);margin-top:9px;text-transform:uppercase;}
+.cover-title::after{content:"";display:block;width:70px;height:3px;background:var(--teal);margin-top:18px;}
+.cover-lead{margin:22px 0 0;font-size:14.5px;line-height:1.95;color:var(--ink-2);max-width:78ch;}
+.cover-lead-2{color:var(--muted);font-size:13.5px;}
+
+.cover-stats{display:flex;gap:1px;margin-top:34px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;position:relative;}
+.stat{flex:1;background:rgba(255,255,255,.8);padding:14px 16px;text-align:center;}
+.stat b{display:block;font-family:var(--font-serif);font-size:23px;color:var(--navy);line-height:1.3;}
+.stat span{font-size:11.5px;color:var(--muted);}
+
+.cover-scope,.cover-nav{margin-top:40px;position:relative;}
+.cv-group{font-family:var(--font-serif);font-size:12px;font-weight:700;color:var(--navy);letter-spacing:.12em;margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--line);}
+.scope-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.scope-col{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;border-top:3px solid var(--line-strong);}
+.scope-col.in{border-top-color:var(--green);}
+.scope-col.out{border-top-color:var(--red);}
+.scope-col.tech{border-top-color:var(--navy);}
+.scope-col h4{margin:0 0 8px;font-size:12.5px;color:var(--navy);letter-spacing:.04em;}
+.scope-col ul{margin:0;padding-left:16px;}
+.scope-col li{font-size:12.5px;line-height:1.85;color:var(--ink-2);}
+
+.cv-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cv-grid .cv-group{grid-column:1 / -1;margin-bottom:4px;}
+.cv-card{
+  display:flex;align-items:center;gap:12px;text-decoration:none;
+  background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:var(--radius);
+  padding:11px 14px;transition:.16s;
+}
+.cv-card:hover{border-color:var(--teal);background:#fff;box-shadow:0 2px 10px -4px rgba(14,124,123,.3);}
+.cv-num{flex:none;width:30px;height:30px;border-radius:var(--radius);background:var(--teal-soft);color:var(--teal);font-family:var(--font-mono);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.cv-body{min-width:0;}
+.cv-body b{display:block;font-size:13px;color:var(--navy);}
+.cv-body i{display:block;font-style:normal;font-size:11.5px;color:var(--muted);line-height:1.6;}
+.cover-foot{margin-top:36px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted-2);position:relative;}
+
+/* ---------------- 文档正文 ---------------- */
+.doc{padding:0 64px;}
+.doc > h1{
+  font-family:var(--font-serif);font-size:27px;color:var(--navy);line-height:1.4;
+  margin:64px 0 6px;padding-top:26px;border-top:2px solid var(--navy);
+  letter-spacing:.01em;
+}
+.doc:first-of-type > h1{margin-top:52px;}
+.doc > h1 + p{color:var(--muted);font-size:13px;margin-top:0;}
+/* 首篇文档紧随封面，无需重复分隔线 */
+.cover + .doc > h1{margin-top:46px;padding-top:0;border-top:0;}
+.doc h2{
+  font-family:var(--font-serif);font-size:20px;color:var(--navy);
+  margin:46px 0 14px;padding-bottom:9px;border-bottom:1px solid var(--line);
+  line-height:1.45;scroll-margin-top:74px;
+}
+.doc h3{font-size:16.5px;color:var(--navy-3);margin:32px 0 10px;line-height:1.5;scroll-margin-top:74px;}
+.doc h4{font-size:15px;color:var(--ink);margin:22px 0 8px;}
+.doc p{margin:0 0 15px;}
+.doc strong{color:var(--navy);font-weight:600;}
+.doc em{color:var(--muted);font-style:normal;}
+.doc a{color:var(--teal);text-decoration:none;border-bottom:1px solid var(--teal-line);transition:.14s;}
+.doc a:hover{color:var(--navy);border-bottom-color:var(--navy);}
+.xref-dead{color:var(--muted);}
+
+.doc ul,.doc ol{margin:0 0 15px;padding-left:24px;}
+.doc li{margin:5px 0;}
+.doc li > ul,.doc li > ol{margin:5px 0;}
+
+.doc code{font-family:var(--font-mono);font-size:.875em;background:var(--surface-2);border:1px solid var(--line);border-radius:2px;padding:1px 5px;color:var(--navy-3);}
+.doc pre{
+  background:#0C2B33;color:#DCE9EA;border-radius:var(--radius);padding:16px 18px;
+  overflow-x:auto;font-family:var(--font-mono);font-size:12.5px;line-height:1.72;
+  margin:0 0 18px;border-left:3px solid var(--teal);
+}
+.doc pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit;}
+
+.doc blockquote{
+  margin:0 0 18px;padding:13px 18px;background:var(--surface);border-left:3px solid var(--line-strong);
+  color:var(--ink-2);border-radius:0 var(--radius) var(--radius) 0;
+}
+.doc blockquote p:last-child{margin-bottom:0;}
+
+.doc hr{border:0;border-top:1px solid var(--line);margin:34px 0;}
+
+/* ---------------- 表格 ---------------- */
+.tw{overflow-x:auto;margin:0 0 20px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;}
+.tw::-webkit-scrollbar{height:9px;}
+.tw::-webkit-scrollbar-thumb{background:var(--surface-3);border-radius:9px;border:2px solid #fff;}
+.doc table{border-collapse:collapse;width:100%;font-size:13px;line-height:1.7;min-width:520px;}
+.doc thead th{
+  background:var(--surface-2);color:var(--navy);font-weight:600;text-align:left;
+  padding:9px 13px;border-bottom:2px solid var(--line-strong);white-space:nowrap;
+  font-size:12.5px;letter-spacing:.02em;
+}
+.doc tbody td{padding:9px 13px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink-2);}
+.doc thead th:first-child,.doc tbody td:first-child{min-width:96px;white-space:nowrap;}
+.doc tbody td:first-child{color:var(--navy);font-weight:500;}
+.doc tbody tr:nth-child(even) td{background:#FAFCFC;}
+.doc tbody tr:hover td{background:var(--teal-soft);}
+.doc tbody tr:last-child td{border-bottom:0;}
+.doc td strong{color:var(--navy);}
+
+/* ---------------- 提示框 ---------------- */
+.callout{
+  margin:0 0 18px;padding:13px 17px 13px 16px;border-radius:0 var(--radius) var(--radius) 0;
+  border-left:3px solid var(--line-strong);background:var(--surface);color:var(--ink-2);font-size:14px;
+}
+.callout p{margin:0 0 9px;}
+.callout p:last-child{margin-bottom:0;}
+.callout.warn{border-left-color:var(--amber);background:var(--amber-soft);}
+.callout.ok{border-left-color:var(--green);background:var(--green-soft);}
+.callout.bad{border-left-color:var(--red);background:var(--red-soft);}
+.callout.tip{border-left-color:var(--violet);background:var(--violet-soft);}
+.callout.note{border-left-color:var(--navy-3);background:var(--teal-soft);}
+.callout strong{color:var(--navy);}
+
+/* ---------------- 浮动按钮 ---------------- */
+.floats{position:fixed;right:22px;bottom:24px;z-index:180;display:flex;flex-direction:column;gap:9px;align-items:flex-end;}
+.fab{
+  display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 15px;border-radius:19px;
+  background:var(--navy);color:#fff;border:1px solid var(--navy);cursor:pointer;
+  font-family:var(--font-sans);font-size:12.5px;box-shadow:0 4px 16px -4px rgba(13,59,69,.45);
+  opacity:0;visibility:hidden;transform:translateY(8px);transition:.22s;
+}
+.fab.show{opacity:1;visibility:visible;transform:translateY(0);}
+.fab:hover{background:var(--navy-2);}
+.fab svg{flex:none;}
+
+/* ---------------- 响应式 ---------------- */
+@media (max-width:1080px){
+  .cover{padding:44px 34px 38px;}
+  .doc{padding:0 34px;}
+  .scope-grid{grid-template-columns:1fr;}
+  .cv-grid{grid-template-columns:1fr;}
+}
+@media (max-width:900px){
+  :root{--sidebar-w:288px;}
+  .sidebar{transform:translateX(-100%);box-shadow:0 0 40px rgba(13,59,69,.18);}
+  body.nav-open-mobile .sidebar{transform:translateX(0);}
+  body.nav-collapsed .sidebar{transform:translateX(-100%);}
+  .main{margin-left:0;}
+  body.nav-collapsed .main{margin-left:0;}
+  .cover{padding:34px 20px 30px;}
+  .doc{padding:0 20px;}
+  .cover-top{flex-direction:column;gap:20px;}
+  .cover-meta-r{width:100%;}
+  .cover-title{font-size:30px;}
+  .search input{width:100px;}
+  .topbar .brand-s{display:none;}
+}
+@media (max-width:600px){
+  .search{display:none;}
+  .cover-stats{flex-wrap:wrap;}
+  .stat{flex:1 1 45%;}
+}
+
+mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
+
+/* ---------------- 打印 ---------------- */
+@page{size:A4;margin:15mm 14mm;}
+@media print{
+  html{scroll-padding-top:0;}
+  body{background:#fff;font-size:10.2pt;line-height:1.68;}
+  .topbar,.sidebar,.floats,.progress,.no-print{display:none !important;}
+  .main{margin-left:0 !important;padding-top:0 !important;}
+  .page{max-width:none;border:0;box-shadow:none;padding:0;}
+  .cover{padding:22mm 0 8mm;background:#fff !important;border-bottom:2px solid #0D3B45;break-after:page;}
+  .cover::before,.cover::after{display:none;}
+  .cover-stats,.cover-scope,.cover-nav{break-inside:avoid;}
+  .scope-col,.cv-card{background:#fff !important;}
+  .doc{padding:0;}
+  .doc > h1{break-before:page;margin-top:0;padding-top:0;border-top:0;}
+  .doc:first-of-type > h1{break-before:auto;}
+  .cover + .doc > h1{break-before:auto;}
+  h1,h2,h3,h4{break-after:avoid;color:#0D3B45 !important;}
+  p,li,tr,.callout{break-inside:avoid;}
+  .tw{overflow:visible;border:1px solid #B6C1C7;break-inside:auto;}
+  .doc table{font-size:8.6pt;min-width:0;}
+  .doc thead th{background:#EDF1F3 !important;border-bottom:1.4px solid #7C888F;padding:5px 7px;}
+  .doc tbody td{padding:5px 7px;background:#fff !important;}
+  .doc tbody tr:nth-child(even) td{background:#FAFCFC !important;}
+  .doc thead{display:table-header-group;}
+  .doc tr{page-break-inside:avoid;}
+  .doc pre{background:#0C2B33 !important;color:#DCE9EA !important;font-size:8.4pt;padding:9px 11px;border-left:2.5px solid #0E7C7B;}
+  .callout,.doc code,.cv-num,.stat b{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .callout{background:#F7F9FA !important;font-size:9.6pt;}
+  .callout.warn{background:#FDF4E3 !important;}
+  .callout.bad{background:#FBEAE7 !important;}
+  .callout.ok{background:#E6F2EB !important;}
+  .callout.note{background:#E3F2F1 !important;}
+  .doc a{color:#0D3B45 !important;border-bottom:0 !important;text-decoration:none;}
+  .doc pre{white-space:pre-wrap;word-break:break-word;overflow:visible;}
+}
+
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header class="topbar no-print">
+  <button class="btn btn-icon" id="navToggle" title="折叠 / 展开目录" aria-label="折叠目录">☰</button>
+  <div class="mark">
+    <svg width="22" height="22" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <path d="M24 43S5 31.5 5 17.8C5 10.7 10.6 5 17.5 5c3.4 0 6.5 1.5 6.5 1.5S27.1 5 30.5 5C37.4 5 43 10.7 43 17.8 43 31.5 24 43 24 43Z"
+            stroke="#0E7C7B" stroke-width="2.6" stroke-linejoin="round"/>
+      <path d="M13 22h5l3-6 4.5 12 3-7 2.5 4h4" stroke="#0D3B45" stroke-width="2.6"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="brand-t">需求分析说明书</span>
+  </div>
+  <span class="brand-s">HB-SRS-001 · v0.1.0 · Health Buddy</span>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input type="search" id="q" placeholder="搜索全文…（⌘K）" autocomplete="off">
+    </label>
+    <span id="qcount" class="qcount"></span>
+    <button class="btn btn-primary btn-sm" onclick="window.print()" title="打印或导出 PDF">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="1.5"/><path d="M6 14h12v7H6z"/></svg>
+      打印 / 导出 PDF
+    </button>
+  </div>
+</header>
+
+<nav class="sidebar no-print" id="sidebar" aria-label="文档目录">
+  <div class="toc-head">目录<span>Table of Contents</span></div>
+  <ul class="toc" id="toc">
+<li><a href="#cover" class="lv1" data-target="#cover"><span class="num">—</span>封面</a></li>
+<li class="toc-group">项目元信息</li>
+<li><a href="#doc-docs-index" class="lv1" data-target="#doc-docs-index"><span class="num">A</span>文档总览</a><ul class="sub"><li><a href="#docs-index--_2" data-target="#docs-index--_2">目录说明</a></li><li><a href="#docs-index--_3" data-target="#docs-index--_3">需求文档清单</a></li><li><a href="#docs-index--_4" data-target="#docs-index--_4">编写约定</a></li><li><a href="#docs-index--html" data-target="#docs-index--html">构建 HTML 说明书</a></li></ul></li>
+<li><a href="#doc-glossary" class="lv1" data-target="#doc-glossary"><span class="num">B</span>术语表</a><ul class="sub"><li><a href="#glossary--_1" data-target="#glossary--_1">核心概念</a></li><li><a href="#glossary--_2" data-target="#glossary--_2">数据形态分类</a></li><li><a href="#glossary--_3" data-target="#glossary--_3">已废弃用语</a></li></ul></li>
+<li><a href="#doc-decision-log" class="lv1" data-target="#doc-decision-log"><span class="num">C</span>决策记录</a><ul class="sub"><li><a href="#decision-log--_1" data-target="#decision-log--_1">一、已定决策</a></li><li><a href="#decision-log--_2" data-target="#decision-log--_2">二、待定决策</a></li><li><a href="#decision-log--_3" data-target="#decision-log--_3">三、变更记录</a></li></ul></li>
+<li class="toc-group">需求分析</li>
+<li><a href="#doc-vision" class="lv1" data-target="#doc-vision"><span class="num">01</span>愿景与范围</a><ul class="sub"><li><a href="#vision--1" data-target="#vision--1">1. 一句话定位</a></li><li><a href="#vision--2" data-target="#vision--2">2. 要解决的问题</a></li><li><a href="#vision--3" data-target="#vision--3">3. 产品目标（本期）</a></li><li><a href="#vision--4" data-target="#vision--4">4. 产品非目标（明确不做）</a></li><li><a href="#vision--5" data-target="#vision--5">5. 范围边界</a></li><li><a href="#vision--6" data-target="#vision--6">6. 命名说明</a></li><li><a href="#vision--7" data-target="#vision--7">7. 待确认</a></li></ul></li>
+<li><a href="#doc-users" class="lv1" data-target="#doc-users"><span class="num">02</span>用户与角色</a><ul class="sub"><li><a href="#users--1" data-target="#users--1">1. 角色总览</a></li><li><a href="#users--2" data-target="#users--2">2. 系统管理员</a></li><li><a href="#users--3" data-target="#users--3">3. 注册用户（家庭管理员）</a></li><li><a href="#users--4" data-target="#users--4">4. 待定角色：受邀协作者</a></li><li><a href="#users--5" data-target="#users--5">5. 权限矩阵（草案）</a></li><li><a href="#users--6" data-target="#users--6">6. 待确认</a></li></ul></li>
+<li><a href="#doc-info-model" class="lv1" data-target="#doc-info-model"><span class="num">03</span>信息模型清单</a><ul class="sub"><li><a href="#info-model--1" data-target="#info-model--1">1. 分层总览</a></li><li><a href="#info-model--2-l1" data-target="#info-model--2-l1">2. L1 账户与主体层</a></li><li><a href="#info-model--3-l2" data-target="#info-model--3-l2">3. L2 健康数据层</a></li><li><a href="#info-model--4-l3" data-target="#info-model--4-l3">4. L3 文件与处理层</a></li><li><a href="#info-model--5-l4" data-target="#info-model--5-l4">5. L4 呈现与配置层</a></li><li><a href="#info-model--6-l5" data-target="#info-model--6-l5">6. L5 系统与运营层</a></li><li><a href="#info-model--7" data-target="#info-model--7">7. 跨对象通用字段</a></li><li><a href="#info-model--8-fhir-r4" data-target="#info-model--8-fhir-r4">8. 参考：与 FHIR R4 的映射（可选）</a></li><li><a href="#info-model--9" data-target="#info-model--9">9. 已识别但容易被忽略的点</a></li><li><a href="#info-model--10" data-target="#info-model--10">10. 待确认</a></li></ul></li>
+<li><a href="#doc-capability" class="lv1" data-target="#doc-capability"><span class="num">04</span>能力范围</a><ul class="sub"><li><a href="#capability--1" data-target="#capability--1">1. 能力地图</a></li><li><a href="#capability--2" data-target="#capability--2">2. 一期能力详述（边界级，非设计级）</a></li><li><a href="#capability--3" data-target="#capability--3">3. 一期明确不做</a></li><li><a href="#capability--4" data-target="#capability--4">4. 一期建议交付顺序</a></li><li><a href="#capability--5" data-target="#capability--5">5. 待确认</a></li></ul></li>
+<li><a href="#doc-nfr" class="lv1" data-target="#doc-nfr"><span class="num">05</span>非功能需求</a><ul class="sub"><li><a href="#nfr--1" data-target="#nfr--1">1. 性能</a></li><li><a href="#nfr--2" data-target="#nfr--2">2. 可用性</a></li><li><a href="#nfr--3" data-target="#nfr--3">3. 安全</a></li><li><a href="#nfr--4" data-target="#nfr--4">4. 隐私与合规</a></li><li><a href="#nfr--5" data-target="#nfr--5">5. 可维护性</a></li><li><a href="#nfr--6" data-target="#nfr--6">6. 可扩展性</a></li><li><a href="#nfr--7" data-target="#nfr--7">7. 兼容性</a></li><li><a href="#nfr--8" data-target="#nfr--8">8. 成本</a></li><li><a href="#nfr--9" data-target="#nfr--9">9. 待收敛项</a></li></ul></li>
+<li><a href="#doc-risk" class="lv1" data-target="#doc-risk"><span class="num">06</span>风险登记册</a><ul class="sub"><li><a href="#risk--p0" data-target="#risk--p0">P0 · 必须处理</a></li><li><a href="#risk--p1" data-target="#risk--p1">P1 · 需关注</a></li><li><a href="#risk--p2" data-target="#risk--p2">P2 · 可接受（记录备查）</a></li><li><a href="#risk--_1" data-target="#risk--_1">合规专项登记（不展开方案）</a></li><li><a href="#risk--_2" data-target="#risk--_2">变更记录</a></li></ul></li>
+<li><a href="#doc-open-questions" class="lv1" data-target="#doc-open-questions"><span class="num">07</span>待调研项</a><ul class="sub"><li><a href="#open-questions--_1" data-target="#open-questions--_1">汇总表</a></li><li><a href="#open-questions--ow-001" data-target="#open-questions--ow-001">OW-001 · 数据库选型</a></li><li><a href="#open-questions--ow-002" data-target="#open-questions--ow-002">OW-002 · 对象存储方案</a></li><li><a href="#open-questions--ow-003-ocr-ai" data-target="#open-questions--ow-003-ocr-ai">OW-003 · OCR 与 AI 能力来源 ← 核心调研项</a></li><li><a href="#open-questions--ow-004" data-target="#open-questions--ow-004">OW-004 · 前端工程拆分策略</a></li><li><a href="#open-questions--ow-005" data-target="#open-questions--ow-005">OW-005 · 认证与授权方案</a></li><li><a href="#open-questions--ow-006" data-target="#open-questions--ow-006">OW-006 · 成员授权共管是否一期开放</a></li><li><a href="#open-questions--ow-007" data-target="#open-questions--ow-007">OW-007 · 大屏方案 ← 用户明确处于调研阶段</a></li><li><a href="#open-questions--ow-008" data-target="#open-questions--ow-008">OW-008 · 提醒 / 待办是否进一期</a></li><li><a href="#open-questions--ow-009" data-target="#open-questions--ow-009">OW-009 · 主数据字典来源</a></li><li><a href="#open-questions--ow-010-fhir-r4" data-target="#open-questions--ow-010-fhir-r4">OW-010 · 是否采纳 FHIR R4 作为内部信息模型</a></li><li><a href="#open-questions--ow-011" data-target="#open-questions--ow-011">OW-011 · 异步任务框架选型</a></li><li><a href="#open-questions--ow-012" data-target="#open-questions--ow-012">OW-012 · 部署形态</a></li><li><a href="#open-questions--_9" data-target="#open-questions--_9">变更记录</a></li></ul></li>
+  </ul>
+</nav>
+
+<div class="main">
+  <div class="page">
+
+<section class="cover" id="cover">
+  <div class="cover-top">
+    <div class="cover-brand">
+      <div class="logo" aria-hidden="true">
+        <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+          <path d="M24 43S5 31.5 5 17.8C5 10.7 10.6 5 17.5 5c3.4 0 6.5 1.5 6.5 1.5S27.1 5 30.5 5C37.4 5 43 10.7 43 17.8 43 31.5 24 43 24 43Z"
+                fill="#0E7C7B" opacity=".13"/>
+          <path d="M24 43S5 31.5 5 17.8C5 10.7 10.6 5 17.5 5c3.4 0 6.5 1.5 6.5 1.5S27.1 5 30.5 5C37.4 5 43 10.7 43 17.8 43 31.5 24 43 24 43Z"
+                stroke="#0E7C7B" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M13 22h5l3-6 4.5 12 3-7 2.5 4h4" stroke="#0D3B45" stroke-width="2.2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="cb-name">Health Buddy</div>
+        <div class="cb-sub">健康伙伴 · 面向家庭成员的 AI 健康伙伴系统</div>
+      </div>
+    </div>
+    <div class="cover-meta-r">
+      <div class="cm-row"><span>文档编号</span><b>HB-SRS-001</b></div>
+      <div class="cm-row"><span>文档版本</span><b>v0.1.0</b></div>
+      <div class="cm-row"><span>文档状态</span><b>草案</b></div>
+      <div class="cm-row"><span>编制日期</span><b>2026-10-02</b></div>
+    </div>
+  </div>
+
+  <div class="cover-hero">
+    <h1 class="cover-title">需求分析说明书</h1>
+    <div class="cover-en">Software Requirements Specification</div>
+    <p class="cover-lead">
+      本文档集定义 <strong>Health Buddy（健康伙伴）</strong> 的建设目标、用户角色、信息模型、
+      能力范围、非功能需求与风险登记。产品定位为面向家庭的 AI 健康伙伴 ——
+      用户上传医疗报告、医院单据、病历照片，系统落盘后经 OCR 与 AI 结构化解读，
+      为每一位家庭成员生成专属、持续演进的健康视图。
+    </p>
+    <p class="cover-lead cover-lead-2">
+      <strong>当前阶段</strong>：需求分析进行中。功能设计与架构设计尚未开始，
+      相关结论以本说明书为准，未定事项统一登记于「待调研项」。
+    </p>
+  </div>
+
+  <div class="cover-stats">
+    <div class="stat"><b>10</b><span>篇文档</span></div>
+    <div class="stat"><b>130</b><span>个章节</span></div>
+    <div class="stat"><b>88</b><span>张表格</span></div>
+    <div class="stat"><b>5</b><span>层信息对象</span></div>
+  </div>
+
+  <div class="cover-scope">
+    <div class="cv-group">本期范围与边界</div>
+    <div class="scope-grid">
+      <div class="scope-col in">
+        <h4>本期必做</h4>
+        <ul>
+          <li>账户体系与家庭成员管理</li>
+          <li>原件上传与落盘</li>
+          <li>OCR 识别 + AI 结构化抽取</li>
+          <li>健康档案与趋势查看</li>
+          <li>用户健康大屏（可定制）</li>
+          <li>系统管理员后台</li>
+        </ul>
+      </div>
+      <div class="scope-col out">
+        <h4>本期不做</h4>
+        <ul>
+          <li>多租户（账户即数据边界）</li>
+          <li>运营数据大屏（二期）</li>
+          <li>移动端 App（远期）</li>
+          <li>成员授权共管（二期）</li>
+          <li>医学诊断（红线）</li>
+          <li>在线问诊与商城</li>
+        </ul>
+      </div>
+      <div class="scope-col tech">
+        <h4>技术栈（已定）</h4>
+        <ul>
+          <li>后端 Java 25 + Spring Boot 4</li>
+          <li>前端 Vue 3</li>
+          <li>前后端分离，同仓分目录</li>
+          <li>移动端远期规划</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-nav">
+    <div class="cv-group">文档导航</div>
+    <div class="cv-grid">
+<div class="cv-group">项目元信息</div>
+<a class="cv-card" href="#doc-docs-index"><span class="cv-num">A</span><span class="cv-body"><b>文档总览</b><i>文档索引、编写约定与进度</i></span></a>
+<a class="cv-card" href="#doc-glossary"><span class="cv-num">B</span><span class="cv-body"><b>术语表</b><i>核心概念的中英对照与唯一正式用语</i></span></a>
+<a class="cv-card" href="#doc-decision-log"><span class="cv-num">C</span><span class="cv-body"><b>决策记录</b><i>已定决策、待定决策与变更记录</i></span></a>
+<div class="cv-group">需求分析</div>
+<a class="cv-card" href="#doc-vision"><span class="cv-num">01</span><span class="cv-body"><b>愿景与范围</b><i>为什么做、做什么、明确不做什么</i></span></a>
+<a class="cv-card" href="#doc-users"><span class="cv-num">02</span><span class="cv-body"><b>用户与角色</b><i>谁在用、谁管什么、权限边界在哪</i></span></a>
+<a class="cv-card" href="#doc-info-model"><span class="cv-num">03</span><span class="cv-body"><b>信息模型清单</b><i>系统要管理哪些信息（五层对象清单）</i></span></a>
+<a class="cv-card" href="#doc-capability"><span class="cv-num">04</span><span class="cv-body"><b>能力范围</b><i>一期具备哪些能力，一期明确不做什么</i></span></a>
+<a class="cv-card" href="#doc-nfr"><span class="cv-num">05</span><span class="cv-body"><b>非功能需求</b><i>性能、安全、隐私、可维护性底线</i></span></a>
+<a class="cv-card" href="#doc-risk"><span class="cv-num">06</span><span class="cv-body"><b>风险登记册</b><i>P0/P1/P2 风险与合规专项登记</i></span></a>
+<a class="cv-card" href="#doc-open-questions"><span class="cv-num">07</span><span class="cv-body"><b>待调研项</b><i>技术选型与大屏方案的调研清单</i></span></a>
+    </div>
+  </div>
+
+  <div class="cover-foot">
+    本文档为项目内部资料。文档与代码同为事实来源，变更须同步更新。
+    文档之间交叉引用已自动解析为页内锚点。
+  </div>
+</section>
+
+<section class="doc" id="doc-docs-index">
+<h1 id="docs-index--_1">文档索引</h1>
+<p>本目录是项目的<strong>唯一事实来源</strong>（Single Source of Truth）。代码可以变，文档与代码必须同步。</p>
+<h2 id="docs-index--_2">目录说明</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>目录</th>
+<th>内容</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>00-meta/</code></td>
+<td>项目元信息：术语表、决策记录</td>
+<td>✅ 已建</td>
+</tr>
+<tr>
+<td><code>01-requirements/</code></td>
+<td>需求分析</td>
+<td>🚧 进行中</td>
+</tr>
+<tr>
+<td><code>02-functional-design/</code></td>
+<td>功能设计（交互流程、界面、业务规则）</td>
+<td>⬜ 未开始</td>
+</tr>
+<tr>
+<td><code>03-architecture/</code></td>
+<td>架构设计（技术选型、分层、数据模型、部署）</td>
+<td>⬜ 未开始</td>
+</tr>
+<tr>
+<td><code>04-api/</code></td>
+<td>API 契约</td>
+<td>⬜ 未开始</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="docs-index--_3">需求文档清单</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>文件</th>
+<th>回答的问题</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01</td>
+<td><a href="#doc-vision">>愿景与范围</a></td>
+<td>为什么做、做什么、不做什么</td>
+<td>草案</td>
+</tr>
+<tr>
+<td>02</td>
+<td><a href="#doc-users">>用户与角色</a></td>
+<td>谁在用、谁管什么</td>
+<td>草案</td>
+</tr>
+<tr>
+<td>03</td>
+<td><a href="#doc-info-model">>信息模型清单</a></td>
+<td><strong>要管理哪些信息</strong></td>
+<td>草案</td>
+</tr>
+<tr>
+<td>04</td>
+<td><a href="#doc-capability">>能力范围</a></td>
+<td>一期具备哪些能力</td>
+<td>草案</td>
+</tr>
+<tr>
+<td>05</td>
+<td><a href="#doc-nfr">>非功能需求</a></td>
+<td>性能、安全、可用性底线</td>
+<td>草案</td>
+</tr>
+<tr>
+<td>06</td>
+<td><a href="#doc-risk">>风险登记册</a></td>
+<td>有哪些坑与合规风险</td>
+<td>草案</td>
+</tr>
+<tr>
+<td>07</td>
+<td><a href="#doc-open-questions">>待调研项</a></td>
+<td>还有什么没定</td>
+<td>维护中</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="docs-index--_4">编写约定</h2>
+<ol>
+<li><strong>中文写作</strong>，术语首次出现给出英文对照并登记到 <a href="#doc-glossary">>术语表</a>。</li>
+<li>任何<strong>非显然的结论</strong>必须标注依据等级：<code>实测</code> / <code>官方文档</code> / <code>推测</code> / <code>未验证</code>。禁止用陈述语气写推测。</li>
+<li>涉及取舍的决定<strong>必须</strong>写进 <a href="#doc-decision-log">>决策记录</a>，含日期、理由、被否方案。</li>
+<li>文档状态用四档：<code>草案</code> → <code>待评审</code> → <code>已确认</code> → <code>已废弃</code>。</li>
+<li><strong>不写空话</strong>。一条需求若无法被验证或验收，就不该出现在文档里。</li>
+<li>待确认的事项统一收敛到 <a href="#doc-open-questions">>07 待调研项</a>，不要散落在正文里。</li>
+</ol>
+<h2 id="docs-index--html">构建 HTML 说明书</h2>
+<p>Markdown 是<strong>事实来源</strong>，HTML 是由它生成的<strong>呈现层</strong>。改完 md 后重新构建即可，不要手改 HTML。</p>
+<pre><code class="language-bash">PY=&quot;$HOME/.workbuddy/binaries/python/envs/default/bin/python&quot;   # managed venv
+&quot;$PY&quot; -m pip install -r scripts/requirements.txt                # 依赖（venv 被重建后需重装）
+&quot;$PY&quot; scripts/build_docs.py                                     # 构建
+# → docs/dist/需求分析说明书.html（约 146 KB 单文件，无外部依赖）
+</code></pre>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>源</td>
+<td><code>docs/**/*.md</code>（清单见 <code>scripts/build_docs.py</code> 顶部的 <code>DOC_LIST</code>）</td>
+</tr>
+<tr>
+<td>产物</td>
+<td><code>docs/dist/需求分析说明书.html</code> —— 单文件，无外部依赖，可直接分享与打印</td>
+</tr>
+<tr>
+<td>依赖</td>
+<td>Python 3 的 <code>markdown</code> 包（含 <code>tables</code> / <code>fenced_code</code> / <code>md_in_html</code> / <code>toc</code> 扩展）</td>
+</tr>
+</tbody>
+</table></div>
+<p>生成器自动处理：</p>
+<ul>
+<li><strong>侧栏目录</strong>：由各级标题生成，可折叠；滚动时自动高亮当前章节</li>
+<li><strong>交叉引用</strong>：<code>xxx.md#锚点</code> 自动解析为页内锚点；解析不到时降级为跳转到该文档</li>
+<li><strong>提示框</strong>：引用块按首字符识别 —— <code>⚠️</code> 警告 / <code>✅</code> 建议 / <code>❌</code> 禁止 / <code>💡</code> 提示 / 其余为要点或引注</li>
+<li><strong>表格</strong>：自动包裹横向滚动容器，首列不折行</li>
+<li><strong>打印样式</strong>：封面独立成页，每个文档另起一页，表头重复、避免行内断页</li>
+</ul>
+<div class="callout quote">
+<p>新增文档时，在 <code>DOC_LIST</code> 里加一条即可（含 <code>slug</code> / <code>path</code> / <code>num</code> / <code>group</code> / <code>label</code> / <code>desc</code>）。<code>slug</code> 同时用作页内锚点前缀，<strong>一旦确定不要改</strong>，否则历史链接会失效。</p>
+</div>
+</section>
+<section class="doc" id="doc-glossary">
+<h1 id="glossary--glossary">术语表（Glossary）</h1>
+<p>约定：中文术语为项目内<strong>唯一正式用语</strong>，代码标识符用英文列，避免同一概念多种叫法。</p>
+<h2 id="glossary--_1">核心概念</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>中文</th>
+<th>英文 / 代码名</th>
+<th>定义</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>健康伙伴</td>
+<td>Health Buddy</td>
+<td>本产品定位：主动解读、提醒、陪伴的健康助手</td>
+<td><strong>不要</strong>称作「健康管理系统」</td>
+</tr>
+<tr>
+<td>账户</td>
+<td><code>User</code> / <code>Account</code></td>
+<td>注册主体，登录凭证的持有者，也是<strong>数据边界</strong></td>
+<td>一个账户 = 一个数据边界</td>
+</tr>
+<tr>
+<td>家庭成员</td>
+<td><code>FamilyMember</code> / <code>Member</code></td>
+<td>健康档案的实际归属人</td>
+<td><strong>不是</strong>独立账号，是被账户管理的对象</td>
+</tr>
+<tr>
+<td>健康档案</td>
+<td><code>HealthProfile</code></td>
+<td>某个成员的全部健康数据集合</td>
+<td></td>
+</tr>
+<tr>
+<td>档案归属</td>
+<td><code>owner</code></td>
+<td>成员归属于哪个账户</td>
+<td></td>
+</tr>
+<tr>
+<td>系统管理员</td>
+<td><code>SystemAdmin</code></td>
+<td>平台运维角色，管理账户与系统配置</td>
+<td>不查看用户健康数据</td>
+</tr>
+<tr>
+<td>报告</td>
+<td><code>MedicalReport</code></td>
+<td>上位概念，泛指一切用户上传的医疗凭证</td>
+<td></td>
+</tr>
+<tr>
+<td>医疗单据</td>
+<td><code>MedicalDocument</code></td>
+<td>报告中的子类：发票、收费单、挂号单</td>
+<td></td>
+</tr>
+<tr>
+<td>病历</td>
+<td><code>MedicalRecord</code></td>
+<td>报告中的子类：门诊病历、出院小结、手术记录</td>
+<td></td>
+</tr>
+<tr>
+<td>体检报告</td>
+<td><code>HealthCheckReport</code></td>
+<td>报告中的子类</td>
+<td></td>
+</tr>
+<tr>
+<td>检验报告</td>
+<td><code>LabReport</code></td>
+<td>化验单（血常规、生化等）</td>
+<td></td>
+</tr>
+<tr>
+<td>影像报告</td>
+<td><code>ImagingReport</code></td>
+<td>CT / MRI / X 光 / 超声等</td>
+<td></td>
+</tr>
+<tr>
+<td>原件</td>
+<td><code>SourceFile</code></td>
+<td>用户上传的原始文件，<strong>不可变</strong></td>
+<td>是溯源链的根</td>
+</tr>
+<tr>
+<td>落盘</td>
+<td>Persist</td>
+<td>原件完成存储并生成可追溯记录的动作</td>
+<td>用户原话，保留</td>
+</tr>
+<tr>
+<td>OCR 结果</td>
+<td><code>OcrResult</code></td>
+<td>原件经 OCR 得到的文本</td>
+<td>与原件分离存储，可重跑</td>
+</tr>
+<tr>
+<td>结构化抽取</td>
+<td><code>ExtractedFields</code></td>
+<td>从 OCR 文本中提取出的字段键值对</td>
+<td>AI 产出，需人工可修正</td>
+</tr>
+<tr>
+<td>溯源</td>
+<td><code>Provenance</code></td>
+<td>一条数据来自哪个文件、哪种方式录入、置信度多少</td>
+<td><strong>医疗场景必备</strong></td>
+</tr>
+<tr>
+<td>成员授权</td>
+<td><code>MemberGrant</code></td>
+<td>某成员数据可被其他账户（如配偶）访问</td>
+<td>待确认是否一期做</td>
+</tr>
+<tr>
+<td>指标定义</td>
+<td><code>MetricDefinition</code></td>
+<td>大屏上一个可视单元的语义定义（如「收缩压」）</td>
+<td>自定义大屏的前置依赖</td>
+</tr>
+<tr>
+<td>卡片 / 组件</td>
+<td><code>Widget</code></td>
+<td>大屏上的一个可视单元实例</td>
+<td></td>
+</tr>
+<tr>
+<td>大屏</td>
+<td><code>Dashboard</code> / <code>Screen</code></td>
+<td>可定制的数据展示面板</td>
+<td>注意区分「用户健康大屏」与「运营数据大屏」</td>
+</tr>
+<tr>
+<td>主数据</td>
+<td><code>MasterData</code></td>
+<td>医院、科室、检验项目、药品、疾病等字典</td>
+<td>数据可聚合分析的前提</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="glossary--_2">数据形态分类</h2>
+<p>本项目健康数据分三种形态，<strong>存储与展示方式不同</strong>，不可混为一谈：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>形态</th>
+<th>英文</th>
+<th>特征</th>
+<th>示例</th>
+<th>大屏价值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事件型</td>
+<td>Event</td>
+<td>单次发生，有明确时间点</td>
+<td>就诊、手术、疫苗、检验报告</td>
+<td>时间轴展示</td>
+</tr>
+<tr>
+<td>时序型</td>
+<td>TimeSeries</td>
+<td>同一指标多次测量，可画趋势</td>
+<td>血压、血糖、体重、心率</td>
+<td><strong>趋势图，大屏核心</strong></td>
+</tr>
+<tr>
+<td>状态型</td>
+<td>State</td>
+<td>当前有效，有开始/结束</td>
+<td>进行中的用药、过敏史、慢病列表</td>
+<td>列表展示</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="glossary--_3">已废弃用语</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>废弃</th>
+<th>改用</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>健康管理系统 / Health Management System</td>
+<td>健康伙伴 / Health Buddy</td>
+<td>重心是陪伴而非管理</td>
+</tr>
+<tr>
+<td>患者</td>
+<td>家庭成员 / 成员</td>
+<td>本产品面向健康人群及其家庭，不用临床语境</td>
+</tr>
+<tr>
+<td>租户</td>
+<td>账户</td>
+<td>明确不做多租户</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="doc" id="doc-decision-log">
+<h1 id="decision-log--decision-log">决策记录（Decision Log）</h1>
+<p>格式：每条决策记录 <strong>日期 / 决策 / 状态 / 理由 / 被否方案</strong>。
+状态：<code>已定</code> / <code>待定</code> / <code>已废弃</code>。
+新增决策请<strong>追加</strong>，不要修改历史条目；若推翻旧决策，新增一条并注明「取代 D-xxx」。</p>
+<h2 id="decision-log--_1">一、已定决策</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>日期</th>
+<th>决策</th>
+<th>理由</th>
+<th>被否方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D-001</td>
+<td>2026-10-01</td>
+<td>项目定名 <strong>Health Buddy / 健康伙伴</strong></td>
+<td>产品重心是陪伴与解读，非管理</td>
+<td>「健康管理系统」——重心错位</td>
+</tr>
+<tr>
+<td>D-002</td>
+<td>2026-10-01</td>
+<td>后端 <strong>Java 25 + Spring Boot 4</strong></td>
+<td>Spring Boot 4.0 于 2025-11-20 GA，官方声明一等支持 Java 25（最小基线 Java 17）</td>
+<td>—</td>
+</tr>
+<tr>
+<td>D-003</td>
+<td>2026-10-01</td>
+<td>前端 <strong>Vue 3</strong></td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>D-004</td>
+<td>2026-10-01</td>
+<td>前后端分离，<strong>同仓库分目录</strong>（<code>backend/</code> + <code>frontend/</code>）</td>
+<td>单人开发期便于协同改契约；未来可拆</td>
+<td>前后端各自独立仓库</td>
+</tr>
+<tr>
+<td>D-005</td>
+<td>2026-10-01</td>
+<td><strong>不采用多租户</strong></td>
+<td>一个账户本身即可承载多个家庭成员，多租户在此模型下是多余的抽象层</td>
+<td>多租户 SaaS 架构</td>
+</tr>
+<tr>
+<td>D-006</td>
+<td>2026-10-01</td>
+<td>账户模型 = <strong>单账户多成员</strong></td>
+<td>符合家庭使用场景：家长代管老人小孩档案</td>
+<td>一账户一档案</td>
+</tr>
+<tr>
+<td>D-007</td>
+<td>2026-10-01</td>
+<td>用户管理功能<strong>仅面向系统管理员</strong></td>
+<td>普通用户不应接触后台管理概念，减少认知负担与越权面</td>
+<td>用户自助管理 + 后台混合</td>
+</tr>
+<tr>
+<td>D-008</td>
+<td>2026-10-01</td>
+<td>商业模式定为 <strong>SaaS</strong>（面向家庭用户售卖）</td>
+<td>长期目标</td>
+<td>单机/私有化自用</td>
+</tr>
+<tr>
+<td>D-009</td>
+<td>2026-10-01</td>
+<td>大屏<strong>用户侧与运营侧均需要</strong>，一期先做<strong>用户侧</strong></td>
+<td>用户侧是核心业务价值；运营侧依赖真实流量数据，二期更有意义</td>
+<td>只做运营大屏</td>
+</tr>
+<tr>
+<td>D-010</td>
+<td>2026-10-01</td>
+<td>合规策略：<strong>先做功能原型，合规仅登记风险</strong></td>
+<td>原型期收敛范围；风险记入登记册，不展开方案设计</td>
+<td>原型期即做全量合规设计</td>
+</tr>
+<tr>
+<td>D-011</td>
+<td>2026-10-01</td>
+<td>移动端列为<strong>远期规划</strong>，不做任何前置设计约束</td>
+<td>避免过早引入多端约束拖慢主链路</td>
+<td>一期即做响应式/小程序</td>
+</tr>
+<tr>
+<td>D-012</td>
+<td>2026-10-01</td>
+<td>核心链路定为：<strong>上传原件 → 落盘 → OCR → AI 结构化 → 入库 → 大屏呈现</strong></td>
+<td>用户明确的业务主线</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="decision-log--_2">二、待定决策</h2>
+<p>以下事项<strong>尚未决策</strong>，展开见 <a href="#doc-open-questions">>07 待调研项</a>：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>议题</th>
+<th>阻塞什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OD-001</td>
+<td>数据库选型（PostgreSQL / MySQL / 时序库）</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>OD-002</td>
+<td>对象存储方案（本地 / MinIO / 云 OSS）</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>OD-003</td>
+<td>OCR 与 AI 能力来源（云 API / 本地模型）</td>
+<td>非功能需求、成本模型</td>
+</tr>
+<tr>
+<td>OD-004</td>
+<td>前端工程拆分策略（用户端 / 管理端 / 运营大屏 是否分仓分工程）</td>
+<td>目录结构、构建流程</td>
+</tr>
+<tr>
+<td>OD-005</td>
+<td>认证方案（Session / JWT / OAuth2）</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>OD-006</td>
+<td>成员授权是否一期开放（多账户共管一个成员）</td>
+<td>信息模型</td>
+</tr>
+<tr>
+<td>OD-007</td>
+<td>用户健康大屏与运营大屏是否共用同一套渲染引擎</td>
+<td>前端架构</td>
+</tr>
+<tr>
+<td>OD-008</td>
+<td>是否引入 FHIR R4 作为内部信息模型标准</td>
+<td>信息模型、数据模型</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="decision-log--_3">三、变更记录</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>日期</th>
+<th>变更</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-10-01</td>
+<td>建档，录入 D-001 ~ D-012</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="doc" id="doc-vision">
+<h1 id="vision--01">01 · 愿景与范围</h1>
+<p>状态：草案 v0.1 · 阶段：需求分析 · 不涉及功能设计与架构</p>
+<h2 id="vision--1">1. 一句话定位</h2>
+<div class="callout quote">
+<p><strong>Health Buddy 是一个面向家庭的 AI 健康伙伴：用户上传医疗报告、医院单据、病历照片，系统自动 OCR 识别与 AI 解读，为每一位家庭成员生成专属、持续演进的健康视图。</strong></p>
+</div>
+<h2 id="vision--2">2. 要解决的问题</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>痛点</th>
+<th>现状</th>
+<th>本产品的回应</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P1</td>
+<td>家庭医疗资料散落</td>
+<td>纸质单据进抽屉、照片散在相册、PDF 丢在微信文件传输助手</td>
+<td>统一落盘为结构化的成员健康档案</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>看不懂报告</td>
+<td>检验单上几十个指标，只有箭头，不明含义</td>
+<td>AI 解读：指标含义 + 异常提示 + 通俗说明</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>没有纵向对比</td>
+<td>单张报告是快照，看不出「比上次好还是差」</td>
+<td>时序指标追踪 + 趋势可视化</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>数据不属于自己</td>
+<td>数据锁在各家医院公众号、App 里</td>
+<td>数据归用户，原件可导出</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>记不住要做的事</td>
+<td>复查时间、吃药、打疫苗全靠脑子</td>
+<td>主动提醒（伙伴感的核心）</td>
+</tr>
+<tr>
+<td>P6</td>
+<td>家里老人的档案没人管</td>
+<td>子女想管，但没工具</td>
+<td>单账户多成员，一人管全家</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="vision--3">3. 产品目标（本期）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>目标</th>
+<th>可验收的判据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G1 建立家庭健康档案</td>
+<td>一个账户可创建 ≥ 2 个家庭成员，各自数据互不串扰</td>
+</tr>
+<tr>
+<td>G2 打通上传到呈现的主链路</td>
+<td>上传一张检验单照片，无需人工录入即可在档案中看到结构化指标</td>
+</tr>
+<tr>
+<td>G3 让用户看得懂</td>
+<td>每条异常指标有中文通俗解释</td>
+</tr>
+<tr>
+<td>G4 让用户看得到趋势</td>
+<td>同一指标 ≥ 2 次测量后可看到趋势</td>
+</tr>
+<tr>
+<td>G5 提供专属大屏</td>
+<td>每个家庭可自定义大屏展示内容与布局</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="vision--4">4. 产品非目标（明确不做）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>非目标</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不做电子病历（EMR）</td>
+<td>面向医疗机构的产品形态完全不同，本产品无医生、无处方权</td>
+</tr>
+<tr>
+<td>不做在线问诊</td>
+<td>涉及互联网医院资质，非软件问题</td>
+</tr>
+<tr>
+<td>不做医学诊断</td>
+<td><strong>AI 输出仅作信息整理与科普，不构成医疗建议</strong> —— 这是必须写进用户协议的红线</td>
+</tr>
+<tr>
+<td>不做多租户</td>
+<td>账户本身即数据边界（见 D-005）</td>
+</tr>
+<tr>
+<td>不做移动端 App</td>
+<td>远期规划（见 D-011）</td>
+</tr>
+<tr>
+<td>一期不做运营数据大屏</td>
+<td>二期做（见 D-009）</td>
+</tr>
+<tr>
+<td>一期不做硬件/可穿戴对接</td>
+<td>数据来源聚焦「用户上传」，设备接入另立议题</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="vision--5">5. 范围边界</h2>
+<pre><code>┌───────────────────────── 本期范围（一期） ─────────────────────────┐
+│                                                                    │
+│  用户注册/登录 ─→ 创建家庭成员 ─→ 上传医疗原件 ─→ 落盘              │
+│                                                    │               │
+│                                                    ▼               │
+│                                              OCR 识别              │
+│                                                    │               │
+│                                                    ▼               │
+│                                          AI 结构化 + 解读           │
+│                                                    │               │
+│                                                    ▼               │
+│                        成员健康档案 ←──────── 确认/修正             │
+│                              │                                     │
+│                              ▼                                     │
+│                      用户健康大屏（可定制）                          │
+│                              │                                     │
+│                              ▼                                     │
+│                        提醒 / 待办                                  │
+│                                                                    │
+└────────────────────────────────────────────────────────────────────┘
+        ▲                                    ▲
+        │                                    │
+   系统管理员后台                       二期：运营数据大屏
+   （账户管理/主数据/审计）              （用户量/处理量/成功率/成本）
+</code></pre>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>区域</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>一期必做</strong></td>
+<td>账户体系、成员管理、原件上传与落盘、OCR、AI 结构化、档案查看、用户健康大屏、系统管理员后台</td>
+</tr>
+<tr>
+<td><strong>一期可裁剪</strong></td>
+<td>AI 解读深度、提醒功能、数据导出</td>
+</tr>
+<tr>
+<td><strong>二期</strong></td>
+<td>运营数据大屏、成员授权共管、报告批量导入、设备/可穿戴接入</td>
+</tr>
+<tr>
+<td><strong>远期</strong></td>
+<td>移动端 App、多语言、开放 API、第三方机构对接</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="vision--6">6. 命名说明</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>取值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>英文名 / 仓库名</td>
+<td><code>health-buddy</code></td>
+<td>与远程仓库一致，不再变更</td>
+</tr>
+<tr>
+<td>中文名</td>
+<td>健康伙伴</td>
+<td></td>
+</tr>
+<tr>
+<td>产品内对外称呼</td>
+<td>Health Buddy</td>
+<td></td>
+</tr>
+<tr>
+<td>已废弃</td>
+<td>健康管理系统</td>
+<td>重心错位，见 D-001</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="vision--7">7. 待确认</h2>
+<ul>
+<li>一期是否包含「提醒/待办」功能？若无，「伙伴感」如何体现？（→ <a href="#doc-open-questions">>OW-008</a>）</li>
+<li>「AI 解读」的边界与免责声明措辞需单独评审（→ 风险 R-002）</li>
+</ul>
+</section>
+<section class="doc" id="doc-users">
+<h1 id="users--02">02 · 用户与角色</h1>
+<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<h2 id="users--1">1. 角色总览</h2>
+<p><strong>关键设计前提</strong>：本系统<strong>只有两类真实账号</strong> —— 系统管理员、注册用户。家庭成员<strong>不是账号</strong>，是注册用户管理的对象。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>角色</th>
+<th>是否持有账号</th>
+<th>数量级</th>
+<th>核心诉求</th>
+<th>能接触什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>系统管理员</strong> <code>SystemAdmin</code></td>
+<td>是</td>
+<td>极少（平台内部人员）</td>
+<td>平台能正常运转、可运营、可审计</td>
+<td>账户管理、主数据、系统配置、审计日志。<strong>不查看用户健康数据</strong></td>
+</tr>
+<tr>
+<td><strong>注册用户</strong> <code>User</code></td>
+<td>是</td>
+<td>主体</td>
+<td>管好一家人的健康</td>
+<td>自己账户下所有成员的完整数据</td>
+</tr>
+<tr>
+<td><strong>家庭成员</strong> <code>FamilyMember</code></td>
+<td><strong>否</strong></td>
+<td>每账户 1~N</td>
+<td>——</td>
+<td>无登录能力。其数据由所属账户的用户管理</td>
+</tr>
+<tr>
+<td>受邀协作者（待定）</td>
+<td>是</td>
+<td>少</td>
+<td>与他人共管同一成员</td>
+<td>见 §4</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p>设计意图（D-007）：普通用户<strong>完全感知不到</strong>「用户管理」这个功能的存在。用户登录后看到的世界只有「我的家人 + 他们的健康」，不该出现任何后台管理概念。</p>
+</div>
+<h2 id="users--2">2. 系统管理员</h2>
+<h3 id="users--21">2.1 职责边界</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>可以做</th>
+<th>不可以做</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>创建 / 禁用 / 删除用户账户</td>
+<td>查看任何用户的健康数据内容</td>
+</tr>
+<tr>
+<td>重置用户密码、解封账户</td>
+<td>修改用户的健康记录</td>
+</tr>
+<tr>
+<td>维护主数据字典（医院、科室、检验项目、药品）</td>
+<td>代用户上传报告</td>
+</tr>
+<tr>
+<td>查看审计日志（谁在何时做了什么操作）</td>
+<td>删除审计日志</td>
+</tr>
+<tr>
+<td>配置系统参数</td>
+<td>——</td>
+</tr>
+<tr>
+<td>查看运营统计（二期大屏）</td>
+<td>——</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="users--22">2.2 关键约束</h3>
+<ul>
+<li><strong>管理员不应拥有查看用户健康数据的能力</strong>（隐私底线，即使技术上可绕过，也应在架构上默认拒绝）。</li>
+<li>管理员的每一次高危操作（删账户、改配置、重置密码）必须落审计日志，且<strong>日志本身不可删除</strong>。</li>
+</ul>
+<h2 id="users--3">3. 注册用户（家庭管理员）</h2>
+<h3 id="users--31">3.1 核心用户旅程</h3>
+<pre><code>① 注册/登录
+      │
+② 创建家庭成员（本人 + 家人），填写基本信息
+      │
+③ 上传医疗原件（拍照 / 传 PDF / 传截图）
+      │
+④ 等待处理，查看识别结果  ←── 可修正 AI 抽错的字段
+      │
+⑤ 浏览成员健康档案（按时间轴 / 按指标 / 按类别）
+      │
+⑥ 查看健康大屏（趋势、异常、摘要，可自定义卡片）
+      │
+⑦ 收到提醒（复查 / 用药 / 接种）  ← 一期可裁剪
+      │
+      └──→ 长期：持续上传，档案越来越厚，价值越来越大
+</code></pre>
+<h3 id="users--32">3.2 用户的关注点排序（推测，需用户访谈验证）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>关注点</th>
+<th>推测依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>上传要<strong>快</strong>、要<strong>简单</strong></td>
+<td>拍完照就想丢进去，不想填表</td>
+</tr>
+<tr>
+<td>2</td>
+<td>AI 识别要<strong>准</strong>，错了能改</td>
+<td>出错且不能改 = 失去信任</td>
+</tr>
+<tr>
+<td>3</td>
+<td>「这次比上次怎么样」</td>
+<td>纵向对比是刚需，见 P3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>老人小孩的档案要<strong>分开看清</strong></td>
+<td>单账户多成员的核心体验</td>
+</tr>
+<tr>
+<td>5</td>
+<td>数据<strong>安全、可导出、可删除</strong></td>
+<td>医疗数据敏感性</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout warn">
+<p>⚠️ 以上优先级为<strong>推测</strong>，未经真实用户验证。建议在功能设计前做 3~5 次用户访谈确认。已登记为待办。</p>
+</div>
+<h2 id="users--4">4. 待定角色：受邀协作者</h2>
+<p>场景：丈夫和妻子想共同管理孩子的健康档案；子女想管理异地父母的档案。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>说明</th>
+<th>复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. 一期不做</td>
+<td>一个成员只属于一个账户，改由账户间切换解决</td>
+<td>低</td>
+</tr>
+<tr>
+<td>B. 一期做（简单版）</td>
+<td>成员可被授权给其他账户，被授权者只读</td>
+<td>中</td>
+</tr>
+<tr>
+<td>C. 一期做（完整版）</td>
+<td>授权 + 角色（只读 / 可写）+ 可撤销</td>
+<td>高</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>当前倾向</strong>：A（一期不做）。理由：原型期应聚焦单账户内的核心链路，授权模型会显著抬高账户与权限体系的复杂度。</p>
+<p>→ 待确认，见 <a href="#doc-decision-log">>OD-006</a></p>
+<h2 id="users--5">5. 权限矩阵（草案）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>系统管理员</th>
+<th>注册用户（本人成员）</th>
+<th>注册用户（他人成员）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>登录系统</td>
+<td>✅</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>创建/禁用账户</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>查看健康数据</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌（一期）</td>
+</tr>
+<tr>
+<td>创建家庭成员</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>上传医疗原件</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>修正 AI 识别结果</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>查看健康大屏</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>配置大屏布局</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>维护主数据字典</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>查看审计日志</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>导出自己的数据</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>注销账户并删除数据</td>
+<td>✅</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="users--6">6. 待确认</h2>
+<ul>
+<li>是否需要「账户注销 / 数据删除」的完整流程？（涉及合规，见风险登记册 R-004）</li>
+<li>用户关注点排序需真实访谈验证。</li>
+</ul>
+</section>
+<section class="doc" id="doc-info-model">
+<h1 id="info-model--03">03 · 信息模型清单</h1>
+<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<div class="callout quote">
+<p><strong>本文回答一个问题：系统要管理哪些信息。</strong>
+<strong>不涉及</strong>数据库表结构、字段类型、索引、关系建模 —— 那些属架构设计阶段。
+本清单是后续「数据模型设计」的输入，评审通过后才进入下一阶段。</p>
+</div>
+<hr>
+<h2 id="info-model--1">1. 分层总览</h2>
+<p>信息分五层，自下而上依赖：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>层</th>
+<th>作用</th>
+<th>对象数</th>
+<th>主要对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>L1 账户与主体层</strong></td>
+<td>定义「谁的数据、归谁管」</td>
+<td>3</td>
+<td>用户账户、家庭成员、成员授权</td>
+</tr>
+<tr>
+<td><strong>L2 健康数据层</strong></td>
+<td>定义「健康事实本身」</td>
+<td>14</td>
+<td>就诊、诊断、用药、过敏、疫苗、体征、检验、影像、病历、手术、家族史、生活方式、提醒、目标</td>
+</tr>
+<tr>
+<td><strong>L3 文件与处理层</strong></td>
+<td>定义「原始凭证 + 机器加工链」</td>
+<td>5</td>
+<td>原始文件、处理任务、OCR 结果、结构化结果、溯源</td>
+</tr>
+<tr>
+<td><strong>L4 呈现与配置层</strong></td>
+<td>定义「大屏如何展示」</td>
+<td>4</td>
+<td>指标定义、卡片模板、大屏配置、运营大屏配置</td>
+</tr>
+<tr>
+<td><strong>L5 系统与运营层</strong></td>
+<td>定义「平台自身如何运转」</td>
+<td>5</td>
+<td>角色权限、审计日志、主数据、系统配置、运营统计</td>
+</tr>
+</tbody>
+</table></div>
+<pre><code>L4 呈现与配置   ┌─────────────────────────┐
+      ▲        │ 指标定义 卡片模板 大屏配置 │
+      │        └─────────────────────────┘
+      │                    ▲
+L2 健康数据 ···············┘  数据在这里汇聚
+      ▲
+      │
+L3 文件与处理   ┌──────────────────────────────────┐
+      │        │ 原件→任务→OCR→结构化→溯源（流水线）│
+L1 账户与主体   └──────────────────────────────────┘
+      │
+      └── 用户账户 → 家庭成员（1:N）→ 所有健康数据归属到成员
+</code></pre>
+<hr>
+<h2 id="info-model--2-l1">2. L1 账户与主体层</h2>
+<h3 id="info-model--21-user">2.1 用户账户 <code>User</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段组</th>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标识</td>
+<td>账户 ID、手机号 / 邮箱</td>
+<td>手机号或邮箱作为登录标识，二选一或并存</td>
+</tr>
+<tr>
+<td>凭证</td>
+<td>密码哈希、凭证更新时间</td>
+<td></td>
+</tr>
+<tr>
+<td>资料</td>
+<td>昵称、头像</td>
+<td>刻意极简：账户是「管理者」，不是「健康主体」</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>账户状态</td>
+<td>待激活 / 正常 / 禁用 / 已注销</td>
+</tr>
+<tr>
+<td>角色</td>
+<td>角色标识</td>
+<td>系统管理员 / 注册用户</td>
+</tr>
+<tr>
+<td>时间</td>
+<td>注册时间、最后登录时间、最后登录 IP</td>
+<td></td>
+</tr>
+<tr>
+<td>来源</td>
+<td>注册渠道、邀请码（可选）</td>
+<td>为 SaaS 推广预留</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout note">
+<p><strong>设计要点</strong>：账户<strong>不承载健康信息</strong>（身高体重等一律挂到成员上）。这样「本人 + 家人」是同一种模型，无需特例。</p>
+</div>
+<h3 id="info-model--22-familymember">2.2 家庭成员 <code>FamilyMember</code> ← <strong>最核心的对象</strong></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段组</th>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标识</td>
+<td>成员 ID、成员编号</td>
+<td></td>
+</tr>
+<tr>
+<td>归属</td>
+<td>所属账户 <code>owner</code></td>
+<td>数据边界的锚点</td>
+</tr>
+<tr>
+<td><strong>人口学</strong></td>
+<td>姓名、性别、出生日期、年龄（派生）</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>与账户持有人的关系</strong></td>
+<td>本人 / 父 / 母 / 配偶 / 子 / 女 / 祖父母 / 外祖父母 / 其他 —— 大屏分组、提醒语气都依赖它</td>
+</tr>
+<tr>
+<td></td>
+<td>手机号（可选）</td>
+<td>老人自己使用时可留</td>
+</tr>
+<tr>
+<td></td>
+<td>头像、常住地（可选）</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td><strong>证件号（可选）</strong></td>
+<td>⚠️ 敏感信息，需加密存储 + 单独授权；一期建议<strong>不做</strong></td>
+</tr>
+<tr>
+<td><strong>身体基础</strong></td>
+<td>身高、体重、BMI（派生）、腰围</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>血型（ABO + Rh）</td>
+<td>急救场景有用</td>
+</tr>
+<tr>
+<td><strong>医疗背景</strong></td>
+<td>医保类型 / 参保地（可选）</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>慢病标记</td>
+<td>由诊断记录汇总，或手工标记</td>
+</tr>
+<tr>
+<td></td>
+<td>过敏摘要、长期用药摘要</td>
+<td>由 L2 记录<strong>汇总派生</strong>，不独立存储</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>在用 / 归档</td>
+<td>归档用于已故亲属档案，不删除数据</td>
+</tr>
+<tr>
+<td>审计</td>
+<td>创建时间、更新时间、创建人</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout note">
+<p><strong>设计要点</strong>：<code>与账户持有人的关系</code> 看似小字段，实则决定体验 —— 大屏要能按「我 / 父母 / 孩子」分组，提醒文案要能说「带妈妈去复查」。</p>
+</div>
+<h3 id="info-model--23-membergrant">2.3 成员授权 <code>MemberGrant</code>（<strong>待定 / 二期</strong>）</h3>
+<p>用于「多账户共管同一成员」（夫妻共管孩子、子女共管父母）。当前倾向一期不做，见 <a href="#doc-decision-log">>D-006 / OD-006</a>。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成员 ID + 被授权账户 ID</td>
+<td>复合标识</td>
+</tr>
+<tr>
+<td>权限级别</td>
+<td>只读 / 可读写</td>
+</tr>
+<tr>
+<td>授予人、授予时间</td>
+<td></td>
+</tr>
+<tr>
+<td>有效期、撤销时间、撤销人</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="info-model--3-l2">3. L2 健康数据层</h2>
+<h3 id="info-model--30">3.0 关键前提：三种数据形态</h3>
+<p><strong>这是本层最重要的设计认知</strong> —— 不同形态的数据，存储方式和大屏呈现方式完全不同，混为一谈会导致后期返工。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>形态</th>
+<th>特征</th>
+<th>对象</th>
+<th>大屏呈现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>事件型</strong> Event</td>
+<td>有明确时间点，一次性发生</td>
+<td>就诊、诊断、手术、疫苗、检验报告、影像报告、病历文书</td>
+<td>时间轴 / 列表</td>
+</tr>
+<tr>
+<td><strong>时序型</strong> TimeSeries</td>
+<td>同一指标反复测量，可构成序列</td>
+<td>体征/自测指标（血压、血糖、体重…）、检验报告的单项指标</td>
+<td><strong>趋势折线图 —— 大屏的核心价值</strong></td>
+</tr>
+<tr>
+<td><strong>状态型</strong> State</td>
+<td>当前有效，有开始与结束</td>
+<td>进行中的用药、过敏史、慢病清单、健康目标</td>
+<td>状态卡片 / 列表</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout warn">
+<p>⚠️ <strong>注意</strong>：检验报告是「事件型」的壳（一张报告），但报告内的每个检验项目是「时序型」的核（同一个指标历次对比）。<strong>这个双层结构必须一开始就想清楚</strong>，否则「趋势对比」功能无法实现。</p>
+</div>
+<h3 id="info-model--31-encounter">3.1 就诊记录 <code>Encounter</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>就诊机构</td>
+<td>关联主数据「医疗机构」</td>
+</tr>
+<tr>
+<td>科室</td>
+<td>关联主数据「科室」</td>
+</tr>
+<tr>
+<td>就诊时间（起 - 止）</td>
+<td>住院场景需要起止时间</td>
+</tr>
+<tr>
+<td>就诊类型</td>
+<td>门诊 / 急诊 / 住院 / 体检 / 互联网问诊</td>
+</tr>
+<tr>
+<td>主治医生</td>
+<td>文本（医生不建主数据）</td>
+</tr>
+<tr>
+<td>主诉 / 就诊原因</td>
+<td>文本</td>
+</tr>
+<tr>
+<td>关联原件</td>
+<td>指向 L3 原始文件</td>
+</tr>
+<tr>
+<td>来源</td>
+<td>OCR / AI / 人工</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--32-condition">3.2 诊断 <code>Condition</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>诊断名称</td>
+<td>文本</td>
+</tr>
+<tr>
+<td>疾病编码</td>
+<td>ICD-10 编码（可选，关联主数据「疾病」）</td>
+</tr>
+<tr>
+<td>诊断类型</td>
+<td>初步诊断 / 确诊 / 疑似</td>
+</tr>
+<tr>
+<td>诊断日期 / 确诊日期</td>
+<td></td>
+</tr>
+<tr>
+<td>诊断机构、医生</td>
+<td></td>
+</tr>
+<tr>
+<td>关联就诊</td>
+<td>指向 <code>Encounter</code></td>
+</tr>
+<tr>
+<td>状态</td>
+<td>活动 / 已治愈 / 慢性管理</td>
+</tr>
+<tr>
+<td>备注</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--33-medication">3.3 用药记录 <code>Medication</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>药品名称</td>
+<td>通用名 + 商品名（关联主数据「药品」）</td>
+</tr>
+<tr>
+<td>剂型 / 规格</td>
+<td>片剂 / 胶囊 / 注射液；规格如 100mg</td>
+</tr>
+<tr>
+<td>单次剂量 + 单位</td>
+<td></td>
+</tr>
+<tr>
+<td>用药频次</td>
+<td>qd / bid / tid / q8h ……</td>
+</tr>
+<tr>
+<td>给药途径</td>
+<td>口服 / 外用 / 静滴 / 皮下注射</td>
+</tr>
+<tr>
+<td>开始时间 / 结束时间</td>
+<td>进行中的用药，结束时间为空 → 归类为「状态型」</td>
+</tr>
+<tr>
+<td>疗程</td>
+<td>文本，如「7 天」</td>
+</tr>
+<tr>
+<td>开药医生、开药机构</td>
+<td></td>
+</tr>
+<tr>
+<td>关联诊断</td>
+<td>可选</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>进行中 / 已停药 / 已结束</td>
+</tr>
+<tr>
+<td>用药提醒配置</td>
+<td>一期可裁剪</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--34-allergy">3.4 过敏史 <code>Allergy</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>过敏原</td>
+<td>药物 / 食物 / 其他</td>
+</tr>
+<tr>
+<td>过敏类型</td>
+<td>分类</td>
+</tr>
+<tr>
+<td>反应表现</td>
+<td>皮疹、呼吸困难、腹泻……</td>
+</tr>
+<tr>
+<td><strong>严重程度</strong></td>
+<td>轻 / 中 / 重 / 过敏性休克 —— 决定大屏是否高亮</td>
+</tr>
+<tr>
+<td>发现日期</td>
+<td></td>
+</tr>
+<tr>
+<td>确认状态</td>
+<td>疑似 / 已确认</td>
+</tr>
+<tr>
+<td>备注</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--35-immunization">3.5 疫苗接种 <code>Immunization</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>疫苗名称</td>
+<td></td>
+</tr>
+<tr>
+<td>剂次</td>
+<td>第 N 剂（如新冠第 3 针、HPV 第 2 针）</td>
+</tr>
+<tr>
+<td>接种日期</td>
+<td></td>
+</tr>
+<tr>
+<td>接种机构</td>
+<td></td>
+</tr>
+<tr>
+<td>批号</td>
+<td>可选</td>
+</tr>
+<tr>
+<td>下次接种时间</td>
+<td>可为提醒提供数据源</td>
+</tr>
+<tr>
+<td>备注</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--36-observation">3.6 生命体征 / 自测指标 <code>Observation</code> ← <strong>时序型，大屏核心</strong></h3>
+<p>可扩展的「指标类型 - 值 - 单位」结构，而非固定列。常见指标：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>指标</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>人体测量</td>
+<td>身高、体重、BMI、腰围</td>
+<td>cm / kg / kg·m⁻² / cm</td>
+</tr>
+<tr>
+<td>生命体征</td>
+<td>体温、脉搏、心率、呼吸频率、收缩压、舒张压、血氧饱和度、疼痛评分</td>
+<td>°C / 次·分⁻¹ / mmHg / %</td>
+</tr>
+<tr>
+<td>生化自测</td>
+<td>血糖（空腹/餐后）、尿酸、血脂（如有家用设备）</td>
+<td>mmol·L⁻¹ 等</td>
+</tr>
+<tr>
+<td>活动</td>
+<td>步数、运动时长（远期接设备）</td>
+<td>步 / 分钟</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指标类型</td>
+<td>关联 L4「指标定义」</td>
+</tr>
+<tr>
+<td>数值 + 单位</td>
+<td></td>
+</tr>
+<tr>
+<td>测量时间</td>
+<td>时序主键</td>
+</tr>
+<tr>
+<td>测量方式</td>
+<td>医院测量 / 家用设备 / 手工录入</td>
+</tr>
+<tr>
+<td>测量设备</td>
+<td>可选</td>
+</tr>
+<tr>
+<td><strong>数据来源</strong></td>
+<td>报告 OCR / 用户自填 / 设备同步</td>
+</tr>
+<tr>
+<td>参考区间</td>
+<td>可选（不同来源区间不同）</td>
+</tr>
+<tr>
+<td>异常标记</td>
+<td>正常 / 偏高 / 偏低 / 危急</td>
+</tr>
+<tr>
+<td>备注</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--37-labreport-labitem">3.7 检验报告 <code>LabReport</code> + 检验项目明细 <code>LabItem</code> ← <strong>双层结构</strong></h3>
+<p><strong>报告头</strong>（事件型）</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>报告名称</td>
+<td>血常规 / 生化全套 / 尿常规 / 甲功五项……</td>
+</tr>
+<tr>
+<td>报告编号</td>
+<td>医院内的报告号</td>
+</tr>
+<tr>
+<td>采样时间 / 出报告时间</td>
+<td><strong>两者都要</strong>：趋势对比用采样时间，不是出报告时间</td>
+</tr>
+<tr>
+<td>检验机构、送检科室</td>
+<td></td>
+</tr>
+<tr>
+<td>标本类型</td>
+<td>全血 / 血清 / 尿液 / 粪便</td>
+</tr>
+<tr>
+<td>报告整体结论</td>
+<td>正常 / 异常 / 危急值</td>
+</tr>
+<tr>
+<td>关联原件</td>
+<td>指向 L3</td>
+</tr>
+<tr>
+<td>OCR / AI 置信度、审核状态</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>检验项目明细</strong>（<strong>时序型的核</strong>，AI 结构化的主要产出）</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>项目名称</td>
+<td>如「谷丙转氨酶」「低密度脂蛋白胆固醇」</td>
+</tr>
+<tr>
+<td>项目代码</td>
+<td>关联主数据「检验项目」，可映射 LOINC</td>
+</tr>
+<tr>
+<td><strong>结果值</strong></td>
+<td>数值或文本（如「阴性」、「+」）</td>
+</tr>
+<tr>
+<td>单位</td>
+<td>关联 UCUM 标准单位</td>
+</tr>
+<tr>
+<td>参考区间</td>
+<td>下限 / 上限 / 文本形式（如「&lt;5.0」）</td>
+</tr>
+<tr>
+<td><strong>异常标记</strong></td>
+<td>↑ / ↓ / 正常 / 危急</td>
+</tr>
+<tr>
+<td>检测方法</td>
+<td>可选</td>
+</tr>
+<tr>
+<td>备注</td>
+<td>医院给的特殊说明</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout note">
+<p><strong>为什么单位与参考区间必须独立记录</strong>：不同医院的单位可能不同（mg/dL vs mmol/L），参考区间也随设备与人群变化。不统一到标准单位，跨报告趋势对比就是错的 —— 这不是技术细节，是<strong>数据正确性底线</strong>。</p>
+</div>
+<h3 id="info-model--38-imagingreport">3.8 影像检查 <code>ImagingReport</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>检查项目</td>
+<td>CT / MRI / X 光 / 超声 / 内镜 / 骨密度</td>
+</tr>
+<tr>
+<td>检查部位</td>
+<td>头颅 / 胸部 / 腹部 / 关节……</td>
+</tr>
+<tr>
+<td>检查时间</td>
+<td></td>
+</tr>
+<tr>
+<td>检查机构</td>
+<td></td>
+</tr>
+<tr>
+<td>报告所见</td>
+<td>文本（影像描述）</td>
+</tr>
+<tr>
+<td>报告结论</td>
+<td>文本（诊断意见）</td>
+</tr>
+<tr>
+<td>关联影像文件</td>
+<td>DICOM（远期）/ JPG / PDF</td>
+</tr>
+<tr>
+<td>是否含胶片原图</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--39-medicalrecord">3.9 病历文书 <code>MedicalRecord</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文书类型</td>
+<td>门诊病历 / 出院小结 / 手术记录 / 病程记录 / 体检报告 / 诊断证明</td>
+</tr>
+<tr>
+<td>文书标题、就诊时间、出院时间</td>
+<td></td>
+</tr>
+<tr>
+<td>机构、科室、医生</td>
+<td></td>
+</tr>
+<tr>
+<td>主要内容</td>
+<td>文本</td>
+</tr>
+<tr>
+<td>入院诊断 / 出院诊断</td>
+<td>文本（可关联诊断记录）</td>
+</tr>
+<tr>
+<td>关联原件</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--310-procedure">3.10 手术记录 <code>Procedure</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>手术名称</td>
+<td></td>
+</tr>
+<tr>
+<td>手术编码</td>
+<td>ICD-9-CM-3（可选）</td>
+</tr>
+<tr>
+<td>手术日期</td>
+<td></td>
+</tr>
+<tr>
+<td>手术机构、术者</td>
+<td></td>
+</tr>
+<tr>
+<td>麻醉方式</td>
+<td></td>
+</tr>
+<tr>
+<td>关联住院 / 就诊</td>
+<td></td>
+</tr>
+<tr>
+<td>术后情况</td>
+<td>文本</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--311-familyhistory">3.11 家族史 <code>FamilyHistory</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>亲属关系</td>
+<td>父 / 母 / 兄弟姐妹 / 祖父母</td>
+</tr>
+<tr>
+<td>疾病</td>
+<td></td>
+</tr>
+<tr>
+<td>发病年龄</td>
+<td>可选</td>
+</tr>
+<tr>
+<td>亲属状态</td>
+<td>在世 / 已故</td>
+</tr>
+<tr>
+<td>备注</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--312-lifestyle">3.12 生活方式 <code>Lifestyle</code>（可选，一期可裁剪）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>吸烟</td>
+<td>从不 / 已戒（戒烟年份）/ 当前（日均量）</td>
+</tr>
+<tr>
+<td>饮酒</td>
+<td>频率、种类、量</td>
+</tr>
+<tr>
+<td>运动</td>
+<td>频率、类型、时长</td>
+</tr>
+<tr>
+<td>睡眠</td>
+<td>平均时长、质量</td>
+</tr>
+<tr>
+<td>饮食偏好</td>
+<td>文本</td>
+</tr>
+<tr>
+<td>采集时间</td>
+<td>生活方式会变，需带时间</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--313-reminder">3.13 提醒 / 待办 <code>Reminder</code>（一期可裁剪）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>类型</td>
+<td>复查 / 用药 / 接种 / 体检 / 自定义</td>
+</tr>
+<tr>
+<td>标题、内容</td>
+<td></td>
+</tr>
+<tr>
+<td>触发时间</td>
+<td></td>
+</tr>
+<tr>
+<td>重复规则</td>
+<td>一次性 / 每日 / 每周 / 每月 / 自定义</td>
+</tr>
+<tr>
+<td>关联对象</td>
+<td>成员 + 可关联到具体记录（如某次诊断）</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>待办 / 已完成 / 已忽略 / 已过期</td>
+</tr>
+<tr>
+<td><strong>来源</strong></td>
+<td>AI 从报告推断（如「3 个月后复查」）/ 用户手工创建</td>
+</tr>
+<tr>
+<td>提前提醒时长</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p>若「健康伙伴」要名副其实，<strong>提醒是一期应当保留的能力</strong> —— 它是最直接的「伙伴感」载体。</p>
+</div>
+<h3 id="info-model--314-goal">3.14 健康目标 <code>Goal</code>（可选）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标类型</td>
+<td>减重 / 控压 / 控糖 / 运动量 / 戒烟</td>
+</tr>
+<tr>
+<td>关联指标</td>
+<td>指向「指标定义」</td>
+</tr>
+<tr>
+<td>起始值 / 目标值</td>
+<td></td>
+</tr>
+<tr>
+<td>起止时间</td>
+<td></td>
+</tr>
+<tr>
+<td>进度</td>
+<td>可由时序数据自动计算</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>进行中 / 已达成 / 已放弃</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="info-model--4-l3">4. L3 文件与处理层</h2>
+<p>这层是产品差异化的技术底座。<strong>核心原则：原件不可变，加工过程可重跑、可追溯。</strong></p>
+<pre><code>用户上传
+   │
+   ▼
+① SourceFile 原始文件（不可变，存对象存储）
+   │
+   ▼
+② ProcessTask 处理任务（状态机驱动）
+   │
+   ├─→ ③ OcrResult 识别文本
+   │
+   ├─→ ④ StructuredExtraction 结构化字段（AI 抽取 + 置信度）
+   │
+   └─→ ⑤ Provenance 溯源（每个字段都能回答「我从哪来」）
+                    │
+                    ▼
+           写入 L2 健康数据 + 人工确认/修正
+</code></pre>
+<h3 id="info-model--41-sourcefile">4.1 原始文件 <code>SourceFile</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>归属成员、上传者账户</td>
+<td></td>
+</tr>
+<tr>
+<td>原始文件名、文件类型</td>
+<td>jpg / png / heic / pdf</td>
+</tr>
+<tr>
+<td>文件大小、页数</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>文件哈希 SHA-256</strong></td>
+<td>用于去重（同一张单据重复上传）与完整性校验</td>
+</tr>
+<tr>
+<td>存储位置</td>
+<td>对象存储 key；<strong>不入 git 仓库</strong></td>
+</tr>
+<tr>
+<td>上传时间</td>
+<td></td>
+</tr>
+<tr>
+<td>不可变性</td>
+<td>不提供覆盖写；替换 = 新文件 + 关联</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--42-processtask">4.2 处理任务 <code>ProcessTask</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关联原件</td>
+<td></td>
+</tr>
+<tr>
+<td>任务类型</td>
+<td>OCR / 结构化抽取 / 分析解读</td>
+</tr>
+<tr>
+<td><strong>状态机</strong></td>
+<td>待处理 → 处理中 → 成功 / 失败 / 需人工介入</td>
+</tr>
+<tr>
+<td>重试次数、下次重试时间</td>
+<td></td>
+</tr>
+<tr>
+<td>引擎 / 模型标识 + 版本</td>
+<td><strong>必须记录版本</strong>，否则换模型后无法解释结果差异</td>
+</tr>
+<tr>
+<td>开始 / 结束时间、耗时</td>
+<td></td>
+</tr>
+<tr>
+<td>错误信息</td>
+<td></td>
+</tr>
+<tr>
+<td>父任务</td>
+<td>结构化任务依赖 OCR 任务，形成依赖链</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--43-ocr-ocrresult">4.3 OCR 结果 <code>OcrResult</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关联原件 / 任务</td>
+<td></td>
+</tr>
+<tr>
+<td>识别全文</td>
+<td>文本</td>
+</tr>
+<tr>
+<td>文本块 + 位置坐标</td>
+<td>可选，用于前端「点击原文高亮字段」</td>
+</tr>
+<tr>
+<td>整体置信度</td>
+<td></td>
+</tr>
+<tr>
+<td>引擎名称 + 版本</td>
+<td></td>
+</tr>
+<tr>
+<td>耗时、成本</td>
+<td>为运营大屏的成本统计提供数据</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--44-structuredextraction">4.4 结构化结果 <code>StructuredExtraction</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关联原件 / OCR 结果</td>
+<td></td>
+</tr>
+<tr>
+<td>抽取字段集</td>
+<td>JSON，与 L2 各对象字段对应</td>
+</tr>
+<tr>
+<td><strong>逐字段置信度</strong></td>
+<td>低置信度字段应在前端高亮，提示用户确认</td>
+</tr>
+<tr>
+<td>模型 + 提示词版本</td>
+<td></td>
+</tr>
+<tr>
+<td>审核状态</td>
+<td>未审核 / 已确认 / 已修正</td>
+</tr>
+<tr>
+<td>修正后值、修正人、修正时间</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--45-provenance">4.5 溯源 <code>Provenance</code> ← <strong>医疗场景的必备能力</strong></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目标对象类型 + ID</td>
+<td>任意 L2 数据对象的引用</td>
+</tr>
+<tr>
+<td>来源类型</td>
+<td>OCR / AI 抽取 / 用户手工 / 系统推算</td>
+</tr>
+<tr>
+<td>来源原件</td>
+<td>指向 <code>SourceFile</code></td>
+</tr>
+<tr>
+<td>置信度</td>
+<td></td>
+</tr>
+<tr>
+<td>生成时间</td>
+<td></td>
+</tr>
+<tr>
+<td>修正历史</td>
+<td>谁、何时、把什么改成了什么</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout note">
+<p><strong>为什么必须有这一层</strong>：OCR 和 AI 一定会出错。出错不可怕，<strong>不可追溯、不可修正才致命</strong> —— 用户一旦发现改了 A 报告却污染了 B 报告的数据，信任立刻崩塌。溯源层是产品的信任基石。</p>
+</div>
+<hr>
+<h2 id="info-model--5-l4">5. L4 呈现与配置层</h2>
+<h3 id="info-model--51-metricdefinition">5.1 指标定义 <code>MetricDefinition</code> ← <strong>自定义大屏的前置依赖</strong></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>指标编码</td>
+<td>如 <code>bp_systolic</code>、<code>bmi</code>、<code>ldl_c</code></td>
+</tr>
+<tr>
+<td>指标名称</td>
+<td>收缩压、体质指数、低密度脂蛋白</td>
+</tr>
+<tr>
+<td>单位</td>
+<td>UCUM 标准单位</td>
+</tr>
+<tr>
+<td>数据类型</td>
+<td>数值 / 枚举 / 文本</td>
+</tr>
+<tr>
+<td>默认聚合方式</td>
+<td>最新值 / 均值 / 最大 / 最小 / 累计</td>
+</tr>
+<tr>
+<td>正常参考范围</td>
+<td>用于自动判定异常</td>
+</tr>
+<tr>
+<td>推荐可视化</td>
+<td>折线 / 柱状 / 数字卡片 / 仪表 / 分布</td>
+</tr>
+<tr>
+<td>适用性</td>
+<td>通用 / 仅特定性别或年龄段</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p><strong>没有指标定义层，就没有「可定制大屏」</strong> —— 用户只能从预置卡片里挑，无法自定义。这层是把「卡片」抽象为「模板 + 指标 + 配置」的前提。</p>
+</div>
+<h3 id="info-model--52-widgettemplate">5.2 卡片模板 <code>WidgetTemplate</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>模板编码、名称</td>
+<td></td>
+</tr>
+<tr>
+<td>类型</td>
+<td>数字卡片 / 趋势折线 / 多指标对比 / 时间轴 / 列表 / 风险提示 / 日历</td>
+</tr>
+<tr>
+<td>绑定指标</td>
+<td>是否需要指标，需要几个</td>
+</tr>
+<tr>
+<td>默认栅格尺寸</td>
+<td>宽 × 高（12 栅格制）</td>
+</tr>
+<tr>
+<td>配置项 schema</td>
+<td>让用户可调（时间范围、颜色、阈值等）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--53-dashboardconfig">5.3 大屏配置 <code>DashboardConfig</code></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>归属</td>
+<td>账户级 / 成员级（一个账户可以给每个成员配不同大屏）</td>
+</tr>
+<tr>
+<td>大屏名称</td>
+<td></td>
+</tr>
+<tr>
+<td>布局</td>
+<td>卡片实例列表（模板 + 指标 + 栅格坐标 + 尺寸 + 配置值）</td>
+</tr>
+<tr>
+<td>主题 / 配色</td>
+<td></td>
+</tr>
+<tr>
+<td>刷新频率</td>
+<td></td>
+</tr>
+<tr>
+<td>是否默认、是否共享</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--54">5.4 运营大屏配置（<strong>二期</strong>）</h3>
+<p>见 <a href="#doc-decision-log">>D-009</a>。指标示例：用户总数、日活、上传量、OCR 成功/失败率、AI 调用量与成本、单用户成本、地域分布。</p>
+<hr>
+<h2 id="info-model--6-l5">6. L5 系统与运营层</h2>
+<h3 id="info-model--61-role-permission">6.1 角色与权限 <code>Role</code> / <code>Permission</code></h3>
+<p>一期足够简单：两种角色（系统管理员、注册用户）+ 基于成员的归属校验。不引入复杂 RBAC 模型，但需预留扩展位。</p>
+<h3 id="info-model--62-auditlog">6.2 审计日志 <code>AuditLog</code> ← <strong>不可省</strong></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>操作人、角色、IP、User-Agent</td>
+<td></td>
+</tr>
+<tr>
+<td>操作类型</td>
+<td>登录 / 查看 / 新增 / 修改 / 删除 / 导出 / 下载原件</td>
+</tr>
+<tr>
+<td>目标对象类型 + ID</td>
+<td></td>
+</tr>
+<tr>
+<td>变更前后值</td>
+<td><strong>敏感字段需脱敏后记录</strong></td>
+</tr>
+<tr>
+<td>时间、结果（成功/失败）</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p>医疗健康数据属于敏感个人信息，<strong>即使合规后置，审计日志也建议一期就做</strong> —— 它是事后追溯的唯一手段，且后期补建会丢失历史。</p>
+</div>
+<h3 id="info-model--63-masterdata">6.3 主数据 <code>MasterData</code> ← <strong>数据可聚合的前提</strong></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>主数据</th>
+<th>关键字段</th>
+<th>为什么需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>医疗机构</td>
+<td>名称、等级、地区、别名</td>
+<td>「在瑞金医院看过什么」需要机构可归一</td>
+</tr>
+<tr>
+<td>科室</td>
+<td>名称、上级科室</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>检验项目</td>
+<td>名称、代码、标准单位、参考区间、LOINC 映射</td>
+<td><strong>跨报告趋势对比的前提</strong></td>
+</tr>
+<tr>
+<td>药品</td>
+<td>通用名、商品名、规格、剂型</td>
+<td>用药史归并</td>
+</tr>
+<tr>
+<td>疾病</td>
+<td>名称、ICD-10 编码</td>
+<td>病史归并</td>
+</tr>
+<tr>
+<td>单位</td>
+<td>UCUM 代码、换算关系</td>
+<td>数值可比</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout warn">
+<p>⚠️ 主数据容易被当成「以后再说」，但<strong>它是 AI 抽取能否落地的关键</strong>：AI 从报告里抽出的「谷丙转氨酶」必须能映射到标准检验项目，否则无法和上次的报告对比 —— 那产品就退化成「图片存储柜」。</p>
+</div>
+<h3 id="info-model--64-systemconfig">6.4 系统配置 <code>SystemConfig</code></h3>
+<p>键值配置：文件大小上限、支持的格式、OCR 并发数、AI 模型参数、功能开关等。</p>
+<h3 id="info-model--65">6.5 运营统计（二期）</h3>
+<hr>
+<h2 id="info-model--7">7. 跨对象通用字段</h2>
+<p>所有持久化对象建议统一携带：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>全局唯一标识</td>
+</tr>
+<tr>
+<td><code>ownerAccountId</code></td>
+<td><strong>数据边界</strong>，所有查询强制带此条件，实现账户级隔离（替代多租户）</td>
+</tr>
+<tr>
+<td><code>memberId</code></td>
+<td>健康数据必带，指向家庭成员</td>
+</tr>
+<tr>
+<td><code>createdAt</code> / <code>updatedAt</code> / <code>createdBy</code> / <code>updatedBy</code></td>
+<td>审计</td>
+</tr>
+<tr>
+<td><code>deleted</code></td>
+<td><strong>软删除标记</strong>。医疗数据不建议物理删除</td>
+</tr>
+<tr>
+<td><code>dataSource</code></td>
+<td>OCR / AI / 人工 / 系统</td>
+</tr>
+<tr>
+<td><code>confidence</code></td>
+<td>如适用</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>乐观锁</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="info-model--8-fhir-r4">8. 参考：与 FHIR R4 的映射（可选）</h2>
+<p>若未来需要与医院系统或第三方互操作，下述映射可降低改造成本（<strong>当前不强制采纳</strong>，见 <a href="#doc-decision-log">>OD-008</a>）：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>本项目对象</th>
+<th>FHIR R4 资源</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>家庭成员</td>
+<td><code>Patient</code></td>
+</tr>
+<tr>
+<td>账户</td>
+<td>无直接对应（<code>RelatedPerson</code> + 自定义）</td>
+</tr>
+<tr>
+<td>就诊</td>
+<td><code>Encounter</code></td>
+</tr>
+<tr>
+<td>诊断</td>
+<td><code>Condition</code></td>
+</tr>
+<tr>
+<td>用药</td>
+<td><code>MedicationRequest</code> / <code>MedicationStatement</code></td>
+</tr>
+<tr>
+<td>过敏</td>
+<td><code>AllergyIntolerance</code></td>
+</tr>
+<tr>
+<td>疫苗</td>
+<td><code>Immunization</code></td>
+</tr>
+<tr>
+<td>体征 / 自测</td>
+<td><code>Observation</code></td>
+</tr>
+<tr>
+<td>检验报告</td>
+<td><code>DiagnosticReport</code> + <code>Observation</code></td>
+</tr>
+<tr>
+<td>影像</td>
+<td><code>ImagingStudy</code> / <code>DiagnosticReport</code></td>
+</tr>
+<tr>
+<td>病历文书</td>
+<td><code>DocumentReference</code> / <code>Composition</code></td>
+</tr>
+<tr>
+<td>手术</td>
+<td><code>Procedure</code></td>
+</tr>
+<tr>
+<td>家族史</td>
+<td><code>FamilyMemberHistory</code></td>
+</tr>
+<tr>
+<td>目标</td>
+<td><code>Goal</code></td>
+</tr>
+<tr>
+<td>原始文件</td>
+<td><code>Binary</code> / <code>Media</code></td>
+</tr>
+<tr>
+<td>溯源</td>
+<td><code>Provenance</code></td>
+</tr>
+<tr>
+<td>机构 / 医生</td>
+<td><code>Organization</code> / <code>Practitioner</code></td>
+</tr>
+<tr>
+<td>单位 / 指标编码</td>
+<td>UCUM / LOINC 术语集</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p>依据：HL7 官方 PHR 功能模型与 Standard Patient Health Record IG 的资源清单（官方文档）。
+<strong>不等于</strong>本项目必须采用 FHIR 作为内部模型 —— 内部模型应以「够用、好改」为先，FHIR 仅作为互操作时的映射目标。</p>
+</div>
+<hr>
+<h2 id="info-model--9">9. 已识别但容易被忽略的点</h2>
+<p>按重要性排序。<strong>前 5 条建议一期就考虑</strong>：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>点</th>
+<th>为什么重要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>溯源与人工修正</strong></td>
+<td>OCR/AI 必然出错，不可追溯 = 信任崩塌。见 §4.5</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>检验报告的「双层结构」</strong>（报告 = 事件，项目 = 时序）</td>
+<td>不想清楚，趋势对比功能做不出来。见 §3.7</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>单位与参考区间的标准化</strong></td>
+<td>不统一单位，跨报告数值对比就是错的</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>主数据字典</strong></td>
+<td>AI 抽取结果无法归一，数据就只是「图片+文本」</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>审计日志</strong></td>
+<td>事后追溯的唯一手段，事后补建会丢历史</td>
+</tr>
+<tr>
+<td>6</td>
+<td>原始文件<strong>不可变</strong> + 文件哈希去重</td>
+<td>医疗凭证的完整性要求；去重可省存储与 OCR 成本</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>账户与成员解耦</strong></td>
+<td>账户不承载健康数据，本人与家人才是同一模型</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>三种数据形态的区分</strong></td>
+<td>见 §3.0，决定存储与呈现</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>指标定义层</strong></td>
+<td>自定义大屏的前置依赖，见 §5.1</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>AI 处理任务的版本记录</strong></td>
+<td>换模型后要能解释「为什么同一张图结果变了」</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>「关系」字段</strong></td>
+<td>决定大屏分组与提醒文案的自然度</td>
+</tr>
+<tr>
+<td>12</td>
+<td>生活方式 / 家族史的<strong>时效性</strong></td>
+<td>会变化，必须带采集时间，不能只存一份</td>
+</tr>
+<tr>
+<td>13</td>
+<td>数据<strong>导出与删除</strong>能力</td>
+<td>合规底线（即使合规后置），也是用户信任来源</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="info-model--10">10. 待确认</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>议题</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>提醒/待办是否进一期？</td>
+<td>决定「伙伴感」是否落地</td>
+</tr>
+<tr>
+<td>2</td>
+<td>健康目标是否进一期？</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>生活方式、家族史是否进一期？</td>
+<td>增加录入负担，收益待验证</td>
+</tr>
+<tr>
+<td>4</td>
+<td>证件号是否采集？（建议一期不做）</td>
+<td>一旦采集即构成高敏感数据</td>
+</tr>
+<tr>
+<td>5</td>
+<td>检验项目主数据从哪来？（自建 / 采购 / 抓取）</td>
+<td>冷启动成本</td>
+</tr>
+<tr>
+<td>6</td>
+<td>是否采纳 FHIR 作为内部模型？</td>
+<td>见 <a href="#doc-decision-log">>OD-008</a></td>
+</tr>
+<tr>
+<td>7</td>
+<td>成员授权是否一期开放？</td>
+<td>见 <a href="#doc-decision-log">>OD-006</a></td>
+</tr>
+<tr>
+<td>8</td>
+<td>影像是否支持 DICOM？</td>
+<td>存储与展示复杂度显著上升</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="doc" id="doc-capability">
+<h1 id="capability--04">04 · 能力范围</h1>
+<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<div class="callout warn">
+<p>⚠️ <strong>本文只界定「一期做什么、不做什么」，不描述功能设计。</strong>
+这里没有交互流程、界面布局、接口定义、业务规则细化 —— 那些属于 <span class="xref-dead">>功能设计</a>（未开始）。
+本文的作用是给后续功能设计<strong>划定边界与优先级</strong>。</p>
+</div>
+<hr>
+<h2 id="capability--1">1. 能力地图</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>能力域</th>
+<th>一期</th>
+<th>二期</th>
+<th>远期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C1</td>
+<td>账户与认证</td>
+<td>✅ 注册/登录/登出/找回密码</td>
+<td>第三方登录、短信验证</td>
+<td>SSO</td>
+</tr>
+<tr>
+<td>C2</td>
+<td>家庭成员管理</td>
+<td>✅ 增删改查、关系标注、归档</td>
+<td>成员授权共管</td>
+<td>——</td>
+</tr>
+<tr>
+<td>C3</td>
+<td>原件上传与落盘</td>
+<td>✅ 拍照/选图/PDF 上传、去重、存储</td>
+<td>批量导入、文件夹导入、邮件转发导入</td>
+<td>机构直连</td>
+</tr>
+<tr>
+<td>C4</td>
+<td>OCR 识别</td>
+<td>✅ 单张/多页识别、置信度</td>
+<td>版面还原、表格结构识别</td>
+<td>手写体优化</td>
+</tr>
+<tr>
+<td>C5</td>
+<td>AI 结构化抽取</td>
+<td>✅ 抽取基本信息、检验项目、用药、诊断</td>
+<td>更多文书类型、跨页合并</td>
+<td>自训模型</td>
+</tr>
+<tr>
+<td>C6</td>
+<td>AI 解读</td>
+<td>✅ 指标通俗解释、异常提示</td>
+<td>家庭健康画像、风险趋势</td>
+<td>个性化建议</td>
+</tr>
+<tr>
+<td>C7</td>
+<td>人工确认与修正</td>
+<td>✅ 结果审核、字段修正、溯源回看</td>
+<td>批量修正、修正记忆</td>
+<td>——</td>
+</tr>
+<tr>
+<td>C8</td>
+<td>健康档案浏览</td>
+<td>✅ 时间轴 / 按类别 / 按指标 三视图</td>
+<td>全文检索</td>
+<td>知识图谱</td>
+</tr>
+<tr>
+<td>C9</td>
+<td>时序指标追踪</td>
+<td>✅ 趋势图、同指标历次对比</td>
+<td>多指标叠加、同比环比</td>
+<td>预测</td>
+</tr>
+<tr>
+<td>C10</td>
+<td>用户健康大屏</td>
+<td>✅ 预置模板 + 自定义卡片与布局</td>
+<td>多套大屏、大屏分享</td>
+<td>大屏市场（用户投稿模板）</td>
+</tr>
+<tr>
+<td>C11</td>
+<td>提醒 / 待办</td>
+<td>⚠️ <strong>建议一期保留</strong></td>
+<td>智能提醒（AI 推断复查时间）</td>
+<td>家庭协同提醒</td>
+</tr>
+<tr>
+<td>C12</td>
+<td>健康目标</td>
+<td>⚠️ 一期可裁剪</td>
+<td>目标进度自动追踪</td>
+<td>激励体系</td>
+</tr>
+<tr>
+<td>C13</td>
+<td>数据导出</td>
+<td>⚠️ 一期可裁剪</td>
+<td>完整档案导出（PDF/Excel/FHIR）</td>
+<td>数据可携带</td>
+</tr>
+<tr>
+<td>C14</td>
+<td>系统管理员后台</td>
+<td>✅ 账户管理、主数据维护、审计日志</td>
+<td>运营统计</td>
+<td>权限细分</td>
+</tr>
+<tr>
+<td>C15</td>
+<td>运营数据大屏</td>
+<td>❌</td>
+<td>✅</td>
+<td>实时大屏</td>
+</tr>
+<tr>
+<td>C16</td>
+<td>移动端</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>C17</td>
+<td>设备 / 可穿戴接入</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>C18</td>
+<td>开放 API</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="capability--2">2. 一期能力详述（边界级，非设计级）</h2>
+<h3 id="capability--c1">C1 账户与认证</h3>
+<ul>
+<li><strong>要能</strong>：手机号或邮箱注册、登录、登出、找回密码、修改密码、查看与编辑个人昵称头像。</li>
+<li><strong>边界</strong>：不做第三方登录；不做实名认证；不做 MFA。</li>
+</ul>
+<h3 id="capability--c2">C2 家庭成员管理</h3>
+<ul>
+<li><strong>要能</strong>：一个账户创建 1~N 个成员；编辑成员基本信息；标注与本人关系；归档成员；删除成员（级联处理其数据，需二次确认）。</li>
+<li><strong>边界</strong>：不做成员授权（一期）；家庭成员的证件号一期不采集。</li>
+</ul>
+<h3 id="capability--c3">C3 原件上传与落盘</h3>
+<ul>
+<li><strong>要能</strong>：上传 jpg/png/heic/pdf；单文件大小有上限；上传即落盘并生成可追溯记录；相同文件（哈希一致）识别为重复并提示；查看原件；删除原件（需考虑级联影响）。</li>
+<li><strong>边界</strong>：不做批量上传（一期）；不做邮件/微信导入。</li>
+</ul>
+<h3 id="capability--c4-ocr">C4 OCR 识别</h3>
+<ul>
+<li><strong>要能</strong>：识别中文医疗单据文本；给出整体与逐块置信度；多页 PDF 逐页处理。</li>
+<li><strong>边界</strong>：不承诺 100% 准确率；低质量图片需给出「识别质量差，建议重拍」的明确反馈而非静默失败。</li>
+</ul>
+<h3 id="capability--c5-ai">C5 AI 结构化抽取</h3>
+<ul>
+<li><strong>要能</strong>：自动判断单据类型（检验单 / 处方 / 病历 / 发票……）；抽取该类型对应的字段；给出逐字段置信度；将可归一的字段映射到主数据。</li>
+<li><strong>边界</strong>：一期不追求覆盖所有单据类型，先做强 2~3 类（<strong>建议：检验报告 + 处方/用药 + 门诊病历</strong>）。</li>
+</ul>
+<h3 id="capability--c6-ai">C6 AI 解读</h3>
+<ul>
+<li><strong>要能</strong>：对异常指标给出通俗中文解释（「这个指标是什么、偏高意味着什么、通常建议怎么办」）。</li>
+<li><strong>边界</strong>（红线，见风险 R-002）：</li>
+<li>❌ 不做诊断</li>
+<li>❌ 不给用药建议</li>
+<li>❌ 不替代医生</li>
+<li>✅ 输出必须带明确免责声明</li>
+<li>✅ 必须可追溯到依据（至少标明是科普性说明）</li>
+</ul>
+<h3 id="capability--c7">C7 人工确认与修正</h3>
+<ul>
+<li><strong>要能</strong>：查看某条数据来自哪个原件、哪一步处理、置信度多少；修正抽错的字段；修正后保留原值与修正历史。</li>
+<li><strong>边界</strong>：不做多人协同审核（一期）。</li>
+</ul>
+<h3 id="capability--c8">C8 健康档案浏览</h3>
+<ul>
+<li><strong>要能</strong>：</li>
+<li><strong>时间轴视图</strong>：按时间倒序列出所有事件</li>
+<li><strong>类别视图</strong>：按就诊/用药/检验/影像/疫苗等分类</li>
+<li><strong>指标视图</strong>：按单个指标看历次记录</li>
+<li><strong>边界</strong>：一期不做全文检索。</li>
+</ul>
+<h3 id="capability--c9">C9 时序指标追踪</h3>
+<ul>
+<li><strong>要能</strong>：任一指标只要有 ≥2 次记录即可画趋势；标注正常参考区间；标记异常点；点击数据点可回溯到来源报告。</li>
+<li><strong>边界</strong>：不做预测（一期）。</li>
+</ul>
+<h3 id="capability--c10">C10 用户健康大屏</h3>
+<ul>
+<li><strong>要能</strong>：</li>
+<li>预置 ≥3 套默认大屏模板（如「长者关怀」「儿童成长」「慢病管理」）</li>
+<li>从卡片库中挑选卡片、拖拽排列、调整尺寸</li>
+<li>按成员切换大屏</li>
+<li>保存多套配置</li>
+<li><strong>边界</strong>：不做大屏共享（一期）；不做用户自制卡片模板（一期）。</li>
+</ul>
+<h3 id="capability--c11">C11 提醒 / 待办 ⚠️</h3>
+<ul>
+<li><strong>要能</strong>：手工创建提醒；关联到成员与具体记录；到期提示；标记完成。</li>
+<li><strong>建议</strong>：<strong>一期保留</strong>。这是「健康伙伴」定位最直接的落点，且实现成本不高。</li>
+<li><strong>边界</strong>：智能推断（AI 从「3 个月后复查」自动生成提醒）放二期。</li>
+</ul>
+<h3 id="capability--c12">C12 健康目标 ⚠️</h3>
+<ul>
+<li><strong>要能</strong>：设定目标指标与目标值；自动计算进度。</li>
+<li><strong>建议</strong>：一期可裁剪。</li>
+</ul>
+<h3 id="capability--c13">C13 数据导出 ⚠️</h3>
+<ul>
+<li><strong>要能</strong>：导出成员档案为可读格式。</li>
+<li><strong>建议</strong>：至少支持「导出原始文件包」，成本低且是用户信任来源。</li>
+</ul>
+<h3 id="capability--c14">C14 系统管理员后台</h3>
+<ul>
+<li><strong>要能</strong>：账户查询 / 禁用 / 启用 / 重置密码；主数据（医院、科室、检验项目、药品、疾病）CRUD；审计日志查询。</li>
+<li><strong>边界</strong>（硬约束）：管理员<strong>不可查看任何用户健康数据</strong>。</li>
+</ul>
+<hr>
+<h2 id="capability--3">3. 一期明确不做</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>不做</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>多租户</td>
+<td>账户即边界，见 D-005</td>
+</tr>
+<tr>
+<td>移动端 App</td>
+<td>远期，见 D-011</td>
+</tr>
+<tr>
+<td>运营数据大屏</td>
+<td>二期，见 D-009</td>
+</tr>
+<tr>
+<td>成员授权共管</td>
+<td>建议二期，见 OD-006</td>
+</tr>
+<tr>
+<td>批量导入</td>
+<td>一期聚焦单文件链路跑通</td>
+</tr>
+<tr>
+<td>在线问诊 / 商城 / 保险</td>
+<td>与产品定位无关</td>
+</tr>
+<tr>
+<td>医学诊断</td>
+<td>红线，见 R-002</td>
+</tr>
+<tr>
+<td>DICOM 影像解析</td>
+<td>复杂度高，收益待验证</td>
+</tr>
+<tr>
+<td>设备直连</td>
+<td>远期，见 C17</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="capability--4">4. 一期建议交付顺序</h2>
+<p>按「主链路先通」原则，不作为排期承诺：</p>
+<pre><code>阶段 A：地基
+  账户与认证 + 家庭成员管理 + 系统管理员后台骨架
+
+阶段 B：主链路（最关键的验证点）
+  原件上传落盘 → 处理任务状态机 → OCR → AI 结构化
+
+阶段 C：价值呈现
+  档案浏览 + 人工确认修正 + 时序趋势
+
+阶段 D：伙伴感
+  用户健康大屏（预置模板）→ 大屏自定义 → 提醒
+
+阶段 E：打磨
+  导出、异常反馈、性能与体验优化
+</code></pre>
+<p><strong>核心判断</strong>：<strong>阶段 B 是整条链路风险最高的部分</strong>（OCR 与 AI 的准确率、单据类型覆盖面、成本），应尽早打通端到端最小可用版本，用真实单据验证可行性，再决定后续投入。不要等前端做完了才发现识别效果不达标。</p>
+<hr>
+<h2 id="capability--5">5. 待确认</h2>
+<ul>
+<li>C11 提醒、C12 目标、C13 导出 是否全部进一期？</li>
+<li>一期优先支持哪几类单据？（建议：检验报告 + 处方/用药 + 门诊病历）</li>
+<li>阶段 A~E 的排期需在功能设计阶段细化。</li>
+</ul>
+</section>
+<section class="doc" id="doc-nfr">
+<h1 id="nfr--05">05 · 非功能需求</h1>
+<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<div class="callout quote">
+<p>说明：本文只写<strong>约束与底线</strong>，不写实现方案。具体技术手段在架构设计阶段确定。
+标注 <code>待定</code> 的项需在架构设计阶段收敛为具体数值。</p>
+</div>
+<hr>
+<h2 id="nfr--1">1. 性能</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需求</th>
+<th>目标值</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-P-01</td>
+<td>普通接口响应时间（P95）</td>
+<td>&lt; 500 ms</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-02</td>
+<td>页面首屏可交互时间</td>
+<td>&lt; 2 s</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-03</td>
+<td>大屏加载与渲染</td>
+<td>&lt; 3 s</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-04</td>
+<td>文件上传</td>
+<td>支持单文件 ≥ 20 MB；支持断点/进度反馈</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-05</td>
+<td>单文件 OCR 处理时长</td>
+<td>&lt; 30 s（异步，不阻塞用户操作）</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-06</td>
+<td>单文件端到端处理时长（OCR + 结构化）</td>
+<td>&lt; 90 s</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-07</td>
+<td>并发上传</td>
+<td>≥ 10 并发不降级</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-08</td>
+<td>大屏刷新</td>
+<td>手动刷新响应 &lt; 2 s</td>
+<td>待定</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>关键约束</strong>：OCR 与 AI 处理<strong>必须异步</strong>。用户上传后立即返回，处理状态通过轮询或推送反馈。同步等待是不可接受的 —— 大模型推理耗时不可控，会拖垮 Web 线程。</p>
+<hr>
+<h2 id="nfr--2">2. 可用性</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需求</th>
+<th>目标值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-A-01</td>
+<td>服务可用性</td>
+<td>原型期不设 SLO；SaaS 上线后目标 99.5%</td>
+</tr>
+<tr>
+<td>NFR-A-02</td>
+<td>任务失败可重试</td>
+<td>OCR/AI 任务失败后支持手动与自动重试</td>
+</tr>
+<tr>
+<td>NFR-A-03</td>
+<td>数据不丢失</td>
+<td>原件一旦落盘成功，不可丢失</td>
+</tr>
+<tr>
+<td>NFR-A-04</td>
+<td>处理失败可见</td>
+<td>失败必须对用户可见且可解释，禁止静默失败</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p><strong>NFR-A-04 是本项目特别强调的一条</strong>：医疗单据处理失败却让用户以为成功了，比直接报错严重得多。</p>
+</div>
+<hr>
+<h2 id="nfr--3">3. 安全</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-S-01</td>
+<td>传输加密</td>
+<td>全站 HTTPS / TLS 1.2+</td>
+</tr>
+<tr>
+<td>NFR-S-02</td>
+<td>存储加密</td>
+<td>敏感字段加密存储；对象存储静态加密</td>
+</tr>
+<tr>
+<td>NFR-S-03</td>
+<td>数据隔离</td>
+<td><strong>账户级强制隔离</strong>：任何查询必须带账户边界条件，禁止依赖前端过滤</td>
+</tr>
+<tr>
+<td>NFR-S-04</td>
+<td>认证</td>
+<td>密码加盐哈希（不可逆）；登录失败次数限制；会话/令牌有效期控制</td>
+</tr>
+<tr>
+<td>NFR-S-05</td>
+<td>授权</td>
+<td>后端强制校验「该成员是否属于当前账户」，不信任前端传参</td>
+</tr>
+<tr>
+<td>NFR-S-06</td>
+<td>文件访问控制</td>
+<td>原件下载需鉴权 + 限时签名 URL，禁止公开直链</td>
+</tr>
+<tr>
+<td>NFR-S-07</td>
+<td>管理员权限隔离</td>
+<td>管理员不可访问用户健康数据（技术层面默认拒绝）</td>
+</tr>
+<tr>
+<td>NFR-S-08</td>
+<td>审计</td>
+<td>关键操作（登录、查看、增删改、导出、下载原件）留痕</td>
+</tr>
+<tr>
+<td>NFR-S-09</td>
+<td>防注入 / XSS / CSRF</td>
+<td>常规 Web 安全基线</td>
+</tr>
+<tr>
+<td>NFR-S-10</td>
+<td>依赖安全</td>
+<td>定期扫描第三方依赖漏洞</td>
+</tr>
+<tr>
+<td>NFR-S-11</td>
+<td>密钥管理</td>
+<td>禁止密钥入库；使用环境变量或密钥管理服务</td>
+</tr>
+<tr>
+<td>NFR-S-12</td>
+<td>数据出域约束</td>
+<td>上传的医疗原件若送第三方 OCR/AI，需明确告知用户（<strong>见风险 R-003</strong>）</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="nfr--4">4. 隐私与合规</h2>
+<div class="callout quote">
+<p>当前策略：<strong>先做功能原型，合规后置</strong>（D-010）。本节只列底线与登记项，不做方案设计。</p>
+</div>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需求</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-C-01</td>
+<td>隐私政策与用户协议</td>
+<td>公开测试前必备</td>
+</tr>
+<tr>
+<td>NFR-C-02</td>
+<td>医疗健康数据属<strong>敏感个人信息</strong>，需<strong>单独同意</strong></td>
+<td>上线前必备</td>
+</tr>
+<tr>
+<td>NFR-C-03</td>
+<td>用户可导出自己的全部数据</td>
+<td>上线前必备</td>
+</tr>
+<tr>
+<td>NFR-C-04</td>
+<td>用户可注销账户并删除数据</td>
+<td>上线前必备</td>
+</tr>
+<tr>
+<td>NFR-C-05</td>
+<td>最小必要原则：不采集与功能无关的信息</td>
+<td>设计期遵循</td>
+</tr>
+<tr>
+<td>NFR-C-06</td>
+<td>第三方服务（OCR/AI/存储）的数据处理协议</td>
+<td>选型时评估</td>
+</tr>
+<tr>
+<td>NFR-C-07</td>
+<td>数据存储地域</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-C-08</td>
+<td>等保备案</td>
+<td>商业化前评估</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p>依据：《个人信息保护法》《数据安全法》《网络安全法》对医疗健康类敏感个人信息的处理要求。<strong>具体条款适用性需法务确认，本文件不构成法律意见。</strong></p>
+</div>
+<hr>
+<h2 id="nfr--5">5. 可维护性</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-M-01</td>
+<td>前后端接口契约先行，变更需同步文档</td>
+</tr>
+<tr>
+<td>NFR-M-02</td>
+<td>代码规范统一（<code>.editorconfig</code> 已就位）</td>
+</tr>
+<tr>
+<td>NFR-M-03</td>
+<td>配置与代码分离，禁止硬编码密钥与地址</td>
+</tr>
+<tr>
+<td>NFR-M-04</td>
+<td>处理流水线各环节可独立替换（换 OCR 引擎不影响其他环节）</td>
+</tr>
+<tr>
+<td>NFR-M-05</td>
+<td>数据库变更需版本化迁移脚本</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p><strong>NFR-M-04 是本项目的架构关键约束</strong>：OCR 与 AI 选型尚未确定（OD-003），且未来极可能更换或叠加多个引擎。因此流水线必须按「可插拔」设计 —— 这属于一期架构的硬性要求，不是「以后再说」。</p>
+</div>
+<hr>
+<h2 id="nfr--6">6. 可扩展性</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需求</th>
+<th>对应未来</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-E-01</td>
+<td>新增单据类型不需改动已有数据模型</td>
+<td>扩大 OCR/AI 覆盖范围</td>
+</tr>
+<tr>
+<td>NFR-E-02</td>
+<td>新增指标不需改动表结构</td>
+<td>时序指标可扩展，见信息模型 §3.6</td>
+</tr>
+<tr>
+<td>NFR-E-03</td>
+<td>大屏卡片可扩展，不需改前端主框架</td>
+<td>自定义大屏</td>
+</tr>
+<tr>
+<td>NFR-E-04</td>
+<td>预留移动端接入能力（接口层不绑死 Web 交互假设）</td>
+<td>远期移动端</td>
+</tr>
+<tr>
+<td>NFR-E-05</td>
+<td>预留开放 API 能力</td>
+<td>远期</td>
+</tr>
+<tr>
+<td>NFR-E-06</td>
+<td>预留多语言能力</td>
+<td>远期出海</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="nfr--7">7. 兼容性</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-X-01</td>
+<td>浏览器：Chrome / Edge / Safari / Firefox 近两个大版本</td>
+</tr>
+<tr>
+<td>NFR-X-02</td>
+<td>大屏分辨率：适配 1920×1080 及以上；用户侧大屏需适配移动浏览器</td>
+</tr>
+<tr>
+<td>NFR-X-03</td>
+<td>移动端浏览器可用（不追求体验最优，但不可不可用）</td>
+</tr>
+<tr>
+<td>NFR-X-04</td>
+<td>上传格式：jpg / jpeg / png / heic / pdf</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p><code>heic</code> 是 iPhone 默认格式，<strong>必须支持或至少以明确提示引导转换</strong> —— 否则大量用户上传即失败。</p>
+</div>
+<hr>
+<h2 id="nfr--8">8. 成本</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>需求</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-O-01</td>
+<td>单用户单月 OCR/AI 成本可核算</td>
+<td>为 SaaS 定价提供依据</td>
+</tr>
+<tr>
+<td>NFR-O-02</td>
+<td>每笔 OCR/AI 调用需记录成本</td>
+<td>数据落到 <code>ProcessTask</code> / <code>OcrResult</code></td>
+</tr>
+<tr>
+<td>NFR-O-03</td>
+<td>需有成本上限保护机制</td>
+<td>防止滥用或异常消耗</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p>若采用第三方云 API 按量计费（OD-003 未定），<strong>成本直接决定商业模型是否成立</strong>。一期就应记录用量与成本，否则后期无法定价。</p>
+</div>
+<hr>
+<h2 id="nfr--9">9. 待收敛项</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>项</th>
+<th>收敛阶段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>所有 <code>待定</code> 的性能目标值</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>2</td>
+<td>认证方案（影响 NFR-S-04）</td>
+<td>架构设计，OD-005</td>
+</tr>
+<tr>
+<td>3</td>
+<td>OCR/AI 服务商与数据出域方案</td>
+<td>调研，OD-003</td>
+</tr>
+<tr>
+<td>4</td>
+<td>合规优先级排期</td>
+<td>商业化前</td>
+</tr>
+<tr>
+<td>5</td>
+<td>成本模型与定价</td>
+<td>商业化前</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="doc" id="doc-risk">
+<h1 id="risk--06">06 · 风险登记册</h1>
+<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<div class="callout quote">
+<p>当前策略：<strong>先做功能原型，合规后置</strong>（<a href="#doc-decision-log">>D-010</a>）。
+因此本文的作用是<strong>登记风险、标注后果、给出触发条件</strong>，不展开方案设计。
+每条风险在进入相应阶段时重新评估。</p>
+</div>
+<p>评分口径：<strong>可能性</strong>（高/中/低）× <strong>影响</strong>（严重/较大/一般）→ <strong>等级</strong>（P0 必须处理 / P1 需关注 / P2 可接受）</p>
+<hr>
+<h2 id="risk--p0">P0 · 必须处理</h2>
+<h3 id="risk--r-001-ocr-ai">R-001 · OCR / AI 识别准确率不达标</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>医疗单据版式多样、字迹潦草、拍照质量参差，OCR 与结构化抽取准确率可能远低于预期，导致用户需要大量手工修正，产品价值崩塌</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>高</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>严重</td>
+</tr>
+<tr>
+<td>触发条件</td>
+<td>真实单据端到端字段准确率 &lt; 80%</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① 阶段 B 尽早用真实单据跑通端到端（不要等前端做完）<br>② 先聚焦 2~3 类版式相对规整的单据<br>③ 强制「低置信度字段前端高亮 + 用户确认」机制<br>④ 保留人工修正入口与修正记忆<br>⑤ 不要承诺「全自动无需核对」</td>
+</tr>
+<tr>
+<td>关联</td>
+<td><a href="#doc-capability">>C4/C5</a>、信息模型 §4</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="risk--r-002-ai">R-002 · AI 输出被误当医疗建议</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>用户把 AI 的解读当作诊断或用药建议，据此自行处理，造成健康损害与法律纠纷</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>高</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>严重</td>
+</tr>
+<tr>
+<td>触发条件</td>
+<td>出现用户依据 AI 输出自行调整用药的实际案例</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① <strong>红线</strong>：不做诊断、不给用药建议<br>② 每处 AI 输出带明确免责声明<br>③ 高风险表述（如「疑似」「建议服用」）建立禁用词校验<br>④ 用户协议明确责任边界（<strong>需法务起草，非软件可解决</strong>）<br>⑤ 医学内容评审机制</td>
+</tr>
+<tr>
+<td>关联</td>
+<td><a href="#doc-capability">>C6</a>、NFR-C-02、§5 产品非目标</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="risk--r-003">R-003 · 医疗数据出域给第三方服务</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>若 OCR / AI 采用第三方云 API，用户的病历与报告原件（<strong>敏感个人信息</strong>）将离开自有系统，构成合规风险与用户信任风险</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>高（若选云 API 路线）</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>严重</td>
+</tr>
+<tr>
+<td>触发条件</td>
+<td>确定采用第三方 API 且未做数据脱敏或协议约束</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① 选型时评估服务商数据处理协议<br>② 上传即告知用户数据将被送往何处<br>③ 评估本地模型方案（数据不出域）<br>④ 传输与存储加密</td>
+</tr>
+<tr>
+<td>关联</td>
+<td><a href="#doc-decision-log">>OD-003</a>、NFR-S-12、NFR-C-06</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="risk--p1">P1 · 需关注</h2>
+<h3 id="risk--r-004">R-004 · 合规后置导致返工</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>「先做原型、合规后置」是有意选择，但若原型阶段完全不留合规扩展位（如未记录同意、无删除能力、无审计），后期改造代价显著</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>中</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>较大</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① 一期即做审计日志（成本低、事后难补）<br>② 一期即预留「同意记录」「数据导出」「账户注销」的数据结构位<br>③ 不采集证件号等非必要高敏数据</td>
+</tr>
+<tr>
+<td>关联</td>
+<td>NFR-C-*、<a href="#doc-info-model">>信息模型 §6.2</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="risk--r-005-ai">R-005 · 主数据冷启动不足，AI 抽取结果无法归一</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>没有检验项目/药品/医院主数据字典，AI 抽出的「谷丙转氨酶」无法与上次报告的同一指标关联，趋势对比功能失效，产品退化为「图片存储柜」</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>高</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>较大</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① 一期就建最小可用字典（常见检验项目 + 常用药品 + 本地医院）<br>② 抽取时保留原始文本 + 映射置信度，映射失败不丢数据<br>③ 用户修正结果反哺字典</td>
+</tr>
+<tr>
+<td>关联</td>
+<td><a href="#doc-info-model">>信息模型 §6.3</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="risk--r-006">R-006 · 成本不可控，商业模型不成立</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>OCR 与大模型按量计费，若单用户处理成本高于订阅价格，SaaS 模式亏损</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>中</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>严重（影响商业可行性）</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① 一期即记录每次调用的成本<br>② 上传去重（同一文件不重复处理）<br>③ 分级处理（先做轻量判断再决定是否调用大模型）<br>④ 评估自建模型的规模成本平衡点</td>
+</tr>
+<tr>
+<td>关联</td>
+<td>NFR-O-*、<a href="#doc-decision-log">>OD-003</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="risk--r-007">R-007 · 隐私感知导致用户不敢上传</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>健康数据极度敏感，用户可能因顾虑而拒绝上传真实报告，导致产品无法获得数据</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>中</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>较大</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① 明确的隐私说明与数据归属声明（「数据是你的」）<br>② 提供数据导出与彻底删除<br>③ 若可能，提供数据不出域的方案选项<br>④ 透明的处理流程展示</td>
+</tr>
+<tr>
+<td>关联</td>
+<td>NFR-C-*、R-003</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="risk--p2">P2 · 可接受（记录备查）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>风险</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R-008</td>
+<td>单据类型覆盖不全</td>
+<td>用户上传系统不支持的类型 → 明确提示而非误判。可通过迭代扩展</td>
+</tr>
+<tr>
+<td>R-009</td>
+<td>家庭成员数据归属争议</td>
+<td>离婚、继承等场景下的档案归属。属法律问题，非一期范围</td>
+</tr>
+<tr>
+<td>R-010</td>
+<td>归档成员数据的保留期限</td>
+<td>已故亲属档案的保留与删除策略待定</td>
+</tr>
+<tr>
+<td>R-011</td>
+<td>多端一致性</td>
+<td>移动端远期建设时，接口设计需兼容，已在 NFR-E-04 预留</td>
+</tr>
+<tr>
+<td>R-012</td>
+<td>技术栈新颖度</td>
+<td>Spring Boot 4 + Java 25 较新，第三方库兼容性可能不完整。风险低（Spring 生态成熟，且 4.0 GA 已发布）</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="risk--_1">合规专项登记（不展开方案）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>依据</th>
+<th>何时必须处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>隐私政策 / 用户协议</td>
+<td>《个人信息保护法》</td>
+<td>公开测试前</td>
+</tr>
+<tr>
+<td>敏感个人信息<strong>单独同意</strong></td>
+<td>《个人信息保护法》对医疗健康数据的要求</td>
+<td>上线前</td>
+</tr>
+<tr>
+<td>数据导出与删除权</td>
+<td>《个人信息保护法》</td>
+<td>上线前</td>
+</tr>
+<tr>
+<td>第三方数据处理协议</td>
+<td>视 OCR/AI 选型</td>
+<td>选型时</td>
+</tr>
+<tr>
+<td>等保测评 / 备案</td>
+<td>《网络安全法》</td>
+<td>商业化前</td>
+</tr>
+<tr>
+<td>数据存储地域</td>
+<td>视目标市场</td>
+<td>商业化前</td>
+</tr>
+<tr>
+<td>医疗责任边界与免责声明</td>
+<td>需法务评估</td>
+<td>上线前</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout warn">
+<p>⚠️ 以上为<strong>风险登记</strong>，不构成法律意见。具体条款适用性与义务范围需专业法务确认。</p>
+</div>
+<hr>
+<h2 id="risk--_2">变更记录</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>日期</th>
+<th>变更</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-10-01</td>
+<td>建档，登记 R-001 ~ R-012</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section class="doc" id="doc-open-questions">
+<h1 id="open-questions--07">07 · 待调研项 / 待确认清单</h1>
+<p>状态：维护中 · 本文件长期有效，随决策推进持续更新</p>
+<div class="callout quote">
+<p><strong>约定</strong>：任何「还没定」的事项统一收敛到这里，不要散落在正文。
+状态：<code>待调研</code>（需查资料/试验） → <code>待评审</code>（有候选方案，待拍板） → <code>已定</code>（结案，转入<a href="#doc-decision-log">>决策记录</a>）</p>
+</div>
+<hr>
+<h2 id="open-questions--_1">汇总表</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>议题</th>
+<th>类型</th>
+<th>状态</th>
+<th>阻塞</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OW-001</td>
+<td>数据库选型（含时序数据处理）</td>
+<td>技术</td>
+<td>待调研</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>OW-002</td>
+<td>对象存储方案</td>
+<td>技术</td>
+<td>待调研</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>OW-003</td>
+<td>OCR 与 AI 能力来源</td>
+<td>技术 + 成本</td>
+<td>待调研</td>
+<td>NFR、成本模型</td>
+</tr>
+<tr>
+<td>OW-004</td>
+<td>前端工程拆分策略</td>
+<td>技术</td>
+<td>待调研</td>
+<td>目录结构、构建</td>
+</tr>
+<tr>
+<td>OW-005</td>
+<td>认证与授权方案</td>
+<td>技术</td>
+<td>待调研</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>OW-006</td>
+<td>成员授权共管是否一期开放</td>
+<td>产品</td>
+<td>待评审</td>
+<td>信息模型</td>
+</tr>
+<tr>
+<td>OW-007</td>
+<td><strong>大屏方案（用户侧 + 运营侧）</strong></td>
+<td>技术 + 产品</td>
+<td>待调研</td>
+<td>前端架构</td>
+</tr>
+<tr>
+<td>OW-008</td>
+<td>提醒/待办是否进一期</td>
+<td>产品</td>
+<td>待评审</td>
+<td>能力范围</td>
+</tr>
+<tr>
+<td>OW-009</td>
+<td>主数据字典来源</td>
+<td>运营</td>
+<td>待调研</td>
+<td>AI 抽取落地</td>
+</tr>
+<tr>
+<td>OW-010</td>
+<td>是否采纳 FHIR R4 作为内部信息模型</td>
+<td>技术</td>
+<td>待评审</td>
+<td>信息模型</td>
+</tr>
+<tr>
+<td>OW-011</td>
+<td>异步任务框架选型</td>
+<td>技术</td>
+<td>待调研</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>OW-012</td>
+<td>部署形态（单机 / 容器 / 云）</td>
+<td>技术</td>
+<td>待调研</td>
+<td>架构设计</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="open-questions--ow-001">OW-001 · 数据库选型</h2>
+<p><strong>为什么需要单独讨论</strong>：本项目存在<strong>两种截然不同的数据形态</strong>（见 <a href="#doc-info-model">>信息模型 §3.0</a>）：</p>
+<ul>
+<li>关系型数据：账户、成员、就诊、用药、单据等</li>
+<li><strong>时序数据</strong>：体征指标（血压、血糖、体重……）会长期高频增长，且查询模式以「按时间范围取序列」为主</li>
+</ul>
+<p><strong>候选方向</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PostgreSQL 单一库</td>
+<td>运维简单；JSONB 灵活；可用分区表处理时序</td>
+<td>时序查询性能需自行优化</td>
+</tr>
+<tr>
+<td>PostgreSQL + TimescaleDB</td>
+<td>时序与关系库统一</td>
+<td>引入扩展，运维复杂度上升</td>
+</tr>
+<tr>
+<td>PostgreSQL + 独立时序库（InfluxDB 等）</td>
+<td>时序性能最优</td>
+<td>双存储、一致性复杂，原型期过度设计</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>生态熟悉</td>
+<td>时序与 JSON 支持弱于 PG</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>调研要点</strong>
+1. 原型期数据量预估与年增长量
+2. 时序数据量级（一个家庭 5 人 × 每人 10 指标 × 每天 1 次 ≈ 1.8 万点/年/家庭）
+3. 是否需要跨家庭聚合分析（影响选型）
+4. <strong>倾向（未验证）</strong>：原型期用 PostgreSQL 单库 + 分区表，时序量级上来后再评估 TimescaleDB。属<strong>建议</strong>，需实测验证。</p>
+<p><strong>决策产出</strong>：写入决策记录，标注依据等级。</p>
+<hr>
+<h2 id="open-questions--ow-002">OW-002 · 对象存储方案</h2>
+<p>医疗原件（照片、PDF）体量大、不可变、需鉴权访问，适合对象存储而非数据库或本地文件系统。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>本地磁盘 / NAS</td>
+<td>个人原型期，最简单</td>
+</tr>
+<tr>
+<td>MinIO（自建 S3 兼容）</td>
+<td>想保持数据自控，又能用 S3 生态</td>
+</tr>
+<tr>
+<td>云 OSS / COS / S3</td>
+<td>商业化阶段，弹性与可靠性好</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>调研要点</strong>
+1. 原型期是否直接用本地磁盘 + 抽象存储接口（便于后期切换）
+2. 静态加密与限时签名 URL 的实现方式
+3. 成本测算（原件长期保留，成本会持续累积）
+4. <strong>无论选哪个，存储层必须抽象为接口</strong>（NFR-M-04、NFR-E-01）</p>
+<hr>
+<h2 id="open-questions--ow-003-ocr-ai">OW-003 · OCR 与 AI 能力来源 ← <strong>核心调研项</strong></h2>
+<p><strong>当前状态</strong>：用户明确「暂不定，只列约束与待调研项」。</p>
+<h3 id="open-questions--_2">能力要求（先明确要什么，再选谁）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>能力</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>中文 OCR</td>
+<td>支持印刷体；对拍照倾斜、阴影、反光有一定鲁棒性</td>
+</tr>
+<tr>
+<td>2</td>
+<td>版面分析</td>
+<td>能区分表格、字段名与值（检验单本质是表格）</td>
+</tr>
+<tr>
+<td>3</td>
+<td>单据分类</td>
+<td>自动判断是检验单/处方/病历/发票</td>
+</tr>
+<tr>
+<td>4</td>
+<td>结构化抽取</td>
+<td>输出可映射到本系统字段的键值对</td>
+</tr>
+<tr>
+<td>5</td>
+<td>语义解读</td>
+<td>对指标给出通俗解释</td>
+</tr>
+<tr>
+<td>6</td>
+<td>逐字段置信度</td>
+<td><strong>必需</strong> —— 没有置信度就无法做「低置信度高亮 + 用户确认」</td>
+</tr>
+<tr>
+<td>7</td>
+<td>成本可计量</td>
+<td>每次调用可记录成本（NFR-O-02）</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="open-questions--_3">路线对比</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>维度</th>
+<th>第三方云 API</th>
+<th>自建本地模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>上线速度</td>
+<td>快</td>
+<td>慢</td>
+</tr>
+<tr>
+<td>准确率（通用场景）</td>
+<td>高（成熟商用）</td>
+<td>需自训调优</td>
+</tr>
+<tr>
+<td>医疗单据专项准确率</td>
+<td>需实测</td>
+<td>需自训调优</td>
+</tr>
+<tr>
+<td>数据出域</td>
+<td>✅ 会出域，合规成本高</td>
+<td>❌ 不出域</td>
+</tr>
+<tr>
+<td>成本结构</td>
+<td>按量付费，随规模线性增长</td>
+<td>前期投入大，边际成本低</td>
+</tr>
+<tr>
+<td>可控性</td>
+<td>低（受服务商变更影响）</td>
+<td>高</td>
+</tr>
+<tr>
+<td>运维复杂度</td>
+<td>低</td>
+<td>高</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="open-questions--_4">调研要点</h3>
+<ol>
+<li><strong>用真实单据做对比测试</strong>。这是唯一可靠的判断依据 —— 不要看宣传材料，直接拿 20~30 张真实（脱敏）单据跑一遍，统计逐字段准确率。</li>
+<li>若走云 API：数据出域的具体条款、是否可用于训练、数据处理协议如何签署</li>
+<li>若走本地模型：License 是否允许商用（<strong>重要</strong> —— 部分"开源"OCR 模型对商用有限制）</li>
+<li>混合路线是否可行：本地先做版面分析 + 脱敏，再送云端做强抽取</li>
+<li>成本测算：单张单据的调用成本 × 预期单据量 → 是否支撑订阅定价</li>
+</ol>
+<div class="callout warn">
+<p>⚠️ 本条<strong>不建议凭印象决策</strong>。服务商能力、价格、协议条款均随时间变化，须以调研当时的官方文档与实测结果为准。</p>
+</div>
+<h3 id="open-questions--_5">调研产出</h3>
+<ul>
+<li>一份《OCR/AI 选型对比报告》放入 <code>docs/03-architecture/</code> 或独立 <code>docs/research/</code></li>
+<li>结论写入决策记录</li>
+</ul>
+<hr>
+<h2 id="open-questions--ow-004">OW-004 · 前端工程拆分策略</h2>
+<p><strong>问题</strong>：系统实际有<strong>三种前端形态</strong>，是拆成多个工程还是合并？</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>形态</th>
+<th>使用者</th>
+<th>特征</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用户端 Web</td>
+<td>注册用户</td>
+<td>主站，功能最全</td>
+</tr>
+<tr>
+<td>管理后台</td>
+<td>系统管理员</td>
+<td>独立入口，绝不暴露给普通用户</td>
+</tr>
+<tr>
+<td>运营数据大屏</td>
+<td>运营人员（二期）</td>
+<td>全屏、固定分辨率、常驻展示</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>候选方案</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A. 单工程 + 路由/布局区分</td>
+<td>复用组件与构建，开发快</td>
+<td>权限隔离依赖前端，管理端代码会对用户端用户可见（可接受，但需注意）</td>
+</tr>
+<tr>
+<td>B. 单仓多包（pnpm workspace）</td>
+<td>共享 UI 与工具库，各自独立构建与部署</td>
+<td>构建配置复杂度上升</td>
+</tr>
+<tr>
+<td>C. 完全独立仓库/工程</td>
+<td>隔离最彻底</td>
+<td>重复代码多，单人开发负担重</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>倾向（建议，未验证）</strong>：原型期用 <strong>A</strong>，进入 SaaS 商业化前再评估迁移到 <strong>B</strong>。
+理由：单人/小团队原型期，过早引入 monorepo 构建复杂度会拖慢主链路。</p>
+<p><strong>另一层问题</strong>：用户端与管理端是否共用同一套 UI 设计语言？（建议不共用 —— 管理端可以更朴素）</p>
+<hr>
+<h2 id="open-questions--ow-005">OW-005 · 认证与授权方案</h2>
+<p><strong>调研要点</strong>
+1. 认证方式：Session-Cookie / JWT / OAuth2
+   - 纯 Web 场景下 Session 更简单安全；但需为远期移动端预留（NFR-E-04）
+2. 令牌存储位置与刷新策略
+3. <strong>授权模型</strong>：一期是「账户 → 成员归属」两层校验，是否需要预留 RBAC 扩展位
+4. 是否引入 Spring Security / Sa-Token 等框架
+5. 管理员强制不可访问用户健康数据（NFR-S-07）如何在架构上落实 —— <strong>建议默认拒绝 + 显式白名单</strong></p>
+<hr>
+<h2 id="open-questions--ow-006">OW-006 · 成员授权共管是否一期开放</h2>
+<p>见 <a href="#doc-info-model">>信息模型 §2.3</a>、<a href="#doc-decision-log">>D-006</a>。
+<strong>当前倾向</strong>：一期不做。需确认。</p>
+<hr>
+<h2 id="open-questions--ow-007">OW-007 · 大屏方案 ← <strong>用户明确处于调研阶段</strong></h2>
+<p>大屏是<strong>两个独立产品</strong>，需分别调研，但可能共用渲染技术：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th></th>
+<th>用户健康大屏（一期）</th>
+<th>运营数据大屏（二期）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用者</td>
+<td>注册用户</td>
+<td>运营人员</td>
+</tr>
+<tr>
+<td>数据源</td>
+<td>单个家庭的健康数据</td>
+<td>全平台统计数据</td>
+</tr>
+<tr>
+<td>核心价值</td>
+<td>看懂家人健康，看到趋势</td>
+<td>看懂平台运转，发现异常</td>
+</tr>
+<tr>
+<td>交互</td>
+<td>可拖拽配置、多套保存、响应式</td>
+<td>全屏常驻、自动轮播、固定 1920×1080</td>
+</tr>
+<tr>
+<td>指标来源</td>
+<td>用户档案数据</td>
+<td>埋点/统计聚合</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="open-questions--_6">需要先澄清的产品问题（<strong>未确认，建议先想清楚再选技术</strong>）</h3>
+<ol>
+<li>
+<p><strong>「可定制」到哪一步？</strong>
+   - L1 只换数据范围（选成员、选时间区间）
+   - L2 换卡片组合（从卡片库挑选、拖拽排列）
+   - L3 换卡片样式与参数（颜色、阈值、聚合方式）
+   - L4 用户自制卡片（写 SQL / 表达式）
+   → 定级直接决定实现成本，<strong>建议一期做到 L2，L3 部分支持</strong>。</p>
+</li>
+<li>
+<p><strong>布局方式</strong>：自由拖拽（画布坐标）还是栅格布局（12 栅格）？建议<strong>栅格</strong> —— 自由布局在响应式下必然崩坏。</p>
+</li>
+<li>
+<p><strong>是否区分「大屏」与「仪表盘」的视觉风格</strong>？用户侧应偏「温暖、可读、生活化」，运营侧偏「深色、信息密集、动效」。</p>
+</li>
+<li>
+<p>是否需要「大屏分享」（生成只读链接给家人看）？</p>
+</li>
+</ol>
+<h3 id="open-questions--_7">技术调研要点</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>需查清</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图表库</td>
+<td>ECharts / Chart.js / D3 —— 医疗时序图的参考区间带、异常点标注支持度</td>
+</tr>
+<tr>
+<td>拖拽布局库</td>
+<td>Vue 3 生态下的栅格布局库成熟度与维护状态</td>
+</tr>
+<tr>
+<td>是否用低代码大屏平台</td>
+<td>如阿里 DataV 类产品：能快速出效果，但<strong>用户侧大屏需深度嵌入业务数据与交互，低代码平台通常不适用</strong>；运营大屏可能适用</td>
+</tr>
+<tr>
+<td>用户侧与运营侧是否复用同一套渲染内核</td>
+<td>建议<strong>是</strong>（同用 ECharts + 同一套栅格布局），仅主题与配置不同</td>
+</tr>
+<tr>
+<td>大屏是否需要实时推送</td>
+<td>用户侧：否，手动/定时刷新即可；运营侧：可能需 WebSocket</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="open-questions--_8">前置依赖提醒</h3>
+<p>大屏自定义的前提是 <a href="#doc-info-model">>L4 指标定义层</a> 已建立。<strong>没有指标定义，卡片就无法被抽象与配置。</strong></p>
+<hr>
+<h2 id="open-questions--ow-008">OW-008 · 提醒 / 待办是否进一期</h2>
+<p>见 <a href="#doc-info-model">>信息模型 §3.13</a>。
+<strong>建议进一期</strong> —— 成本不高，但它是「健康伙伴」定位最直接的落点。
+需确认。</p>
+<hr>
+<h2 id="open-questions--ow-009">OW-009 · 主数据字典来源</h2>
+<p>见 <a href="#doc-risk">>R-005</a>，这是<strong>高风险项</strong>。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字典</th>
+<th>冷启动方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>检察机关/医院</td>
+<td>手工录入本地主要医院（几十条即可起步）</td>
+</tr>
+<tr>
+<td>科室</td>
+<td>国家标准科室分类，公开可获取</td>
+</tr>
+<tr>
+<td>检验项目</td>
+<td>① 手工整理常见 100~200 项 ② 参考 LOINC 中文映射 ③ 有商业数据集可采购</td>
+</tr>
+<tr>
+<td>药品</td>
+<td>国家药品监督管理局公开数据</td>
+</tr>
+<tr>
+<td>疾病 ICD-10</td>
+<td>国家卫健委发布的标准编码表</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>调研要点</strong>
+1. LOINC / ICD-10 中文版的获取渠道与许可条件（<strong>须核实 License</strong>）
+2. 是否值得采购商业主数据
+3. 「抽取失败不丢数据」的兜底设计：保留原始文本 + 待映射状态</p>
+<hr>
+<h2 id="open-questions--ow-010-fhir-r4">OW-010 · 是否采纳 FHIR R4 作为内部信息模型</h2>
+<p><strong>当前倾向</strong>：<strong>不采纳为内部模型</strong>，仅作为未来互操作时的映射目标。
+理由：FHIR 完整实现复杂度极高，对单人原型项目是过度设计。但信息模型设计时<strong>借鉴其资源划分</strong>（<a href="#doc-info-model">>信息模型 §8</a> 已做映射），成本低收益高。</p>
+<p>需确认。若未来有与医院/机构对接的计划，需重新评估。</p>
+<hr>
+<h2 id="open-questions--ow-011">OW-011 · 异步任务框架选型</h2>
+<p>OCR/AI 处理必须异步（NFR-P-05）。需调研：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spring <code>@Async</code> + 数据库状态机</td>
+<td>最简单，够用；缺点是重启丢任务、无重试保障</td>
+</tr>
+<tr>
+<td>Spring Integration / Spring Batch</td>
+<td>偏批处理，与事件驱动的单据处理不完全匹配</td>
+</tr>
+<tr>
+<td>Quartz + 数据库任务表</td>
+<td>成熟，支持持久化与重试</td>
+</tr>
+<tr>
+<td>消息队列（RabbitMQ / Kafka）+ Worker</td>
+<td>最可扩展；原型期偏重</td>
+</tr>
+<tr>
+<td>轻量持久化队列（如数据库轮询表）</td>
+<td>折中方案</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>调研要点</strong>
+1. 是否需要在应用重启后恢复未完成任务？（<strong>建议需要</strong> —— 用户上传后系统重启导致任务丢失，体验极差）
+2. 重试策略与死信处理
+3. 是否引入独立 Worker 进程（为未来水平扩展预留）</p>
+<hr>
+<h2 id="open-questions--ow-012">OW-012 · 部署形态</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原型期</td>
+<td>单机 + Docker Compose（应用 + 数据库 + 对象存储）</td>
+</tr>
+<tr>
+<td>商业化</td>
+<td>容器编排 + 托管数据库 + 云对象存储</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>调研要点</strong>：开发环境的数据是否可脱离真实敏感数据（<strong>建议全部用合成/脱敏数据</strong>）。</p>
+<hr>
+<h2 id="open-questions--_9">变更记录</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>日期</th>
+<th>变更</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-10-01</td>
+<td>建档，登记 OW-001 ~ OW-012</td>
+</tr>
+</tbody>
+</table></div>
+</section>
+  </div>
+</div>
+
+<div class="floats no-print">
+  <button class="fab" id="btnHome" title="返回首页（封面）">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" aria-hidden="true">
+      <path d="M3 11l9-7 9 7"/><path d="M6 10v10h12V10"/>
+    </svg>
+    返回首页
+  </button>
+</div>
+
+<script>
+
+(function(){
+  'use strict';
+
+  var progress = document.getElementById('progress');
+  var btnHome  = document.getElementById('btnHome');
+  var links    = Array.prototype.slice.call(document.querySelectorAll('#toc a'));
+  var targets  = [];
+
+  function buildTargets(){
+    targets = links.map(function(a){
+      var sel = a.getAttribute('data-target') || a.getAttribute('href');
+      return {a:a, el: sel && sel.length > 1 ? document.querySelector(sel) : null};
+    }).filter(function(t){ return t.el; });
+  }
+
+  function scrollSpy(){
+    var pos = window.scrollY + 132, cur = null;
+    for (var i = 0; i < targets.length; i++){
+      if (targets[i].el.offsetTop <= pos) cur = targets[i];
+    }
+    links.forEach(function(a){ a.classList.remove('active'); });
+    if (cur){
+      cur.a.classList.add('active');
+      var sub = cur.a.closest('.sub');
+      if (sub){
+        var parentLi = sub.parentElement;
+        var head = parentLi ? parentLi.querySelector(':scope > a') : null;
+        if (head) head.classList.add('active');
+      }
+    }
+  }
+
+  function onScroll(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+    if (btnHome) btnHome.classList.toggle('show', window.scrollY > 420);
+    scrollSpy();
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* 返回首页 */
+  btnHome.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+    if (window.innerWidth <= 900) document.body.classList.remove('nav-open-mobile');
+  });
+
+  /* 目录折叠 / 移动端抽屉 */
+  document.getElementById('navToggle').addEventListener('click', function(){
+    if (window.innerWidth <= 900) document.body.classList.toggle('nav-open-mobile');
+    else document.body.classList.toggle('nav-collapsed');
+  });
+  links.forEach(function(a){
+    a.addEventListener('click', function(){
+      if (window.innerWidth <= 900) document.body.classList.remove('nav-open-mobile');
+    });
+  });
+
+  /* 全文搜索 */
+  var q = document.getElementById('q');
+  var qcount = document.getElementById('qcount');
+  var timer = null, originalHTML = null;
+
+  q.addEventListener('input', function(){
+    clearTimeout(timer);
+    timer = setTimeout(runSearch, 220);
+  });
+
+  function restore(root){
+    if (originalHTML !== null && root.innerHTML !== originalHTML){
+      root.innerHTML = originalHTML;
+      buildTargets();
+    }
+  }
+
+  function runSearch(){
+    var term = q.value.trim();
+    var root = document.querySelector('.page');
+    if (originalHTML === null) originalHTML = root.innerHTML;
+
+    if (!term){
+      restore(root);
+      qcount.style.display = 'none';
+      return;
+    }
+    restore(root);
+
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(n){
+        if (!n.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+        var p = n.parentNode.nodeName;
+        if (p === 'SCRIPT' || p === 'STYLE' || p === 'MARK') return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var nodes = [], n;
+    while ((n = walker.nextNode())) nodes.push(n);
+
+    var lower = term.toLowerCase(), count = 0, first = null;
+    nodes.forEach(function(node){
+      var v = node.nodeValue, lv = v.toLowerCase(), idx = lv.indexOf(lower);
+      if (idx === -1) return;
+      var frag = document.createDocumentFragment(), last = 0;
+      while (idx !== -1){
+        frag.appendChild(document.createTextNode(v.slice(last, idx)));
+        var m = document.createElement('mark');
+        m.textContent = v.slice(idx, idx + term.length);
+        frag.appendChild(m);
+        if (!first) first = m;
+        count++;
+        last = idx + term.length;
+        idx = lv.indexOf(lower, last);
+      }
+      frag.appendChild(document.createTextNode(v.slice(last)));
+      node.parentNode.replaceChild(frag, node);
+    });
+
+    qcount.style.display = count ? 'inline-block' : 'inline-block';
+    qcount.textContent = count ? ('命中 ' + count + ' 处') : '无匹配';
+    if (first){
+      window.scrollTo({top: first.getBoundingClientRect().top + window.scrollY - 120, behavior:'smooth'});
+    }
+  }
+
+  document.addEventListener('keydown', function(e){
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); q.focus(); q.select(); }
+    if (e.key === 'Escape' && document.activeElement === q){ q.value = ''; runSearch(); }
+  });
+
+  buildTargets();
+  onScroll();
+})();
+
+</script>
+</body>
+</html>
