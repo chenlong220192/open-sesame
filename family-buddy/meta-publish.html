@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文档发布流程 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · 文档发布流程">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body data-slug="meta-publish">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一发布目标">一、发布目标</a></li><li class="lv2"><a href="#二流程五步每次执行都是幂等的全量覆盖">二、流程（五步，每次执行都是幂等的全量覆盖）</a></li><li class="lv2"><a href="#三用法">三、用法</a></li><li class="lv2"><a href="#四脱敏为什么必须有这一步">四、脱敏（为什么必须有这一步）</a></li><li class="lv2"><a href="#五已知注意事项">五、已知注意事项</a></li><li class="lv2"><a href="#六相关">六、相关</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="readme-project.html">项目说明</a></li><li><a href="docs-index.html">文档总索引</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="meta-glossary.html">术语表</a></li><li><a href="meta-roadmap.html">阶段路线图</a></li><li><a href="meta-dev-environment.html">开发环境基线</a></li><li><a href="meta-publish.html" class="active">文档发布流程</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="decisions-index.html">决策记录索引</a></li><li><a href="adr-0001.html">ADR-0001 单仓库多项目</a></li><li><a href="adr-0002.html">ADR-0002 第一天就多租户</a></li><li><a href="adr-0003.html">ADR-0003 公有云部署</a></li><li><a href="adr-0004.html">ADR-0004 后端技术栈</a></li><li><a href="adr-0005.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp"><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="req-index.html">需求分析索引</a></li><li><a href="req-01.html">01 愿景与范围</a></li><li><a href="req-02.html">02 干系人与角色</a></li><li><a href="req-03.html">03 信息域全景</a></li><li><a href="req-04.html">04 功能需求池</a></li><li><a href="req-05.html">05 身份·租户·权限</a></li><li><a href="req-06.html">06 大屏 Dashboard 需求</a></li><li><a href="req-07.html">07 非功能需求</a></li><li><a href="req-08.html">08 分期与范围</a></li><li><a href="req-09.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="design-index.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="arch-index.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="api-index.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="backend.html">backend 后端服务</a></li><li><a href="frontend.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="index.html" class="side-home">返回封面首页</a><p>27 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">00 · 元信息</div>
+      <h1 class="doc-title">文档发布流程 Publish Pipeline</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/00-meta/publish-pipeline.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一发布目标">一、发布目标</a></li><li class="lv2"><a href="#二流程五步每次执行都是幂等的全量覆盖">二、流程（五步，每次执行都是幂等的全量覆盖）</a></li><li class="lv2"><a href="#三用法">三、用法</a></li><li class="lv2"><a href="#四脱敏为什么必须有这一步">四、脱敏（为什么必须有这一步）</a></li><li class="lv2"><a href="#五已知注意事项">五、已知注意事项</a></li><li class="lv2"><a href="#六相关">六、相关</a></li></ul></nav>
+    <div class="doc-body">
+<div class="callout"><div class="callout-b">
+<p>把本项目的 HTML 文档站发布到<strong>共享的 GitHub Pages 仓库</strong>，使其可在任意设备上直接打开。
+所有者将其命名为「<strong>文档发布流程</strong>」。</p>
+</div></div>
+<h2 id="一发布目标">一、发布目标</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>宿主仓库</td>
+<td><code>git@github.com:&lt;github-user&gt;/open-sesame.git</code>（公开，多项目共用）</td>
+</tr>
+<tr>
+<td>本项目子目录</td>
+<td><code>family-buddy/</code></td>
+</tr>
+<tr>
+<td>线上地址</td>
+<td><code>https://&lt;github-user&gt;.github.io/open-sesame/family-buddy/</code></td>
+</tr>
+<tr>
+<td>分支</td>
+<td><code>main</code></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>已实测</strong>（2026-10-01）：首页、<code>index.html</code>、<code>assets/docs.css</code>、<code>assets/docs.js</code>、内页 <code>req-03.html</code> 均返回 200，内容标记齐全。</p>
+<div class="callout"><div class="callout-b">
+<p>该仓库是<strong>多项目共用</strong>的：本项目只拥有 <code>family-buddy/</code> 一个子目录，不得改动仓库根目录的其它内容。</p>
+</div></div>
+<h2 id="二流程五步每次执行都是幂等的全量覆盖">二、流程（五步，每次执行都是幂等的全量覆盖）</h2>
+<div class="code"><pre><code>1. 重新构建文档站        docs/site/
+2. 脱敏                  把只对本地/私有环境有意义的字符串替换为占位符
+3. 全量覆盖写入          目标仓库的 family-buddy/ 子目录
+4. 提交                  一条 commit
+5. 推送                  origin/main
+</code></pre></div>
+<p><strong>覆盖语义</strong>：目标目录里不属于本次产出的文件会被删除，保证远端与本地构建结果严格一致，不会残留上次发布的历史页面。</p>
+<h2 id="三用法">三、用法</h2>
+<div class="code" data-lang="bash"><span class="code-lang">bash</span><pre><code>PY=&lt;WorkBuddy venv&gt;/bin/python
+
+# 正式发布（构建 → 脱敏 → 覆盖 → 提交 → 推送）
+$PY docs/tools/publish.py
+
+# 试运行：只构建 + 复制 + 报告，不碰 git
+$PY docs/tools/publish.py --dry-run
+
+# 提交但不推送（先本地看一眼）
+$PY docs/tools/publish.py --no-push
+</code></pre></div>
+<p>脚本位置：<code>docs/tools/publish.py</code>。目标仓库与脱敏规则都是脚本顶部的常量。</p>
+<h2 id="四脱敏为什么必须有这一步">四、脱敏（<strong>为什么必须有这一步</strong>）</h2>
+<p>宿主仓库是<strong>公开</strong>的，而本项目的 Markdown 源里记录了只在本地/私有环境才有意义的信息。
+<strong>Markdown 源始终保留真实信息</strong>（它是私有仓库里的事实记录），脱敏只作用于「要公开发布的那一份」。</p>
+<p>当前规则（按最长优先匹配）：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>命中目标</th>
+<th>替换为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>私有仓库 SSH 地址</td>
+<td><code>＜私有仓库地址＞</code></td>
+</tr>
+<tr>
+<td>私有仓库路径</td>
+<td><code>＜私有仓库＞</code></td>
+</tr>
+<tr>
+<td>本机工作区绝对路径</td>
+<td><code>＜项目根目录＞</code></td>
+</tr>
+<tr>
+<td>本机 venv 路径</td>
+<td><code>＜WorkBuddy venv＞</code></td>
+</tr>
+<tr>
+<td>本机用户目录</td>
+<td><code>＜用户主目录＞</code></td>
+</tr>
+<tr>
+<td>GitHub 用户名</td>
+<td><code>＜github-user＞</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>脚本每次都会打印<strong>每类规则的命中次数</strong>。若命中数出现计划外的类别，说明源文档里新增了泄漏点，应补充规则。</p>
+<div class="callout"><div class="callout-b">
+<p>发布副本不包含：邮箱、真实姓名、任何凭据。
+唯一保留的 <code>git@github.com</code> 出现在通用命令 <code>ssh -T git@github.com</code> 中，非个人信息。</p>
+</div></div>
+<h2 id="五已知注意事项">五、已知注意事项</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>事项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Pages 的 CDN 会缓存 404</strong></td>
+<td>首次发布后，之前探测过的路径可能仍然返回 404（实测约 30–60 秒）。用带查询参数的 URL（<code>?v=&lt;时间戳&gt;</code>）穿透缓存即可，不必反复重推</td>
+</tr>
+<tr>
+<td>2</td>
+<td>仓库启用了 Jekyll</td>
+<td>已确认站点内容不含 <code>{{</code> / <code>{%</code>，也没有下划线开头的文件，故 Jekyll 不会改写内容。若将来新增这类文件，需在仓库根加 <code>.nojekyll</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>目录 URL 依赖 <code>index.html</code></td>
+<td><code>.../family-buddy/</code> 能直接打开，是因为构建产物里有 <code>index.html</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>多项目共用同一仓库</td>
+<td>同一时刻的并发推送可能冲突；推送失败时先 <code>git pull --rebase</code> 再重试</td>
+</tr>
+<tr>
+<td>5</td>
+<td>发布不改变私有仓库</td>
+<td>本流程只写 <code>open-sesame</code>，不修改本项目仓库的任何文件</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="六相关">六、相关</h2>
+<ul>
+<li>站点构建：<a href="../tools/build_site.py"><code>build_site.py</code></a>（Markdown → HTML，确定性构建）</li>
+<li>站点说明与构建命令：<a href="docs-index.html"><code>docs/README.md</code></a> 第一节</li>
+</ul>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="meta-dev-environment.html"><span class="pg-k">← 上一篇</span><span class="pg-t">开发环境基线</span></a><a class="pg pg-next" href="decisions-index.html"><span class="pg-k">下一篇 →</span><span class="pg-t">决策记录索引</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/00-meta/publish-pipeline.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="assets/docs.js"></script>
+</body>
+</html>
