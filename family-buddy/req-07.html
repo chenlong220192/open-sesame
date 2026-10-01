@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>07 非功能需求 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · 07 非功能需求">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body data-slug="req-07">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一性能-nfr-perf">一、性能 NFR-PERF</a></li><li class="lv2"><a href="#二可用性-nfr-avail">二、可用性 NFR-AVAIL</a></li><li class="lv2"><a href="#三安全-nfr-sec硬性要求不可协商">三、安全 NFR-SEC（硬性要求，不可协商）</a></li><li class="lv2"><a href="#四合规-nfr-comp">四、合规 NFR-COMP</a></li><li class="lv2"><a href="#五可维护性-nfr-maint">五、可维护性 NFR-MAINT</a></li><li class="lv2"><a href="#六兼容性-nfr-compat">六、兼容性 NFR-COMPAT</a></li><li class="lv2"><a href="#七可观测性-nfr-obs">七、可观测性 NFR-OBS</a></li><li class="lv2"><a href="#八成本-nfr-cost">八、成本 NFR-COST</a></li><li class="lv2"><a href="#九国际化与本地化">九、国际化与本地化</a></li><li class="lv2"><a href="#十优先级汇总哪些是绝不能妥协的">十、优先级汇总（哪些是&quot;绝不能妥协&quot;的）</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="readme-project.html">项目说明</a></li><li><a href="docs-index.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="meta-glossary.html">术语表</a></li><li><a href="meta-roadmap.html">阶段路线图</a></li><li><a href="meta-dev-environment.html">开发环境基线</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="decisions-index.html">决策记录索引</a></li><li><a href="adr-0001.html">ADR-0001 单仓库多项目</a></li><li><a href="adr-0002.html">ADR-0002 第一天就多租户</a></li><li><a href="adr-0003.html">ADR-0003 公有云部署</a></li><li><a href="adr-0004.html">ADR-0004 后端技术栈</a></li><li><a href="adr-0005.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="req-index.html">需求分析索引</a></li><li><a href="req-01.html">01 愿景与范围</a></li><li><a href="req-02.html">02 干系人与角色</a></li><li><a href="req-03.html">03 信息域全景</a></li><li><a href="req-04.html">04 功能需求池</a></li><li><a href="req-05.html">05 身份·租户·权限</a></li><li><a href="req-06.html">06 大屏 Dashboard 需求</a></li><li><a href="req-07.html" class="active">07 非功能需求</a></li><li><a href="req-08.html">08 分期与范围</a></li><li><a href="req-09.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="design-index.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="arch-index.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="api-index.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="backend.html">backend 后端服务</a></li><li><a href="frontend.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="index.html" class="side-home">返回封面首页</a><p>26 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">01 · 需求分析</div>
+      <h1 class="doc-title">07 非功能需求 Non-Functional Requirements</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/01-requirements/07-non-functional-requirements.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一性能-nfr-perf">一、性能 NFR-PERF</a></li><li class="lv2"><a href="#二可用性-nfr-avail">二、可用性 NFR-AVAIL</a></li><li class="lv2"><a href="#三安全-nfr-sec硬性要求不可协商">三、安全 NFR-SEC（硬性要求，不可协商）</a></li><li class="lv2"><a href="#四合规-nfr-comp">四、合规 NFR-COMP</a></li><li class="lv2"><a href="#五可维护性-nfr-maint">五、可维护性 NFR-MAINT</a></li><li class="lv2"><a href="#六兼容性-nfr-compat">六、兼容性 NFR-COMPAT</a></li><li class="lv2"><a href="#七可观测性-nfr-obs">七、可观测性 NFR-OBS</a></li><li class="lv2"><a href="#八成本-nfr-cost">八、成本 NFR-COST</a></li><li class="lv2"><a href="#九国际化与本地化">九、国际化与本地化</a></li><li class="lv2"><a href="#十优先级汇总哪些是绝不能妥协的">十、优先级汇总（哪些是&quot;绝不能妥协&quot;的）</a></li></ul></nav>
+    <div class="doc-body">
+<div class="callout"><div class="callout-b">
+<p>编号：<code>NFR-{类别}-{序号}</code>。类别：<code>PERF</code> 性能 / <code>AVAIL</code> 可用性 / <code>SEC</code> 安全 / <code>COMP</code> 合规 / <code>MAINT</code> 可维护 / <code>COMPAT</code> 兼容 / <code>OBS</code> 可观测 / <code>COST</code> 成本。</p>
+<p><strong>说明</strong>：由于是单人开发 + 业余时间 + 早期个位数家庭，本文的性能与可用性指标刻意定得<strong>保守</strong> —— 目标是&quot;够用且不给自己挖坑&quot;，不是&quot;对标企业级&quot;。真正需要硬性满足的是<strong>安全</strong>与<strong>数据正确性</strong>。</p>
+</div></div>
+<h2 id="一性能-nfr-perf">一、性能 NFR-PERF</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>指标</th>
+<th>优先级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-PERF-01</td>
+<td>页面首屏</td>
+<td>管理端主要页面 ≤2s（家用宽带、缓存命中）</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>早期家庭少，不做极端优化</td>
+</tr>
+<tr>
+<td>NFR-PERF-02</td>
+<td>接口响应</td>
+<td>常规查询 P95 ≤500ms</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>数据量级假设见 A3（每年数百条/域）</td>
+</tr>
+<tr>
+<td>NFR-PERF-03</td>
+<td>大屏首屏</td>
+<td>大屏页面 ≤3s 出现可用内容</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>电视性能弱，需优先保证</td>
+</tr>
+<tr>
+<td>NFR-PERF-04</td>
+<td>大屏数据刷新</td>
+<td>单次刷新 ≤2s</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>超时需降级为展示缓存数据</td>
+</tr>
+<tr>
+<td>NFR-PERF-05</td>
+<td>大屏常驻</td>
+<td>连续 7 天不发生崩溃或明显卡顿</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td><strong>需实测验收</strong></td>
+</tr>
+<tr>
+<td>NFR-PERF-06</td>
+<td>并发规模</td>
+<td>支撑 ≥50 个家庭、≥500 账号的并发访问</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>早期远超需求，作为不主动破坏的上限</td>
+</tr>
+<tr>
+<td>NFR-PERF-07</td>
+<td>附件上传</td>
+<td>≤20MB 文件上传成功率 ≥99%</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>大文件需分片或断点续传则另议</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p><strong>不做的事</strong>：早期不做压测、不做缓存调优、不做 CDN。这些在真实出现性能问题前都是浪费。</p>
+</div></div>
+<h2 id="二可用性-nfr-avail">二、可用性 NFR-AVAIL</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>指标</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-AVAIL-01</td>
+<td>服务可用性</td>
+<td>目标 99%（允许每月约 7 小时不可用）</td>
+<td><code class="chip tag-p1">P1</code></td>
+</tr>
+<tr>
+<td>NFR-AVAIL-02</td>
+<td>数据不丢</td>
+<td><strong>任何情况下不得丢失已提交数据</strong></td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>NFR-AVAIL-03</td>
+<td>备份</td>
+<td>数据库每日自动备份，保留 ≥30 天</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>NFR-AVAIL-04</td>
+<td><strong>恢复演练</strong></td>
+<td>必须实际演练过至少一次完整恢复</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>NFR-AVAIL-05</td>
+<td>大屏容错</td>
+<td>后端不可用时不白屏，展示最后一次缓存数据并提示离线</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>NFR-AVAIL-06</td>
+<td>优雅降级</td>
+<td>外部依赖（天气等）不可用时仅对应卡片降级</td>
+<td><code class="chip tag-p0">P0</code></td>
+</tr>
+<tr>
+<td>NFR-AVAIL-07</td>
+<td>误删恢复</td>
+<td>删除数据可从回收站恢复 ≥30 天</td>
+<td><code class="chip tag-p1">P1</code></td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p>NFR-AVAIL-04 单独列出，因为&quot;有备份但没演练&quot;是典型的假安全。<strong>未演练的恢复方案等同于没有恢复方案。</strong></p>
+</div></div>
+<h2 id="三安全-nfr-sec硬性要求不可协商">三、安全 NFR-SEC（<strong>硬性要求，不可协商</strong>）</h2>
+<p>来源：ADR-0003（公有云部署）+ ADR-0002（多租户 SaaS）。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>判据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-SEC-01</td>
+<td>全站 HTTPS</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>禁止明文 HTTP 承载凭据；HSTS 开启</td>
+</tr>
+<tr>
+<td>NFR-SEC-02</td>
+<td>认证不自研</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>使用成熟框架实现，禁止手写加密/会话/令牌逻辑</td>
+</tr>
+<tr>
+<td>NFR-SEC-03</td>
+<td>密码存储</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>使用标准自适应哈希（如 bcrypt/argon2），加盐；禁止明文/MD5/SHA1</td>
+</tr>
+<tr>
+<td>NFR-SEC-04</td>
+<td>授权后端校验</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>前端隐藏不等于后端拒绝；每个接口独立校验权限</td>
+</tr>
+<tr>
+<td>NFR-SEC-05</td>
+<td>租户隔离</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>见 <code>05-identity-and-tenancy.md</code> T1–T6</td>
+</tr>
+<tr>
+<td>NFR-SEC-06</td>
+<td>中间件不暴露</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>数据库/缓存/消息不得监听公网；仅反向代理 443 对外</td>
+</tr>
+<tr>
+<td>NFR-SEC-07</td>
+<td>限流</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>登录/注册/验证码/找回密码接口必须限流与失败锁定</td>
+</tr>
+<tr>
+<td>NFR-SEC-08</td>
+<td>敏感字段加密</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>证件号、卡号等字段级加密，密钥与数据分离</td>
+</tr>
+<tr>
+<td>NFR-SEC-09</td>
+<td>审计日志</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>登录、权限变更、敏感数据访问与导出必须留痕</td>
+</tr>
+<tr>
+<td>NFR-SEC-10</td>
+<td>注入与 XSS 防护</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>参数化查询；输出转义；附件类型与内容校验</td>
+</tr>
+<tr>
+<td>NFR-SEC-11</td>
+<td>附件访问控制</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>附件不可通过猜测直链访问，必须鉴权</td>
+</tr>
+<tr>
+<td>NFR-SEC-12</td>
+<td>依赖漏洞</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>定期检查依赖漏洞（可自动化）</td>
+</tr>
+<tr>
+<td>NFR-SEC-13</td>
+<td>密钥管理</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>密钥不得提交仓库；<code>.gitignore</code> 已覆盖，需落实到部署</td>
+</tr>
+<tr>
+<td>NFR-SEC-14</td>
+<td>越权测试</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>必须有自动化跨租户越权测试用例</td>
+</tr>
+<tr>
+<td>NFR-SEC-15</td>
+<td>管理端防护</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>平台运营后台建议限制访问来源或强制 2FA</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="四合规-nfr-comp">四、合规 NFR-COMP</h2>
+<p>见 <a href="req-05.html"><code>05-identity-and-tenancy.md</code> 第六节</a>。核心条目：告知同意、最小必要、未成年人保护、查阅更正、数据可携带、删除权与注销、敏感字段加密、访问审计。</p>
+<div class="callout"><div class="callout-b">
+<p><strong>诚实声明</strong>：需求清单 ≠ 合规结论。对外提供服务前需专门评审。</p>
+</div></div>
+<h2 id="五可维护性-nfr-maint">五、可维护性 NFR-MAINT</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-MAINT-01</td>
+<td>单人可维护</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>架构复杂度必须控制在单人业余可维护范围内；<strong>拒绝过度设计</strong></td>
+</tr>
+<tr>
+<td>NFR-MAINT-02</td>
+<td>一键本地启动</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>新环境从 0 到跑起来 ≤30 分钟，有文档</td>
+</tr>
+<tr>
+<td>NFR-MAINT-03</td>
+<td>前后端独立构建</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>各自可单独构建与部署（ADR-0001）</td>
+</tr>
+<tr>
+<td>NFR-MAINT-04</td>
+<td>数据库变更可追溯</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>使用版本化迁移工具，禁止手工改生产表</td>
+</tr>
+<tr>
+<td>NFR-MAINT-05</td>
+<td>新增信息域成本可控</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>新增一个域的增量成本应主要为&quot;配置 + 简单 CRUD&quot;，不需改核心</td>
+</tr>
+<tr>
+<td>NFR-MAINT-06</td>
+<td>代码规范自动化</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>后端/前端各有格式化与静态检查，可一键执行</td>
+</tr>
+<tr>
+<td>NFR-MAINT-07</td>
+<td>自动化测试</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>关键路径（认证、权限、租户隔离、记账）必须有测试；不追求覆盖率数字</td>
+</tr>
+<tr>
+<td>NFR-MAINT-08</td>
+<td>文档与代码同步</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>需求编号（FR）需能追溯到实现</td>
+</tr>
+<tr>
+<td>NFR-MAINT-09</td>
+<td>版本锁定</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>依赖版本显式锁定；JDK 版本显式锁定（见 ADR-0004）</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="六兼容性-nfr-compat">六、兼容性 NFR-COMPAT</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-COMPAT-01</td>
+<td>管理端浏览器</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>Chrome / Edge / Safari 近两年版本；<strong>移动端浏览器必须可用</strong>（家人主要用手机）</td>
+</tr>
+<tr>
+<td>NFR-COMPAT-02</td>
+<td>移动端适配</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>管理端为响应式，手机端可用（不是 App，是 Web）</td>
+</tr>
+<tr>
+<td>NFR-COMPAT-03</td>
+<td><strong>大屏浏览器</strong></td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>以<strong>实测的目标电视内核</strong>为准；若内核过旧需构建期降级 —— <strong>实测前不得假定可运行</strong></td>
+</tr>
+<tr>
+<td>NFR-COMPAT-04</td>
+<td>分辨率</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>大屏 1920×1080 为主，兼容 4K；管理端 ≥360px 宽</td>
+</tr>
+<tr>
+<td>NFR-COMPAT-05</td>
+<td>网络</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>弱网（4G）下基本可用；大屏断网可降级展示</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="七可观测性-nfr-obs">七、可观测性 NFR-OBS</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-OBS-01</td>
+<td>结构化日志</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>能按请求追踪；日志不记录敏感明文</td>
+</tr>
+<tr>
+<td>NFR-OBS-02</td>
+<td>错误可定位</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>线上报错能拿到足够上下文定位（单人运维的生命线）</td>
+</tr>
+<tr>
+<td>NFR-OBS-03</td>
+<td>健康检查</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>提供健康检查端点供反向代理/监控使用</td>
+</tr>
+<tr>
+<td>NFR-OBS-04</td>
+<td>告警</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>服务不可用、备份失败、磁盘将满时能通知到你</td>
+</tr>
+<tr>
+<td>NFR-OBS-05</td>
+<td>大屏设备状态</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>能看到各设备最后心跳时间</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="八成本-nfr-cost">八、成本 NFR-COST</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-COST-01</td>
+<td>月度成本上限</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td><strong>待你设定金额上限</strong>（见 Q-014）；早期应尽可能低</td>
+</tr>
+<tr>
+<td>NFR-COST-02</td>
+<td>存储成本可控</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>相册/附件需有配额与生命周期策略，避免无限增长</td>
+</tr>
+<tr>
+<td>NFR-COST-03</td>
+<td>可降级</td>
+<td><code class="chip tag-p2">P2</code></td>
+<td>免费额度耗尽或涨价时有降级预案</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="九国际化与本地化">九、国际化与本地化</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-I18N-01</td>
+<td>中文为主</td>
+<td>P0（界面全中文）</td>
+</tr>
+<tr>
+<td>NFR-I18N-02</td>
+<td>农历支持</td>
+<td>P0（D07 生日与纪念日依赖）</td>
+</tr>
+<tr>
+<td>NFR-I18N-03</td>
+<td>多时区</td>
+<td><code class="chip tag-p2">P2</code></td>
+</tr>
+<tr>
+<td>NFR-I18N-04</td>
+<td>多语言</td>
+<td><code class="chip tag-p2">P2</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="十优先级汇总哪些是绝不能妥协的">十、优先级汇总（哪些是&quot;绝不能妥协&quot;的）</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>是否可妥协</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>安全（NFR-SEC-01~14）</strong></td>
+<td>❌ 不可妥协（因公有云 + 敏感数据）</td>
+</tr>
+<tr>
+<td><strong>数据正确性与不丢失</strong></td>
+<td>❌ 不可妥协</td>
+</tr>
+<tr>
+<td><strong>合规最低要求</strong></td>
+<td>❌ 不可妥协</td>
+</tr>
+<tr>
+<td><strong>大屏长时稳定性</strong></td>
+<td>⚠️ 可降级（可通过定时刷新规避，但需实测确认）</td>
+</tr>
+<tr>
+<td>性能指标</td>
+<td>✅ 可妥协（早期用户少）</td>
+</tr>
+<tr>
+<td>可用性 99%</td>
+<td>✅ 可妥协（个人项目，短暂不可用可接受）</td>
+</tr>
+<tr>
+<td>兼容性范围</td>
+<td>✅ 可妥协（限定浏览器与设备）</td>
+</tr>
+<tr>
+<td>成本</td>
+<td>⚠️ 需你设上限</td>
+</tr>
+</tbody>
+</table></div>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="req-06.html"><span class="pg-k">← 上一篇</span><span class="pg-t">06 大屏 Dashboard 需求</span></a><a class="pg pg-next" href="req-08.html"><span class="pg-k">下一篇 →</span><span class="pg-t">08 分期与范围</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/01-requirements/07-non-functional-requirements.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="assets/docs.js"></script>
+</body>
+</html>

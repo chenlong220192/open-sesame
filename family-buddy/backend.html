@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>backend 后端服务 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · backend 后端服务">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body data-slug="backend">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#职责">职责</a></li><li class="lv2"><a href="#技术基线">技术基线</a></li><li class="lv2"><a href="#初始化前置条件">初始化前置条件</a></li><li class="lv2"><a href="#计划产出架构阶段后填充">计划产出（架构阶段后填充）</a></li><li class="lv2"><a href="#硬性约束来自-adr-0002-adr-0003">硬性约束（来自 ADR-0002 / ADR-0003）</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="readme-project.html">项目说明</a></li><li><a href="docs-index.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="meta-glossary.html">术语表</a></li><li><a href="meta-roadmap.html">阶段路线图</a></li><li><a href="meta-dev-environment.html">开发环境基线</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="decisions-index.html">决策记录索引</a></li><li><a href="adr-0001.html">ADR-0001 单仓库多项目</a></li><li><a href="adr-0002.html">ADR-0002 第一天就多租户</a></li><li><a href="adr-0003.html">ADR-0003 公有云部署</a></li><li><a href="adr-0004.html">ADR-0004 后端技术栈</a></li><li><a href="adr-0005.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp"><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="req-index.html">需求分析索引</a></li><li><a href="req-01.html">01 愿景与范围</a></li><li><a href="req-02.html">02 干系人与角色</a></li><li><a href="req-03.html">03 信息域全景</a></li><li><a href="req-04.html">04 功能需求池</a></li><li><a href="req-05.html">05 身份·租户·权限</a></li><li><a href="req-06.html">06 大屏 Dashboard 需求</a></li><li><a href="req-07.html">07 非功能需求</a></li><li><a href="req-08.html">08 分期与范围</a></li><li><a href="req-09.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="design-index.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="arch-index.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="api-index.html">接口契约</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="backend.html" class="active">backend 后端服务</a></li><li><a href="frontend.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="index.html" class="side-home">返回封面首页</a><p>26 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">工程</div>
+      <h1 class="doc-title">backend —— 后端服务</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>backend/README.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#职责">职责</a></li><li class="lv2"><a href="#技术基线">技术基线</a></li><li class="lv2"><a href="#初始化前置条件">初始化前置条件</a></li><li class="lv2"><a href="#计划产出架构阶段后填充">计划产出（架构阶段后填充）</a></li><li class="lv2"><a href="#硬性约束来自-adr-0002-adr-0003">硬性约束（来自 ADR-0002 / ADR-0003）</a></li></ul></nav>
+    <div class="doc-body">
+<div class="callout"><div class="callout-b">
+<p>状态：<strong>占位</strong>。工程<strong>尚未初始化</strong>，本目录暂无代码。</p>
+</div></div>
+<h2 id="职责">职责</h2>
+<p>唯一的数据持有者与业务逻辑实现者。对外提供 HTTP JSON 接口，供管理端 Web 与大屏调用。</p>
+<h2 id="技术基线">技术基线</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>选型</th>
+<th>依据</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JDK</td>
+<td><strong>Java 25（LTS）</strong>，显式锁定</td>
+<td><a href="adr-0004.html">ADR-0004</a></td>
+</tr>
+<tr>
+<td>框架</td>
+<td><strong>Spring Boot 4.1.x</strong></td>
+<td>同上</td>
+</tr>
+<tr>
+<td>构建</td>
+<td>Maven</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>数据库 / 持久层 / 缓存 / 鉴权实现</td>
+<td><strong>未定</strong></td>
+<td>架构阶段决策</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="初始化前置条件">初始化前置条件</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>事项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>安装 JDK 25</td>
+<td>本机当前只有 JDK 27，<strong>Java 25 未安装</strong>（实测）</td>
+</tr>
+<tr>
+<td>2</td>
+<td>设置 <code>JAVA_HOME</code></td>
+<td>当前为空；否则 Maven 会挑到 JDK 27，产生版本漂移</td>
+</tr>
+<tr>
+<td>3</td>
+<td>功能设计与架构设计定稿</td>
+<td>见 <code>docs/02-functional-design/</code>、<code>docs/03-architecture/</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>详见 <a href="meta-dev-environment.html"><code>docs/00-meta/dev-environment.md</code></a>。</p>
+<h2 id="计划产出架构阶段后填充">计划产出（架构阶段后填充）</h2>
+<div class="code"><pre><code>backend/
+├── pom.xml
+├── src/main/java/...        # 分层：接口层 / 应用层 / 领域层 / 基础设施层（具体分层待架构定）
+├── src/main/resources/
+│   ├── application.yml
+│   └── db/migration/        # 版本化数据库迁移脚本
+└── src/test/java/...        # 必须包含跨租户越权测试
+</code></pre></div>
+<h2 id="硬性约束来自-adr-0002-adr-0003">硬性约束（来自 ADR-0002 / ADR-0003）</h2>
+<ol>
+<li>所有业务数据必须有租户归属，所有查询必须携带租户上下文。</li>
+<li>授权必须后端独立校验，不得依赖前端隐藏。</li>
+<li>认证与加密不得自研。</li>
+<li>必须存在自动化跨租户越权测试。</li>
+<li>密钥不得提交仓库。</li>
+</ol>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="api-index.html"><span class="pg-k">← 上一篇</span><span class="pg-t">接口契约</span></a><a class="pg pg-next" href="frontend.html"><span class="pg-k">下一篇 →</span><span class="pg-t">frontend 前端</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>backend/README.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>术语表 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · 术语表">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body data-slug="meta-glossary">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一平台与租户">一、平台与租户</a></li><li class="lv2"><a href="#二账号与权限">二、账号与权限</a></li><li class="lv2"><a href="#三信息域">三、信息域</a></li><li class="lv2"><a href="#四大屏">四、大屏</a></li><li class="lv2"><a href="#五工程">五、工程</a></li><li class="lv2"><a href="#六待补充">六、待补充</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="readme-project.html">项目说明</a></li><li><a href="docs-index.html">文档总索引</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="meta-glossary.html" class="active">术语表</a></li><li><a href="meta-roadmap.html">阶段路线图</a></li><li><a href="meta-dev-environment.html">开发环境基线</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="decisions-index.html">决策记录索引</a></li><li><a href="adr-0001.html">ADR-0001 单仓库多项目</a></li><li><a href="adr-0002.html">ADR-0002 第一天就多租户</a></li><li><a href="adr-0003.html">ADR-0003 公有云部署</a></li><li><a href="adr-0004.html">ADR-0004 后端技术栈</a></li><li><a href="adr-0005.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp"><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="req-index.html">需求分析索引</a></li><li><a href="req-01.html">01 愿景与范围</a></li><li><a href="req-02.html">02 干系人与角色</a></li><li><a href="req-03.html">03 信息域全景</a></li><li><a href="req-04.html">04 功能需求池</a></li><li><a href="req-05.html">05 身份·租户·权限</a></li><li><a href="req-06.html">06 大屏 Dashboard 需求</a></li><li><a href="req-07.html">07 非功能需求</a></li><li><a href="req-08.html">08 分期与范围</a></li><li><a href="req-09.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="design-index.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="arch-index.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="api-index.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="backend.html">backend 后端服务</a></li><li><a href="frontend.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="index.html" class="side-home">返回封面首页</a><p>26 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">00 · 元信息</div>
+      <h1 class="doc-title">术语表 Glossary</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/00-meta/glossary.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一平台与租户">一、平台与租户</a></li><li class="lv2"><a href="#二账号与权限">二、账号与权限</a></li><li class="lv2"><a href="#三信息域">三、信息域</a></li><li class="lv2"><a href="#四大屏">四、大屏</a></li><li class="lv2"><a href="#五工程">五、工程</a></li><li class="lv2"><a href="#六待补充">六、待补充</a></li></ul></nav>
+    <div class="doc-body">
+<div class="callout"><div class="callout-b">
+<p>全项目口径唯一来源。任何文档中出现的下列术语，含义以本表为准。
+新增术语必须回写本表，避免同名不同义。</p>
+</div></div>
+<h2 id="一平台与租户">一、平台与租户</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>平台</td>
+<td>Platform</td>
+<td>family-buddy 系统本身，由运营方（我们）运维，承载所有家庭</td>
+</tr>
+<tr>
+<td>租户</td>
+<td>Tenant</td>
+<td>一个<strong>家庭</strong>即一个租户。租户是数据隔离的最小单位</td>
+</tr>
+<tr>
+<td>家庭</td>
+<td>Household / Family</td>
+<td>用户视角的名词，等价于租户。文档中两者同义</td>
+</tr>
+<tr>
+<td>家庭空间</td>
+<td>Family Space</td>
+<td>一个家庭的全部数据集合的统称</td>
+</tr>
+<tr>
+<td>家庭管理员</td>
+<td>Household Admin</td>
+<td>租户内的最高权限角色，可管理成员、角色与家庭级配置</td>
+</tr>
+<tr>
+<td>成员</td>
+<td>Member</td>
+<td>隶属于某个家庭的账号持有者或被管理对象</td>
+</tr>
+<tr>
+<td>成员档案</td>
+<td>Member Profile</td>
+<td>成员的结构化信息集合（基础信息 + 各域扩展信息）</td>
+</tr>
+<tr>
+<td>非登录成员</td>
+<td>Non-login Member</td>
+<td>无账号的成员（如幼儿、不便操作的老人），仅作为被管理对象存在</td>
+</tr>
+<tr>
+<td>平台运营</td>
+<td>Platform Operator</td>
+<td>平台的运维/客服角色，<strong>默认不可读租户业务数据</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="二账号与权限">二、账号与权限</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>账号</td>
+<td>Account</td>
+<td>一个可登录的身份。账号与成员的关系：一个账号在同一家庭内对应一个成员</td>
+</tr>
+<tr>
+<td>角色</td>
+<td>Role</td>
+<td>家庭内的一组权限点的集合。允许家庭管理员自定义，内置三类模板</td>
+</tr>
+<tr>
+<td>权限点</td>
+<td>Permission</td>
+<td>最小授权单位，形如 <code>health:record:read</code></td>
+</tr>
+<tr>
+<td>数据可见性</td>
+<td>Visibility</td>
+<td>成员间隐私控制：某成员在某信息域的数据对谁可见</td>
+</tr>
+<tr>
+<td>大屏设备</td>
+<td>Dashboard Device</td>
+<td>电视端等常驻展示设备，通过设备授权而非账号密码接入</td>
+</tr>
+<tr>
+<td>设备配对码</td>
+<td>Pairing Code</td>
+<td>大屏首次接入时的一次性授权码</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="三信息域">三、信息域</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>信息域</td>
+<td>Information Domain</td>
+<td>家庭信息的顶层分类，本项目管理 15 个域（D01~D15）</td>
+</tr>
+<tr>
+<td>子域</td>
+<td>Sub-domain</td>
+<td>信息域下的二级分类，可理解为&quot;一张表 / 一个功能集合&quot;</td>
+</tr>
+<tr>
+<td>指标</td>
+<td>Metric</td>
+<td>带单位与参考区间的可量化记录项（如血压、身高）</td>
+</tr>
+<tr>
+<td>指标序列</td>
+<td>Metric Series</td>
+<td>同一指标在时间轴上的连续记录，用于趋势展示</td>
+</tr>
+<tr>
+<td>档案</td>
+<td>Record / Archive</td>
+<td>结构化的历史记录（如就诊记录、体检记录）</td>
+</tr>
+<tr>
+<td>单据</td>
+<td>Document / Receipt</td>
+<td>以文件形态存在的凭证（发票、扫描件、报告 PDF）</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="四大屏">四、大屏</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>大屏</td>
+<td>Dashboard / 家庭看板</td>
+<td>在电视等大屏幕上常驻展示的定制化信息面板</td>
+</tr>
+<tr>
+<td>卡片</td>
+<td>Card / Widget</td>
+<td>大屏上的独立信息单元，可增删、拖拽、缩放</td>
+</tr>
+<tr>
+<td>布局</td>
+<td>Layout</td>
+<td>一组卡片的排布方案。一个家庭可保存多套布局</td>
+</tr>
+<tr>
+<td>场景</td>
+<td>Scene</td>
+<td>布局 + 主题 + 数据范围的组合，如&quot;日常/节日/来客&quot;</td>
+</tr>
+<tr>
+<td>免登录展示</td>
+<td>Kiosk View</td>
+<td>大屏默认以只读、脱敏方式展示，不暴露敏感数据</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="五工程">五、工程</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>英文</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单仓库多项目</td>
+<td>Monorepo</td>
+<td>一个 Git 仓库内含多个可独立构建的子项目</td>
+</tr>
+<tr>
+<td>需求池</td>
+<td>Backlog</td>
+<td>未分配版本的全部需求条目集合</td>
+</tr>
+<tr>
+<td>准出条件</td>
+<td>Exit Criteria</td>
+<td>某阶段可宣告完成的硬性检查项</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="六待补充">六、待补充</h2>
+<p>以下术语在后续阶段出现时需补入本表：</p>
+<ul>
+<li>数据库、缓存、消息、对象存储等基础设施名词（架构阶段）</li>
+<li>通知渠道与模板相关名词（功能设计阶段）</li>
+<li>计费/套餐相关名词（若确认为商业化 SaaS，需新增&quot;商业化&quot;小节）</li>
+</ul>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="docs-index.html"><span class="pg-k">← 上一篇</span><span class="pg-t">文档总索引</span></a><a class="pg pg-next" href="meta-roadmap.html"><span class="pg-k">下一篇 →</span><span class="pg-t">阶段路线图</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/00-meta/glossary.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="assets/docs.js"></script>
+</body>
+</html>

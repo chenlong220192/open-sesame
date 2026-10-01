@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 身份·租户·权限 | family-buddy 项目文档</title>
+<meta name="description" content="family-buddy 家庭伙伴 · 项目文档 · 05 身份·租户·权限">
+<meta name="theme-color" content="#14324F">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314324F'/%3E%3Cpath d='M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/docs.css">
+</head>
+<body data-slug="req-05">
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <button class="btn btn-icon" id="navToggle" type="button" title="折叠 / 展开目录" aria-label="折叠或展开目录">
+    <span class="burger"><i></i><i></i><i></i></span>
+  </button>
+  <a class="brand" href="index.html">
+    <svg class="mark-svg" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="7" fill="#14324F"/><path d="M9 21.5V10.5h4.2l2.8 5 2.8-5H23v11h-2.6v-6.4L17.6 21h-1.2l-2.8-5.7v6.2z" fill="#fff"/><circle cx="23.5" cy="9" r="2.4" fill="#0F7A83"/></svg>
+    <span class="brand-t">family-buddy</span>
+    <span class="brand-s">家庭伙伴 · 项目文档</span>
+  </a>
+  <div class="spacer"></div>
+  <div class="tools">
+    <label class="search" for="q">
+      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="4.4"/><path d="m10.6 10.6 2.7 2.7"/></svg>
+      <input id="q" type="search" placeholder="本页查找…" autocomplete="off" spellcheck="false">
+      <kbd>⌘K</kbd>
+    </label>
+    <span class="qcount" id="qcount"></span>
+    <button class="btn btn-primary" id="printBtn" type="button" title="打印 / 导出 PDF">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6V1.8h7V6"/><path d="M2.4 6h11.2v5.2H11v3H5v-3H2.4z"/><path d="M5 11.2h6"/></svg> 打印
+    </button>
+  </div>
+</header>
+<nav class="sidebar" id="sidebar" aria-label="文档导航"><div class="side-inner"><section class="side-sec"><div class="side-h">本页目录<span>On this page</span></div><ul class="toc-page"><li class="lv2"><a href="#一三层身份模型">一、三层身份模型</a></li><li class="lv2"><a href="#二多租户需求">二、多租户需求</a></li><li class="lv3"><a href="#租户隔离的硬性要求不可协商">租户隔离的硬性要求（不可协商）</a></li><li class="lv2"><a href="#三账号与认证">三、账号与认证</a></li><li class="lv2"><a href="#四角色与权限模型">四、角色与权限模型</a></li><li class="lv3"><a href="#41-权限模型的要求">4.1 权限模型的要求</a></li><li class="lv3"><a href="#42-三个维度的组合授权模型核心">4.2 三个维度的组合（授权模型核心）</a></li><li class="lv2"><a href="#五大屏设备的身份">五、大屏设备的身份</a></li><li class="lv2"><a href="#六数据合规pipl-相关">六、数据合规（PIPL 相关）</a></li><li class="lv2"><a href="#七待确认">七、待确认</a></li></ul></section><div class="side-div"></div><section class="side-sec"><div class="side-h">文档导航<span>All documents</span></div><div class="site-nav"><details class="grp"><summary><span class="grp-k">项目概览</span><span class="grp-n">Overview</span></summary><ul class="grp-list"><li><a href="readme-project.html">项目说明</a></li><li><a href="docs-index.html">文档总索引</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 元信息</span><span class="grp-n">Meta</span></summary><ul class="grp-list"><li><a href="meta-glossary.html">术语表</a></li><li><a href="meta-roadmap.html">阶段路线图</a></li><li><a href="meta-dev-environment.html">开发环境基线</a></li></ul></details><details class="grp"><summary><span class="grp-k">00 · 决策记录</span><span class="grp-n">ADR</span></summary><ul class="grp-list"><li><a href="decisions-index.html">决策记录索引</a></li><li><a href="adr-0001.html">ADR-0001 单仓库多项目</a></li><li><a href="adr-0002.html">ADR-0002 第一天就多租户</a></li><li><a href="adr-0003.html">ADR-0003 公有云部署</a></li><li><a href="adr-0004.html">ADR-0004 后端技术栈</a></li><li><a href="adr-0005.html">ADR-0005 前端技术栈</a></li></ul></details><details class="grp on" open><summary><span class="grp-k">01 · 需求分析</span><span class="grp-n">Requirements</span></summary><ul class="grp-list"><li><a href="req-index.html">需求分析索引</a></li><li><a href="req-01.html">01 愿景与范围</a></li><li><a href="req-02.html">02 干系人与角色</a></li><li><a href="req-03.html">03 信息域全景</a></li><li><a href="req-04.html">04 功能需求池</a></li><li><a href="req-05.html" class="active">05 身份·租户·权限</a></li><li><a href="req-06.html">06 大屏 Dashboard 需求</a></li><li><a href="req-07.html">07 非功能需求</a></li><li><a href="req-08.html">08 分期与范围</a></li><li><a href="req-09.html">09 待确认问题</a></li></ul></details><details class="grp"><summary><span class="grp-k">02 · 功能设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="design-index.html">功能设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">03 · 架构设计</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="arch-index.html">架构设计</a></li></ul></details><details class="grp"><summary><span class="grp-k">04 · 接口契约</span><span class="grp-n">未启动</span></summary><ul class="grp-list"><li><a href="api-index.html">接口契约</a></li></ul></details><details class="grp"><summary><span class="grp-k">工程</span><span class="grp-n">Code</span></summary><ul class="grp-list"><li><a href="backend.html">backend 后端服务</a></li><li><a href="frontend.html">frontend 前端</a></li></ul></details></div></section><div class="side-div"></div><div class="side-foot"><a href="index.html" class="side-home">返回封面首页</a><p>26 篇文档 · family-buddy</p></div></div></nav>
+<main class="main">
+  <article class="page">
+    <header class="doc-head">
+      <div class="doc-kicker">01 · 需求分析</div>
+      <h1 class="doc-title">05 身份、租户与权限 Identity, Tenancy &amp; Access Control</h1>
+      <div class="doc-meta">
+        <span class="dm"><b>源文件</b>docs/01-requirements/05-identity-and-tenancy.md</span>
+        <span class="dm"><b>项目</b>family-buddy</span>
+        <span class="dm"><b>阶段</b>调研 · 需求分析</span>
+      </div>
+    </header>
+    <nav class="doc-toc" aria-label="本页目录"><div class="doc-toc-h">本页目录</div><ul><li class="lv2"><a href="#一三层身份模型">一、三层身份模型</a></li><li class="lv2"><a href="#二多租户需求">二、多租户需求</a></li><li class="lv3"><a href="#租户隔离的硬性要求不可协商">租户隔离的硬性要求（不可协商）</a></li><li class="lv2"><a href="#三账号与认证">三、账号与认证</a></li><li class="lv2"><a href="#四角色与权限模型">四、角色与权限模型</a></li><li class="lv3"><a href="#41-权限模型的要求">4.1 权限模型的要求</a></li><li class="lv3"><a href="#42-三个维度的组合授权模型核心">4.2 三个维度的组合（授权模型核心）</a></li><li class="lv2"><a href="#五大屏设备的身份">五、大屏设备的身份</a></li><li class="lv2"><a href="#六数据合规pipl-相关">六、数据合规（PIPL 相关）</a></li><li class="lv2"><a href="#七待确认">七、待确认</a></li></ul></nav>
+    <div class="doc-body">
+<div class="callout"><div class="callout-b">
+<p>你明确要求&quot;SaaS 形态、可给很多家庭使用、家庭管理员能灵活定制家庭成员&quot;。本文把这句话拆成可实施的需求。</p>
+<p>这是<strong>全项目风险最高的模块</strong>：做错不是功能不好用，而是<strong>数据泄露</strong>。</p>
+</div></div>
+<h2 id="一三层身份模型">一、三层身份模型</h2>
+<div class="code"><pre><code>平台 Platform
+  └── 租户 / 家庭 Household（数据隔离边界）
+        ├── 成员 Member（家庭内的身份，可无账号）
+        │     └── 账号 Account（可登录的凭据，0..1）
+        └── 角色 Role（权限点集合，可自定义）
+</code></pre></div>
+<p><strong>关键设计约束（P0）</strong></p>
+<ol>
+<li><strong>成员 ≠ 账号</strong>。幼儿、部分长辈是&quot;成员&quot;但没有&quot;账号&quot;。所有业务数据挂在<strong>成员</strong>上，不挂在账号上。</li>
+<li><strong>一个账号在一个家庭内最多对应一个成员</strong>。</li>
+<li><strong>租户是强制边界</strong>：所有业务数据都必须有租户归属，无例外。</li>
+</ol>
+<h2 id="二多租户需求">二、多租户需求</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D15-01</td>
+<td>家庭注册与创建</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>注册即创建家庭，创建者为家庭管理员；家庭有不可变唯一 ID</td>
+</tr>
+<tr>
+<td>FR-D15-08</td>
+<td><strong>租户数据隔离</strong></td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>见下文第三节，为硬性要求</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>邀请成员</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>邀请码/链接含有效期与使用次数限制；接受后方可入家庭</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>家庭成员上限</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>可配置上限（防止滥用）；默认值待定（Q-003）</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>家庭状态机</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>试用 / 正常 / 停用 / 注销中 / 已注销；状态变更需留痕</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>家庭设置</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>家庭名称、地区、时区、币种、单位制、语言</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>多家庭归属</td>
+<td><strong>待定</strong></td>
+<td>是否允许一个账号属于多个家庭 → Q-006</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="租户隔离的硬性要求不可协商">租户隔离的硬性要求（不可协商）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>要求</th>
+<th>验收方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>任何业务查询都必须携带租户上下文</td>
+<td>代码审查 + 必须有统一的机制，<strong>不依赖开发者自觉</strong></td>
+</tr>
+<tr>
+<td>T2</td>
+<td>未携带租户上下文的查询必须<strong>默认拒绝</strong>，而非返回全部</td>
+<td>单元测试覆盖</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>必须存在跨租户越权测试</td>
+<td>用家庭 A 的凭据请求家庭 B 的资源，断言 404/403</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>租户上下文不得来自客户端可篡改的参数</td>
+<td>只允许由服务端从会话/令牌解析</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>附件下载同样受租户校验</td>
+<td>直链不可绕过鉴权</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>日志与导出不得跨租户泄漏</td>
+<td>导出接口必须校验租户归属</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="三账号与认证">三、账号与认证</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D15-02</td>
+<td>注册</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>手机号或邮箱注册；需验证码/邮件验证（具体方式 Q-002）</td>
+</tr>
+<tr>
+<td>FR-D15-02</td>
+<td>登录 / 登出</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>登录失败需限流与锁定；登出需使会话失效</td>
+</tr>
+<tr>
+<td>FR-D15-03</td>
+<td>密码策略</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>最小长度与复杂度；禁止弱密码；<strong>使用标准哈希算法，禁止自研</strong></td>
+</tr>
+<tr>
+<td>FR-D15-03</td>
+<td>密码找回</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>通过验证渠道重置；重置链接一次性且有有效期</td>
+</tr>
+<tr>
+<td>FR-D15-04</td>
+<td>二次验证（2FA）</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>支持 TOTP；管理员账号<strong>建议强制</strong></td>
+</tr>
+<tr>
+<td>FR-D15-05</td>
+<td>第三方登录</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>微信/其他；需处理与已有账号的绑定</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>会话管理</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>可查看已登录设备并远程下线</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>登录安全</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>连续失败锁定、异地登录提醒、异常登录审计</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p><strong>硬约束</strong>：认证与加密不得自研。使用 Spring Security 体系内的成熟实现。<strong>这条写进需求是为了防止未来的你图省事手写。</strong></p>
+</div></div>
+<h2 id="四角色与权限模型">四、角色与权限模型</h2>
+<h3 id="41-权限模型的要求">4.1 权限模型的要求</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D15-06</td>
+<td>内置角色模板</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>提供 4 类模板：家庭管理员 / 普通成员 / 受限成员 / 只读访客（定义见 02 文档）</td>
+</tr>
+<tr>
+<td>FR-D15-06</td>
+<td>自定义角色</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>家庭管理员可基于模板调整权限点，或新建角色</td>
+</tr>
+<tr>
+<td>FR-D15-06</td>
+<td>权限点粒度</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>粒度至少到&quot;域 × 操作&quot;（如 <code>health:record:write</code>）</td>
+</tr>
+<tr>
+<td>FR-D15-07</td>
+<td><strong>数据范围控制</strong></td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>每个权限点可限定数据范围：仅本人 / 指定成员 / 全家</td>
+</tr>
+<tr>
+<td>FR-D15-07</td>
+<td><strong>成员间可见性</strong></td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>可按&quot;信息域 × 成员&quot;设置可见性；含全隐藏与部分字段隐藏</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>权限变更生效</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>权限变更后旧会话不得继续持有旧权限</td>
+</tr>
+<tr>
+<td>FR-D15-XX</td>
+<td>越权防护</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>前端隐藏菜单不等于后端拒绝；<strong>后端必须独立校验</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="42-三个维度的组合授权模型核心">4.2 三个维度的组合（授权模型核心）</h3>
+<div class="code"><pre><code>最终是否允许 = 功能权限(功能点) AND 数据范围(能操作谁的数据) AND 可见性(能看到谁的数据)
+</code></pre></div>
+<p><strong>必须覆盖的真实场景（写成验收用例）</strong></p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>期望行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>成年子女不希望父母看到自己的体检异常</td>
+<td>父母侧该成员的体检记录不可见，而非仅入口隐藏</td>
+</tr>
+<tr>
+<td>配偶看不到某笔支出</td>
+<td>该账户/该笔记录对配偶完全不可见，且统计中不出现该笔金额</td>
+</tr>
+<tr>
+<td>孩子不能看到家庭财务</td>
+<td>受限成员角色默认无 D04 任何权限</td>
+</tr>
+<tr>
+<td>访客只能看日历</td>
+<td>访客登录后除日历外无任何入口，且接口返回 403</td>
+</tr>
+<tr>
+<td>管理员想改密码但看不到配偶密码</td>
+<td>系统不应存在&quot;查看他人密码&quot;的能力</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p><strong>默认值问题</strong>：成员间可见性默认&quot;互相可见&quot;还是&quot;默认仅本人可见&quot;？这是<strong>安全与体验的取舍</strong>，见 Q-005。<strong>技术建议默认最严格（仅本人 + 管理员）</strong>，由管理员显式放开 —— 因为家庭场景里&quot;信息被家人看到&quot;同样会造成真实伤害，而事后无法挽回。</p>
+</div></div>
+<h2 id="五大屏设备的身份">五、大屏设备的身份</h2>
+<p>大屏无法用账号密码登录，需要独立的<strong>设备授权</strong>流程。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>验收要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FR-D14-01</td>
+<td>设备配对码</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>大屏首次打开显示一次性短码，管理员登录后在 Web 端确认授权</td>
+</tr>
+<tr>
+<td>FR-D14-XX</td>
+<td>设备令牌</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>设备持有长期令牌；仅能拉取&quot;已授权的卡片数据&quot;</td>
+</tr>
+<tr>
+<td>FR-D14-XX</td>
+<td>设备权限最小化</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>设备令牌<strong>不得</strong>具备任何写权限与账号管理权限</td>
+</tr>
+<tr>
+<td>FR-D14-XX</td>
+<td>设备管理</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>管理员可查看在线设备并远程撤销授权</td>
+</tr>
+<tr>
+<td>FR-D14-XX</td>
+<td>设备令牌轮换</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>支持主动轮换；撤销后立即失效</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p>大屏是<strong>物理暴露</strong>的终端（客厅、来客可见）。因此设备令牌必须被视为&quot;低信任凭据&quot;：即使被拿到，也只能读到已脱敏的卡片数据。</p>
+</div></div>
+<h2 id="六数据合规pipl-相关">六、数据合规（PIPL 相关）</h2>
+<p>SaaS + 健康/财务/证件数据 + 可能包含未成年人 → 属<strong>敏感个人信息</strong>范畴。以下为需求条目，具体实施方案留到架构与法务评审。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>需求</th>
+<th>优先级</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NFR-COMP-01</td>
+<td>告知同意</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>注册与邀请成员时提供隐私政策，明确采集范围与用途</td>
+</tr>
+<tr>
+<td>NFR-COMP-02</td>
+<td>最小必要</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>只采集功能必需字段；身份证号等非必需字段应改为可选</td>
+</tr>
+<tr>
+<td>NFR-COMP-03</td>
+<td>未成年人数据</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>由监护人代管；采集范围最小化</td>
+</tr>
+<tr>
+<td>NFR-COMP-04</td>
+<td>查阅与更正权</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>成员可查看与修改自己的全部数据</td>
+</tr>
+<tr>
+<td>NFR-COMP-05</td>
+<td>数据可携带</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>可导出全部自有数据（结构化格式）</td>
+</tr>
+<tr>
+<td>NFR-COMP-06</td>
+<td>删除权与注销</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>家庭注销后数据在约定期限内彻底删除，且需有可验证的删除记录</td>
+</tr>
+<tr>
+<td>NFR-COMP-07</td>
+<td>敏感字段加密</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>证件号、卡号等字段级加密</td>
+</tr>
+<tr>
+<td>NFR-COMP-08</td>
+<td>访问审计</td>
+<td><code class="chip tag-p0">P0</code></td>
+<td>敏感数据的访问与导出留痕</td>
+</tr>
+<tr>
+<td>NFR-COMP-09</td>
+<td>数据泄露应急</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>有明确的止损与通知流程</td>
+</tr>
+<tr>
+<td>NFR-COMP-10</td>
+<td>数据存储地</td>
+<td><code class="chip tag-p1">P1</code></td>
+<td>境内存储（若使用境内云，此项天然满足）</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout"><div class="callout-b">
+<p><strong>诚实声明</strong>：以上是<strong>需求层面</strong>的清单，不等于合规。正式对外提供服务前，需要根据实际业务形态做一次合规评审。<strong>本阶段不展开法律结论。</strong></p>
+</div></div>
+<h2 id="七待确认">七、待确认</h2>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>问题</th>
+<th>编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>家庭规模上限与是否需要配额</td>
+<td>Q-003</td>
+</tr>
+<tr>
+<td>2</td>
+<td>注册使用的验证方式（手机号短信 / 邮箱 / 仅邀请制）</td>
+<td>Q-002</td>
+</tr>
+<tr>
+<td>3</td>
+<td>一个账号能否属于多个家庭</td>
+<td>Q-006</td>
+</tr>
+<tr>
+<td>4</td>
+<td>成员间可见性默认值</td>
+<td>Q-005</td>
+</tr>
+<tr>
+<td>5</td>
+<td>平台运营是否需要应急数据访问通道</td>
+<td>Q-011</td>
+</tr>
+<tr>
+<td>6</td>
+<td>是否存在商业化（套餐/计费）</td>
+<td>Q-001</td>
+</tr>
+</tbody>
+</table></div>
+
+    </div>
+    <nav class="pager"><a class="pg pg-prev" href="req-04.html"><span class="pg-k">← 上一篇</span><span class="pg-t">04 功能需求池</span></a><a class="pg pg-next" href="req-06.html"><span class="pg-k">下一篇 →</span><span class="pg-t">06 大屏 Dashboard 需求</span></a></nav>
+    <footer class="doc-foot">
+      <span>family-buddy · 家庭伙伴 — 项目文档</span>
+      <span>docs/01-requirements/05-identity-and-tenancy.md</span>
+    </footer>
+  </article>
+</main>
+<div class="scrim" id="scrim"></div>
+<button class="fab fab-top" id="toTop" type="button" title="回到顶部" aria-label="回到顶部"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 13V3.6"/><path d="M3.8 7.8 8 3.6l4.2 4.2"/></svg></button>
+<button class="fab fab-home" id="homeBtn" type="button" title="返回封面首页" aria-label="返回封面首页"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.2 8 2.6l5.5 4.6v6.2a.8.8 0 0 1-.8.8H3.3a.8.8 0 0 1-.8-.8z"/><path d="M6.4 14.2V9.4h3.2v4.8"/></svg><span>首页</span></button>
+<script src="assets/docs.js"></script>
+</body>
+</html>
