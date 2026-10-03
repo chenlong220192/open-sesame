@@ -617,6 +617,10 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <td><code>docs/**/*.md</code>（清单见 <code>scripts/build_docs.py</code> 顶部的 <code>DOC_LIST</code>）</td>
 </tr>
 <tr>
+<td>封面「编制日期」</td>
+<td>取<strong>源文档中最后修改的日期</strong>，不是构建当天 —— 否则每天产物都变，发布永远不幂等</td>
+</tr>
+<tr>
 <td>产物</td>
 <td><code>docs/dist/需求分析说明书.html</code> —— 单文件，无外部依赖，可直接分享与打印</td>
 </tr>
