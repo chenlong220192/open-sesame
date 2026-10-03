@@ -173,8 +173,9 @@
 同时它与目标仓库解耦，不会出现&quot;写到一半目标已经被改&quot;的状态。</p>
 <p><strong>覆盖语义</strong>：目标目录里不属于本次产出的文件会被移除，保证远端与本地构建结果严格一致。</p>
 <div class="callout"><div class="callout-b">
-<p>⚠️ <strong>本卷禁止删除</strong>（安全层拦截 <code>unlink</code> / <code>rm</code> / <code>rmdir</code>），因此陈旧文件是
-<strong><code>mv</code> 到 <code>family-buddy/.tmp/trash/&lt;时间戳&gt;/</code></strong> 并保留原相对路径，由所有者集中清理。
+<p>陈旧文件与空目录一律<strong>丢进系统废纸篓</strong>（macOS 自带 <code>/usr/bin/trash</code>，实测可用）——
+<strong>不使用 <code>rm</code> / <code>rmdir</code></strong>（所有者硬规则：删除走废纸篓，可恢复、误删代价低）。
+仅当 <code>trash</code> 调用失败时，才退到本项目仓库的 <code>.tmp/trash/&lt;时间戳&gt;/from-open-sesame/</code>。
 清理范围<strong>严格锁定在 <code>family-buddy/</code> 内</strong>，不会越界影响同仓的其它项目。</p>
 </div></div>
 <h2 id="四之二临时区-tmp仓库根">四之二、临时区 <code>.tmp/</code>（仓库根）</h2>
