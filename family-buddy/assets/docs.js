@@ -68,7 +68,12 @@
 
   var homeBtn = $('homeBtn');
   if (homeBtn) {
-    homeBtn.addEventListener('click', function () { window.location.href = 'index.html'; });
+    // 封面首页的相对路径由构建时按各页深度注入（data-home），
+    // 不能在这里硬编码 'index.html' —— docs.js 是所有页面共享的，
+    // 硬编码会让子目录页面跳到「当前目录下的 index.html」（不存在 → 404）。
+    homeBtn.addEventListener('click', function () {
+      window.location.href = homeBtn.getAttribute('data-home') || 'index.html';
+    });
   }
 
   var toTop = $('toTop');
