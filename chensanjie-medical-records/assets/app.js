@@ -586,10 +586,13 @@
         + '<div><div class="k">累计总费用</div><div class="big">' + money(total) + '</div></div>'
         + '<div><div class="k">医保统筹支付</div><div class="mid">' + money(ins) + '</div></div>'
         + '<div><div class="k">个人现金支付</div><div class="mid">' + money(per) + '</div></div>'
-        + '<div><div class="k">总自付比例</div><div class="mid">' + rate + '%</div>'
-        + '<div style="font-size:11px;color:rgba(255,255,255,.62);margin-top:3px">个人支付 ÷ 总费用（全部记录）</div></div>'
+        // 2026-10-06 修复「总自付比例」与前 3 格不对齐：原把口径说明（个人支付 ÷ 总费用）塞在第 4 格内，
+        //   该格因此比其它格多一行、盒子更高，而 .cost-hero .row 是 align-items:flex-end（**底边对齐**）
+        //   → 更高的第 4 格内容被整体顶上。修法：说明移入下方 .note，四格等高 → flex-end 下自然对齐。
+        + '<div><div class="k">总自付比例</div><div class="mid">' + rate + '%</div></div>'
         + '</div>'
-        + '<div class="note">统计区间 ' + esc(span) + '　｜　医保类型：职工基本医疗保险　｜　含大病医保报销</div>';
+        + '<div class="note">统计区间 ' + esc(span) + '　｜　医保类型：职工基本医疗保险　｜　含大病医保报销'
+        + '　｜　总自付比例 = 个人支付 ÷ 总费用（全部记录）</div>';
     }
     var cnt = $("fees-count");
     if (cnt) cnt.textContent = "共 " + f.meta.detail_count + " 笔门诊/住院记录";
