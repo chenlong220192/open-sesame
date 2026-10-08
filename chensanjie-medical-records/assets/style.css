@@ -353,6 +353,13 @@ dl.kv dd{font-weight:520}
   details.alert-collapse{display:block}
   details.alert-collapse>summary{list-style:none}
   details.alert-collapse>*:not(summary){display:block!important}
+  /* 折叠块在打印稿里一律展开（浏览器对闭合 <details> 不渲染子树，必须显式撑开） */
+  details.module-details{display:block}
+  details.module-details>summary.module-head{border-left:4px solid var(--green)}
+  .prose details.module-details>.module-body{display:block!important}
+  details.course-details{display:block}
+  .prose details.course-details:not([open])>.course-block{display:block!important;padding:16px 18px}
+  .prose details.course-details:not([open])>.course-block>*{display:block!important}
 }
 
 /* ============ 叙述型 tab 兼容样式（移植自旧 HTML 的 38 个 class） ============ */
@@ -388,7 +395,9 @@ dl.kv dd{font-weight:520}
 .prose .table-wrap .result-positive{display:inline-block;padding:2px 9px;border-radius:999px;background:var(--green-l);color:var(--green-d);font-size:12px;font-weight:600}
 .prose .table-wrap .result-negative{display:inline-block;padding:2px 9px;border-radius:999px;background:var(--brick-l);color:var(--brick);font-size:12px;font-weight:600}
 
-/* details 折叠块（沿用 .fold-head 风格，左边色条按 type 变） */
+/* details 折叠块（沿用 .fold-head 风格，左边色条按 type 变）
+   ⚠️ 左侧色条的**统一语义**见文件末尾「折叠框左侧色条 · 全局统一语义」段 ——
+      必须放在基类之后，否则会被这里的 `border-left: 4px solid …` 简写覆盖（同权重后者胜）。 */
 .prose details.alert-collapse{
   border:1px solid var(--line);border-left:4px solid var(--green);
   border-radius:10px;margin:10px 0;background:#fafcfb;overflow:hidden;
@@ -426,13 +435,87 @@ dl.kv dd{font-weight:520}
 .prose .course-block{
   border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0;background:#fff;
 }
+/* 三态：done=已完成（灰）/ active=进行中（绿，默认展开）/ pending=未开始（琥珀） */
+.prose .course-block--done{border-left:4px solid var(--line);background:#faf9f5}
 .prose .course-block--active{border-left:4px solid var(--green);background:linear-gradient(135deg,#f0f7f4,#faf9f5)}
 .prose .course-block--pending{border-left:4px solid var(--amber);background:linear-gradient(135deg,#fcf5e6,#faf9f5)}
 .prose .course-tag{
   display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;margin-bottom:10px;letter-spacing:.3px;
 }
+.prose .course-block--done .course-tag{background:#eeeae0;color:var(--ink-2)}
 .prose .course-block--active .course-tag{background:var(--green-l);color:var(--green-d)}
 .prose .course-block--pending .course-tag{background:var(--amber-l);color:#7d5719}
+
+/* 疗程折叠（2026-10-08 用户裁决：已完成/未开始默认折叠，仅进行中展开）
+   —— 用原生 <details>，无 JS；打印时浏览器会展开全部，故打印稿不受折叠影响 */
+.prose details.course-details{
+  border:1px solid var(--line);border-radius:12px;margin:14px 0;background:#fff;overflow:hidden;
+}
+.prose details.course-details>summary.course-head{
+  list-style:none;cursor:pointer;padding:13px 18px;display:flex;align-items:center;gap:10px;
+  border-left:4px solid var(--line);transition:background .15s;flex-wrap:wrap;
+}
+.prose details.course-details>summary.course-head::-webkit-details-marker{display:none}
+.prose details.course-details>summary.course-head::before{
+  content:"▸";display:inline-block;transition:transform .18s;color:var(--ink-2);font-size:13px;
+}
+.prose details.course-details[open]>summary.course-head::before{transform:rotate(90deg)}
+.prose details.course-details>summary.course-head:hover{background:rgba(0,0,0,.02)}
+.prose .course-title{font-size:16px;font-weight:700;color:var(--ink);flex:0 0 auto}
+/* 折叠态：把状态摘要挪到 summary 行（收起时也看得见疗程状态）——
+   ⚠️ 用 flex 而非 absolute：absolute 需要定位祖先，而 details 上加 position 会引入
+   新的层叠上下文，踩过坑。展开态隐藏它（由块内 .course-tag 自己显示）。 */
+.prose details.course-details:not([open])>.course-block>.course-tag{
+  order:2;margin:0 0 0 auto;flex:0 1 auto;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:58%;
+}
+.prose details.course-details:not([open])>.course-block{display:flex;flex-wrap:wrap;align-items:center;margin:0}
+.prose details.course-details:not([open])>.course-block>*:not(.course-tag){display:none}
+.prose details.course-details:not([open])>.course-block{
+  border-left:4px solid var(--line);background:#faf9f5;padding:0;border-radius:0;
+}
+.prose details.course-details:not([open])>.course-block>.course-tag{background:#eeeae0;color:var(--ink-2)}
+@media print{
+  .prose details.course-details>summary.course-head::before{content:""}
+}
+
+/* 子级折叠框（10-09 用户要求：「检查确诊」下 PET-CT 与华山住院拆成两个子框）
+   —— 复用 course-details 同一套视觉语言，只收敛外边距/字号/底色，避免嵌套后层级糊在一起。
+   ⚠️ 嵌套后外层收起时由 `:not([open])>.course-block>*:not(.course-tag){display:none}` 一并隐藏，无需额外规则。 */
+.prose details.course-details.sub-course{margin:12px 0;background:#fdfcfa}
+.prose details.course-details.sub-course>summary.course-head{padding:11px 16px;border-left-color:var(--ink-3)}
+.prose details.course-details.sub-course .course-title{font-size:15px}
+.prose details.course-details.sub-course .course-block{padding:12px 14px}
+
+/* 模块级折叠（2026-10-09 用户要求：「当前方案总览（现在用什么）」这一级与同级模块也可折叠）
+   与 course-details 同一套视觉语言：<summary> 本身就是标题行，▸ 指示可展开。
+   默认态：总览展开（本 tab 的主结论），其余折叠。 */
+.prose details.module-details{
+  border:1px solid var(--line);border-radius:12px;margin:16px 0;background:#fff;overflow:hidden;
+}
+.prose details.module-details>summary.module-head{
+  list-style:none;cursor:pointer;padding:13px 18px;display:flex;align-items:center;gap:9px;
+  font-size:17px;font-weight:650;letter-spacing:.3px;color:var(--green-d);
+  border-left:4px solid var(--green);background:#fafcfb;user-select:none;
+}
+.prose details.module-details>summary.module-head::-webkit-details-marker{display:none}
+.prose details.module-details>summary.module-head::before{
+  content:"▸";display:inline-block;transition:transform .18s;color:var(--ink-2);font-size:13px;flex:0 0 auto;
+}
+.prose details.module-details[open]>summary.module-head::before{transform:rotate(90deg)}
+.prose details.module-details>summary.module-head:hover{background:#f4f1ea}
+.prose details.module-details>.module-body{padding:2px 18px 16px}
+@media print{
+  .prose details.module-details>summary.module-head::before{content:""}
+}
+
+/* 给药明细表（.tbl-wide）：数据表应吃满容器宽。
+   ⚠️ alert-body 在 ≥1150px 有 max-width:46em 的「行宽上限」（只该管叙述文字），
+   会把块内数据表也夹到 ~620px、右侧留大块空白（2026-10-09 用户报「格式非常不对劲」）。
+   带数据表的折叠块统一挂 .tbl-wide 解除上限 —— 结构化内容吃满宽度。 */
+@media (min-width:1150px){
+  .prose details.alert-collapse.tbl-wide>.alert-body{max-width:none}
+}
 
 /* 饮食页：摄入参考卡 */
 .prose .daily-std-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:14px 0}
@@ -458,9 +541,9 @@ dl.kv dd{font-weight:520}
 .prose .table-wrap tr.meal-snack-am,.prose .table-wrap tr.meal-snack-pm{background:#faf9f5}
 .prose .table-wrap .meal-icon-cell{font-weight:640;white-space:nowrap;color:var(--ink)}
 
-/* 化疗记录块 */
-.prose .chemo-record{border-left:3px solid var(--green);padding:6px 0 6px 18px;margin:10px 0}
-.prose .chemo-record .subsection-title{margin-top:12px}
+/* ⚠️ 原 `.chemo-record` 样式已随「历史化疗记录」块删除而失去消费者
+   （2026-10-08；逐次给药明细已改用 `timeline.html` 的「💊 本次给药明细」details + .table-wrap）。
+   保留注释说明去向，避免日后误以为漏删或重复实现。 */
 
 @media print{
   .prose details.alert-collapse{border-color:#aaa}
@@ -485,7 +568,10 @@ dl.kv dd{font-weight:520}
   .tl-body li,
   .prose .module-block>p,
   .prose .module-block>ul,
-  .prose .module-block>ol{max-width:46em}
+  .prose .module-block>ol,
+  .prose .module-body>p,
+  .prose .module-body>ul,
+  .prose .module-body>ol{max-width:46em}
 }
 
 /* ② 结构化内容吃满宽度：多列网格在宽屏升到3 列（原来 2 列 → 900px 断点处 2 列） */
@@ -513,3 +599,66 @@ dl.kv dd{font-weight:520}
   .bar-row .nm{flex-basis:120px}
   .bar-row .vv{flex-basis:110px}
 }
+
+
+/* 折叠态状态标签：已搬进 <summary>（闭合 details 的子树不渲染，只能放summary）*/
+.prose details.course-details>summary.course-head>.course-tag{
+  margin:0 0 0 auto;flex:0 1 auto;min-width:0;max-width:56%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.prose details.course-details>summary.course-head>.course-tag:empty{display:none}
+
+/* 折叠态状态标签：物理位于 <summary> 内 —— 闭合 details 的子树不渲染，
+   放块内则收起时看不到（2026-10-08 浏览器实测 innerText 为空）。 */
+.prose details.course-details>summary.course-head>.course-tag{
+  margin:0 0 0 auto;flex:0 1 auto;min-width:0;max-width:56%;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.prose details.course-details>summary.course-head>.course-tag:empty{display:none}
+
+/* ============ 折叠框左侧色条 · 全局统一语义（2026-10-09） ============
+   三类折叠框（course-details 疗程 / module-details 模块 / alert-collapse 提示）共用一套色义：
+     绿   --green  = 已完成 / 成功 / 正常（✅ 已完成疗程、success 提示、当前在用方案总览）
+     蓝   --blue   = 进行中 / 说明介绍（▶ 进行中疗程、info 提示、方案详解类模块）
+     琥珀 --amber  = 未开始 / 需留意（⏸ 未开始疗程、warning 提示）
+     砖红 --brick  = 临床决策点 / 警示异常
+     灰   --ink-3  = 中性补充 / 未采用备选
+   ⚠️ 本段必须放在全文末尾：基类用 `border-left:4px solid …` 简写且权重与本段相同，
+      写在前面会被后者覆盖（实测 10-09：插在基类之前 → 三种状态全塌成灰色）。
+   ⚠️ 疗程状态类必须挂在 <details> 上：summary 在 course-block 之前，CSS 无法反向选父。 */
+
+/* ① 疗程折叠：按状态着色 */
+.prose details.course-details--done>summary.course-head{border-left-color:var(--green)}
+.prose details.course-details--active>summary.course-head{border-left-color:var(--blue)}
+.prose details.course-details--pending>summary.course-head{border-left-color:var(--amber)}
+.prose details.course-details--done>.course-block{border-left-color:var(--green)}
+.prose details.course-details--active>.course-block{border-left-color:var(--blue);background:linear-gradient(135deg,#eef4fb,#faf9f5)}
+.prose details.course-details--pending>.course-block{border-left-color:var(--amber)}
+/* 折叠态状态徽标同样跟随状态色（标签物理放在 summary 内，见 course-head 规则） */
+.prose details.course-details--done>summary.course-head>.course-tag{background:var(--green-l);color:var(--green-d)}
+.prose details.course-details--active>summary.course-head>.course-tag{background:#e8f0fa;color:#2c4e6e}
+.prose details.course-details--pending>summary.course-head>.course-tag{background:var(--amber-l);color:#7d5719}
+
+/* ② 模块折叠：默认蓝（说明介绍），按语义覆写 */
+.prose details.module-details>summary.module-head{border-left-color:var(--blue)}
+.prose details.module-details--ok>summary.module-head{border-left-color:var(--green)}
+.prose details.module-details--info>summary.module-head{border-left-color:var(--blue)}
+.prose details.module-details--neutral>summary.module-head{border-left-color:var(--ink-3)}
+.prose details.module-details--warn>summary.module-head{border-left-color:var(--amber)}
+.prose details.module-details--crit>summary.module-head{border-left-color:var(--brick);color:var(--brick);background:#fdf5f4}
+
+/* ③ 提示折叠：补齐 neutral（此前无规则 → 落到基类绿色，与「中性说明」语义不符） */
+.prose details.alert-collapse.neutral{border-left-color:var(--ink-3);background:#faf9f5}
+
+/* tbl-wide 折叠块里的**段落**仍要限行长（2026-10-09 新增）
+   ⚠️ .tbl-wide 为让块内数据表吃满宽度而解除了 alert-body 的 46em 上限，
+      但代价是块内的说明文字也被拉到满宽（一行 100+ 汉字，极难读）。
+      → 只对 p 收回上限，table 继续吃满。改任意一侧都要一起看。 */
+@media (min-width:1150px){
+  .prose details.alert-collapse.tbl-wide>.alert-body>p{max-width:46em}
+}
+
+/* 费用明细序号列（2026-10-09 新增）：窄、右对齐、弱化色，不抢信息层级 */
+.tbl.fees-tbl th.idx,
+.tbl.fees-tbl td.idx{width:1%;white-space:nowrap;text-align:right;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.tbl.fees-tbl tbody tr.row-total td.idx{background:transparent}

@@ -615,17 +615,20 @@
     var det = $("fees-detail");
     if (det) {
       // 不固定列、不压缩列宽（2026-09-22 用户立规）：整表按内容自然宽度，容器左右滑动
-      // 列序：日期 / 类型 / 医院·科室 / 项目分类 / 项目明细 / 金额 / 医保统筹 / 个人支付
+      // 列序：序号 / 日期 / 类型 / 医院·科室 / 项目分类 / 项目明细 / 金额 / 医保统筹 / 个人支付
+      // 序号（2026-10-09 用户要）：一眼看出共挂了多少个号 / 共几笔记录，也便于口头指第几行。
       var head = "<thead><tr>"
+        + '<th class="idx">#</th>'
         + "<th>日期</th><th>类型</th><th>医院/科室</th>"
         + '<th>项目分类</th><th>项目明细</th>'
         + '<th style="text-align:right">金额</th><th style="text-align:right">医保统筹</th><th style="text-align:right">个人支付</th>'
         + "</tr></thead><tbody>";
-      var body = ""; var st = 0, si = 0, sp = 0;
+      var body = ""; var st = 0, si = 0, sp = 0, _n = 0;
       f.detail.forEach(function (r) {
         var amt = Number(r["金额"]), gi = Number(r["医保统筹"]), pe = Number(r["个人支付"]);
-        st += amt; si += gi; sp += pe;
+        st += amt; si += gi; sp += pe; _n += 1;
         body += '<tr>'
+          + '<td class="idx">' + _n + '</td>'
           + '<td>' + esc(r["日期"]) + '</td>'
           + '<td>' + esc(r["类型"]) + '</td>'
           + '<td>' + esc(r["医院"]) + '</td>'
@@ -636,8 +639,10 @@
           + '<td class="num" style="text-align:right;color:var(--brick)">' + money(pe) + '</td></tr>';
       });
       // 合计行
+      // 合计行：首列给序号列留空，其后 colspan=3 覆盖 日期/类型/医院 并在右侧显示「合计」
       body += '<tr class="row-total">'
-        + '<td colspan="3" style="text-align:right">合计</td>'
+        + '<td class="idx"></td>'
+        + '<td colspan="3" style="text-align:right">合计（' + _n + ' 笔）</td>'
         + '<td></td><td></td>'
         + '<td class="num" style="text-align:right">' + money(st) + '</td>'
         + '<td class="num" style="text-align:right;color:var(--green-d)">' + money(si) + '</td>'
@@ -773,9 +778,35 @@
   }
   window.dismissNotice = dismissNotice;
 
+  /* ==================== 病程（确诊 → 今天）· 每次加载实时算一次 ====================
+     🔴 用户裁决（10-09）：原先由 pipe2 在**构建时**算好写死进 HTML，
+        不重新构建就会一直停在构建当天 —— 属于事实上的硬编码。
+        改为此处在页面加载时按「今天」算一次（不设定时器，刷新即更新）。
+     口径与 pipe2 完全一致（改任一侧都必须同步另一侧）：
+        · 起点 = hero「确诊 YYYY-MM-DD」（PET-CT 那次确诊检查），由 pipe2 写入 data-anchor
+        · 终点 = 打开页面的当天（本地时区）
+        · <1 个月只写「N 天」（"0.x 个月" 读起来像 bug）；≥1 个月写「X.X 个月 · N 天」
+        · 1 个月 = 30.44 天（365.25/12，与 pipe2 同）
+     ⚠️ 日期解析必须显式补 T00:00:00 走**本地时区**：`new Date("YYYY-MM-DD")` 按 UTC 解析，
+        在东八区会变成当天 08:00，与本地午夜的 today 相减可能差 1 天。 */
+  function renderCourseDuration() {
+    var el = $("courseDuration");
+    if (!el) return;
+    var anchor = el.getAttribute("data-anchor") || "";
+    var d0 = new Date(anchor + "T00:00:00");
+    if (!anchor || isNaN(d0.getTime())) { el.textContent = "—"; return; }
+    var now = new Date();
+    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var days = Math.round((today - d0) / 86400000);   // 用 round 抹掉夏令时/闰秒的整数误差
+    if (days < 0) { el.textContent = "—"; return; }
+    var mo = days / 30.44;
+    el.textContent = mo >= 1 ? (mo.toFixed(1) + " 个月 · " + days + " 天") : (days + " 天");
+  }
+
   /* ==================== 启动 ==================== */
   document.addEventListener("DOMContentLoaded", function () {
     initNotice();
+    renderCourseDuration();
     renderMetricCards();
     renderIndicatorsTable();
     renderFees();

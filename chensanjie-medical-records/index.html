@@ -12,11 +12,16 @@
 <body>
 <div class="wrap">
 <div class="notice-bar" id="noticeBar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="notice-icon"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span><b>隐私说明：</b>本页面为家庭健康管理记录，不含原始病历影像，仅用于就诊参考；所有数据已脱敏，不关联身份证号、医保卡号等敏感信息；就诊请以医院正式报告为准，本页指标仅供趋势参考；内容仅限家属内部使用，请勿外传。</span><button class="notice-close" type="button" onclick="dismissNotice()" aria-label="关闭隐私提示"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></button></div>
-<header class="hero"><div class="hero-top"><div class="avatar">陈</div><div><h1>陈三姐 · 康复追踪</h1><div class="sub"><span>女 · 59 岁</span><span class="sep">|</span><span>确诊 2026-07-03</span><span class="sep">|</span><span class="updated">更新至2026-10-08</span></div></div></div><div class="hero-meta"><div class="hm"><div class="k">主治团队</div><div class="v">华山医院 · 胰腺外科</div></div><div class="hm"><div class="k">化疗院区</div><div class="v">华山医院 · 江苏路</div></div><div class="hm"><div class="k">当前阶段</div><div class="v">第四疗程·第1次化疗已完成（10-08）</div></div><div class="hm"><div class="k">下一节点</div><div class="v">10-09 长海·康复医学科门诊 → 10-13 化疗前检查 + 脊柱外科门诊 · 化疗 10-15</div></div><div class="hm"><div class="k">病程</div><div class="v">3.2 个月 · 97 天</div></div></div><div class="badges"><span class="badge danger"><i class="dot"></i>胰腺导管腺癌（PDAC）</span><span class="badge warn"><i class="dot"></i>高血压 3 级</span><span class="badge warn"><i class="dot"></i>乙型肝炎</span><span class="badge info"><i class="dot"></i>化疗·AG方案</span><span class="badge ok"><i class="dot"></i>10-08 化疗已完成（AG 方案第 10 次）</span></div></header>
+<header class="hero"><div class="hero-top"><div class="avatar">陈</div><div><h1>陈三姐 · 康复追踪</h1><div class="sub"><span>女 · 59 岁</span><span class="sep">|</span><span>确诊 2026-07-03</span><span class="sep">|</span><span class="updated">更新日期 2026-10-08</span></div></div></div><div class="hero-meta"><div class="hm"><div class="k">主治团队</div><div class="v">华山医院 · 胰腺外科</div></div><div class="hm"><div class="k">化疗院区</div><div class="v">华山医院 · 江苏路</div></div><div class="hm"><div class="k">当前阶段</div><div class="v">第四疗程·第1次化疗已完成（10-08）</div></div><div class="hm"><div class="k">下一节点</div><div class="v">10-09 长海·康复医学科门诊 → 10-13 化疗前检查 + 脊柱外科门诊 · 化疗 10-15</div></div><div class="hm"><div class="k">病程</div><div class="v"><span id="courseDuration" data-anchor="2026-07-03">3.2 个月 · 98 天</span></div></div></div><div class="badges"><span class="badge danger"><i class="dot"></i>胰腺导管腺癌（PDAC）</span><span class="badge warn"><i class="dot"></i>高血压 3 级</span><span class="badge warn"><i class="dot"></i>乙型肝炎</span><span class="badge info"><i class="dot"></i>化疗·AG方案</span></div></header>
 <nav class="tabs" id="tabs"><button class="tab active" data-tab="indicators">📊 健康监测</button><button class="tab" data-tab="timeline">📅 治疗时间线</button><button class="tab" data-tab="chemotherapy">💊 治疗方案</button><button class="tab" data-tab="diet">🍽 饮食计划</button><button class="tab" data-tab="notes">📝 注意事项</button><button class="tab" data-tab="expense">💰 费用记录</button></nav>
 <main>
 <div class="panel prose active" id="panel-indicators"><div class="sec"><div class="sec-head"><i class="bar"></i><h2>最近一次检查</h2><span class="hint" id="lastDateHint"></span></div><div class="grid-4" id="metricCards"></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">CA19-9 肿瘤标志物</div><div class="chart-sub">胰腺癌疗效监测核心指标 · 正常参考值 &lt; 37 U/mL</div></div><div class="legend" id="lg-tumorChart"></div></div><div class="chart-box"><div id="tumorChart"></div><div class="tip" id="tip-tumorChart"></div></div><div class="chart-foot" id="ft-tumorChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">白细胞 与 中性粒细胞</div><div class="chart-sub">骨髓抑制监测 · 白细胞 3.5–9.5，中性粒 1.8–6.3（×10⁹/L）</div></div><div class="legend" id="lg-wbcChart"></div></div><div class="chart-box"><div id="wbcChart"></div><div class="tip" id="tip-wbcChart"></div></div><div class="chart-foot" id="ft-wbcChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">血红蛋白 与 血小板</div><div class="chart-sub">贫血与凝血监测 · 血红蛋白 115–150 g/L｜血小板 125–350 ×10⁹/L</div></div><div class="legend" id="lg-hgbChart"></div></div><div class="chart-box"><div id="hgbChart"></div><div class="tip" id="tip-hgbChart"></div></div><div class="chart-foot" id="ft-hgbChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肝功能（ALT / AST）</div><div class="chart-sub">化疗肝毒性监测 · 正常 ALT 7–40，AST 15–35（U/L）</div></div><div class="legend" id="lg-liverChart"></div></div><div class="chart-box"><div id="liverChart"></div><div class="tip" id="tip-liverChart"></div></div><div class="chart-foot" id="ft-liverChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肝功能扩展（前白蛋白 / LDH）</div><div class="chart-sub">营养与肿瘤负荷 · 前白蛋白 200–400，LDH 120–250（U/L）</div></div><div class="legend" id="lg-liverExtraChart"></div></div><div class="chart-box"><div id="liverExtraChart"></div><div class="tip" id="tip-liverExtraChart"></div></div><div class="chart-foot" id="ft-liverExtraChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肾功能（肌酐 / eGFR）</div><div class="chart-sub">肾功监测 · 肌酐 41–73，eGFR ≥90（μmol/L / mL/min/1.73m²）</div></div><div class="legend" id="lg-renalChart"></div></div><div class="chart-box"><div id="renalChart"></div><div class="tip" id="tip-renalChart"></div></div><div class="chart-foot" id="ft-renalChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">电解质（钾 / 钠）</div><div class="chart-sub">电解质平衡 · 钾 3.5–5.3，钠 137–147（mmol/L）</div></div><div class="legend" id="lg-electrolyteChart"></div></div><div class="chart-box"><div id="electrolyteChart"></div><div class="tip" id="tip-electrolyteChart"></div></div><div class="chart-foot" id="ft-electrolyteChart"></div></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>检验报告摘要</h2><span class="hint">共 11 次 · 含参考范围</span></div><div class="card"><div class="fold-head open" data-fold="labs"><i class="caret"></i>检验报告摘要（11 次）<span class="mini n" style="margin-left:6px">点击收起</span></div><div class="fold-body open" id="fold-labs"><div id="indicators-table"></div></div></div></div></div><div class="panel prose" id="panel-timeline">
-<h2 class="section-title">PET-CT检查</h2>
+<details class="course-details course-details--done" id="pre-dx">
+<summary class="course-head"><span class="course-title">🔬 检查确诊</span><span class="course-tag">✅ 已完成 · 2026-07-02 ~ 2026-07-16｜共 6 项记录</span></summary>
+<div class="course-block course-block--done">
+<details class="course-details course-details--done sub-course" id="pre-dx-pet">
+<summary class="course-head"><span class="course-title">🔬 PET-CT检查</span><span class="course-tag">✅ 已完成 · 2026-07-02｜共 1 项记录</span></summary>
+<div class="course-block course-block--done">
 <div class="table-wrap">
 <table>
 <thead>
@@ -37,7 +42,11 @@
 </tbody>
 </table>
 </div>
-<h2 class="section-title">华山医院（确诊+住院）</h2>
+</div>
+</details>
+<details class="course-details course-details--done sub-course" id="pre-dx-huashan">
+<summary class="course-head"><span class="course-title">🏥 华山医院住院（确诊 + 第1次化疗）</span><span class="course-tag">✅ 已完成 · 2026-07-09 ~ 2026-07-16｜共 5 项记录</span></summary>
+<div class="course-block course-block--done">
 <div class="table-wrap">
 <table>
 <thead>
@@ -82,16 +91,20 @@
 </tbody>
 </table>
 </div>
-<div class="course-block course-block--active">
-<div class="course-tag">✅ 已完成 · 2026-07-15 ~ 2026-07-30</div>
-<h2 class="section-title">第一疗程（AG方案）</h2>
-<details class="alert-collapse info"><summary>📋 治疗总览（4 周 = 3 周化疗 + 1 周休整）</summary><div class="alert-body">
-<strong>疗程说明：</strong>每个疗程为 4 周：第 1/8/15 天给药（连续 3 周），随后休整 1 周用于骨髓恢复
-        </div></details>
+<details class="alert-collapse default tbl-wide"><summary>💊 第1次化疗 · 本次给药明细（4 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨(益非)</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details></div>
+</details>
+</div>
+</details>
+<details class="course-details course-details--done" id="course-88623">
+<summary class="course-head"><span class="course-title">第一疗程（AG方案）</span><span class="course-tag">✅ 已完成 · 2026-07-15 ~ 2026-07-30｜共 8 项记录</span></summary>
+<div class="course-block course-block--done">
 <h3 class="subsection-title">第一疗程·第1周</h3>
-<details class="alert-collapse info"><summary>🏥 07-09~16 华山住院（第一疗程·第1次化疗）</summary><div class="alert-body">
-<strong>ℹ️ 7-15 化疗事件：</strong>已记录在「华山医院（确诊+住院）」表中，本表不重复展示
-        </div></details>
+<div class="alert alert-info"><strong>ℹ️ 7-15 化疗事件：</strong>已记录在上方「🔬 检查确诊 → 🏥 华山医院住院」中，本表不重复展示</div>
 <h3 class="subsection-title">第一疗程·第2周</h3>
 <div class="table-wrap">
 <table>
@@ -131,6 +144,21 @@
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第2次化疗 · 本次给药明细（13 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨(益非)</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">硫培非格司亭注射液</td><td>6mg/支</td><td>1支</td><td><strong>升白（长效 G-CSF）</strong></td></tr>
+<tr><td class="cell-long">艾司奥美拉唑镁肠溶片</td><td>20mg/片</td><td>13片</td><td><strong>护胃 / 抑酸</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼片</td><td>8mg/片</td><td>4片</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液</td><td>5mg/支</td><td>2支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">脂溶性维生素注射液</td><td>-</td><td>1支</td><td><strong>营养补充</strong></td></tr>
+<tr><td class="cell-long">多种微量元素注射液</td><td>-</td><td>1支</td><td><strong>营养补充</strong></td></tr>
+<tr><td class="cell-long">5%葡萄糖注射液</td><td>100ml/袋</td><td>5袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">0.9%氯化钠注射液</td><td>100ml/袋</td><td>4袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">肝素钠注射液</td><td>1.25万U/支</td><td>1支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <h3 class="subsection-title">第一疗程·第3周</h3>
 <div class="table-wrap">
 <table>
@@ -170,10 +198,18 @@
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第3次化疗 · 本次给药明细（8 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨(益非)</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液(思复)</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼注射液</td><td>8mg/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液(辰欣)</td><td>5mg/支</td><td>1支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">肝素钠注射液</td><td>1.25万U/支</td><td>1支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+<tr><td class="cell-long">利可君片</td><td>20mg×48片/盒</td><td>4盒</td><td><strong>升白（长效 G-CSF）</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<details class="alert-collapse default"><summary>🛌 第一疗程休整期（07-31 ~ 08-10）</summary><div class="alert-body">
-<strong>07-31 ~ 08-10：</strong>休整期，骨髓恢复
-        </div></details>
+<div class="alert">🛌 <strong>07-31 ~ 08-10：</strong>休整期，骨髓恢复</div>
 <details class="alert-collapse info"><summary>ℹ️ 第二疗程评估（09-03 做 CT + 09-07 看结果定方案 · 已完成：判定 SD，续定 AG）</summary><div class="alert-body">
 <strong>ℹ️ 第二疗程评估分两步：</strong><br/>
 <strong>① 09-03 早上 8:15 做增强 CT</strong>：已完成（09-04 出报告），<strong class="critical-date">总部 2 号楼 1 楼 CT 2 号机房</strong>（乌鲁木齐中路12号）<br/>
@@ -181,9 +217,10 @@
 <strong class="critical-date">⚠️+ 决策已完成：判定 SD，继续 AG 化疗（不可切除）</strong>（基于 CT 影像 + CA19-9 趋势 + 化疗耐受性综合决定）
         </div></details>
 </div>
-<div class="course-block course-block--active">
-<div class="course-tag">✅ 第1周已完成（08-11 检查 + 08-13 化疗）· 第2周已完成（08-18 检查 + 08-20 化疗）· 第3周已完成（08-26 检查 + 08-26 妇科门诊 + 08-27 第3次化疗）</div>
-<h2 class="section-title">第二疗程（AG方案）</h2>
+</details>
+<details class="course-details course-details--done" id="course-46215">
+<summary class="course-head"><span class="course-title">第二疗程（AG方案）</span><span class="course-tag">✅ 已完成 · 2026-08-11 ~ 2026-09-02｜共 8 项记录</span></summary>
+<div class="course-block course-block--done">
 <h3 class="subsection-title">第二疗程·第1周</h3>
 <div class="table-wrap">
 <table>
@@ -211,6 +248,16 @@
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第4次化疗 · 本次给药明细（8 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨(益非)</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液(思复)</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼注射液</td><td>8mg/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液(辰欣)</td><td>5mg/支</td><td>1支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">艾贝格司亭α注射液(预充)</td><td>20mg/支</td><td>1支</td><td><strong>升白（长效 G-CSF）</strong></td></tr>
+<tr><td class="cell-long">肝素钠注射液</td><td>1.25万U/支</td><td>2支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <h3 class="subsection-title">第二疗程·第2周</h3>
 <div class="table-wrap">
 <table>
@@ -227,7 +274,7 @@
 <td>2026-08-18</td>
 <td class="cell-long">🔬 化疗前检查（含血常规/生化/Crea/肿瘤标志物 + 恩替卡韦30片）</td>
 <td>长海医院</td>
-<td class="status-cell cell-long">✅ 已完成（CA19-9 79.24 ↓43% 化疗显著有效✅）</td>
+<td class="status-cell">✅ 已完成（CA19-9 79.24 ↓43% 化疗显著有效✅）</td>
 </tr>
 <tr class="highlight">
 <td>2026-08-20</td>
@@ -238,6 +285,17 @@
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第5次化疗 · 本次给药明细（9 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨(益非)</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液(思复)</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼注射液</td><td>8mg/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液(辰欣)</td><td>5mg/支</td><td>1支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">肝素钠注射液</td><td>1.25万U/支</td><td>1支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+<tr><td class="cell-long">0.9%氯化钠注射液</td><td>100ml/袋</td><td>5袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">5%葡萄糖注射液</td><td>100ml/袋</td><td>1袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <h3 class="subsection-title">第二疗程·第3周</h3>
 <div class="table-wrap">
 <table>
@@ -277,10 +335,24 @@
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第6次化疗 · 本次给药明细（14 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨(益非)</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液(思复)</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">可乐必妥（左氧氟沙星片）</td><td>0.5g×4片/盒</td><td>2盒</td><td><strong>抗感染</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼注射液</td><td>8mg/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液(辰欣)</td><td>5mg/支</td><td>2支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">肝素钠注射液</td><td>1.25万U/支</td><td>1支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+<tr><td class="cell-long">0.9%氯化钠注射液(湖北)</td><td>100ml/袋</td><td>5袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">5%葡萄糖注射液</td><td>100ml/袋</td><td>1袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">碘美普尔注射液（造影剂）</td><td>400mg/ml×100ml</td><td>1瓶</td><td><strong>检查 · 上腹部增强 CT</strong></td></tr>
+<tr><td class="cell-long">计算机体层成像(CT)增强</td><td>1 部位</td><td>1 部位</td><td><strong>检查 · 上腹部增强 CT</strong></td></tr>
+<tr><td class="cell-long">静脉注射-分部 / 静脉输液 / 抗肿瘤药物配置</td><td>3 项</td><td>3 次</td><td><strong>治疗操作费</strong></td></tr>
+<tr><td class="cell-long">苏碧林华专用针 + 输液器 + 正压接头</td><td>3 种耗材</td><td>3 件</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<details class="alert-collapse default"><summary>🛌 第二疗程休整期（08-28 ~ 09-07）</summary><div class="alert-body">
-<strong>08-28 ~ 09-07：</strong>休整期，骨髓恢复
-        </div></details>
+<div class="alert">🛌 <strong>08-28 ~ 09-07：</strong>休整期，骨髓恢复</div>
 <h3 class="subsection-title">第二疗程评估</h3>
 <div class="table-wrap">
 <table>
@@ -309,12 +381,11 @@
 </table>
 </div>
 </div>
-<div class="course-block course-block--pending">
-<div class="course-tag">▶ 进行中 · 09-07 门诊已续定 AG</div>
-<h2 class="section-title">第三疗程（AG方案）</h2>
-<details class="alert-collapse info"><summary>📅 后续疗程预排计划</summary><div class="alert-body">
-<strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据血常规、肝肾功能及医生评估调整（09-03 增强 CT 已判读 SD；第 4 疗程结束后再行增强 CT 评估）
-        </div></details>
+</details>
+<details class="course-details course-details--done" id="course-94732">
+<summary class="course-head"><span class="course-title">第三疗程（AG方案）</span><span class="course-tag">✅ 已完成 · 2026-09-10 ~ 2026-09-24｜共 7 项记录</span></summary>
+<div class="course-block course-block--done">
+<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据血常规、肝肾功能及医生评估调整（09-03 增强 CT 已判读 SD；第 4 疗程结束后再行增强 CT 评估）</div>
 <h3 class="subsection-title">第三疗程·第1周</h3>
 <div class="table-wrap">
 <table>
@@ -343,7 +414,7 @@
 <td><strong class="critical-date">2026-09-10（周四）</strong></td>
 <td>💉 第三疗程·第1次化疗（第7次化疗）</td>
 <td>华山医院</td>
-<td class="status-cell cell-long">✅ 已完成（<strong>AG 方案第 7 次按期执行</strong>，江苏路分部日间诊疗中心·胰腺外科；血压 129/71 ✅；🆕 首次使用止吐复方磷罗拉匹坦帕洛诺司琼；详细用药 13 项已入档（金额见「费用记录」），详见化疗页第 7 次记录）</td>
+<td class="status-cell cell-long">✅ 已完成（<strong>AG 方案第 7 次按期执行</strong>，江苏路分部日间诊疗中心·胰腺外科；血压 129/71 ✅；🆕 首次使用止吐复方磷罗拉匹坦帕洛诺司琼；<strong>给药明细见本行下方表格</strong>，金额见「费用记录」）</td>
 </tr>
 <tr class="highlight">
 <td><strong class="critical-date">2026-09-15</strong></td>
@@ -354,6 +425,21 @@
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第7次化疗 · 本次给药明细（13 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨(益非)</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">注射用磷罗拉匹坦帕洛诺司琼</td><td>1支/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液(思复)</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">肠内营养粉剂TP(安素)</td><td>400g/瓶</td><td>3瓶</td><td><strong>营养补充</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼注射液</td><td>8mg/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液(辰欣)</td><td>5mg/支</td><td>1支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">肝素钠注射液</td><td>1.25万U/支</td><td>1支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+<tr><td class="cell-long">0.9%氯化钠注射液(湖北)</td><td>100ml/袋</td><td>6袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">5%葡萄糖注射液</td><td>100ml/袋</td><td>1袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">静脉注射-分部 / 静脉输液 / 抗肿瘤药物配置</td><td>3 项</td><td>3 次</td><td><strong>治疗操作费</strong></td></tr>
+<tr><td class="cell-long">植入式给药装置专用针 + 输液器 + 正压接头</td><td>3 种耗材</td><td>3 件</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <details class="alert-collapse danger"><summary>⚠️ 谷底期预警（化疗后 7–14 天）</summary><div class="alert-body">
 <strong>化疗后第 7–14 天为中性粒细胞谷底期</strong>，与尿路感染随访期重叠：<br/>
 ① 每日测体温并记录；② <strong class="critical-date">任何发热 ≥38℃ 按发热性中性粒细胞减少（FN）处理，2 小时内静脉广谱抗生素</strong>，不可在家硬扛；③ 预警信号：发热寒战 / 腰痛 / 尿量减少 / 意识改变；④ <strong>尿培养细菌 + 真菌均未生长</strong>（已出结果；因曾服头孢克洛，结果仅供参考，不据此停药）
@@ -392,7 +478,7 @@
 <td><strong class="critical-date">2026-09-17</strong></td>
 <td>💉 第三疗程·第2次化疗（第8次化疗）</td>
 <td>华山医院</td>
-<td class="status-cell cell-long">✅ <strong>已完成</strong>（江苏路分部日间诊疗中心·胰腺外科；08:31 挂号 → 09:22 给药；化疗前血压 <strong>139/61</strong> mmHg、脉搏 64 次/分；AG 方案按期执行（艾越×2瓶 + 益非×1盒 + 曲拉西利 300mg + 思复护肝）；共 <strong>9 组用药</strong>；🆕 新开口服药 5 种（胰酶肠溶胶囊 / 联苯双酯片 / 利可君片 / 琥珀酸亚铁缓释片 / 奈妥匹坦帕洛诺司琼胶囊）；金额见「费用记录」— 详见化疗页第 8 次记录）</td>
+<td class="status-cell cell-long">✅ <strong>已完成</strong>（江苏路分部日间诊疗中心·胰腺外科；08:31 挂号 → 09:22 给药；化疗前血压 <strong>139/61</strong> mmHg、脉搏 64 次/分；AG 方案按期执行（艾越×2瓶 + 益非×1盒 + 曲拉西利 300mg + 思复护肝）；<strong>给药明细见本行下方表格</strong>；🆕 新开口服药另开 5 种（详见「治疗方案」tab 辅助用药表）；金额见「费用记录」）</td>
 </tr>
 <tr class="hospital">
 <td>2026-09-17</td>
@@ -403,6 +489,24 @@
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第8次化疗 · 本次给药明细（16 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨(益非)</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">注射用磷罗拉匹坦帕洛诺司琼</td><td>1支/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">奈妥匹坦帕洛诺司琼胶囊</td><td>1粒/盒</td><td>1盒</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液(思复)</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">胰酶肠溶胶囊（得每通）</td><td>150mg×20粒/盒</td><td>13盒</td><td><strong>助消化</strong></td></tr>
+<tr><td class="cell-long">联苯双酯片</td><td>25mg×20片/瓶</td><td>9瓶</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">利可君片</td><td>20mg×48片/盒</td><td>4盒</td><td><strong>升白（长效 G-CSF）</strong></td></tr>
+<tr><td class="cell-long">琥珀酸亚铁缓释片</td><td>0.2g×24片/盒</td><td>3盒</td><td><strong>补铁</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼注射液</td><td>8mg/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液(辰欣)</td><td>5mg/支</td><td>1支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">(G) 肝素钠注射液</td><td>1.25万U/支</td><td>1支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+<tr><td class="cell-long">(G) 0.9%氯化钠注射液</td><td>100ml/袋</td><td>6袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">(G) 5%葡萄糖注射液</td><td>100ml/袋</td><td>1袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">治疗费（静脉输液）</td><td>—</td><td>1次</td><td><strong>治疗操作费</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <h3 class="subsection-title">第三疗程·第3周</h3>
 <div class="table-wrap">
 <table>
@@ -443,22 +547,40 @@
 <td><strong class="critical-date">2026-09-24</strong></td>
 <td>💉 第三疗程·第3次化疗（第9次化疗）</td>
 <td>华山医院</td>
-<td class="status-cell cell-long">✅ <strong>已完成</strong>（江苏路分部日间诊疗中心·胰腺外科，执行医师 史浩骏；09:27 起补液静滴；AG 方案按期执行：艾越×2 瓶（实滴 1.5 瓶）+ 益非×1 盒 + 曲拉西利 300mg 化疗前 + 思复护肝 4 支 + 磷罗拉匹坦帕洛诺司琼 / 昂丹司琼 / 地塞米松止吐预处理 + 肝素钠 PORT 封管）<br/>　　🆕 <strong>艾贝格司亭α注射液（亿立舒）20mg 皮下</strong> —— 长效 G-CSF，化疗结束 24h 后给药（自费）<br/>　　🆕 带药 <strong>肠内营养粉剂TP（安素）400g×2 瓶</strong>，每日 3 次每次 55g 冲服<br/>　　📌 09-22 白细胞 <strong class="critical">2.55↓</strong>／中性粒细胞 <strong class="critical">1.48↓</strong> 均低于常规门槛（WBC ≥3.0 / 中性粒 ≥1.5）→ <strong>主治判定按期给药，未推迟、未减量，并在曲拉西利基础上新增长效 G-CSF 支持</strong><br/>　　📌 <strong>谷底期窗口：10-01 ~ 10-08</strong>（化疗后 7–14 天）<br/>　　金额见「费用记录」— 详见化疗页第 9 次记录</td>
+<td class="status-cell cell-long">✅ <strong>已完成</strong>（江苏路分部日间诊疗中心·胰腺外科，执行医师 史浩骏；09:27 起补液静滴；AG 方案按期执行；<strong>给药明细见本行下方表格</strong>）<br/>　　🆕 <strong>艾贝格司亭α注射液（亿立舒）20mg 皮下</strong> —— 长效 G-CSF，化疗结束 24h 后给药（自费）<br/>　　🆕 带药 <strong>肠内营养粉剂TP（安素）400g×2 瓶</strong>，每日 3 次每次 55g 冲服<br/>　　📌 09-22 白细胞 <strong class="critical">2.55↓</strong>／中性粒细胞 <strong class="critical">1.48↓</strong> 均低于常规门槛（WBC ≥3.0 / 中性粒 ≥1.5）→ <strong>主治判定按期给药，未推迟、未减量，并在曲拉西利基础上新增长效 G-CSF 支持</strong><br/>　　📌 <strong>谷底期窗口：10-01 ~ 10-08</strong>（化疗后 7–14 天）<br/>　　<strong>给药明细见本行下方表格</strong>；金额见「费用记录」</td>
 </tr>
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第9次化疗 · 本次给药明细（19 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（白蛋白结合型，艾越）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨（益非）</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">艾贝格司亭α注射液（亿立舒）</td><td>20mg/支</td><td>1支</td><td><strong>升白（长效 G-CSF）</strong></td></tr>
+<tr><td class="cell-long">注射用磷罗拉匹坦帕洛诺司琼</td><td>1支/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼注射液</td><td>8mg/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液（辰欣）</td><td>5mg/支</td><td>1支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液（思复）</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">肝素钠注射液</td><td>1.25万U/支</td><td>1支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+<tr><td class="cell-long">0.9%氯化钠注射液（湖北）</td><td>100ml/袋</td><td>6袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">5%葡萄糖注射液</td><td>100ml/袋</td><td>1袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">肠内营养粉剂TP（安素）</td><td>400g/瓶</td><td>2瓶</td><td><strong>营养补充</strong></td></tr>
+<tr><td class="cell-long">肌肉注射</td><td>—</td><td>1次</td><td><strong>治疗操作费</strong></td></tr>
+<tr><td class="cell-long">静脉注射-分部</td><td>—</td><td>1次</td><td><strong>治疗操作费</strong></td></tr>
+<tr><td class="cell-long">静脉输液</td><td>—</td><td>1次</td><td><strong>治疗操作费</strong></td></tr>
+<tr><td class="cell-long">抗肿瘤化学药物配置</td><td>—</td><td>1次</td><td><strong>治疗操作费</strong></td></tr>
+<tr><td class="cell-long">美国贝朗正压接头 415113</td><td>—</td><td>1个</td><td><strong>卫生材料</strong></td></tr>
+<tr><td class="cell-long">苏州林华植入式给药装置专用针</td><td>0.7×20</td><td>1支</td><td><strong>卫生材料</strong></td></tr>
+<tr><td class="cell-long">山东一次性使用输液器（精密）</td><td>—</td><td>1副</td><td><strong>卫生材料</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<details class="alert-collapse default"><summary>🛌 第三疗程休整期（09-25 ~ 10-05）</summary><div class="alert-body">
-<strong>09-25 ~ 10-05：</strong>休整期，骨髓恢复
-        </div></details>
+<div class="alert">🛌 <strong>09-25 ~ 10-05：</strong>休整期，骨髓恢复</div>
 </div>
-<div class="course-block course-block--pending">
-<div class="course-tag">⏸ 待定 · 依据后续 CT 评估</div>
-<h2 class="section-title">第四疗程（AG方案）</h2>
-<details class="alert-collapse info"><summary>📅 后续疗程预排计划</summary><div class="alert-body">
-<strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-04）增强 CT 评估、血常规、肝肾功能及医生评估调整
-        </div></details>
+</details>
+<details class="course-details course-details--active" id="course-68465" open>
+<summary class="course-head"><span class="course-title">第四疗程（AG方案）</span><span class="course-tag">▶ 进行中 · 10-08 第 1 次化疗已完成｜下次 10-15</span></summary>
+<div class="course-block course-block--active">
+<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-04）增强 CT 评估、血常规、肝肾功能及医生评估调整</div>
 <h3 class="subsection-title">第四疗程·第1周</h3>
 <div class="table-wrap">
 <table>
@@ -481,11 +603,27 @@
 <td>2026-10-08</td>
 <td>💉 第四疗程·第1次化疗</td>
 <td>华山医院</td>
-<td class="status-cell cell-long">✅ <strong>已完成</strong>（华山医院江苏路分部日间诊疗中心·胰腺外科，执行医师 史浩骏；08:29 双挂号 → 09:14 起执行）<br/>　　💉 AG 方案第 10 次按期执行：艾越（白蛋白紫杉醇）×2 瓶 + 益非（吉西他滨）×1 盒 + 曲拉西利 300mg 化疗前 + 思复护肝 ×4 支 + 磷罗拉匹坦帕洛诺司琼 / 昂丹司琼 / 地塞米松止吐预处理 + 肝素钠 PORT 封管<br/>　　💉 血压 <strong>119/62 mmHg、心率 65</strong>（院内测）　　💰 金额见「费用记录」<br/>　　📌 <strong class="critical-date">谷底期窗口：10-15 ~ 10-22</strong>（化疗后 7–14 天）</td>
+<td class="status-cell cell-long">✅ <strong>已完成</strong>（华山医院江苏路分部日间诊疗中心·胰腺外科，执行医师 史浩骏；08:29 双挂号 → 09:14 起执行）<br/>　　💉 AG 方案第 10 次按期执行；<strong>给药明细见本行下方表格</strong><br/>　　💉 血压 <strong>119/62 mmHg、心率 65</strong>（院内测）　　💰 金额见「费用记录」<br/>　　📌 <strong class="critical-date">谷底期窗口：10-15 ~ 10-22</strong>（化疗后 7–14 天）</td>
 </tr>
 </tbody>
 </table>
 </div>
+<details class="alert-collapse default tbl-wide"><summary>💊 第10次化疗 · 本次给药明细（14 项：药品 / 规格 / 数量 / 用途）</summary><div class="alert-body"><div class="table-wrap"><table><thead><tr><th>药品</th><th>规格</th><th>数量</th><th>用途</th></tr></thead><tbody>
+<tr><td class="cell-long">注射用紫杉醇（艾越）（白蛋白结合型）</td><td>100mg/瓶</td><td>2瓶</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用吉西他滨（益非）</td><td>1g/盒</td><td>1盒</td><td><strong>抗肿瘤主药（AG 方案）</strong></td></tr>
+<tr><td class="cell-long">注射用曲拉西利</td><td>300mg/瓶</td><td>1瓶</td><td><strong>骨髓保护（CDK4/6 抑制剂）</strong></td></tr>
+<tr><td class="cell-long">注射用磷罗拉匹坦帕洛诺司琼</td><td>—</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">多烯磷脂酰胆碱注射液（思复）</td><td>232.5mg/支</td><td>4支</td><td><strong>护肝</strong></td></tr>
+<tr><td class="cell-long">0.9% 氯化钠注射液（湖北）</td><td>—</td><td>6袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">昂丹司琼注射液</td><td>8mg/支</td><td>1支</td><td><strong>止吐</strong></td></tr>
+<tr><td class="cell-long">肝素钠注射液</td><td>1.25万U/支</td><td>1支</td><td><strong>输液港封管 / 耗材</strong></td></tr>
+<tr><td class="cell-long">5% 葡萄糖注射液</td><td>—</td><td>1袋</td><td><strong>溶媒（葡萄糖 / 氯化钠）</strong></td></tr>
+<tr><td class="cell-long">地塞米松磷酸钠注射液（辰欣）</td><td>5mg/支</td><td>1支</td><td><strong>预处理（激素等）</strong></td></tr>
+<tr><td class="cell-long">静脉注射 / 静脉输液 / 抗肿瘤化学药物配置</td><td>—</td><td>各 1 次</td><td><strong>治疗操作费</strong></td></tr>
+<tr><td class="cell-long">美国贝朗正压接头 415113</td><td>—</td><td>1个</td><td><strong>卫生材料</strong></td></tr>
+<tr><td class="cell-long">苏州林华植入式给药装置专用针（三通）</td><td>0.7×20</td><td>1支</td><td><strong>卫生材料</strong></td></tr>
+<tr><td class="cell-long">山东一次性使用输液器（精密）</td><td>—</td><td>1副</td><td><strong>卫生材料</strong></td></tr>
+</tbody></table></div><p style="font-size:12.5px;opacity:.8;margin:8px 0 0">金额明细见「💰 费用记录」tab。</p></div></details>
 <h3 class="subsection-title">第四疗程·第2周</h3>
 <div class="table-wrap">
 <table>
@@ -553,9 +691,7 @@
 </table>
 </div>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<details class="alert-collapse default"><summary>🛌 第四疗程休整期（10-23 ~ 11-02）</summary><div class="alert-body">
-<strong>10-23 ~ 11-02：</strong>休整期，骨髓恢复
-        </div></details>
+<div class="alert">🛌 <strong>10-23 ~ 11-02：</strong>休整期，骨髓恢复</div>
 <h3 class="subsection-title">第四疗程评估</h3>
 <div class="table-wrap">
 <table>
@@ -578,12 +714,11 @@
 </table>
 </div>
 </div>
+</details>
+<details class="course-details course-details--pending" id="course-85612">
+<summary class="course-head"><span class="course-title">第五疗程（AG方案）</span><span class="course-tag">⏸ 未开始 · 预排 11-05 ~ 11-19（依据后续 CT 评估）</span></summary>
 <div class="course-block course-block--pending">
-<div class="course-tag">⏸ 待定 · 依据后续 CT 评估</div>
-<h2 class="section-title">第五疗程（AG方案）</h2>
-<details class="alert-collapse info"><summary>📅 后续疗程预排计划</summary><div class="alert-body">
-<strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-04）增强 CT 评估结果调整
-        </div></details>
+<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-04）增强 CT 评估结果调整</div>
 <h3 class="subsection-title">第五疗程·第1周</h3>
 <div class="table-wrap">
 <table>
@@ -666,16 +801,13 @@
 </table>
 </div>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<details class="alert-collapse default"><summary>🛌 第五疗程休整期（11-20 ~ 11-30）</summary><div class="alert-body">
-<strong>11-20 ~ 11-30：</strong>休整期，骨髓恢复
-        </div></details>
+<div class="alert">🛌 <strong>11-20 ~ 11-30：</strong>休整期，骨髓恢复</div>
 </div>
+</details>
+<details class="course-details course-details--pending" id="course-80486">
+<summary class="course-head"><span class="course-title">第六疗程（AG方案）</span><span class="course-tag">⏸ 未开始 · 预排 12-03 ~ 12-17（依据后续 CT 评估）</span></summary>
 <div class="course-block course-block--pending">
-<div class="course-tag">⏸ 待定 · 依据后续 CT 评估</div>
-<h2 class="section-title">第六疗程（AG方案）</h2>
-<details class="alert-collapse info"><summary>📅 后续疗程预排计划</summary><div class="alert-body">
-<strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-04）增强 CT 评估结果调整
-        </div></details>
+<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-04）增强 CT 评估结果调整</div>
 <h3 class="subsection-title">第六疗程·第1周</h3>
 <div class="table-wrap">
 <table>
@@ -758,9 +890,7 @@
 </table>
 </div>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<details class="alert-collapse default"><summary>🛌 第六疗程休整期（12-18 ~ 12-28）</summary><div class="alert-body">
-<strong>12-18 ~ 12-28：</strong>休整期，骨髓恢复
-        </div></details>
+<div class="alert">🛌 <strong>12-18 ~ 12-28：</strong>休整期，骨髓恢复</div>
 <h3 class="subsection-title">第六疗程评估</h3>
 <div class="table-wrap">
 <table>
@@ -783,9 +913,83 @@
 </table>
 </div>
 </div>
+</details>
 </div><div class="panel prose" id="panel-chemotherapy">
-<div class="module-block">
-<h2 class="section-title">AG化疗方案详解</h2>
+<details class="module-details module-details--ok" open>
+<summary class="module-head">📌 当前方案总览（现在用什么）</summary>
+<div class="module-body">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>方案</th>
+<th>当前状态</th>
+<th>作用机制</th>
+</tr>
+</thead>
+<tbody>
+<tr class="highlight">
+<td rowspan="6">✅ 在用</td>
+<td><strong>AG 方案（化疗主药）</strong><br/><span style="font-size:12px;opacity:.75">白蛋白紫杉醇 + 吉西他滨</span></td>
+<td class="status-cell">✅ <strong>在用</strong><br/><span style="font-size:12px;opacity:.75">已执行 10 次</span></td>
+<td class="cell-long">紫杉醇抑制微管聚合、吉西他滨抑制 DNA 合成 → 双重阻断细胞分裂</td>
+</tr>
+<tr class="highlight">
+<td><strong>曲拉西利</strong>（骨髓保护 / CDK4/6 抑制剂）</td>
+<td class="status-cell">✅ <strong>在用</strong></td>
+<td class="cell-long">抑制 CDK4/6 通路，减少化疗诱导的骨髓抑制（白细胞/中性粒下降）</td>
+</tr>
+<tr class="highlight">
+<td><strong>艾贝格司亭α</strong>（长效 G-CSF · 升白）</td>
+<td class="status-cell">✅ <strong>在用</strong><br/><span style="font-size:12px;opacity:.75">按需 + 化疗后 24h</span></td>
+<td>刺激骨髓造血干细胞加速分化，提升中性粒细胞数量与功能</td>
+</tr>
+<tr class="highlight">
+<td><strong>胸腺法新</strong>（免疫调节）</td>
+<td class="status-cell">✅ <strong>在用</strong></td>
+<td class="cell-long">胸腺五肽类免疫调节剂，激活 T 细胞、调节免疫应答，作为机体免疫支持</td>
+</tr>
+<tr class="highlight">
+<td><strong>恩替卡韦</strong>（抗病毒 · HBV 长期管理）</td>
+<td class="status-cell">✅ <strong>持续在用</strong><br/><span style="font-size:12px;opacity:.75">长期</span></td>
+<td>抑制乙肝病毒复制 —— 化疗免疫抑制期防病毒再激活，保护肝脏</td>
+</tr>
+<tr class="highlight">
+<td><strong>对症支持</strong>（止吐 / 护肝 / 护胃 / 预处理 / 溶媒）</td>
+<td class="status-cell">✅ <strong>随化疗常规给</strong></td>
+<td class="cell-long">按化疗标准预处理方案配套，减轻恶心、护肝、护胃、抑制过敏与输注反应</td>
+</tr>
+
+<tr>
+<td rowspan="2">❌ 未采用</td>
+<td><strong>靶向治疗</strong></td>
+<td class="status-cell">❌ <strong>未采用</strong><br/><span style="font-size:12px;opacity:.75">无获批适应症</span></td>
+<td class="cell-long">KRAS G12D 热点突变 + MSS 型→ 国内<b>无获批靶向药</b>；详见下方「其他治疗方案」</td>
+</tr>
+<tr>
+<td><strong>免疫检查点抑制剂</strong>（PD-1/PD-L1 单药）</td>
+<td class="status-cell">❌ <strong>未采用</strong><br/><span style="font-size:12px;opacity:.75">疗效预测不佳</span></td>
+<td class="cell-long">MSS + PD-L1 阴性（CPS=0）+ TMB-low（7.81）→ 单药获益不明确，仅作后线储备</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details class="alert-collapse info"><summary>ℹ️ 「在用」与「未采用」的判断依据</summary><div class="alert-body">
+<strong>在用</strong> = 本阶段实际在执行或长期维持的方案；<strong>备用</strong> = 随化疗常规配套或长期维持；<strong>未采用</strong> = 已评估但因<b>无适应症</b>或<b>疗效预测不佳</b>而不使用 —— 按用户要求「没用的方案也留着」，保留作为决策依据，避免日后重复评估。<br/>
+<strong>依据来源：</strong>559基因检测（2026-07-29）+ CA19-9 趋势 + 影像评估；「未采用」项的详细论证见下方「其他治疗方案」与「基因检测」两节。
+        </div></details>
+<details class="alert-collapse default"><summary>💉 胸腺法新 · 用法说明</summary><div class="alert-body">
+<strong>作用分类：</strong>免疫调节（不属于化疗主药，也不属于靶向药）。<br/>
+<strong>药理作用：</strong>胸腺五肽类制剂，作用于胸腺淋巴细胞，促进 T 细胞分化成熟、增强细胞免疫功能；在化疗导致的免疫抑制期作为免疫支持手段。<br/>
+<strong>推荐使用方案：</strong>皮下注射，隔日一次（注射时间见本机日历提醒：<strong>周三 20:00 · 周日 08:00</strong>）。<br/>
+<strong>⚠️ 说明：</strong>具体剂量与疗程以主治医师处方和注射记录为准，本页不代替医嘱。
+        </div></details>
+</div>
+</details>
+<details class="module-details module-details--info">
+<summary class="module-head">AG化疗方案详解</summary>
+<div class="module-body">
 <h3 class="subsection-title">方案组成</h3>
 <div class="table-wrap">
 <table>
@@ -817,93 +1021,16 @@
 </table>
 </div>
 <h3 class="subsection-title">疗程安排</h3>
-<details class="alert-collapse info"><summary>💊 CSCO 指南标准 AG 方案（1A 类证据）</summary><div class="alert-body">
-<strong>CSCO 指南标准 AG 方案（1A 类证据）：</strong>白蛋白结合型紫杉醇 125mg/m² + GEM 1000mg/m²，d1/d8/d15 给药，每 4 周一个疗程<br/>
-<strong>本患者实际安排：</strong>首次 7-15（周三），自 7-23 起按每周四化疗节奏，3 周化疗 + 1 周休整 = 4 周一个疗程（华山医院个性化排期，剂量记录为指南常用剂量，实际以医嘱为准）<br/>
+<div class="alert alert-info"><strong>💊 AG 方案给药节奏（d1 / d8 / d15，4 周 = 1 个疗程）</strong><br/><strong>CSCO 指南标准 AG 方案（1A 类证据）：</strong>白蛋白结合型紫杉醇 125mg/m² + 吉西他滨（GEM）1000mg/m²<br/>
+<strong>给药节奏（d1 / d8 / d15）：</strong>1 个疗程 = 4 周 —— 第 1、8、15 天（记为 <strong>d1 / d8 / d15</strong>）各给药一次（连续 3 周化疗），<strong>d22 ~ d28 休整 1 周</strong>用于骨髓恢复<br/>
+<strong>本患者实际安排：</strong>首次 7-15（周三），自 7-23 起按每周四化疗节奏，3 周化疗 + 1 周休整 = 4 周一个疗程（华山医院个性化排期；剂量为指南常用剂量，实际以医嘱为准）<br/>
 <strong>证据级别：</strong>CSCO 2024 转移性胰腺癌一线治疗 Ⅰ 级推荐 1A 类
-        </div></details>
-<h3 class="subsection-title">疗效评估</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>指标</th>
-<th>化疗前</th>
-<th>化疗后</th>
-<th>变化</th>
-<th>评估</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CA19-9</td>
-<td>131 U/mL（07-10）</td>
-<td class="cell-long">139.42 U/mL（08-11 第二疗程·第1次化疗前）→ 79.24 U/mL（08-18 第二疗程·第2次化疗前）→ <strong>79.45 U/mL（08-26 第二疗程·第3次化疗前，化疗有效维持）</strong> → <strong>41.20 U/mL（09-08 第三疗程·第1次化疗前）</strong> → <strong>42.77 U/mL（09-15 第三疗程·第2次化疗前）</strong> → <strong class="ok">34.72 U/mL（09-22 第三疗程·第3次化疗前，首次降至 37 以下）</strong> → <strong class="abn">41.14 U/mL（10-07 第四疗程·第1次化疗前，回升超出上限）</strong></td>
-<td class="cell-long">化疗后一过性升高（最高 317.8，07-21）后持续下降，较峰值累计下降约 89%</td>
-<td class="highlight cell-long">✅ 化疗明确有效：<strong class="ok">09-22 首次降至 37 以下（34.72）</strong>；<strong class="abn">10-07 回升至 41.14（参考 &lt;37）→ 需留意波动，尚未构成影像学进展证据</strong></td>
-</tr>
-<tr>
-<td>CEA</td>
-<td>1.38 ng/mL</td>
-<td>1.77 ng/mL</td>
-<td>轻微升高</td>
-<td>正常范围内</td>
-</tr>
-<tr>
-<td>肿瘤评估</td>
-<td colspan="4">待影像学评估（建议治疗后复查CT）</td>
-</tr>
-</tbody>
-</table>
+        </div>
 </div>
-<h3 class="subsection-title">常见不良反应及处理</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>不良反应</th>
-<th>严重程度</th>
-<th>本患者情况</th>
-<th>处理措施</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>骨髓抑制（白细胞+中性粒↓）</td>
-<td>常见</td>
-<td class="warning cell-long">07-21: 白细胞 2.24↓ 中性粒细胞 1.04↓<br/>07-28: 白细胞 13.44↑（代偿）<br/>08-11: 白细胞 3.23↓ 中性粒细胞 1.38↓<br/>08-18: 白细胞 26.13↑ 中性粒细胞 15.68↑（升白针艾贝格司亭α 08-13 化疗后第 5 天作用）✅<br/><strong>08-26: 白细胞 7.49 ✅ + 中性粒细胞 5.50 ✅（升白针作用已完全代谢，血常规完全恢复正常）</strong><br/><strong>08-20 化疗当日：未复查血常规（按周期 08-25 化疗前查血，实际 08-26 完成），依据 08-18 数据判断骨髓抑制已恢复 → 本次未预防性使用升白针</strong><br/><strong>08-27 化疗前：08-26 血常规已达标（白细胞 7.49 + 中性粒 5.50），无需再次升白针预防</strong></td>
-<td class="cell-long">曲拉西利预防、利可君升白治疗；化疗前复查血常规（建议白细胞≥3.0、中性粒细胞≥1.5 方可给药）</td>
-</tr>
-<tr>
-<td>贫血（血红蛋白+红细胞↓）</td>
-<td>常见</td>
-<td class="warning cell-long">血红蛋白: 94→90→<strong>96 g/L</strong>（08-11）→ 102 g/L（08-18，+6g/L 略回升）→ <strong>100 g/L（08-26，-2g/L 略降，仍持续偏低）</strong><br/>红细胞 08-11: 3.11↓ → 08-18: 3.24↓ → <strong>08-26: 3.29↓（接近参考下限 3.8）</strong><br/>红细胞分布宽度 CV 08-18: 16.7↑ → 08-26: 16.6↑；SD 08-18: 56.9↑ → 08-26: 57.0↑<br/><strong>红细胞比积 31.50↓（08-26，参考 35-45，I 度贫血）</strong></td>
-<td class="cell-long">铁剂（硫酸亚铁缓释片）纠正、监测、必要时输血；加强营养（动物肝脏/瘦肉/深色蔬菜/蛋白粉）</td>
-</tr>
-<tr>
-<td>恶心呕吐</td>
-<td>常见</td>
-<td>轻度</td>
-<td>昂丹司琼+地塞米松预防</td>
-</tr>
-<tr>
-<td>肝功能异常</td>
-<td>需关注</td>
-<td>患者有乙肝，需监测</td>
-<td>多烯磷脂酰胆碱护肝，恩替卡韦抗病毒</td>
-</tr>
-<tr>
-<td>周围神经病变</td>
-<td>紫杉醇相关</td>
-<td>暂无</td>
-<td>监测，必要时调整剂量</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="module-block">
-<h2 class="section-title">基因检测结果</h2>
+</details>
+<details class="module-details module-details--info">
+<summary class="module-head">基因检测</summary>
+<div class="module-body">
 <details class="alert-collapse success"><summary>🧬 559 基因检测报告（07-29 迈景基因，II 类 3 项）</summary><div class="alert-body">
 <strong>🧬 肿瘤 559 基因检测报告（已出具 2026-07-29）</strong><br/>
             • <strong>检测机构：</strong>广州迈景基因医学科技有限公司（Mygene / 迈景基因）<br/>
@@ -953,9 +1080,7 @@
 </table>
 </div>
 <h3 class="subsection-title">意义未明的变异（III 类，共 8 项，临床意义不明确）</h3>
-<details class="alert-collapse neutral"><summary>ℹ️ III 类变异说明（仅科研参考）</summary><div class="alert-body">
-<strong>ℹ️ III 类变异说明：</strong>根据 AMP/ASCO/CAP 指南，这类变异目前尚无相关临床证据支持临床决策，仅作为科研和未来证据更新参考；<strong>不影响当前治疗方案</strong>。
-        </div></details>
+<div class="alert"><strong>ℹ️ III 类变异说明：</strong>根据 AMP/ASCO/CAP 指南，这类变异目前尚无相关临床证据支持临床决策，仅作为科研和未来证据更新参考；<strong>不影响当前治疗方案</strong>。</div>
 <div class="table-wrap">
 <table>
 <thead>
@@ -1023,16 +1148,8 @@
             • <strong>胚系 92 基因阴性</strong>：家族史（姐姐乳腺癌）未发现遗传易感基因，但<strong>仍建议家族女性乳腺/卵巢年度体检</strong>（家族史独立风险）<br/>
             • <strong>CBL p.S216T 丰度 44.4% 较高</strong>：需结合胚系结果判断来源（本患者胚系阴性，倾向体细胞来源，但仍建议关注）<br/>
 </div></details>
-</div>
-<div class="module-block">
-<h2 class="section-title">后续治疗方案（预留）</h2>
-<details class="alert-collapse default"><summary>⚠️ 潜在后续治疗方案（依据疗效+基因检测）</summary><div class="alert-body">
-<strong>⚠️ 以下为潜在的后续治疗方案，具体方案需根据疗效评估和基因检测结果确定</strong>
-</div></details>
 <h3 class="subsection-title">基因检测建议（基于 07-29 实测结果）</h3>
-<details class="alert-collapse neutral"><summary>ℹ️ 治疗路径说明</summary><div class="alert-body">
-<strong>ℹ️ 说明：</strong>本表对比 NCCN/CSCO 推荐检测项与本患者实际结果。"本患者实测"列已根据 07-29 报告标注，避免再次查阅报告。
-        </div></details>
+<div class="alert"><strong>ℹ️ 说明：</strong>本表对比 NCCN/CSCO 推荐检测项与本患者实际结果。"本患者实测"列已根据 07-29 报告标注，避免再次查阅报告。</div>
 <div class="table-wrap">
 <table>
 <thead>
@@ -1068,7 +1185,7 @@
 </tr>
 <tr>
 <td>HER2（ERBB2）突变/扩增</td>
-<td class="cell-long">靶向药（ trastuzumab / DS-8201 等）</td>
+<td>靶向药（ trastuzumab / DS-8201 等）</td>
 <td><span class="result-negative">未检出</span></td>
 <td>❌ 无 HER2 靶向治疗依据</td>
 <td>已排除</td>
@@ -1111,7 +1228,7 @@
 <tr class="warning">
 <td><strong>CDKN2A / TP53 突变</strong></td>
 <td>与 KRAS G12D 形成三突变共突变，预后偏差</td>
-<td class="cell-long"><span class="result-positive">✓ 均检出</span>（CDKN2A 22.1% + TP53 22.3%）</td>
+<td><span class="result-positive">✓ 均检出</span>（CDKN2A 22.1% + TP53 22.3%）</td>
 <td>⚠️ 无成熟靶向药；建议继续 AG 主线，密切监测疗效</td>
 <td>监测</td>
 </tr>
@@ -1135,6 +1252,64 @@
 <td><span class="result-negative">未检出致病变异</span></td>
 <td class="cell-long">✅ 家族史（姐姐乳腺癌）非胚系来源；仍建议家族女性乳腺/卵巢年度体检</td>
 <td>已排除（参考）</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</details>
+<details class="module-details module-details--neutral">
+<summary class="module-head">其他治疗方案</summary>
+<div class="module-body">
+<div class="alert"><strong>⚠️ 本节汇总本患者未采用 / 备用的其他治疗路径</strong>（联合化疗、靶向、免疫），依据 07-29 基因检测与化疗后指标变化（详见「📝 注意事项 → 📊 疗效评估」）；<strong>均非当前医嘱</strong>，是否适用由主治团队评估。</div>
+<h3 class="subsection-title">联合化疗方案（四药 / 三药 / 二药 / 单药）</h3>
+<div class="alert alert-warning"><strong>⚠️ 阅读须知：</strong>下表为<strong>通用指南层面</strong>的方案知识（NCCN / CSCO 常见方案），<strong>非本患者医嘱</strong>；本例病历与医嘱中<strong>未出现四药 / 三药方案</strong>，是否适用须由主治团队结合体能状态（ECOG）、胆红素与合并症评估。</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>方案</th>
+<th>药物组成</th>
+<th>适用人群 / 时机</th>
+<th>本患者相关性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>四药</td>
+<td><strong>FOLFIRINOX</strong>（含减量版 mFOLFIRINOX）</td>
+<td>5-FU + 亚叶酸钙（LV）+ 伊立替康 + 奥沙利铂</td>
+<td class="cell-long">体能状态好（ECOG 0–1）、胆红素正常者的一线选择；骨髓抑制 / 腹泻 / 周围神经毒性重于 AG</td>
+<td class="cell-long">❌ <strong>未采用</strong>：一线已选 AG 且明确有效（CA19-9 131 → 34.72），主治未改用四药；列为 AG 进展后的备选</td>
+</tr>
+<tr>
+<td>三药</td>
+<td><strong>NALIRIFOX</strong></td>
+<td>伊立替康脂质体 + 5-FU/LV + 奥沙利铂</td>
+<td class="cell-long">转移性胰腺癌一线（依据 NAPOLI-3 Ⅲ 期研究，NCCN 指南已列为一线可选）；国内可及性与医保以就诊医院为准</td>
+<td class="cell-long">❌ <strong>未采用</strong>：同上，作为 AG 进展后的备选；<span style="font-size:12px;opacity:.75">CSCO 2024 是否收录未逐条核到原文，以最新版为准</span></td>
+</tr>
+<tr class="highlight">
+<td>二药</td>
+<td><strong>AG（当前方案）</strong></td>
+<td>白蛋白结合型紫杉醇 + 吉西他滨</td>
+<td>CSCO 2024 转移性胰腺癌一线 Ⅰ 级推荐（1A 类）</td>
+<td class="cell-long">✅ <strong>正在执行</strong>：已执行 10 次（第四疗程进行中，下次 10-15）</td>
+</tr>
+<tr>
+<td>单药</td>
+<td>吉西他滨单药</td>
+<td>吉西他滨</td>
+<td>体能状态差、不能耐受联合方案者</td>
+<td>❌ 不适用（本例可耐受联合化疗）</td>
+</tr>
+<tr>
+<td>二线 / 维持</td>
+<td>5-FU/LV 类、替吉奥（S-1）、NALIRI 等</td>
+<td class="cell-long">伊立替康脂质体 + 5-FU/LV（NALIRI）／口服氟尿嘧啶类</td>
+<td class="cell-long">AG 进展后的二线选择；替吉奥亦可用于 AG 有效后的维持（CSCO 1B 类）</td>
+<td>⏸ <strong>储备</strong>：待 6 疗程结束或出现进展时与主治讨论</td>
 </tr>
 </tbody>
 </table>
@@ -1187,7 +1362,7 @@
 <tr>
 <td>帕博利珠单抗</td>
 <td>PD-1抑制剂</td>
-<td class="cell-long">MSI-H/dMMR 实体瘤（含胰腺癌，CSCO 1B 类）</td>
+<td>MSI-H/dMMR 实体瘤（含胰腺癌，CSCO 1B 类）</td>
 <td>后线单药治疗（非一线 AG 常规联合）</td>
 </tr>
 <tr>
@@ -1205,10 +1380,10 @@
 </tbody>
 </table>
 </div>
-<h3 class="subsection-title">治疗路径建议（CSCO 2024 指南 + 07-29 基因检测结果）</h3>
+<h3 class="subsection-title">治疗路径建议（CSCO 2024 指南 + 07-29 基因检测）</h3>
 <details class="alert-collapse success"><summary>🛤️ 推荐治疗路径（化疗 → 评估 → 维持/二线）</summary><div class="alert-body">
 <strong>推荐治疗路径：</strong><br/>
-            1. <strong>当前：</strong>AG 方案化疗（CSCO 1A 类证据；已完成第三疗程·第 2 次，累计第 8 次；<strong>第三疗程·第3次化疗已于 09-24 完成</strong>（累计第 9 次）；计划共 6 疗程 18 次）<br/>
+            1. <strong>当前：</strong>AG 方案化疗（CSCO 1A 类证据；<strong>第四疗程·第1次化疗已于 10-08 完成，累计第 10 次</strong>；下次 10-15；计划共 6 疗程 18 次）<br/>
             2. <strong>评估节点：</strong>09-03 增强 CT 已做（09-07 判读 SD，续定 AG）；下次增强 CT 于第 4 疗程结束后（约 11 月初）；维持治疗待 6 疗程结束后讨论。CA19-9 趋势作为动态监测<br/>
             3. <strong>基因检测（07-29 已出报告）：</strong><br/>
             　 • <strong>BRCA1/2 阴性（胚系 + 体细胞均阴性）</strong> → 奥拉帕利 / 尼拉帕利 <strong>不直接适用</strong>（即使未来更换含铂方案）<br/>
@@ -1227,7 +1402,11 @@
             　• 疼痛三阶梯治疗<br/>
             　• HBV 抗病毒持续（恩替卡韦，本患者 08-18 新增 30 片）
         </div></details>
-<h2 class="section-title">关键决策节点</h2>
+</div>
+</details>
+<details class="module-details module-details--crit">
+<summary class="module-head">关键决策节点</summary>
+<div class="module-body">
 <p class="lead"><strong>本节按时间倒序记录"改变治疗方向"的决策事件，每条决策给出：触发依据 → 医生决议 → 对未来路径的影响。</strong>日常门诊、剂量调整、合并症用药不进本节。</p>
 <div class="decision-node">
 <h3 class="subsection-title">🛑 09-07 专家门诊决策（关键决策点 #3）</h3>
@@ -1245,15 +1424,18 @@
 </ol>
 <strong>对未来路径的影响：</strong>
 <ul>
-<li>✅ <strong>短期（4~8 周）：</strong>第三疗程继续 AG，<strong>09-10 已完成 → 09-17 已完成 → 09-24 已完成</strong>（第三疗程 3 次收官；09-22 门槛不达但主治判定按期给药，并加用长效 G-CSF）；尿路感染<strong class="ok">已于 09-22 尿常规恢复正常</strong>（尿培养细菌 + 真菌均未生长）；<strong>09-22 泌尿外科医嘱：已达停药标准，改隔日 1 粒、余 3 粒后停药</strong>（若尿感反复再择机重做培养）</li>
-<li>⚠️ <strong>中期（第 4 疗程结束后 CT 评估）：</strong>若 SD 维持 → 继续完成 6 疗程；维持治疗方案待 6 疗程结束后与主治讨论（CSCO 1B 类替吉奥为候选，本患者无 BRCA 故奥拉帕利排除）</li>
+<li>✅ <strong>短期（已执行）：</strong>第三疗程 09-10 / 09-17 / 09-24 三次<strong>全部按期完成</strong>（09-22 血象门槛不达，主治判定按期给药并加用长效 G-CSF）；<strong class="ok">第四疗程·第1次化疗已于 10-08 完成（累计第 10 次）</strong>，下次 10-15；尿路感染<strong class="ok">09-22 尿常规恢复正常 → 已痊愈</strong>（同日泌尿外科医嘱已达停药标准，余药服完即停）</li>
+<li>🩸 <strong>10-07 化疗前检查（最新）：</strong>WBC <strong>21.39↑</strong>／中性粒细胞 61.0%（骨髓已自主恢复，给药门槛 WBC ≥3.0 且中性粒 ≥1.5 <strong>宽裕达标</strong>）；HGB <strong>115↓</strong>（恰在下限）；<strong class="abn">CA19-9 41.14 ↑</strong>（参考 &lt;37，为 09-22 的 34.72 之后<strong>首次回升超出上限</strong>）；<strong>尿酸 408↑／尿素 9.8↑／甘油三酯 2.49↑</strong> —— 既往各次均正常，本轮<strong>首次同向偏高</strong></li>
+<li>⚠️ <strong>中期（第 4 疗程结束后 · 约 2026-11-04 增强 CT）：</strong>若仍为 SD → 继续完成 6 疗程；<strong>CA19-9 在 34–42 区间的波动属化疗后常见的一过性升高，不以单点回升自行减停治疗，以增强 CT 为准</strong>；维持方案待 6 疗程结束后与主治讨论（CSCO 1B 类替吉奥为候选；无 BRCA 突变故奥拉帕利排除）</li>
 <li>🔭 <strong>长期：</strong>关注 KRAS G12D 临床试验入组时机（Daraxonrasib / IMM-1-104 / YL-17231 等 I/II 期）</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="module-block">
-<h2 class="section-title">辅助用药</h2>
+</details>
+<details class="module-details module-details--info">
+<summary class="module-head">辅助用药</summary>
+<div class="module-body">
 <div class="table-wrap">
 <table>
 <thead>
@@ -1308,1251 +1490,10 @@
 </table>
 </div>
 </div>
-<div class="module-block">
-<h2 class="section-title">历史化疗记录</h2>
-<div class="chemo-record">
-<h3 class="subsection-title">第1次化疗（07-15 住院期间）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品</th>
-<th>规格</th>
-<th>数量</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨(益非)</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>骨髓保护</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>护肝</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第2次化疗（07-23 门诊）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品</th>
-<th>规格</th>
-<th>数量</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨(益非)</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>骨髓保护</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>护肝</td>
-</tr>
-<tr>
-<td>硫培非格司亭注射液</td>
-<td>6mg/支</td>
-<td>1支</td>
-<td>升白（预防骨髓抑制）</td>
-</tr>
-<tr>
-<td>艾司奥美拉唑镁肠溶片</td>
-<td>20mg/片</td>
-<td>13片</td>
-<td>护胃</td>
-</tr>
-<tr>
-<td>昂丹司琼片</td>
-<td>8mg/片</td>
-<td>4片</td>
-<td>止吐</td>
-</tr>
-<tr>
-<td>地塞米松磷酸钠注射液</td>
-<td>5mg/支</td>
-<td>2支</td>
-<td>预处理</td>
-</tr>
-<tr>
-<td>脂溶性维生素注射液</td>
-<td>-</td>
-<td>1支</td>
-<td>营养补充</td>
-</tr>
-<tr>
-<td>多种微量元素注射液</td>
-<td>-</td>
-<td>1支</td>
-<td>营养补充</td>
-</tr>
-<tr>
-<td>5%葡萄糖注射液</td>
-<td>100ml/袋</td>
-<td>5袋</td>
-<td>溶媒</td>
-</tr>
-<tr>
-<td>0.9%氯化钠注射液</td>
-<td>100ml/袋</td>
-<td>4袋</td>
-<td>溶媒/冲管</td>
-</tr>
-<tr>
-<td>肝素钠注射液</td>
-<td>1.25万U/支</td>
-<td>1支</td>
-<td>PORT封管</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第3次化疗（07-30 第一疗程结束）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品</th>
-<th>规格</th>
-<th>数量</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨(益非)</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>骨髓保护</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液(思复)</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>护肝</td>
-</tr>
-<tr>
-<td>昂丹司琼注射液</td>
-<td>8mg/支</td>
-<td>1支</td>
-<td>止吐</td>
-</tr>
-<tr>
-<td>地塞米松磷酸钠注射液(辰欣)</td>
-<td>5mg/支</td>
-<td>1支</td>
-<td>预处理</td>
-</tr>
-<tr>
-<td>肝素钠注射液</td>
-<td>1.25万U/支</td>
-<td>1支</td>
-<td>PORT封管</td>
-</tr>
-<tr>
-<td>利可君片</td>
-<td>20mg×48片/盒</td>
-<td>4盒</td>
-<td>升白</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第4次化疗（08-13 第二疗程·第1次）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品</th>
-<th>规格</th>
-<th>数量</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨(益非)</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>骨髓保护（自费用药）</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液(思复)</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>护肝</td>
-</tr>
-<tr>
-<td>昂丹司琼注射液</td>
-<td>8mg/支</td>
-<td>1支</td>
-<td>止吐</td>
-</tr>
-<tr>
-<td>地塞米松磷酸钠注射液(辰欣)</td>
-<td>5mg/支</td>
-<td>1支</td>
-<td>预处理</td>
-</tr>
-<tr>
-<td>艾贝格司亭α注射液(预充)</td>
-<td>20mg/支</td>
-<td>1支</td>
-<td>升白预防（自费用药）</td>
-</tr>
-<tr>
-<td>肝素钠注射液</td>
-<td>1.25万U/支</td>
-<td>2支</td>
-<td>PORT封管</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 class="subsection-title">💊 口服药（同次门诊 08-13 开具）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品</th>
-<th>规格</th>
-<th>数量</th>
-<th>用法</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>胰酶肠溶胶囊(得每通)</td>
-<td>150mg×20粒/盒</td>
-<td>13盒</td>
-<td>每日3次，每次3粒（餐中）</td>
-<td>助消化</td>
-</tr>
-<tr>
-<td>联苯双酯片</td>
-<td>25mg×20片/瓶</td>
-<td>9瓶</td>
-<td>每日3次，每次2片</td>
-<td>护肝</td>
-</tr>
-<tr>
-<td>左氧氟沙星片(可乐必妥)</td>
-<td>0.5g×4片/盒</td>
-<td>2盒</td>
-<td>每日1次，每次1片</td>
-<td>预防感染</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第5次化疗（08-20 第二疗程·第2次，江苏路分部）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品</th>
-<th>规格</th>
-<th>数量</th>
-<th>用途</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨(益非)</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>抗肿瘤（主药）</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>骨髓保护（自费用药）</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液(思复)</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>护肝（自费用药）</td>
-</tr>
-<tr>
-<td>昂丹司琼注射液</td>
-<td>8mg/支</td>
-<td>1支</td>
-<td>止吐</td>
-</tr>
-<tr>
-<td>地塞米松磷酸钠注射液(辰欣)</td>
-<td>5mg/支</td>
-<td>1支</td>
-<td>预处理</td>
-</tr>
-<tr>
-<td>肝素钠注射液</td>
-<td>1.25万U/支</td>
-<td>1支</td>
-<td>PORT封管</td>
-</tr>
-<tr>
-<td>0.9%氯化钠注射液</td>
-<td>100ml/袋</td>
-<td>5袋</td>
-<td>溶媒/冲管</td>
-</tr>
-<tr>
-<td>5%葡萄糖注射液</td>
-<td>100ml/袋</td>
-<td>1袋</td>
-<td>溶媒</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="alert alert-info">
-<strong>💡 08-20 关键差异：</strong>
-<ul>
-<li>✅ <strong>本次未使用升白针（艾贝格司亭α）</strong>：依据 08-18 检查白细胞 26.13↑ + 中性粒细胞 15.68↑，骨髓抑制已恢复且数值充足，主治判断无需预防性升白</li>
-<li>❌ <strong>本次未新开口服药</strong>（08-13 已开：胰酶13盒+联苯双酯9瓶+左氧氟沙星2盒，剩余药量充足）</li>
-<li>🏥 <strong>医院：</strong>华山医院江苏路分部·胰腺外科·日间诊疗中心（分部与总部不同，地址/流程有差异）</li>
-<li>👨‍⚕️ <strong>主治团队：</strong>华山医院·胰腺外科（李恒超团队）· 史浩骏（团队成员，负责日间化疗门诊）</li>
-<li>💉 <strong>血压：</strong>125/64 mmHg，脉搏 59 bpm ✅</li>
-<li>⏰ <strong>时间：</strong>08:06 普通挂号 → 08:07 特需挂号 → 08:10 测血压 → 09:43 化疗</li>
-</ul>
-</div>
-</div>
-<div class="decision-node">
-<h3 class="subsection-title">🔬 第三疗程·第1次化疗前检查（09-08 长海医院）</h3>
-<div class="alert alert-warning">
-<strong>与化疗决策直接相关的指标：</strong>
-<div class="table-wrap">
-<table>
-<thead>
-<tr><th>指标</th><th>数值</th><th>参考</th><th>决策解读</th></tr>
-</thead>
-<tbody>
-<tr><td><strong>CA19-9</strong></td><td><strong>41.20 ↑</strong></td><td>&lt;37 U/mL</td><td class="cell-long">仍高于上限；化疗有效趋势不变（131→79.24→79.45→<strong>41.20</strong>），未达正常值是<strong>风险预警</strong></td></tr>
-<tr><td><strong>ALT</strong></td><td><strong>6 ↓</strong></td><td>7~40 U/L</td><td class="cell-long">略低于下限（✅ 数据纠错：此前误录为 64，实为 6；患者基线本就 5–6，07-28 起 4 次均如此）→ <strong>肝功能无异常，无保肝/减量依据</strong>，按常规周期监测即可</td></tr>
-<tr><td><strong>eGFR</strong></td><td><strong>95.37</strong></td><td>≥90（G1）</td><td>肾功能恢复 G1 ✅，化疗剂量可正常执行</td></tr>
-<tr class="warning"><td><strong>前白蛋白</strong></td><td><strong>156 ↓</strong></td><td>200~400 mg/L</td><td class="cell-long">营养预警（化疗+尿感消耗）；建议加强优质蛋白摄入（蛋白粉/鸡蛋/鱼）</td></tr>
-<tr><td>血常规安全门槛</td><td class="cell-long">WBC 4.46 / NEU 2.33 / PLT 209</td><td>WBC≥3.0 / NEU≥1.5 / PLT≥100</td><td>✅ 全部合格，按期可执行化疗</td></tr>
-</tbody>
-</table>
-</div>
-<strong>⚠️ 关注点：</strong>CA19-9 41.20 仍高于正常上限（化疗有效但未达标）→ <strong>09-17 化疗时与主治团队确认</strong>后续复查（影像/CA19-9）周期安排。
-</div>
-</div>
-<div class="decision-node">
-<h3 class="subsection-title">✅ 09-10（周四）第三疗程·第1次化疗 · 已完成（第7次）</h3>
-<div class="alert alert-success">
-<ul>
-<li><strong>地点：</strong>华山医院江苏路分部·胰腺外科·日间诊疗中心（08-20 起稳定）</li>
-<li><strong>执行结果：</strong>08:55 普通挂号 → 08:56 特需挂号 → 09:31 给药，AG 方案按期执行（艾越×2瓶 + 益非×1盒 + 曲拉西利 + 思复护肝）；血压 129/71 ✅；<strong>未使用升白针</strong></li>
-<li><strong>节奏：</strong>✅ 09-10 已完成 → ✅ 09-17 已完成 → ✅ 09-24 已完成（第三疗程 3 周化疗收官）→ 09-25~10-05 休整 → 第四疗程 10-07 检查 / 10-08 化疗；<strong>09-22 化疗前检查 WBC 2.55 ↓ / 中性粒 1.48 ↓ 未达门槛 → 主治判定按期给药，并新增长效 G-CSF（艾贝格司亭α）支持</strong></li>
-<li><strong>当日费用：</strong>¥1,934.45（医保统筹 ¥844.31 + 个人现金 ¥1,090.14）— 详细用药 13 项见下方「第7次化疗」记录</li>
-</ul>
-<strong>后续 2 个必须跟进的点：</strong>
-<ol>
-<li><strong>尿感与培养结果：</strong>可乐必妥 09-09 起服；<strong>尿培养细菌 + 真菌均未生长</strong>（报告 09-15 已入档）。疑培养前 24h 服头孢克洛致假阴性，<strong>不据此停药</strong>。✅ <strong class="ok">09-22 尿常规已恢复正常</strong>（尿沉渣白细胞 7.00，参考 0–10；酯酶 / 亚硝酸盐 / 蛋白 / 红细胞均阴性）→ <strong>09-22 泌尿外科医嘱：已达停药标准，改隔日 1 粒、余 3 粒后停药</strong>；若尿感反复再择机重做培养</li>
-<li>✅ <strong>09-17 已完成：</strong>第三疗程·第2次化疗按期执行（WBC 3.07↓ 但 ≥ 给药门槛 3.0、中性粒 1.88 ≥ 1.5，主治判定可给药，未推迟）→ 详见下方「第8次化疗」记录</li>
-<li>✅ <strong>09-15 已做：</strong>第三疗程·第2次化疗前检查（长海医院，5 项：血常规含CRP / 生化 25 项 / 肝肾功能 / 肿瘤标志物 / 尿常规）已采样 + <strong>4 项报告已入档（血常规/生化/肝肾功能/肿瘤标志物）</strong>；<strong>报告 09-15 09:50（血常规）· 09-15 13:50（生化）· 09-15 当日（肝肾功能/肿瘤标志物/尿常规）已取</strong>；<strong>核医学 3 项 + 乙肝病毒DNA 09-17 待取</strong></li>
-<li>✅ <strong>09-22 已完成：</strong>第三疗程·第3次化疗前检查（长海医院，4 份报告已入档：血常规 / 生化 21 项 / 肝肾功能 / 肿瘤标志物）→ 详见下方「第三疗程·第3次化疗前检查（09-22）」记录</li>
-<li>✅ <strong>09-22 泌尿外科：</strong>尿感复查 <strong class="ok">尿常规已恢复正常</strong>（尿沉渣白细胞 7.00，参考 0–10；酯酶 / 亚硝酸盐 / 蛋白 / 红细胞均阴性）；病历记载「目前病情稳定，维持原治疗方案」、处方无；<strong>本次门诊口头医嘱：可乐必妥已达停药标准，改隔日 1 粒、余 3 粒后停药</strong></li>
-<li>✅ <strong>09-22 脊柱外科：</strong>腰痛不适数周首诊（无下肢麻痛；查体腰部活动轻度受限、局部轻压痛，生理反射存在、未引出病理征）→ 建议 <strong>腰椎增强 MRI</strong>（已开申请单 ¥430.00）+ 处方洛索洛芬钠凝胶贴膏 100mg×8 贴×2 盒；医嘱 1 周无缓解应复诊</li>
-<li>✅ <strong>09-21 胰腺外科门诊：</strong>大便不尽咨询 + 加开降压药厄贝沙坦氢氯噻嗪片（150mg/12.5mg）28 片×1 盒，口服 1 片/日</li>
-<li>📅 <strong>09-24 已完成：</strong>第三疗程·第3次化疗（华山江苏路分部·日间诊疗中心）。09-22 白细胞 <strong class="abn">2.55 ↓</strong>（&lt; 门槛 3.0）、中性粒细胞 <strong class="abn">1.48 ↓</strong>（&lt; 门槛 1.5）<strong>两项均未达标</strong> → <strong>主治判定按期给药，未推迟、未减量</strong>，并在曲拉西利基础上<strong>新增长效 G-CSF（艾贝格司亭α / 亿立舒）20mg 皮下</strong>支持；🆕 带药 安素 400g×2 瓶。详见本页「第9次化疗」记录块</li>
-</ol>
-</div>
-</div>
-<div class="decision-node">
-<h3 class="subsection-title">🔬 第三疗程·第2次化疗前检查（09-15 长海医院）</h3>
-<div class="alert alert-info">
-<ul>
-<li><strong>采样项目（5 项）：</strong>血常规（含 CRP）/ 生化 25 项 / 肝肾功能 / 肿瘤标志物 / 尿常规；另有各类病原体DNA测定（荧光定量 PCR）</li>
-<li><strong>报告已取 4 项：</strong>血常规 09-15 09:50 / 生化 09-15 13:50 / 肝肾功能 09-15 / 肿瘤标志物 09-15 / 尿常规 09-15 09:48</li>
-<li><strong>报告待取：</strong>核医学 3 项 09-17 · 乙肝病毒DNA 09-17（长海自助机扫码取，工作日 8:00–16:00，30 天内有效）</li>
-<li><strong>关键数值：</strong>
-<ul>
-<li><strong>CA19-9 <span class="abn">42.77 ↑</span></strong>（09-08 41.20 → 42.77，仍 ↑；参考 &lt;37）→ 主治判读是否调整方案</li>
-<li><strong>WBC <span class="abn">3.07 ↓</span></strong>（参考 3.5-9.5；化疗门槛边缘）→ 9-17 化疗前需主治判读是否推迟</li>
-<li><strong>中性粒 1.88</strong>（参考 1.8-6.3，刚好下限）</li>
-<li><strong>HGB <span class="abn">104.4 ↓</span></strong>（参考 115-150；贫血持续）</li>
-<li><strong>PLT 252</strong>（参考 125-350；正常）</li>
-<li><strong>ALT <span class="abn">6 ↓</span></strong>（参考 7-40；持续偏低）</li>
-<li><strong>AST 16</strong> / <strong>Na 138</strong> / <strong>K 4.6</strong> / <strong>Crea 61</strong> / <strong>eGFR 116.45</strong>（肾功能正常偏优）</li>
-<li><strong>前白蛋白 <span class="abn">175 ↓</span></strong>（参考 180-350；营养状态仍欠佳）</li>
-<li><strong>LDH 200</strong> / <strong>胱抑素C 0.49</strong> / <strong>CEA 1.64</strong>（均在参考内）</li>
-</ul>
-</li>
-<li><strong>9-15 泌尿尿常规：</strong>尿沉渣白细胞 <strong>24 ↑</strong>（参考 0-10；较 09-08 的 130 ↓↓ 大幅下降但仍 ↑）；白细胞酯酶 15(±)↑；比重 1.015 / pH 6.0 / 潜血阴性 / 红细胞 2.0 — <strong>尿感持续但缓解</strong>；<strong>尿培养已出：细菌 + 真菌均未生长</strong></li>
-<li><strong>当日费用：</strong>挂号 ¥25.00 + 检查 ¥522.00 = <strong>¥547.00</strong>（医保统筹 ¥459.85 + 个人支付 ¥87.15）</li>
-<li><strong>累计总费用：</strong>→ <strong>¥76,469.11</strong>（最新程序识别口径；含 10-08 第四疗程·第1次化疗 ¥1,770.65 + 10-07 化疗前检查 ¥482.98；含 09-24 第三疗程·第3次化疗 ¥3,555.85 + 09-21 华山胰腺外科 ¥60.15 + 09-22 三科合计 ¥958.98 = 泌尿外科 ¥55.00 + 脊柱外科 ¥551.52 + 肿瘤科 ¥352.46；含 09-17 第三疗程·第2次化疗 ¥3,106.99 + 09-15 三科合计 ¥789.96；含 07-20 华山胰腺外科补录 ¥227.56）</li>
-<li><strong>同日上午另有两科就诊：</strong>泌尿外科（尿感复查：挂号 + 尿常规 ¥55.00）、肛肠外科首诊（便秘 + 外痔：挂号 + 开药 ¥187.96）— 详见时间线 09-15 行</li>
-</ul>
-<strong>✅ 09-17 决议结果：</strong>① <strong>WBC 3.07 ↓</strong>（仍 ≥ 给药门槛 3.0）+ 中性粒 1.88（≥ 1.5）→ <strong>主治判定按期给药，本次化疗未推迟</strong>；② <strong>CA19-9 42.77 ↑</strong> 持续高于上限（化疗有效趋势不变），后续复查（影像 / CA19-9）周期由主治安排；③ 尿感转归（尿培养细菌 + 真菌均未生长；可乐必妥有效 → 续服至尿常规正常；若反复再择机重做培养）。化疗后 7–14 天（约 09-24 前后）中性粒谷底与活动期尿感重叠，<strong>仍需每日测温</strong>。
-</div>
-</div>
-<div class="decision-node">
-<h3 class="subsection-title">🔬 第三疗程·第3次化疗前检查（09-22 长海医院）</h3>
-<div class="alert alert-info">
-<ul>
-<li><strong>采样与报告：</strong>标本 血（标本号 6354）；采样 09-22 09:09 / 收到 09:30；报告时间 血常规 10:24、生化与肝肾功能 12:27；科室 肿瘤科门诊</li>
-<li><strong>已入档 4 份报告：</strong>血常规（24 项）/ 生化（21 项）/ 肝肾功能（肌酐 + eGFR）/ 肿瘤标志物（CEA + CA19-9）</li>
-<li><strong>关键数值：</strong>
-<ul>
-<li><strong class="ok">CA19-9 34.72</strong>（参考 &lt;37）—— <strong>首次降至 37 以下</strong>；较 07-21 峰值 317.8 累计下降约 89%。<strong class="abn">10-07 回升至 41.14（超出上限）</strong>，属波动区间，<strong>需结合 11 月初增强 CT 判读</strong></li>
-<li><strong>CEA 1.39</strong>（参考 &lt;5，正常）</li>
-<li><strong>WBC <span class="abn">2.55 ↓</span></strong>（参考 3.5-9.5）→ <strong>低于化疗门槛 3.0</strong></li>
-<li><strong>中性粒细胞 <span class="abn">1.48 ↓</span></strong>（参考 1.8-6.3）→ <strong>低于化疗门槛 1.5</strong>；淋巴细胞 0.71 ↓、单核细胞 0.24</li>
-<li><strong>HGB <span class="abn">102 ↓</span></strong>（参考 115-150；贫血持续）/ <strong>PLT 170</strong>（参考 125-350，正常）</li>
-<li><strong>ALT <span class="abn">5 ↓</span></strong>（参考 7-40，持续偏低）/ <strong>AST 17</strong> / 白蛋白 42 / <strong>前白蛋白 197</strong>（参考 180-350，较 09-15 的 175 回升）</li>
-<li><strong class="abn">尿素 8.5 ↑</strong>（参考 2.6-7.5）—— <strong>既往各次均正常，本轮首次偏高</strong>，须结合肌酐 / eGFR / 尿量判读</li>
-<li><strong>肌酐 68</strong>（参考 41-73）+ <strong>eGFR 84.67</strong>（参考 80-120）→ 较轻程初（09-15 = 116.45 / G1）下降，落于 CKD G2 区间（轻度）</li>
-<li><strong>Na 141</strong> / <strong>K 4.5</strong> / 氯 101 / 葡萄糖 5.6 / 尿酸 268 / LDH 187（均正常）</li>
-</ul>
-</li>
-<li><strong>当日费用：</strong>普通门诊挂号 ¥25.00 + 检查与药品 ¥327.46 = <strong>¥352.46</strong>（医保统筹 ¥294.49 + 个人支付 ¥57.97）</li>
-<li><strong>同日另有两科就诊：</strong>泌尿外科（尿感复查，¥55.00；尿常规已恢复正常）、脊柱外科（腰痛首诊，¥551.52，建议腰椎增强 MRI）— 详见时间线 09-22 行</li>
-<li><strong>累计总费用：</strong>→ <strong>¥76,469.11</strong>（最新程序识别口径：10-07 检查 ¥482.98 + 10-08 化疗 ¥1,770.65 已计入；此前 09-22 三科 ¥958.98 + 09-24 化疗 ¥3,555.85）</li>
-</ul>
-<strong>📅 09-24 实际执行（事实陈述）：</strong>09-22 白细胞 <strong>2.55 ↓</strong>（&lt; 门槛 3.0）、中性粒细胞 <strong>1.48 ↓</strong>（&lt; 门槛 1.5）<strong>两项均未达标</strong> → 主治判定<strong>按期给药</strong>：AG 方案足量执行（艾越×2 瓶 / 实滴 1.5 瓶 + 益非×1 盒），曲拉西利骨髓保护基础上加用<strong>艾贝格司亭α（亿立舒）长效 G-CSF</strong>；当日费用 <strong>¥3,555.85</strong>（统筹 ¥807.64 / 个人 ¥2,748.21）。<strong>谷底期 10-01 ~ 10-08</strong>，期间建议复查血常规。
-</div>
-</div>
-<div class="decision-node">
-<h3 class="subsection-title">🔬 第四疗程·第1次化疗前检查（10-07 长海医院）</h3>
-<div class="alert alert-info">
-<ul>
-<li><strong>采样与报告：</strong>标本 静脉血；采样 10-07 09:45 / 收到 09:49；报告 血常规 10:24；科室 肿瘤科门诊（普通上午号）</li>
-<li><strong>已入档 4 份报告：</strong>血常规（含 CRP，24 项）/ 生化（25 项）/ 肝肾功能（肌酐 + eGFR）/ 血脂（4 项）</li>
-<li><strong class="abn">CA19-9 41.14 ↑</strong>（参考 &lt;37）—— 09-22 34.72 之后<strong>首次回升超出上限</strong>；同期 CEA 未测/ CEA 需下次一并查</li>
-<li><strong>关键数值：</strong>
-<ul>
-<li><strong>WBC <span class="ok">21.39 ↑</span></strong>（参考 3.5-9.5）—— 09-22 为 <strong class="abn">2.55↓</strong>，本轮<strong class="ok">骨髓已自主恢复并显著升高 ✅</strong>（09-24 化疗后使用长效 G-CSF 的预期效果）</li>
-<li><strong>中性粒细胞 61.0%</strong>（参考 40-75，正常区间）；⚠️ 但<strong>淋巴细胞 8.0↓ / 单核细胞 13.0↑ / 中性杆核 13.0↑ / 中性幼粒 3.0↑</strong> → <strong>典型的骨髓恢复期象（左移 + 单核升高），需留意轻度感染征象</strong>；全血 CRP 1.01（参考 &lt;10，<strong class="ok">正常，无细菌感染证据</strong>）</li>
-<li><strong>HGB <span class="abn">115 ↓</span></strong>（参考 115-150，恰在下限）/ <strong>RBC 3.52↓</strong>（参考 3.8-5.1）/ 红细胞比积 33.5↓ / 红细胞分布宽度 CV 15.9↑ + SD 54.7↑（大小不均）</li>
-<li><strong>PLT 135</strong>（参考 125-350，正常）/ 血小板压积 0.14↓</li>
-<li><strong>ALT <span class="ok">9</span></strong>（参考 7-40 —— 09-22 为 <span class="abn">5↓</span>，本轮<strong class="ok">已回正常区间</strong>）/ AST 22（参考 15-35）/ 碱性磷酸酶 115 / γ-谷氨酰基转移酶 20</li>
-<li><strong>前白蛋白 <span class="ok">184</span></strong>（参考 180-350，营养指标维持在参考下限之上）/ 白蛋白 46（参考 40-55）</li>
-<li><strong>LDH <span class="abn">326 ↑</span></strong>（参考 120-250）—— 需结合肿瘤负荷与骨髓恢复判读</li>
-<li><strong>肌酐 65</strong>（参考 41-73，正常）+ <strong>eGFR 89.39</strong>（参考 80-120）→ 较 09-22 的 84.67 略回升，仍在 G2 区间边缘（≥90 为 G1）</li>
-<li><strong class="abn">尿酸 408 ↑</strong>（参考 155-357）—— <strong>既往各次均正常，本轮首次明显偏高</strong>；尿素 9.8↑（参考 2.6-7.5，09-22 已 8.5↑ 的延续）；两者同向上升需注意<strong>肿瘤溶解综合征风险</strong>与利尿/摄入因素，<strong>下次复查重点跟踪</strong></li>
-<li><strong>甘油三酯 <span class="abn">2.49 ↑</span></strong>（参考 &lt;1.7）/ 总胆固醇 4.56 / HDL 1.36 / LDL 2.11 均在参考内</li>
-<li>Na 139 / K 4.2 / 氯 102 / 葡萄糖 5.2 / 二氧化碳结合力 26 / 总钙 2.24（均正常）</li>
-</ul>
-</li>
-<li><strong>当日费用：</strong>肿瘤科普通号挂号 ¥25.00 + 化疗前检查 ¥457.98（化验费 ¥262.00 + 西药费 ¥195.98）= <strong>¥482.98</strong>（医保统筹 ¥405.43 + 个人支付 ¥77.55；<strong>个人自费 ¥0</strong>，全部进医保）</li>
-<li><strong>🆕 新开口服药：</strong>地衣芽孢杆菌胶囊 <strong>5 盒</strong>（250mg/24，每次 2 粒 每日 3 次，肠蠕动）+ 利可君片 <strong>2 盒</strong>（20mg/48，每次 2 片 每日 3 次，升白）—— 已累加至「用药记录」剩余盒数</li>
-<li><strong>累计总费用：</strong>→ <strong>¥76,469.11</strong>（最新程序识别口径：含 10-07 检查 ¥482.98 + 10-08 化疗 ¥1,770.65）</li>
-</ul>
-<strong>✅ 10-08 决议结果（事实陈述）：</strong>10-07 血象 WBC 21.39↑、中性粒细胞 61.0%、PLT 135、ALT 9、eGFR 89.39，<strong>各项均达标或富余</strong> → 主治判定<strong>按期给药，未推迟、未减量</strong>，AG 方案第 10 次足量执行。<strong>谷底期 10-15 ~ 10-22</strong>，期间每日测温、发热即就诊。
-</div>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第6次化疗（08-27 第二疗程·第3次，江苏路分部）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品/项目</th>
-<th>规格</th>
-<th>数量</th>
-<th>金额(元)</th>
-<th>自费(元)</th>
-<th>用途/分组</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>512.88</td>
-<td>0</td>
-<td>抗肿瘤（主药）· AG方案第一组</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨(益非)</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>58.76</td>
-<td>0</td>
-<td>抗肿瘤（主药）· AG方案第二组</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>466.00</td>
-<td>466.00（全自费）</td>
-<td>骨髓保护（自费用药）· 化疗前</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液(思复)</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>75.92</td>
-<td>75.92</td>
-<td>护肝（自费用药）</td>
-</tr>
-<tr class="warning">
-<td>可乐必妥（左氧氟沙星片）</td>
-<td>0.5g×4片/盒</td>
-<td>2盒</td>
-<td>66.24</td>
-<td>13.25</td>
-<td class="cell-long">口服药 · 治疗尿路感染 🆕（化疗医生直接开具，无需自行购买）</td>
-</tr>
-<tr>
-<td>昂丹司琼注射液</td>
-<td>8mg/支</td>
-<td>1支</td>
-<td>10.28</td>
-<td>0</td>
-<td>止吐 · 化疗前</td>
-</tr>
-<tr>
-<td>地塞米松磷酸钠注射液(辰欣)</td>
-<td>5mg/支</td>
-<td>2支</td>
-<td>0.90</td>
-<td>0</td>
-<td>预处理（化疗前1支 + 09-03 CT增强用1支 🆕）</td>
-</tr>
-<tr>
-<td>肝素钠注射液</td>
-<td>1.25万U/支</td>
-<td>1支</td>
-<td>8.39</td>
-<td>0</td>
-<td>PORT封管</td>
-</tr>
-<tr>
-<td>0.9%氯化钠注射液(湖北)</td>
-<td>100ml/袋</td>
-<td>5袋</td>
-<td>15.50</td>
-<td>0</td>
-<td>溶媒/冲管 · 5袋</td>
-</tr>
-<tr>
-<td>5%葡萄糖注射液</td>
-<td>100ml/袋</td>
-<td>1袋</td>
-<td>2.57</td>
-<td>0</td>
-<td>溶媒 · 1袋</td>
-</tr>
-<tr class="warning">
-<td>碘美普尔注射液（造影剂）</td>
-<td>400mg/ml×100ml</td>
-<td>1瓶</td>
-<td>440.98</td>
-<td>44.10</td>
-<td>09-03 上腹部CT增强用 🆕（08-27 提前开单）</td>
-</tr>
-<tr class="warning">
-<td>计算机体层成像(CT)增强</td>
-<td>1 部位</td>
-<td>1 部位</td>
-<td>295.00</td>
-<td>0</td>
-<td class="cell-long">09-03 上腹部CT增强检查 🆕（08-27 提前付费）</td>
-</tr>
-<tr>
-<td>静脉注射-分部 / 静脉输液 / 抗肿瘤药物配置</td>
-<td>3 项</td>
-<td>3 次</td>
-<td>39.00</td>
-<td>0</td>
-<td>化疗操作费</td>
-</tr>
-<tr>
-<td>苏碧林华专用针 + 输液器 + 正压接头</td>
-<td>3 种耗材</td>
-<td>3 件</td>
-<td>171.00</td>
-<td>0</td>
-<td>PORT/输液耗材</td>
-</tr>
-<tr class="highlight">
-<td colspan="3">08-27 化疗+CT开单 合计</td>
-<td>2,163.42</td>
-<td>555.92</td>
-<td class="cell-long">医保统筹 ¥1,317.54 + 自负¥232.51 + 分类自负¥57.45</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="alert alert-info">
-<strong>💡 08-27 关键信息：</strong>
-<ol>
-<li>🏥 <strong>医院：</strong>华山医院江苏路分部（分部日间诊疗中心·胰腺外科），与 08-20 同一地点</li>
-<li>👨‍⚕️ <strong>主治团队：</strong>华山医院·胰腺外科（李恒超团队）· 史浩骏（团队成员，负责日间化疗门诊）</li>
-<li>💉 <strong>血压：</strong>131/66 mmHg，脉搏 63 bpm（OCR近似值）✅</li>
-<li>⏰ <strong>时间：</strong>08:26 普通挂号 → 08:27 特需挂号 → 化疗 + CT开单</li>
-<li>💉 <strong>化疗方案：</strong>AG 方案（白蛋白紫杉醇×2瓶 + 吉西他滨×1盒）+ 曲拉西利（骨髓保护，自费¥466）+ 多烯磷脂酰胆碱（护肝，自费¥75.92）</li>
-<li>💊 <strong>8 组用药详情：</strong>组1 PORT封管（肝素钠+NaCl）→ 口服可乐必妥 → 组2 化疗前（曲拉西利）→ 组3 第一组（艾越×2瓶）→ 组4 第二组（益非×1盒）→ 组5（多烯磷脂酰胆碱×4支 + 5%葡萄糖）→ 组6 冲管（NaCl）→ 组7+8（昂丹司琼+地塞米松预处理）</li>
-<li>✅ <strong>未使用升白针</strong>：依据 08-26 化疗前检查（白细胞 7.49 + 中性粒 5.50 + eGFR G1 期），骨髓状态完全达标，无需预防</li>
-<li>💊 <strong>可乐必妥已开</strong>：08-26 妇科确诊尿路感染后，08-27 化疗主治直接开具"可乐必妥"（左氧氟沙星）治疗；原本待办"自行去药店购买"已关闭</li>
-<li>🆕 <strong>09-03 CT 开单已合并到 08-27 化疗发票</strong>：CT 增强 ¥295 + 碘美普尔 ¥440.98 + 地塞米松 ¥0.45 = ¥736.43 已付费，09-03 凭预约单直接检查</li>
-<li>📌 <strong>血小板监测：</strong>08-26 血小板 127 处于正常范围下限（125-350 内，距下限 +2），需关注后续变化</li>
-</ol>
-<p>
-                💰 <strong>08-27 当日费用：</strong>挂号普通 ¥25 + 挂号特需 ¥225 + 化疗+CT开单 ¥2,163.42 = <strong>¥2,413.42</strong>（医保统筹 ¥1,349.84 + 个人现金 ¥1,063.58）<br/>
-                💰 <strong>累计总费用：</strong>¥59,042.74 → <strong>¥62,011.72</strong>（最新程序识别口径：含本次 ¥2,413.42 + 07-18 烧伤科换药 ¥328.00 + 07-20 华山胰腺外科补录 ¥227.56；09-03 CT 增强 ¥736.43 已于 08-27 提前付费）
-            </p>
-</div>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第10次化疗（10-08 第四疗程·第1次，江苏路分部）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品</th>
-<th>规格</th>
-<th>数量</th>
-<th>金额（元）</th>
-<th>自费（元）</th>
-<th>备注</th>
-</tr>
-</thead>
-<tbody>
-<tr><td>注射用紫杉醇（艾越）（白蛋白结合型）</td><td>—</td><td>2瓶</td><td>512.88</td><td>0</td><td>化疗主药·AG 方案</td></tr>
-<tr><td>注射用吉西他滨（益非）</td><td>—</td><td>1盒</td><td>58.76</td><td>0</td><td>化疗主药·AG 方案</td></tr>
-<tr><td>注射用曲拉西利</td><td>—</td><td>1瓶</td><td>466.00</td><td>466.00（全自费）</td><td>骨髓保护（CDK4/6 抑制剂）</td></tr>
-<tr><td>注射用磷罗拉匹坦帕洛诺司琼</td><td>—</td><td>1支</td><td>156.80</td><td>156.80（全自费）</td><td>止吐预处理（复方：磷罗拉匹坦 + 帕洛诺司琼）</td></tr>
-<tr><td>多烯磷脂酰胆碱注射液（思复）</td><td>—</td><td>4支</td><td>75.92</td><td>75.92（全自费）</td><td>护肝</td></tr>
-<tr><td>0.9% 氯化钠注射液（湖北）</td><td>—</td><td>6袋</td><td>18.60</td><td>0</td><td>溶媒 / 冲管</td></tr>
-<tr><td>昂丹司琼注射液</td><td>—</td><td>1支</td><td>10.28</td><td>0</td><td>止吐</td></tr>
-<tr><td>肝素钠注射液</td><td>—</td><td>1支</td><td>8.39</td><td>0</td><td>PORT 封管</td></tr>
-<tr><td>5% 葡萄糖注射液</td><td>—</td><td>1袋</td><td>2.57</td><td>0</td><td>溶媒</td></tr>
-<tr><td>地塞米松磷酸钠注射液（辰欣）</td><td>—</td><td>1支</td><td>0.45</td><td>0</td><td>预处理（分类自负 ¥0.05）</td></tr>
-<tr><td>静脉注射 / 静脉输液 / 抗肿瘤化学药物配置</td><td>—</td><td>各 1 次</td><td>39.00</td><td>0</td><td>治疗费</td></tr>
-<tr><td>美国贝朗正压接头 415113</td><td>—</td><td>1个</td><td>37.00</td><td>0</td><td>卫生材料</td></tr>
-<tr><td>苏州林华植入式给药装置专用针（三通）</td><td>0.7×20</td><td>1支</td><td>120.00</td><td>0</td><td>卫生材料</td></tr>
-<tr><td>山东一次性使用输液器（精密）</td><td>—</td><td>1副</td><td>14.00</td><td>14.00（全自费）</td><td>卫生材料</td></tr>
-<tr class="highlight">
-<td colspan="3">10-08 化疗 合计</td>
-<td>1,520.65</td>
-<td>712.72</td>
-<td class="cell-long">16 项逐项加总，与发票一致 ✅（不含挂号 ¥250.00）</td>
-</tr>
-</tbody>
-</table>
-</div>
-<strong>💡 10-08 关键信息：</strong>
-<ol>
-<li>🏥 <strong>医院：</strong>华山医院江苏路分部（分部日间诊疗中心·胰腺外科），与 09-10 / 09-17 / 09-24 同一地点</li>
-<li>👨‍⚕️ <strong>主治团队：</strong>华山医院·胰腺外科 · 史浩骏（李恒超团队成员，负责日间化疗门诊）</li>
-<li>⏰ <strong>时间：</strong>08:29 普通挂号 + 特需挂号 → 09:14 起执行（医疗收费明细开票时间 2026-10-08 09:14）</li>
-<li>💉 <strong>化疗方案：</strong>AG 方案第 <strong>10</strong> 次（白蛋白紫杉醇×2 瓶 + 吉西他滨×1 盒）+ 曲拉西利 300mg（骨髓保护，自费）+ 思复护肝×4 支（自费）+ 磷罗拉匹坦帕洛诺司琼 / 昂丹司琼 / 地塞米松止吐预处理</li>
-<li>✅ <strong>化疗前门槛宽裕：</strong>10-07 WBC <strong>21.39↑</strong>（09-22 为 2.55↓，骨髓已自主恢复）、中性粒细胞 61.0%、PLT 135、ALT 9（09-22 为 5↓）→ <strong class="ok">各项均达标甚至富余，主治判定按期给药、未推迟未减量</strong></li>
-<li>💉 <strong>化疗日血压：</strong>119/62 mmHg、心率 65 次/分（院内测，已录入「血压体温每日监测」10-08 行）</li>
-<li>🆕 <strong>新开口服药（10-07 长海开）：</strong>地衣芽孢杆菌胶囊 5 盒（250mg/24，每次 2 粒 每日 3 次）+ 利可君片 2 盒（20mg/48，每次 2 片 每日 3 次）</li>
-<li>⚠️ <strong>谷底期：</strong>本次化疗后 7–14 天（<strong class="critical-date">10-15 ~ 10-22</strong>）为中性粒细胞谷底：<strong>每日测体温</strong>，<strong>≥38℃ 按 FN 处理、2 小时内静脉广谱抗生素</strong>，不可在家硬扛</li>
-<li>📅 <strong>下一节点：</strong>休整期 10-09 ~ 10-12 → 第四疗程·第2次化疗前检查（预排 <strong>10-13 周二 长海</strong>）→ 化疗预排 <strong>10-15 周四 华山</strong></li>
-</ol>
-<p>
-                💰 <strong>10-08 当日费用：</strong>挂号普通 ¥25 + 挂号特需 ¥225 + 化疗 ¥1,520.65 = <strong>¥1,770.65</strong>（医保统筹 ¥719.00 + 个人支付 ¥1,051.65；个人自费 ¥924.72 = 自费药 3 种 ¥698.72（曲拉西利 ¥466 + 磷罗拉匹坦帕洛诺司琼 ¥156.80 + 思复 ¥75.92）+ 输液器 ¥14 + 特需诊查 ¥206 + 普通挂号自费 ¥6；个人自付 ¥126.93）<br/>
-                💰 <strong>累计总费用：</strong>¥74,215.48 → <strong>¥76,469.11</strong>（最新程序识别口径：含本次 ¥1,770.65 + 10-07 化疗前检查 ¥482.98）
-            </p>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第9次化疗（09-24 第三疗程·第3次，江苏路分部）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品/项目</th>
-<th>规格</th>
-<th>数量</th>
-<th>金额(元)</th>
-<th>自费(元)</th>
-<th>用途/分组</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>512.88</td>
-<td>0</td>
-<td class="cell-long">抗肿瘤（主药）· AG方案第一组（实滴 1.5 瓶 = 150mg）</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨（益非）</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>58.76</td>
-<td>0</td>
-<td>抗肿瘤（主药）· AG方案第二组</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>466.00</td>
-<td>466.00（全自费）</td>
-<td>骨髓保护·化疗前</td>
-</tr>
-<tr class="warning">
-<td>艾贝格司亭α注射液（亿立舒）</td>
-<td>20mg/支</td>
-<td>1支</td>
-<td>1,670.00</td>
-<td>1,670.00（全自费）</td>
-<td>🆕 长效 G-CSF 升白预防·化疗结束 24h 后皮下</td>
-</tr>
-<tr class="warning">
-<td>注射用磷罗拉匹坦帕洛诺司琼</td>
-<td>1支/支</td>
-<td>1支</td>
-<td>156.80</td>
-<td>156.80（全自费）</td>
-<td>止吐（复方）·化疗前</td>
-</tr>
-<tr>
-<td>昂丹司琼注射液</td>
-<td>8mg/支</td>
-<td>1支</td>
-<td>10.28</td>
-<td>0</td>
-<td>止吐·补液静注</td>
-</tr>
-<tr>
-<td>地塞米松磷酸钠注射液（辰欣）</td>
-<td>5mg/支</td>
-<td>1支</td>
-<td>0.45</td>
-<td>0</td>
-<td>预处理·化疗前静注</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液（思复）</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>75.92</td>
-<td>75.92（全自费）</td>
-<td>护肝</td>
-</tr>
-<tr>
-<td>肝素钠注射液</td>
-<td>1.25万U/支</td>
-<td>1支</td>
-<td>8.39</td>
-<td>0</td>
-<td>PORT 封管</td>
-</tr>
-<tr>
-<td>0.9%氯化钠注射液（湖北）</td>
-<td>100ml/袋</td>
-<td>6袋</td>
-<td>18.60</td>
-<td>0</td>
-<td>溶媒 / 冲管</td>
-</tr>
-<tr>
-<td>5%葡萄糖注射液</td>
-<td>100ml/袋</td>
-<td>1袋</td>
-<td>2.57</td>
-<td>0</td>
-<td>溶媒</td>
-</tr>
-<tr class="warning">
-<td>肠内营养粉剂TP（安素）</td>
-<td>400g/瓶</td>
-<td>2瓶</td>
-<td>109.20</td>
-<td>10.92（分类自负）</td>
-<td>🆕 口服营养补充·带药（每天3次 每次55g 冲服）</td>
-</tr>
-<tr>
-<td>肌肉注射</td>
-<td>—</td>
-<td>1次</td>
-<td>6.00</td>
-<td>0</td>
-<td>治疗费</td>
-</tr>
-<tr>
-<td>静脉注射-分部</td>
-<td>—</td>
-<td>1次</td>
-<td>8.00</td>
-<td>0</td>
-<td>治疗费</td>
-</tr>
-<tr>
-<td>静脉输液</td>
-<td>—</td>
-<td>1次</td>
-<td>16.00</td>
-<td>0</td>
-<td>治疗费</td>
-</tr>
-<tr>
-<td>抗肿瘤化学药物配置</td>
-<td>—</td>
-<td>1次</td>
-<td>15.00</td>
-<td>0</td>
-<td>治疗费</td>
-</tr>
-<tr>
-<td>美国贝朗正压接头 415113</td>
-<td>—</td>
-<td>1个</td>
-<td>37.00</td>
-<td>0</td>
-<td>卫生材料</td>
-</tr>
-<tr>
-<td>苏州林华植入式给药装置专用针</td>
-<td>0.7×20</td>
-<td>1支</td>
-<td>120.00</td>
-<td>0</td>
-<td>卫生材料</td>
-</tr>
-<tr>
-<td>山东一次性使用输液器（精密）</td>
-<td>—</td>
-<td>1副</td>
-<td>14.00</td>
-<td>14.00（全自费）</td>
-<td>卫生材料</td>
-</tr>
-<tr class="highlight">
-<td><strong>合计</strong></td>
-<td>—</td>
-<td>—</td>
-<td><strong>3,305.85</strong></td>
-<td><strong>2,382.72</strong></td>
-<td>19 项逐项加总，与发票一致 ✅</td>
-</tr>
-</tbody>
-</table>
-</div>
-<strong>💡 09-24 关键信息：</strong>
-<ol>
-<li>🏥 <strong>医院：</strong>华山医院江苏路分部（分部日间诊疗中心·胰腺外科），与 09-10 / 09-17 同一地点</li>
-<li>👨‍⚕️ <strong>主治团队：</strong>华山医院·胰腺外科 · 史浩骏（李恒超团队成员，负责日间化疗门诊；用药交待单 / 用药明细医师）</li>
-<li>⏰ <strong>时间：</strong>09:13 普通挂号 + 09:13 特需挂号 → 09:27 起补液静滴（用药明细时间戳）</li>
-<li>💉 <strong>化疗方案：</strong>AG 方案第 9 次（白蛋白紫杉醇×2 瓶 + 吉西他滨×1 盒）+ 曲拉西利 300mg（骨髓保护，自费）+ 思复护肝×4 支（自费）+ 磷罗拉匹坦帕洛诺司琼 / 昂丹司琼 / 地塞米松止吐预处理</li>
-<li>🆕 <strong>长效升白（首次用于本疗程）：</strong><strong>艾贝格司亭α注射液（亿立舒）20mg 皮下</strong> —— 长效 G-CSF，化疗结束 24h 后给药，每周期 1 次；自费 ¥1,670.00</li>
-<li>✅ <strong>化疗前门槛与判定：</strong>09-22 WBC <strong class="abn">2.55 ↓</strong>（&lt; 3.0）+ 中性粒 <strong class="abn">1.48 ↓</strong>（&lt; 1.5）两项均未达标 → <strong>主治判定按期给药，本次未推迟、未减量</strong>，改以「曲拉西利 + 长效 G-CSF」双重骨髓支持</li>
-<li>🆕 <strong>带药：</strong>肠内营养粉剂TP（安素）400g×2 瓶，每天 3 次 每次 55g 冲服（¥109.20，分类自负 ¥10.92）</li>
-<li>⚠️ <strong>谷底期：</strong>本次化疗后 7–14 天（<strong>10-01 ~ 10-08</strong>）为中性粒细胞谷底：<strong>每日测体温</strong>，<strong>≥38℃ 按 FN 处理、2 小时内静脉抗生素</strong>；建议窗口内复查血常规</li>
-<li>📅 <strong>下一节点：</strong>09-25 ~ 10-05 休整期 → 第四疗程·第1次化疗前检查（<strong>10-07 周三</strong>；10-06 长海门诊休息顺延一天）→ 化疗 <strong>10-08 周四（不变）</strong></li>
-</ol>
-<p>
-                💰 <strong>09-24 当日费用：</strong>挂号普通 ¥25 + 挂号特需 ¥225 + 化疗 ¥3,305.85 = <strong>¥3,555.85</strong>（医保统筹 ¥807.64 + 个人支付 ¥2,748.21；个人自费 ¥2,594.72 = 自费药 4 种 ¥2,368.72（艾贝格司亭α ¥1,670 + 曲拉西利 ¥466 + 磷罗拉匹坦帕洛诺司琼 ¥156.80 + 思复 ¥75.92）+ 输液器 ¥14 + 特需诊查 ¥206 + 普通挂号自费 ¥6）<br/>
-                💰 <strong>累计总费用：</strong>¥70,659.63 → <strong>¥74,215.48</strong>（最新程序识别口径，含本次 ¥3,555.85；此后 10-07 +¥482.98、10-08 +¥1,770.65 → 现 <strong>¥76,469.11</strong>）
-            </p>
-</div>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第8次化疗（09-17 第三疗程·第2次，江苏路分部）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品/项目</th>
-<th>规格</th>
-<th>数量</th>
-<th>金额(元)</th>
-<th>自费(元)</th>
-<th>用途/分组</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>512.88</td>
-<td>0</td>
-<td>抗肿瘤（主药）· AG方案第一组</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨(益非)</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>58.76</td>
-<td>0</td>
-<td>抗肿瘤（主药）· AG方案第二组</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>466.00</td>
-<td>466.00（全自费）</td>
-<td>骨髓保护（自费用药）· 化疗前</td>
-</tr>
-<tr class="warning">
-<td>注射用磷罗拉匹坦帕洛诺司琼</td>
-<td>1支/支</td>
-<td>1支</td>
-<td>156.80</td>
-<td>156.80（全自费）</td>
-<td>止吐（复方）· 化疗前</td>
-</tr>
-<tr class="warning">
-<td>奈妥匹坦帕洛诺司琼胶囊 🆕</td>
-<td>1粒/盒</td>
-<td>1盒</td>
-<td>258.00</td>
-<td>25.80（分类自负）</td>
-<td>止吐（口服复方）· 化疗前单次口服 1 粒 🆕 首次开具</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液(思复)</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>75.92</td>
-<td>75.92</td>
-<td>护肝（自费用药）</td>
-</tr>
-<tr class="warning">
-<td>胰酶肠溶胶囊（得每通）🆕</td>
-<td>150mg×20粒/盒</td>
-<td>13盒</td>
-<td>420.68</td>
-<td>0</td>
-<td class="cell-long">助消化（口服）· 每天3次 每次3粒 餐中服 🆕 首次开具</td>
-</tr>
-<tr>
-<td>联苯双酯片 🆕</td>
-<td>25mg×20片/瓶</td>
-<td>9瓶</td>
-<td>502.74</td>
-<td>0</td>
-<td>保肝（口服）· 每天3次 每次2片 🆕</td>
-</tr>
-<tr>
-<td>利可君片 🆕</td>
-<td>20mg×48片/盒</td>
-<td>4盒</td>
-<td>191.96</td>
-<td>0</td>
-<td>升白细胞（口服）· 每天3次 每次3片 🆕</td>
-</tr>
-<tr>
-<td>琥珀酸亚铁缓释片 🆕</td>
-<td>0.2g×24片/盒</td>
-<td>3盒</td>
-<td>156.96</td>
-<td>0</td>
-<td>补铁（口服）· 每天2次 每次1片 🆕</td>
-</tr>
-<tr>
-<td>昂丹司琼注射液</td>
-<td>8mg/支</td>
-<td>1支</td>
-<td>10.28</td>
-<td>0</td>
-<td>止吐 · 化疗前</td>
-</tr>
-<tr>
-<td>地塞米松磷酸钠注射液(辰欣)</td>
-<td>5mg/支</td>
-<td>1支</td>
-<td>0.45</td>
-<td>0</td>
-<td>预处理 · 化疗前</td>
-</tr>
-<tr>
-<td>(G) 肝素钠注射液</td>
-<td>1.25万U/支</td>
-<td>1支</td>
-<td>8.39</td>
-<td>0</td>
-<td>PORT 封管</td>
-</tr>
-<tr>
-<td>(G) 0.9%氯化钠注射液</td>
-<td>100ml/袋</td>
-<td>6袋</td>
-<td>18.60</td>
-<td>0</td>
-<td>溶媒 / 冲管</td>
-</tr>
-<tr>
-<td>(G) 5%葡萄糖注射液</td>
-<td>100ml/袋</td>
-<td>1袋</td>
-<td>2.57</td>
-<td>0</td>
-<td>溶媒</td>
-</tr>
-<tr>
-<td>治疗费（静脉输液）</td>
-<td>—</td>
-<td>1次</td>
-<td>16.00</td>
-<td>0</td>
-<td>治疗费</td>
-</tr>
-<tr class="highlight">
-<td colspan="3"><strong>合计（化疗部分 16 项）</strong></td>
-<td><strong>2,856.99</strong></td>
-<td><strong>724.52</strong></td>
-<td class="cell-long">医保统筹 ¥1,812.56 + 个人支付 ¥1,044.43（个人自付 ¥345.71 + 个人自费 ¥698.72）</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="alert alert-info">
-<strong>💡 09-17 关键信息：</strong>
-<ol>
-<li>🏥 <strong>医院：</strong>华山医院江苏路分部（分部日间诊疗中心·胰腺外科），与 09-10 同一地点</li>
-<li>👨‍⚕️ <strong>主治团队：</strong>华山医院·胰腺外科 · 史浩骏（日间化疗门诊，用药交待单 / 用药明细医师）</li>
-<li>💉 <strong>血压：</strong>139/61 mmHg，脉搏 64 bpm（08:37 院内测）✅</li>
-<li>⏰ <strong>时间：</strong>08:31 普通挂号 + 特需挂号 → 09:22 给药（用药明细时间戳）</li>
-<li>💉 <strong>化疗方案：</strong>AG 方案第 8 次（白蛋白紫杉醇×2瓶 + 吉西他滨×1盒）+ 曲拉西利（骨髓保护，自费¥466）+ 多烯磷脂酰胆碱（护肝，自费¥75.92）</li>
-<li>💊 <strong>9 组用药详情：</strong>组1 PORT封管（肝素钠 0.8支+NaCl）→ 组2 第一组（艾越×2瓶）→ 组3 第二组（益非×1盒）→ 组4 化疗前（曲拉西利 300mg）→ 组5（思复×4支 + 5%葡萄糖）→ 组6 化疗前（注射用磷罗拉匹坦帕洛诺司琼）→ 组7 冲管（NaCl）→ 组8 补液静注（昂丹司琼）→ 组9 补液静注（地塞米松磷酸钠）</li>
-<li>✅ <strong>化疗前门槛：</strong>WBC <strong>3.07 ↓</strong>（仍 ≥ 给药门槛 3.0）+ 中性粒 <strong>1.88</strong>（≥ 1.5）+ PLT 252 → <strong>主治判定按期给药，本次未推迟</strong></li>
-<li>🆕 <strong>新开口服药 5 种：</strong>胰酶肠溶胶囊（得每通）13盒 / 联苯双酯片 9瓶 / 利可君片 4盒 / 琥珀酸亚铁缓释片 3盒 / 奈妥匹坦帕洛诺司琼胶囊 1盒（首次口服止吐复方）</li>
-<li>⚠️ <strong>谷底期提示：</strong>本次化疗后 7–14 天（约 09-24 前后）为中性粒细胞谷底，与尿感随访重叠；每日测体温，<strong>≥38℃ 按 FN 处理，2 小时内静脉抗生素</strong></li>
-<li>📅 <strong>下一节点（已执行）：</strong>09-24（周四）第三疗程·第3次化疗（华山江苏路分部）—— <strong>已按期完成</strong>，门槛不达下由主治判定给药并加用长效 G-CSF；<strong>谷底期 10-01 ~ 10-08</strong>。再下一节点：第四疗程·第1次化疗前检查（<strong>10-07 周三</strong>；10-06 长海门诊休息顺延一天），化疗 <strong>10-08 周四（不变）</strong>。另：<strong>腰椎增强 MRI 已预约 10-07（周三）08:00</strong>（09-22 脊柱外科开单，¥430.00；当天同在长海做化疗前检查）</li>
-</ol>
-<p>
-                💰 <strong>09-17 当日费用：</strong>挂号普通 ¥25 + 挂号特需 ¥225 + 化疗 ¥2,856.99 = <strong>¥3,106.99</strong>（医保统筹 ¥1,844.86 + 个人支付 ¥1,262.13；自费合计 ¥904.72 = 曲拉西利 ¥466 + 磷罗拉匹坦帕洛诺司琼 ¥156.80 + 思复 ¥75.92 + 特需诊查 ¥206）<br/>
-                💰 <strong>累计总费用：</strong>¥65,743.55 → <strong>¥69,640.50</strong>（最新程序识别口径，含本次 ¥3,106.99）
-            </p>
-</div>
-</div>
-<div class="chemo-record">
-<h3 class="subsection-title">第7次化疗（09-10 第三疗程·第1次，江苏路分部）</h3>
-<div class="table-wrap">
-<table>
-<thead>
-<tr>
-<th>药品/项目</th>
-<th>规格</th>
-<th>数量</th>
-<th>金额(元)</th>
-<th>自费(元)</th>
-<th>用途/分组</th>
-</tr>
-</thead>
-<tbody>
-<tr class="highlight">
-<td>注射用紫杉醇（白蛋白结合型，艾越）</td>
-<td>100mg/瓶</td>
-<td>2瓶</td>
-<td>512.88</td>
-<td>0</td>
-<td>抗肿瘤（主药）· AG方案第一组</td>
-</tr>
-<tr class="highlight">
-<td>注射用吉西他滨(益非)</td>
-<td>1g/盒</td>
-<td>1盒</td>
-<td>58.76</td>
-<td>0</td>
-<td>抗肿瘤（主药）· AG方案第二组</td>
-</tr>
-<tr>
-<td>注射用曲拉西利</td>
-<td>300mg/瓶</td>
-<td>1瓶</td>
-<td>466.00</td>
-<td>466.00（全自费）</td>
-<td>骨髓保护（自费用药）· 化疗前</td>
-</tr>
-<tr class="warning">
-<td>注射用磷罗拉匹坦帕洛诺司琼</td>
-<td>1支/支</td>
-<td>1支</td>
-<td>156.80</td>
-<td>156.80（全自费）</td>
-<td>止吐（复方）· 化疗前 · 首次使用 🆕</td>
-</tr>
-<tr>
-<td>多烯磷脂酰胆碱注射液(思复)</td>
-<td>232.5mg/支</td>
-<td>4支</td>
-<td>75.92</td>
-<td>75.92</td>
-<td>护肝（自费用药）</td>
-</tr>
-<tr class="warning">
-<td>肠内营养粉剂TP(安素) 🆕</td>
-<td>400g/瓶</td>
-<td>3瓶</td>
-<td>163.80</td>
-<td>16.43（分类自负）</td>
-<td class="cell-long">口服营养补充 · 冲服 每天3次 每次55g 🆕 首次开具</td>
-</tr>
-<tr>
-<td>昂丹司琼注射液</td>
-<td>8mg/支</td>
-<td>1支</td>
-<td>10.28</td>
-<td>0</td>
-<td>止吐 · 化疗前</td>
-</tr>
-<tr>
-<td>地塞米松磷酸钠注射液(辰欣)</td>
-<td>5mg/支</td>
-<td>1支</td>
-<td>0.45</td>
-<td>0</td>
-<td>预处理（化疗前）</td>
-</tr>
-<tr>
-<td>肝素钠注射液</td>
-<td>1.25万U/支</td>
-<td>1支</td>
-<td>8.39</td>
-<td>0</td>
-<td>PORT封管</td>
-</tr>
-<tr>
-<td>0.9%氯化钠注射液(湖北)</td>
-<td>100ml/袋</td>
-<td>6袋</td>
-<td>18.60</td>
-<td>0</td>
-<td>溶媒/冲管 · 6袋</td>
-</tr>
-<tr>
-<td>5%葡萄糖注射液</td>
-<td>100ml/袋</td>
-<td>1袋</td>
-<td>2.57</td>
-<td>0</td>
-<td>溶媒 · 1袋</td>
-</tr>
-<tr>
-<td>静脉注射-分部 / 静脉输液 / 抗肿瘤药物配置</td>
-<td>3 项</td>
-<td>3 次</td>
-<td>39.00</td>
-<td>0</td>
-<td>化疗操作费</td>
-</tr>
-<tr>
-<td>植入式给药装置专用针 + 输液器 + 正压接头</td>
-<td>3 种耗材</td>
-<td>3 件</td>
-<td>171.00</td>
-<td>14.00</td>
-<td>PORT/输液耗材（输液器·精密 自费¥14）</td>
-</tr>
-<tr class="highlight">
-<td colspan="3">09-10 化疗 合计</td>
-<td>1,684.45</td>
-<td>729.07</td>
-<td class="cell-long">医保统筹 ¥812.01 + 个人现金 ¥872.44（个人自付 ¥159.72 + 个人自费 ¥712.72）</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="alert alert-info">
-<strong>💡 09-10 关键信息：</strong>
-<ol>
-<li>🏥 <strong>医院：</strong>华山医院江苏路分部（分部日间诊疗中心·胰腺外科），与 08-27 同一地点</li>
-<li>👨‍⚕️ <strong>主治团队：</strong>华山医院·胰腺外科 · 史浩骏（日间化疗门诊，用药交待单医师）</li>
-<li>💉 <strong>血压：</strong>129/71 mmHg，脉搏 72 bpm（09:02 院内测）✅</li>
-<li>⏰ <strong>时间：</strong>08:55 普通挂号 → 08:56 特需挂号 → 09:31 给药（用药明细时间戳）</li>
-<li>💉 <strong>化疗方案：</strong>AG 方案第 7 次（白蛋白紫杉醇×2瓶 + 吉西他滨×1盒）+ 曲拉西利（骨髓保护，自费¥466）+ 多烯磷脂酰胆碱（护肝，自费¥75.92）</li>
-<li>💊 <strong>9 组用药详情：</strong>组1 PORT封管（肝素钠 0.8支+NaCl）→ 组2 第一组（艾越×2瓶）→ 组3 第二组（益非×1盒）→ 组4 化疗前（曲拉西利 300mg）→ 组5（思复×4支 + 5%葡萄糖）→ 组6 化疗前（注射用磷罗拉匹坦帕洛诺司琼）→ 组7 冲管（NaCl）→ 组8+9 化疗前（昂丹司琼 + 地塞米松预处理）</li>
-<li>🆕 <strong>新增止吐复方：</strong>注射用磷罗拉匹坦帕洛诺司琼（全自费 ¥156.80），本次首次使用；⚠️ 该药名曾误记为「注射用福奈妥匹坦帕洛诺司琼」，2026-09-17 依双通道 OCR 结果纠正（费用明细 / 化疗药品矩阵 / 统计分析同步更正）</li>
-<li>🆕 <strong>新增口服营养补充：</strong>安素 400g×3瓶（冲服，每天3次每次55g），针对持续 I 度贫血/前白蛋白偏低加强营养</li>
-<li>✅ <strong>未使用升白针</strong>：本次未开升白药（08-26 化疗前检查骨髓状态达标的延续判断）</li>
-<li>⚠️ <strong>谷底期提示：</strong>化疗后 7–14 天为中性粒细胞谷底，与尿感随访重叠；每日测体温，<strong>≥38℃ 按 FN 处理，2 小时内静脉抗生素</strong></li>
-</ol>
-<p>
-                💰 <strong>09-10 当日费用：</strong>挂号普通 ¥25 + 挂号特需 ¥225 + 化疗 ¥1,684.45 = <strong>¥1,934.45</strong>（医保统筹 ¥844.31 + 个人现金 ¥1,090.14；自费合计 ¥927.57 = 曲拉西利 ¥466 + 止吐复方 ¥156.80 + 思复 ¥75.92 + 特需诊查 ¥206 + 输液器 ¥14 + 其他 ¥8.85）<br/>
-                💰 <strong>累计总费用：</strong>→ <strong>¥65,743.55</strong>（最新程序识别口径，含本次 ¥1,934.45）
-            </p>
-</div>
-</div>
-</div>
+</details>
 </div><div class="panel prose" id="panel-diet">
 <h2 class="section-title">饮食原则</h2>
-<details class="alert-collapse info"><summary>🍽️ 胰腺癌患者饮食核心原则</summary><div class="alert-body">
-<strong>胰腺癌患者饮食核心原则：</strong>高蛋白、高热量、少量多餐、低脂低糖、软烂易消化
-        </div></details>
+<div class="alert alert-info"><strong>🍽️ 胰腺癌患者饮食核心原则：</strong>高蛋白、高热量、少量多餐、低脂低糖、软烂易消化</div>
 <h3 class="subsection-title">每日摄入参考标准</h3>
 <div class="alert alert-info">
 <strong>📋 适用人群：</strong>59岁女性化疗患者 · 体重约 50kg · AG方案 · 化疗期间。<strong>具体食物禁忌清单见下方"🚫 食物禁忌清单"</strong>
@@ -2737,7 +1678,7 @@
 <td>🧂 高盐/腌制</td>
 <td>咸菜、腌肉、腊肠、酱菜、酱油过量、加工肉制品</td>
 <td>盐分高 + 亚硝酸盐致癌</td>
-<td class="cell-long">⚠️ <strong>严格控盐 &lt;5g/天</strong>（高血压3级 + 参考上方"盐摄入"）</td>
+<td>⚠️ <strong>严格控盐 &lt;5g/天</strong>（高血压3级 + 参考上方"盐摄入"）</td>
 </tr>
 <tr class="meal-dinner">
 <td>🍬 高糖</td>
@@ -2764,12 +1705,11 @@
         </div></details>
 </div>
 <h3 class="subsection-title">⚠️ 化疗期间饮食注意事项</h3>
-<details class="alert-collapse default"><summary>🤢 恶心呕吐时的饮食建议</summary><div class="alert-body">
-<strong>• 恶心呕吐时：</strong>少量多餐，干稀分食，避免空腹<br/>
-<strong>• 白细胞低时：</strong>食物彻底加热，不吃生食，水果去皮<br/>
-<strong>• 腹泻时：</strong>低脂低纤维，流质为主<br/>
-<strong>• 便秘时：</strong>适当增加膳食纤维，多喝水
-        </div></details>
+<div class="alert"><strong>🤢 症状应对饮食建议：</strong><br/>
+• <strong>恶心呕吐时：</strong>少量多餐，干稀分食，避免空腹<br/>
+• <strong>白细胞低时：</strong>食物彻底加热，不吃生食，水果去皮<br/>
+• <strong>腹泻时：</strong>低脂低纤维，流质为主<br/>
+• <strong>便秘时：</strong>适当增加膳食纤维，多喝水</div>
 <h2 class="section-title">一周配餐计划</h2>
 <div class="day-block">
 <h3 class="subsection-title"><span class="day-emoji">🌙</span>周一</h3>
@@ -2806,7 +1746,7 @@
 <tr class="meal-dinner">
 <td class="meal-icon-cell">🌙 晚餐</td>
 <td>大米粥 + 肉末蒸蛋 + 软烂青菜</td>
-<td class="cell-long">约 300g（粥150g+肉末50g+蛋50g+菜50g）</td>
+<td>约 300g（粥150g+肉末50g+蛋50g+菜50g）</td>
 <td>晚餐清淡</td>
 </tr>
 </tbody>
@@ -2824,7 +1764,7 @@
 <tr class="meal-breakfast">
 <td class="meal-icon-cell">🌅 早餐</td>
 <td>豆浆 + 肉包子 + 白煮蛋</td>
-<td class="cell-long">约 300g（豆浆200ml+包子2个100g+蛋50g）</td>
+<td>约 300g（豆浆200ml+包子2个100g+蛋50g）</td>
 <td>植物蛋白</td>
 </tr>
 <tr class="meal-snack-am">
@@ -2950,7 +1890,7 @@
 <tr class="meal-breakfast">
 <td class="meal-icon-cell">🌅 早餐</td>
 <td>燕麦粥 + 包子 + 蛋羹</td>
-<td class="cell-long">约 280g（燕麦粥150g+包子2个80g+蛋羹50g）</td>
+<td>约 280g（燕麦粥150g+包子2个80g+蛋羹50g）</td>
 <td>粗细搭配</td>
 </tr>
 <tr class="meal-snack-am">
@@ -3076,6 +2016,141 @@
             • 🧾 请主治确认<strong>降压药方案</strong>（厄贝沙坦氢氯噻嗪 vs 氨氯地平）<br/>
             • 🔬 检索 <strong>KRAS G12D</strong> 胰腺癌临床试验；关注靶向药审批动态
         </div></details>
+<h2 class="section-title">📊 疗效评估</h2>
+<details class="alert-collapse info tbl-wide"><summary>📊 疗效评估（CA19-9 / CEA / 影像 · 更新至 10-07）</summary><div class="alert-body">
+<p><strong>📌 疗效评估总览</strong></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>基线（化疗前）</th>
+<th>最新值</th>
+<th>趋势</th>
+<th>评估结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CA19-9</td>
+<td>131 U/mL（07-10）</td>
+<td><strong class="abn">41.14 U/mL</strong>（10-07）</td>
+<td class="cell-long">峰值 317.8（07-21）→ 最低 34.72（09-22），<strong>较峰值下降约 89%</strong></td>
+<td class="highlight">✅ 化疗明确有效；10-07 回升属 34–42 一过性波动</td>
+</tr>
+<tr>
+<td>CEA</td>
+<td>1.38 ng/mL（07-10）</td>
+<td>1.39 ng/mL（09-22）</td>
+<td>全程 1.38 ~ 1.77，均在参考内（&lt;5）</td>
+<td>✅ 正常范围，无额外提示意义</td>
+</tr>
+<tr>
+<td>影像学评估</td>
+<td>—</td>
+<td><strong>09-03 增强 CT：SD（病情稳定）</strong></td>
+<td>09-07 专家门诊判读，决议继续 AG 方案</td>
+<td class="highlight cell-long">✅ 稳定；下次评估在第 4 疗程结束后（约 2026-11-04）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>⚠️ 判读口径：</strong>疗效以<strong>影像学为准</strong>；CA19-9 是动态监测指标，34–42 区间的波动属化疗后常见的一过性升高，<strong>不可据单点回升自行减停治疗</strong>。</p>
+<p><strong>📈 CA19-9 历次检测值（11 次 · 参考上限 37 U/mL）</strong></p>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>检测时点</th>
+<th>CA19-9 (U/mL)</th>
+<th>较上次</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2026-07-03</td>
+<td>确诊前检查（PET-CT）</td>
+<td><strong>129↑</strong></td>
+<td>—</td>
+<td>确诊前基线（PET-CT 当日）</td>
+</tr>
+<tr>
+<td>2026-07-10</td>
+<td>第一疗程·第1次化疗前</td>
+<td><strong>131↑</strong></td>
+<td>+2</td>
+<td>首次化疗前基线</td>
+</tr>
+<tr>
+<td>2026-07-21</td>
+<td>第一疗程·第2次化疗前</td>
+<td><strong>317.8↑</strong></td>
+<td>+186.8</td>
+<td><strong class="abn">峰值</strong> —— 化疗后肿瘤坏死释放所致一过性升高</td>
+</tr>
+<tr>
+<td>2026-07-28</td>
+<td>第一疗程·第3次化疗前</td>
+<td><strong>190.46↑</strong></td>
+<td>−127.34</td>
+<td>自峰值回落</td>
+</tr>
+<tr>
+<td>2026-08-11</td>
+<td>第二疗程·第1次化疗前</td>
+<td><strong>139.42↑</strong></td>
+<td>−51.04</td>
+<td>持续下降</td>
+</tr>
+<tr>
+<td>2026-08-18</td>
+<td>第二疗程·第2次化疗前</td>
+<td><strong>79.24↑</strong></td>
+<td>−60.18</td>
+<td>首次跌破 100</td>
+</tr>
+<tr>
+<td>2026-08-26</td>
+<td>第二疗程·第3次化疗前</td>
+<td><strong>79.45↑</strong></td>
+<td>+0.21</td>
+<td>进入平台期</td>
+</tr>
+<tr>
+<td>2026-09-08</td>
+<td>第三疗程·第1次化疗前</td>
+<td><strong>41.2↑</strong></td>
+<td>−38.25</td>
+<td>首次接近参考上限</td>
+</tr>
+<tr>
+<td>2026-09-15</td>
+<td>第三疗程·第2次化疗前</td>
+<td><strong>42.77↑</strong></td>
+<td>+1.57</td>
+<td>小幅回升（波动）</td>
+</tr>
+<tr>
+<td>2026-09-22</td>
+<td>第三疗程·第3次化疗前</td>
+<td><strong>34.72</strong></td>
+<td>−8.05</td>
+<td><strong class="ok">首次降至参考范围内（&lt;37）</strong></td>
+</tr>
+<tr>
+<td>2026-10-07</td>
+<td>第四疗程·第1次化疗前</td>
+<td><strong>41.14↑</strong></td>
+<td>+6.42</td>
+<td><strong class="abn">回升超出上限</strong>，仍处 34–42 波动区间</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></details>
+
 <h2 class="section-title">重要提醒</h2>
 <details class="alert-collapse danger"><summary>⚠️ 化疗后谷底期（10-15 ~ 10-22）· 发热即急诊</summary><div class="alert-body">
 <strong>⚠️ 化疗后谷底期（10-08 化疗后 7–14 天 = 10-15 ~ 10-22）：</strong><br/>
@@ -3121,7 +2196,7 @@
             • <strong class="critical-date">给药门槛：</strong>化疗前需 WBC ≥ 3.0 且中性粒 ≥ 1.5 方可安全给药，不达标时是否给药由主治判定<br/>
             • <strong class="critical-date">谷底期硬规则：</strong>每日测体温；≥38℃ 按 FN 处理、2 小时内静脉广谱抗生素，不可在家观察<br/>
             • <strong>升白支持：</strong>09-24 曾用艾贝格司亭α（亿立舒）20mg 皮下（化疗结束 24h 后给药），自费 ¥1,670/次；既往用药后 WBC 升至 26↑（08-18 实测）。<strong>是否每周期常规使用由主治决定</strong>
-</div></details>
+        </div></details>
 <details class="alert-collapse default"><summary>⚠️ 血红蛋白（持续偏低，本轮 115↓ 恰在下限）</summary><div class="alert-body">
 <strong>⚠️ 血红蛋白（I 度贫血，长期偏低）：</strong><br/>
             • <strong>趋势：</strong>94 → 90 → 96（08-11）→ 102（08-18）→ 100（08-26）→ 98（09-08）→ 104.4（09-15）→ 102（09-22）→ <strong class="critical-date">115↓（10-07，恰在下限）</strong>，参考 115–150<br/>
@@ -3129,7 +2204,7 @@
             • <strong>红细胞分布宽度：</strong>CV 15.9↑ + SD 54.7↑（10-07，红细胞大小不均，提示缺铁或骨髓恢复期）<br/>
             • <strong>用药：</strong>琥珀酸亚铁缓释片（09-17 加开 3 盒，每天 2 次每次 1 片）<br/>
             • <strong>建议：</strong>加强营养（动物肝脏 / 瘦肉 / 深色蔬菜 / 蛋白粉）+ 铁剂持续；⚠️ <strong>铁剂与左氧氟沙星错开 ≥2 小时</strong>
-</div></details>
+        </div></details>
 <details class="alert-collapse success"><summary>🟢 肝肾功能与化疗药剂量阈值（长期关注）</summary><div class="alert-body">
 <strong>🟢 肝肾功能（长期关注）：</strong><br/>
 <strong>肝功能：</strong><br/>
@@ -3187,7 +2262,79 @@
             • <strong>免疫相关全阴性：</strong>MSS + PD-L1（CPS=0 / TPS=0）+ TMB-low（7.81 mut/Mb）→ 免疫单药不优先<br/>
             • <strong>胚系 92 基因阴性</strong> → 家族史非胚系来源；仍建议家族女性乳腺 / 卵巢年度体检<br/>
             • <strong class="ok">主线仍是 AG 方案化疗</strong>（CA19-9 持续下降，化疗有效）→ 基因结果主要用于<strong>未来二线 / 维持 / 临床试验</strong>方向；08-11 与主治讨论已完成（维持治疗 + KRAS G12D 试验入组 + CBL 高丰度随访）
-        </div></details></div><div class="panel prose" id="panel-expense"><div class="sec"><div class="cost-hero" id="fees-hero"></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>费用构成</h2><span class="hint" id="fees-count"></span></div><div class="card bars" id="fees-bars"></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>费用明细</h2><span class="hint">按时间倒序</span></div><div id="fees-detail"></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>住院费用分解</h2><span class="hint">华山医院 · 胰腺外科</span></div><div id="fees-hospital"></div></div></div>
+        </div></details>
+
+<h2 class="section-title">🩺 常见不良反应及处理</h2>
+<details class="alert-collapse warning tbl-wide"><summary>🩺 常见不良反应及处理（AG 方案 · 更新至 10-07）</summary><div class="alert-body">
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>不良反应</th>
+<th>常见程度</th>
+<th>本患者情况（最新 → 关键历史）</th>
+<th>处理措施</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>骨髓抑制<br/>（白细胞 / 中性粒↓）</td>
+<td>常见</td>
+<td class="cell-long">
+<strong>最新 10-07：</strong>WBC <strong>21.39↑</strong> ／ 中性粒细胞 <strong>61.0%</strong>（绝对值未报告）→ <strong class="ok">骨髓已自主恢复</strong>，给药门槛（WBC ≥3.0 且中性粒 ≥1.5）宽裕达标<br/>
+<strong>最低点 07-21：</strong>WBC 2.24↓ ／ 中性粒 1.04↓<br/>
+<strong>09-22：</strong>WBC 2.55↓ ／ 中性粒 1.48↓ 未达门槛 → 主治判定按期给药 + 长效 G-CSF（艾贝格司亭α）<br/>
+<strong>历史峰值：</strong>08-18 WBC 26.13↑ ／ 中性粒 15.68↑（升白针作用）
+</td>
+<td class="cell-long">曲拉西利预防、利可君升白；化疗前复查血常规，不达标由主治判定是否给药</td>
+</tr>
+<tr>
+<td>贫血<br/>（血红蛋白↓）</td>
+<td>常见</td>
+<td class="cell-long">
+<strong>最新 10-07：</strong>HGB <strong>115 g/L</strong>（恰在参考下限 115–150）<br/>
+<strong>全程：</strong>118（07-10）→ 94（07-21）→ 90（07-28）→ 96（08-11）→ 102（08-18）→ 100（08-26）→ 98（09-08）→ 104.4（09-15）→ 102（09-22）→ <strong>115（10-07）</strong><br/>
+<strong>程度：</strong>轻度，全程未输血
+</td>
+<td>琥珀酸亚铁缓释片补铁 + 优质蛋白饮食；必要时输血</td>
+</tr>
+<tr>
+<td>恶心呕吐</td>
+<td>常见</td>
+<td>轻度，未影响进食</td>
+<td>昂丹司琼 + 地塞米松预防</td>
+</tr>
+<tr>
+<td>肝功能异常</td>
+<td>需关注<br/>（乙肝背景）</td>
+<td class="cell-long">
+<strong>ALT 全程 5 ~ 13 U/L</strong>（正常低值）<br/>
+⚠️ <strong>受联苯双酯干扰，ALT 低不等于肝没事</strong>，疗效判定以 HBV-DNA 为准<br/>
+<strong>HBV-DNA（09-15）：</strong>&lt;10 IU/mL（低于检测下限）→ 恩替卡韦有效
+</td>
+<td class="cell-long">恩替卡韦抗病毒（<strong class="critical-date">不可自行停药</strong>）+ 多烯磷脂酰胆碱护肝；胆红素 &gt;1.5×ULN 时白蛋白紫杉醇减量 25%</td>
+</tr>
+<tr>
+<td>周围神经病变</td>
+<td>紫杉醇相关</td>
+<td>暂无</td>
+<td>监测，必要时调整剂量</td>
+</tr>
+<tr>
+<td>代谢异常<br/>（尿酸 / 尿素 / 血脂）</td>
+<td>需关注<br/>（10-07 首次）</td>
+<td class="cell-long">
+<strong>10-07：</strong>尿酸 <strong class="abn">408↑</strong>（155–357）／ 尿素 <strong class="abn">9.8↑</strong>（2.6–7.5，09-22 已 8.5↑）／ 甘油三酯 <strong class="abn">2.49↑</strong>（&lt;1.7）<br/>
+⚠️ <strong>尿酸与尿素同向上升</strong>需按主治意见排查（与利尿 / 蛋白摄入 / 脱水相关）。
+</td>
+<td class="cell-long">保证饮水 &gt;1500ml/日、控制高嘌呤饮食；⚠️ <strong>不可自行服降尿酸药</strong>，由主治判读后决定</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>⚠️ 说明：</strong>本表为 AG 方案常见不良反应的<strong>通用清单 + 本患者实际发生情况</strong>；数值均取自各次化疗前血常规 / 生化报告，未记录的时点不作推断。</p>
+</div></details>
+</div><div class="panel prose" id="panel-expense"><div class="sec"><div class="cost-hero" id="fees-hero"></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>费用构成</h2><span class="hint" id="fees-count"></span></div><div class="card bars" id="fees-bars"></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>费用明细</h2><span class="hint">按时间倒序</span></div><div id="fees-detail"></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>住院费用分解</h2><span class="hint">华山医院 · 胰腺外科</span></div><div id="fees-hospital"></div></div></div>
 <div class="foot">
   <div>本档案由家属整理，仅供个人就医参考，不能替代医生诊断与处方。</div>
   <button class="btn" onclick="window.print()">
