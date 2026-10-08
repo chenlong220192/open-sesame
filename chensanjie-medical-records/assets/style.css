@@ -319,8 +319,11 @@ dl.kv dd{font-weight:520}
   .hero{padding:22px 20px}
   .hero h1{font-size:23px}
   .grid-4,.grid-2{grid-template-columns:1fr}
-  .tabs{gap:3px;padding:4px}
-  .tab{font-size:13.5px;padding:9px 10px;min-width:84px}
+  /* 手机端 tab 改3 列 × 2 行网格（10-08）：6 个 tab 单行均分时每格仅 ~84px，
+     「治疗时间线」5 个字放不下被截断，且总需527px > 可视 364px → 需横滚。
+     两行后每格约 116px，文字完整、不需横滚，点击区仍 ≥ 40px 高。 */
+  .tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;overflow-x:visible}
+  .tab{min-width:0;padding:10px 4px;font-size:13.5px;gap:4px}
   .hero-meta{gap:18px}
   .chart-card{padding:16px 14px 12px}
   .cost-hero .row{gap:22px}
@@ -328,6 +331,11 @@ dl.kv dd{font-weight:520}
   .bar-row .nm{flex-basis:72px;font-size:12.5px}
   .bar-row .vv{flex-basis:86px;font-size:12.5px}
   .bar-row .pc{flex-basis:38px}
+}
+/* 超窄屏（≤380px，如 iPhone SE）：tab 缩到 2 列 × 3 行，保证「治疗时间线」不截断 */
+@media(max-width:380px){
+  .tabs{grid-template-columns:repeat(2,1fr)}
+  .tab{font-size:13px;padding:10px 2px}
 }
 @media print{
   @page{size:A4;margin:12mm}
