@@ -34,7 +34,15 @@ body{
   color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;
   padding:30px 20px 60px;
 }
-.wrap{max-width:1060px;margin:0 auto}
+/* ============ 内容容器 · 响应式宽度（2026-10-08 改：宽屏自适应）============
+   旧：max-width:1060px 固定 → 扩展屏上内容只占中间一条，两侧大片空白。
+   新：**分段递进** + 上限 1680px（超过后不再增宽，避免一行过长难读）。
+   窄屏 / 手机 / 平板由既有640/900 断点兜底，此处只管≥1100 的宽屏侧。 */
+.wrap{width:100%;max-width:1060px;margin:0 auto}
+@media (min-width:1150px){.wrap{max-width:1320px}}
+@media (min-width:1400px){.wrap{max-width:1560px}}
+@media (min-width:1700px){.wrap{max-width:1760px}}
+@media (min-width:2100px){.wrap{max-width:1920px}}
 
 /* ============ 隐私提示条 ============ */
 .notice-bar{
@@ -449,4 +457,51 @@ dl.kv dd{font-weight:520}
 @media print{
   .prose details.alert-collapse{border-color:#aaa}
   .prose details.alert-collapse[open]>summary::before{transform:none}
+}
+
+/* ============ 宽屏排版优化（≥1200px）============
+   容器加宽后，若不给正文设行宽上限，一行会拉到 80+ 汉字（阅读体验差、易串行）。
+   策略：**容器放宽 + 文字块限行长+ 结构化块（表格/网格）吃满宽度**。 */
+
+/* ① 文字类内容限行长（约 46汉字/行，中文可读区间 40–50）
+      ⚠️ 选择器必须覆盖**全部**承载长段落的容器，否则宽屏下会失控拉到 80+ 字/行。
+      实测（10-08）：只写 .alert-body 时，timeline 的 .tl-body .x 仍是 none → 1680px 一行。 */
+@media (min-width:1150px){
+  .prose .alert-body,
+  .prose details.alert-collapse .alert-body,
+  .prose .alert ul,
+  .prose .alert ol,
+  .prose>p,
+  .prose .lead,
+  .tl-body .x,
+  .tl-body li,
+  .prose .module-block>p,
+  .prose .module-block>ul,
+  .prose .module-block>ol{max-width:46em}
+}
+
+/* ② 结构化内容吃满宽度：多列网格在宽屏升到3 列（原来 2 列 → 900px 断点处 2 列） */
+@media (min-width:1150px){
+  .grid-4{grid-template-columns:repeat(4,1fr)}
+  .chart-grid{grid-template-columns:repeat(2,1fr)}
+  .diet-grid{grid-template-columns:repeat(3,1fr)}
+}
+
+/* ③ 卡片类容器在宽屏增加内边距与呼吸感，避免"内容贴边" */
+@media (min-width:1400px){
+  .hero{padding:38px 44px}
+  .hero-meta{gap:34px}
+  .module-block{padding:22px 26px}
+}
+
+/* ④ 表格容器：宽屏下允许更宽的长单元格（原本 30em 会让表格撑不满） */
+@media (min-width:1150px){
+  .prose .table-wrap td.cell-long{max-width:40em}
+  .fees-tbl td.cell-desc{max-width:40em}
+}
+
+/* ⑤ 费用构成条：宽屏下给标签与数值更多空间，避免挤压 */
+@media (min-width:1150px){
+  .bar-row .nm{flex-basis:120px}
+  .bar-row .vv{flex-basis:110px}
 }
