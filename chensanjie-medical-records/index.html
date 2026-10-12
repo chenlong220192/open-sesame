@@ -12,7 +12,7 @@
 <body>
 <div class="wrap">
 <div class="notice-bar" id="noticeBar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="notice-icon"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span><b>隐私说明：</b>本页面为家庭健康管理记录，不含原始病历影像，仅用于就诊参考；所有数据已脱敏，不关联身份证号、医保卡号等敏感信息；就诊请以医院正式报告为准，本页指标仅供趋势参考；内容仅限家属内部使用，请勿外传。</span><button class="notice-close" type="button" onclick="dismissNotice()" aria-label="关闭隐私提示"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></button></div>
-<header class="hero"><div class="hero-top"><div class="avatar">陈</div><div><h1>陈三姐 · 康复追踪</h1><div class="sub"><span>女 · 59 岁</span><span class="sep">|</span><span>确诊 2026-07-03</span><span class="sep">|</span><span class="updated">更新日期 2026-10-08</span></div></div></div><div class="hero-meta"><div class="hm"><div class="k">主治团队</div><div class="v">华山医院 · 胰腺外科</div></div><div class="hm"><div class="k">化疗院区</div><div class="v">华山医院 · 江苏路</div></div><div class="hm"><div class="k">当前阶段</div><div class="v">第四疗程·第1次化疗已完成（10-08）</div></div><div class="hm"><div class="k">下一节点</div><div class="v">10-09 长海·康复医学科门诊 → 10-13 化疗前检查 + 脊柱外科门诊 · 化疗 10-15</div></div><div class="hm"><div class="k">病程</div><div class="v"><span id="courseDuration" data-anchor="2026-07-03">3.2 个月 · 98 天</span></div></div></div><div class="badges"><span class="badge danger"><i class="dot"></i>胰腺导管腺癌（PDAC）</span><span class="badge warn"><i class="dot"></i>高血压 3 级</span><span class="badge warn"><i class="dot"></i>乙型肝炎</span><span class="badge info"><i class="dot"></i>化疗·AG方案</span></div></header>
+<header class="hero"><div class="hero-top"><div class="avatar">陈</div><div><h1>陈三姐 · 康复追踪</h1><div class="sub"><span>女 · 59 岁</span><span class="sep">|</span><span>确诊 2026-07-03</span><span class="sep">|</span><span class="updated">更新日期 2026-10-08</span></div></div></div><div class="hero-meta"><div class="hm"><div class="k">主治团队</div><div class="v">华山医院 · 胰腺外科</div></div><div class="hm"><div class="k">化疗院区</div><div class="v">华山医院 · 江苏路</div></div><div class="hm"><div class="k">当前阶段</div><div class="v">第四疗程进行中 · 第1次化疗已完成（10-08）· 第2次 10-15</div></div><div class="hm"><div class="k">下一节点</div><div class="v">10-13 长海·化疗前检查 + 脊柱外科门诊 → 10-15 华山·第四疗程第2次化疗</div></div><div class="hm"><div class="k">病程</div><div class="v"><span id="courseDuration" data-anchor="2026-07-03">3.3 个月 · 101 天</span></div></div></div><div class="badges"><span class="badge danger"><i class="dot"></i>胰腺导管腺癌（PDAC）</span><span class="badge warn"><i class="dot"></i>高血压 3 级</span><span class="badge warn"><i class="dot"></i>乙型肝炎</span><span class="badge info"><i class="dot"></i>化疗·AG方案</span></div></header>
 <nav class="tabs" id="tabs"><button class="tab active" data-tab="indicators">📊 健康监测</button><button class="tab" data-tab="timeline">📅 治疗时间线</button><button class="tab" data-tab="chemotherapy">💊 治疗方案</button><button class="tab" data-tab="diet">🍽 饮食计划</button><button class="tab" data-tab="notes">📝 注意事项</button><button class="tab" data-tab="expense">💰 费用记录</button></nav>
 <main>
 <div class="panel prose active" id="panel-indicators"><div class="sec"><div class="sec-head"><i class="bar"></i><h2>最近一次检查</h2><span class="hint" id="lastDateHint"></span></div><div class="grid-4" id="metricCards"></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">CA19-9 肿瘤标志物</div><div class="chart-sub">胰腺癌疗效监测核心指标 · 正常参考值 &lt; 37 U/mL</div></div><div class="legend" id="lg-tumorChart"></div></div><div class="chart-box"><div id="tumorChart"></div><div class="tip" id="tip-tumorChart"></div></div><div class="chart-foot" id="ft-tumorChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">白细胞 与 中性粒细胞</div><div class="chart-sub">骨髓抑制监测 · 白细胞 3.5–9.5，中性粒 1.8–6.3（×10⁹/L）</div></div><div class="legend" id="lg-wbcChart"></div></div><div class="chart-box"><div id="wbcChart"></div><div class="tip" id="tip-wbcChart"></div></div><div class="chart-foot" id="ft-wbcChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">血红蛋白 与 血小板</div><div class="chart-sub">贫血与凝血监测 · 血红蛋白 115–150 g/L｜血小板 125–350 ×10⁹/L</div></div><div class="legend" id="lg-hgbChart"></div></div><div class="chart-box"><div id="hgbChart"></div><div class="tip" id="tip-hgbChart"></div></div><div class="chart-foot" id="ft-hgbChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肝功能（ALT / AST）</div><div class="chart-sub">化疗肝毒性监测 · 正常 ALT 7–40，AST 15–35（U/L）</div></div><div class="legend" id="lg-liverChart"></div></div><div class="chart-box"><div id="liverChart"></div><div class="tip" id="tip-liverChart"></div></div><div class="chart-foot" id="ft-liverChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肝功能扩展（前白蛋白 / LDH）</div><div class="chart-sub">营养与肿瘤负荷 · 前白蛋白 200–400，LDH 120–250（U/L）</div></div><div class="legend" id="lg-liverExtraChart"></div></div><div class="chart-box"><div id="liverExtraChart"></div><div class="tip" id="tip-liverExtraChart"></div></div><div class="chart-foot" id="ft-liverExtraChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肾功能（肌酐 / eGFR）</div><div class="chart-sub">肾功监测 · 肌酐 41–73，eGFR ≥90（μmol/L / mL/min/1.73m²）</div></div><div class="legend" id="lg-renalChart"></div></div><div class="chart-box"><div id="renalChart"></div><div class="tip" id="tip-renalChart"></div></div><div class="chart-foot" id="ft-renalChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">电解质（钾 / 钠）</div><div class="chart-sub">电解质平衡 · 钾 3.5–5.3，钠 137–147（mmol/L）</div></div><div class="legend" id="lg-electrolyteChart"></div></div><div class="chart-box"><div id="electrolyteChart"></div><div class="tip" id="tip-electrolyteChart"></div></div><div class="chart-foot" id="ft-electrolyteChart"></div></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>检验报告摘要</h2><span class="hint">共 11 次 · 含参考范围</span></div><div class="card"><div class="fold-head open" data-fold="labs"><i class="caret"></i>检验报告摘要（11 次）<span class="mini n" style="margin-left:6px">点击收起</span></div><div class="fold-body open" id="fold-labs"><div id="indicators-table"></div></div></div></div></div><div class="panel prose" id="panel-timeline">
@@ -636,11 +636,11 @@
 </tr>
 </thead>
 <tbody>
-<tr class="warning">
+<tr>
 <td>2026-10-09</td>
 <td>🦵 康复医学科门诊<br/><span style="font-size:12px;opacity:.75">（脑出血后右腿行走不便）</span></td>
 <td>长海医院</td>
-<td class="status-cell">⏳ 待定</td>
+<td class="status-cell">✅ <strong>已完成</strong></td>
 </tr>
 <tr class="warning">
 <td>2026-10-13</td>
@@ -679,6 +679,12 @@
 <td>2026-10-20</td>
 <td>🔬 化疗前检查</td>
 <td>长海医院</td>
+<td class="status-cell">⏳ 待定</td>
+</tr>
+<tr class="warning">
+<td>2026-10-20</td>
+<td class="cell-long">🧠 头颅 MR 平扫<br/><span style="font-size:12px;opacity:.75">（10-09 康复医学科开单，已预约 09:00）</span></td>
+<td>长海医院·医学影像科</td>
 <td class="status-cell">⏳ 待定</td>
 </tr>
 <tr class="warning">
@@ -2007,9 +2013,9 @@
 </div>
 </div><div class="panel prose" id="panel-notes"><h2 class="section-title">待完成事项</h2>
 <details class="alert-collapse default" open=""><summary>📋 待完成事项</summary><div class="alert-body">
-            • 📅 <strong class="critical-date">10-09（周五）长海·康复医学科门诊</strong> —— 脑出血后右腿行走不顺畅（10 个月前脑出血），具体检查项目由门诊医生评估<br/>
             • 📅 <strong class="critical-date">10-13（周二）第四疗程·第2次化疗前检查</strong>（长海）｜<strong class="critical-date">10-13（周二）长海·脊柱外科门诊</strong>（08:15，紧接化疗前检查之后）｜<strong class="critical-date">10-15（周四）第2次化疗</strong>（华山）<br/>
-            • 🦴 <strong>10-13 脊柱外科门诊携带腰椎增强 MRI 报告</strong>（09-22 长海开单，项目「腰椎 MR 平扫」）请医生做诊断与治疗方案<br/>
+            • 🦴 <strong>10-13 就诊前先取腰椎 MR 报告</strong>（10-07 已拍，报告已出、尚未领取）→ 携报告赴脊柱外科门诊做诊断与治疗方案<br/>
+            • 📅 <strong class="critical-date">10-20（周二）长海·头颅 MR 平扫</strong>（10-09 康复医学科开单，已预约 09:00）<br/>
             • 🌡️ 谷底期每日测体温（10-15 ~ 10-22）<br/>
             • 🩸 谷底期复查血常规（10-15 ~ 10-22 窗口内）<br/>
             • 💊 请主治评估<strong>安素</strong> 是否续开<br/>
