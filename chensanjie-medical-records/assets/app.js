@@ -410,7 +410,7 @@
       $("lg-hgbChart").innerHTML =
         '<i data-si="0"><s style="background:#e0567a"></s>血红蛋白（左轴 g/L）</i>'
         + '<i data-si="1"><s style="background:#3d6b93"></s>血小板（右轴 ×10⁹/L）</i>';
-      $("ft-hgbChart").textContent = "血红蛋白由 118 降至 90（1 度贫血），后回升至 104.4（09-15）；血小板 252（09-15）在正常范围，随化疗波动。";
+      $("ft-hgbChart").textContent = "血红蛋白由 118 降至 90（1 度贫血），后回升至 104（09-15）；血小板 252（09-15）在正常范围，随化疗波动。";
     }
 
     el = $("liverChart");
