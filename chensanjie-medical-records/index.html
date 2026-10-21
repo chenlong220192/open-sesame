@@ -12,7 +12,7 @@
 <body>
 <div class="wrap">
 <div class="notice-bar" id="noticeBar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="notice-icon"><path d="M12 9v4M12 17h.01"/><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg><span><b>隐私说明：</b>本页面为家庭健康管理记录，不含原始病历影像，仅用于就诊参考；所有数据已脱敏，不关联身份证号、医保卡号等敏感信息；就诊请以医院正式报告为准，本页指标仅供趋势参考；内容仅限家属内部使用，请勿外传。</span><button class="notice-close" type="button" onclick="dismissNotice()" aria-label="关闭隐私提示"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg></button></div>
-<header class="hero"><div class="hero-top"><div class="avatar">陈</div><div><h1>陈三姐 · 康复追踪</h1><div class="sub"><span>女 · 59 岁</span><span class="sep">|</span><span>确诊 2026-07-03</span><span class="sep">|</span><span class="updated">更新日期 2026-10-20</span></div></div></div><div class="hero-meta"><div class="hm"><div class="k">主治团队</div><div class="v">华山医院 · 胰腺外科</div></div><div class="hm"><div class="k">化疗院区</div><div class="v">华山医院 · 江苏路</div></div><div class="hm"><div class="k">当前阶段</div><div class="v">第四疗程进行中 · 第3次化疗前检查结果已出（10-21）</div></div><div class="hm"><div class="k">下一节点</div><div class="v">10-22 华山·第四疗程第3次化疗（10-21 血象低于门槛，是否按期由主治判定）→ 约 11-02 增强 CT 评估</div></div><div class="hm"><div class="k">病程</div><div class="v"><span id="courseDuration" data-anchor="2026-07-03">3.6 个月 · 110 天</span></div></div></div><div class="badges"><span class="badge danger"><i class="dot"></i>胰腺导管腺癌（PDAC）</span><span class="badge warn"><i class="dot"></i>高血压 3 级</span><span class="badge warn"><i class="dot"></i>乙型肝炎</span><span class="badge info"><i class="dot"></i>化疗·AG方案</span></div></header>
+<header class="hero"><div class="hero-top"><div class="avatar">陈</div><div><h1>陈三姐 · 康复追踪</h1><div class="sub"><span>女 · 59 岁</span><span class="sep">|</span><span>确诊 2026-07-03</span><span class="sep">|</span><span class="updated">更新日期 2026-10-20</span></div></div></div><div class="hero-meta"><div class="hm"><div class="k">主治团队</div><div class="v">华山医院 · 胰腺外科</div></div><div class="hm"><div class="k">化疗院区</div><div class="v">华山医院 · 江苏路</div></div><div class="hm"><div class="k">当前阶段</div><div class="v">第四疗程进行中 · 第3次化疗因重度中性粒细胞减少延期至 10-29</div></div><div class="hm"><div class="k">下一节点</div><div class="v">10-22 长海·肿瘤科门诊开升白针（艾贝格司亭α）→ 10-29 华山·第四疗程第3次化疗（原定 10-22 延期 +7 天）→ 11-05 增强 CT 评估</div></div><div class="hm"><div class="k">病程</div><div class="v"><span id="courseDuration" data-anchor="2026-07-03">3.6 个月 · 110 天</span></div></div></div><div class="badges"><span class="badge danger"><i class="dot"></i>胰腺导管腺癌（PDAC）</span><span class="badge warn"><i class="dot"></i>高血压 3 级</span><span class="badge warn"><i class="dot"></i>乙型肝炎</span><span class="badge info"><i class="dot"></i>化疗·AG方案</span></div></header>
 <nav class="tabs" id="tabs"><button class="tab active" data-tab="indicators">📊 健康监测</button><button class="tab" data-tab="timeline">📅 治疗时间线</button><button class="tab" data-tab="chemotherapy">💊 治疗方案</button><button class="tab" data-tab="diet">🍽 饮食计划</button><button class="tab" data-tab="notes">📝 注意事项</button><button class="tab" data-tab="expense">💰 费用记录</button></nav>
 <main>
 <div class="panel prose active" id="panel-indicators"><div class="sec"><div class="sec-head"><i class="bar"></i><h2>最近一次检查</h2><span class="hint" id="lastDateHint"></span></div><div class="grid-4" id="metricCards"></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">CA19-9 肿瘤标志物</div><div class="chart-sub">胰腺癌疗效监测核心指标 · 正常参考值 &lt; 37 U/mL</div></div><div class="legend" id="lg-tumorChart"></div></div><div class="chart-box"><div id="tumorChart"></div><div class="tip" id="tip-tumorChart"></div></div><div class="chart-foot" id="ft-tumorChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">白细胞 与 中性粒细胞</div><div class="chart-sub">骨髓抑制监测 · 白细胞 3.5–9.5，中性粒 1.8–6.3（×10⁹/L）</div></div><div class="legend" id="lg-wbcChart"></div></div><div class="chart-box"><div id="wbcChart"></div><div class="tip" id="tip-wbcChart"></div></div><div class="chart-foot" id="ft-wbcChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">血红蛋白 与 血小板</div><div class="chart-sub">贫血与凝血监测 · 血红蛋白 115–150 g/L｜血小板 125–350 ×10⁹/L</div></div><div class="legend" id="lg-hgbChart"></div></div><div class="chart-box"><div id="hgbChart"></div><div class="tip" id="tip-hgbChart"></div></div><div class="chart-foot" id="ft-hgbChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肝功能（ALT / AST）</div><div class="chart-sub">化疗肝毒性监测 · 正常 ALT 7–40，AST 15–35（U/L）</div></div><div class="legend" id="lg-liverChart"></div></div><div class="chart-box"><div id="liverChart"></div><div class="tip" id="tip-liverChart"></div></div><div class="chart-foot" id="ft-liverChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肝功能扩展（前白蛋白 / LDH）</div><div class="chart-sub">营养与肿瘤负荷 · 前白蛋白 200–400，LDH 120–250（U/L）</div></div><div class="legend" id="lg-liverExtraChart"></div></div><div class="chart-box"><div id="liverExtraChart"></div><div class="tip" id="tip-liverExtraChart"></div></div><div class="chart-foot" id="ft-liverExtraChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">肾功能（肌酐 / eGFR）</div><div class="chart-sub">肾功监测 · 肌酐 41–73，eGFR ≥90（μmol/L / mL/min/1.73m²）</div></div><div class="legend" id="lg-renalChart"></div></div><div class="chart-box"><div id="renalChart"></div><div class="tip" id="tip-renalChart"></div></div><div class="chart-foot" id="ft-renalChart"></div></div></div><div class="sec"><div class="card chart-card"><div class="chart-head"><div><div class="chart-title">电解质（钾 / 钠）</div><div class="chart-sub">电解质平衡 · 钾 3.5–5.3，钠 137–147（mmol/L）</div></div><div class="legend" id="lg-electrolyteChart"></div></div><div class="chart-box"><div id="electrolyteChart"></div><div class="tip" id="tip-electrolyteChart"></div></div><div class="chart-foot" id="ft-electrolyteChart"></div></div></div><div class="sec"><div class="sec-head"><i class="bar"></i><h2>检验报告摘要</h2><span class="hint">共 13 次 · 含参考范围</span></div><div class="card"><div class="fold-head open" data-fold="labs"><i class="caret"></i>检验报告摘要（13 次）<span class="mini n" style="margin-left:6px">点击收起</span></div><div class="fold-body open" id="fold-labs"><div id="indicators-table"></div></div></div></div></div><div class="panel prose" id="panel-timeline">
@@ -375,7 +375,7 @@
 <td>2026-09-07 下午 13:15-13:30</td>
 <td class="cell-long">👨‍⚕️ <strong>华山医院·胰腺外科 专家门诊</strong>（<strong>华山路493号 门诊大楼 4 层 37 号诊间 A 诊位 1 号</strong>）— 分析 CT 结果 + 确定后续治疗方案</td>
 <td>华山医院（华山路493号）</td>
-<td class="status-cell cell-long">✅ 已完成（<strong>疗效判定 SD</strong> · <strong>腹腔干</strong>仍 360° 包绕、不可切 · 门静脉正常 · <strong>持续 AG 方案</strong> · <strong>第 4 疗程结束后（约 11-02）复查增强 CT</strong> · 09-07 新开 5 药：利可君 3 片 tid / 芦比前列酮 / 阿普唑仑 / 普利舒欣 / 恩替卡韦）</td>
+<td class="status-cell cell-long">✅ 已完成（<strong>疗效判定 SD</strong> · <strong>腹腔干</strong>仍 360° 包绕、不可切 · 门静脉正常 · <strong>持续 AG 方案</strong> · <strong>第 4 疗程结束后（约 11-05）复查增强 CT</strong> · 09-07 新开 5 药：利可君 3 片 tid / 芦比前列酮 / 阿普唑仑 / 普利舒欣 / 恩替卡韦）</td>
 </tr>
 </tbody>
 </table>
@@ -578,9 +578,9 @@
 </div>
 </details>
 <details class="course-details course-details--active" id="course-68465" open>
-<summary class="course-head"><span class="course-title">第四疗程（AG方案）</span><span class="course-tag">▶ 进行中 · 第3次化疗前检查已完成（10-20）｜下次化疗 10-22（待判定）</span></summary>
+<summary class="course-head"><span class="course-title">第四疗程（AG方案）</span><span class="course-tag">▶ 进行中 · 第3次化疗前检查已完成（10-20）｜第3次化疗延期至 10-29（重度中性粒细胞减少）</span></summary>
 <div class="course-block course-block--active">
-<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-02）增强 CT 评估、血常规、肝肾功能及医生评估调整</div>
+<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-05）增强 CT 评估、血常规、肝肾功能及医生评估调整</div>
 <h3 class="subsection-title">第四疗程·第1周</h3>
 <div class="table-wrap">
 <table>
@@ -702,7 +702,7 @@
 <td>2026-10-20</td>
 <td>🔬 化疗前检查</td>
 <td>长海医院</td>
-<td class="status-cell cell-long">✅ <strong>已完成</strong>（长海·肿瘤科门诊 07:42 挂号；第四疗程·第3次化疗前检查，10-21 07:39 采血、当日出报告）<br/>　　🩸 <strong>血常规</strong>：白细胞 <strong class="abn">1.78↓</strong>（3.5–9.5，已复）／中性粒细胞计数 <strong class="abn">0.80↓</strong>（1.8–6.3）→ <strong class="critical-date">两项均低于化疗给药门槛（WBC ≥3.0 且中性粒 ≥1.5）</strong>；血红蛋白 <strong>92↓</strong>（115–150）／血小板 <strong>122↓</strong>（125–350）／红细胞 2.89↓／全血 CRP &lt;0.50（&lt;10，正常）<br/>　　🧪 <strong>生化 + 肾功能</strong>：ALT <strong>8</strong>（7–40）／AST 16／白蛋白 41／<strong>前白蛋白 175↓</strong>（180–350）／总胆红素 8.8／乳酸脱氢酶 180／肌酐 <strong>62</strong>（41–73）／eGFR <strong>94.62</strong>（80–120）／钾 4.3／钠 138<br/>　　🧪 <strong>肿瘤标志物</strong>：<strong class="ok">CA19-9 27.45</strong>（参考 &lt;37，<strong>首次回落至参考范围内</strong>；前值 10-13 38.39↑、10-07 41.14↑）<br/>　　💊 同诊室配药 4 种：氨氯地平 / 厄贝沙坦氢氯噻嗪 / 恩替卡韦 / 莫沙必利；病历本诊断列「血小板减少；白细胞减少」<br/>　　📌 报告领取凭证预估 CA19-9 于 10-23 出，实际 10-21 14:16 已出<br/>　　📌 本行为 10-22 第3次化疗的给药依据；<strong>是否按期执行由主治判定</strong><br/>　　💰 金额见「费用记录」</td>
+<td class="status-cell cell-long">✅ <strong>已完成</strong>（长海·肿瘤科门诊 07:42 挂号；第四疗程·第3次化疗前检查，10-21 07:39 采血、当日出报告）<br/>　　🩸 <strong>血常规</strong>：白细胞 <strong class="abn">1.78↓</strong>（3.5–9.5，已复）／中性粒细胞计数 <strong class="abn">0.80↓</strong>（1.8–6.3）→ <strong class="critical-date">两项均低于化疗给药门槛（WBC ≥3.0 且中性粒 ≥1.5）</strong>；血红蛋白 <strong>92↓</strong>（115–150）／血小板 <strong>122↓</strong>（125–350）／红细胞 2.89↓／全血 CRP &lt;0.50（&lt;10，正常）<br/>　　🧪 <strong>生化 + 肾功能</strong>：ALT <strong>8</strong>（7–40）／AST 16／白蛋白 41／<strong>前白蛋白 175↓</strong>（180–350）／总胆红素 8.8／乳酸脱氢酶 180／肌酐 <strong>62</strong>（41–73）／eGFR <strong>94.62</strong>（80–120）／钾 4.3／钠 138<br/>　　🧪 <strong>肿瘤标志物</strong>：<strong class="ok">CA19-9 27.45</strong>（参考 &lt;37，<strong>首次回落至参考范围内</strong>；前值 10-13 38.39↑、10-07 41.14↑）<br/>　　💊 同诊室配药 4 种：氨氯地平 / 厄贝沙坦氢氯噻嗪 / 恩替卡韦 / 莫沙必利；病历本诊断列「血小板减少；白细胞减少」<br/>　　📌 报告领取凭证预估 CA19-9 于 10-23 出，实际 10-21 14:16 已出<br/>　　📌 本行为原定 10-22 第3次化疗的给药依据；<strong class="critical-date">因属重度中性粒细胞减少，该次已延期至 10-29</strong>（10-27 复查后重新判定）<br/>　　💰 金额见「费用记录」</td>
 </tr>
 <tr>
 <td>2026-10-20</td>
@@ -711,16 +711,17 @@
 <td class="status-cell cell-long">✅ <strong>已完成</strong>（10-20 09:33 检查、15:57 书写、17:40 审核）<br/>　　🧠 <strong>放射学诊断</strong>：<strong>双侧额叶皮层下、基底节区及放射冠区多发缺血灶，部分软化灶形成</strong>；<strong>脑白质变性（Fazekas 2 级）</strong><br/>　　📌 影像表现：脑室大小与形态正常、脑池脑沟未见增宽、脑干小脑无异常、中线无移位、颅骨无明显异常 → <strong class="ok">未见新发占位或出血</strong><br/>　　📌 与脑出血术后右腿行走不顺畅相符（既往软化灶），后续由康复医学科随访</td>
 </tr>
 <tr class="warning">
-<td>2026-10-22</td>
+<td>2026-10-29<br/><span style="font-size:12px;opacity:.75">（原定 10-22，延期 +7 天）</span></td>
 <td>💉 第四疗程·第3次化疗</td>
 <td>华山医院</td>
-<td class="status-cell cell-long">⏳ 待定（<strong class="critical-date">10-21 血象 WBC 1.78↓ / 中性粒 0.80↓ 低于给药门槛</strong> → 是否按期执行、是否改用升白方案由主治判定）</td>
+<td class="status-cell cell-long">⏸ <strong>已延期至 10-29</strong>（原定 10-22；<strong class="critical-date">10-21 血象 WBC 1.78↓ / 中性粒细胞计数 0.80↓ → 重度中性粒细胞减少</strong>，低于给药门槛 → 主治决定延期一周）<br/>　　📌 后续化疗 / 增强 CT / 主治门诊<strong>整体顺延 7 天</strong>（明细见本疗程末注释块）<br/>　　📌 10-22 改做：长海·肿瘤科门诊开<strong>长效升白针（艾贝格司亭α）</strong> 08:00</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="alert alert-warning">⏸ <strong>唯一一次延期：2026-10-22 → 10-29（+7 天）</strong><br/>第四疗程·第3次化疗原定 <strong>10-22</strong>，因 10-21 血象 <strong>白细胞 1.78↓ / 中性粒细胞计数 0.80↓</strong>（<strong class="critical-date">重度中性粒细胞减少</strong>，低于给药门槛 WBC ≥3.0 且中性粒 ≥1.5）→ 主治决定<strong>延期一周</strong>；<strong>后续所有化疗、增强 CT、主治医生门诊同步顺延 7 天</strong>（日历 120 条已同步）。<br/>　　📌 10-22 当天改做：长海·肿瘤科门诊开 <strong>长效升白针（艾贝格司亭α）</strong> 08:00；康复医学科门诊已改至 10-27 08:00。<br/>　　📌 10-27 化疗前检查（长海 08:00）→ 10-29 给药，为改期后的新门槛依据。</div>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<div class="alert">🛌 <strong>10-23 ~ 11-02：</strong>休整期，骨髓恢复</div>
+<div class="alert">🛌 <strong>10-30 ~ 11-09：</strong>休整期，骨髓恢复</div>
 <h3 class="subsection-title">第四疗程评估</h3>
 <div class="table-wrap">
 <table>
@@ -734,10 +735,16 @@
 </thead>
 <tbody>
 <tr class="warning">
-<td>2026-11-02</td>
-<td>增强CT评估（第 4 疗程结束后，约 11-02）</td>
+<td>2026-11-05</td>
+<td class="cell-long">增强CT评估（第 4 疗程结束后，约 11-05）<br/><span style="font-size:12px;opacity:.75">（原排 10-29，随化疗顺延 7 天）</span></td>
 <td>华山医院</td>
-<td class="status-cell">⏳ 待定</td>
+<td class="status-cell cell-long">⏳ 待定（日历已排 <strong>11-05</strong>；与 11-09 主治门诊相隔 4 天，CT 结果届时由主治判读）</td>
+</tr>
+<tr class="warning">
+<td>2026-11-09</td>
+<td class="cell-long">🩺 主治医生门诊（华山·胰腺外科）<br/><span style="font-size:12px;opacity:.75">（原排 11-02，随化疗顺延 7 天）</span></td>
+<td>华山医院</td>
+<td class="status-cell cell-long">⏳ 待定（日历已排 11-09 13:15；<strong>看 11-05 增强 CT 结果</strong>，判疗效并定第五疗程是否按期执行）</td>
 </tr>
 </tbody>
 </table>
@@ -745,9 +752,9 @@
 </div>
 </details>
 <details class="course-details course-details--pending" id="course-85612">
-<summary class="course-head"><span class="course-title">第五疗程（AG方案）</span><span class="course-tag">⏸ 未开始 · 预排 11-05 ~ 11-19（依据后续 CT 评估）</span></summary>
+<summary class="course-head"><span class="course-title">第五疗程（AG方案）</span><span class="course-tag">⏸ 未开始 · 预排 11-12 ~ 11-26（依据后续 CT 评估；含延期 +7 天）</span></summary>
 <div class="course-block course-block--pending">
-<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-02）增强 CT 评估结果调整</div>
+<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-05）增强 CT 评估结果调整</div>
 <h3 class="subsection-title">第五疗程·第1周</h3>
 <div class="table-wrap">
 <table>
@@ -761,13 +768,13 @@
 </thead>
 <tbody>
 <tr class="warning">
-<td>2026-11-03</td>
+<td>2026-11-10</td>
 <td>🔬 化疗前检查</td>
 <td>长海医院</td>
 <td class="status-cell">⏳ 待定</td>
 </tr>
 <tr class="warning">
-<td>2026-11-05</td>
+<td>2026-11-12</td>
 <td>💉 第五疗程·第1次化疗</td>
 <td>华山医院</td>
 <td class="status-cell">⏳ 待定</td>
@@ -788,13 +795,13 @@
 </thead>
 <tbody>
 <tr class="warning">
-<td>2026-11-10</td>
+<td>2026-11-17</td>
 <td>🔬 化疗前检查</td>
 <td>长海医院</td>
 <td class="status-cell">⏳ 待定</td>
 </tr>
 <tr class="warning">
-<td>2026-11-12</td>
+<td>2026-11-19</td>
 <td>💉 第五疗程·第2次化疗</td>
 <td>华山医院</td>
 <td class="status-cell">⏳ 待定</td>
@@ -815,13 +822,13 @@
 </thead>
 <tbody>
 <tr class="warning">
-<td>2026-11-17</td>
+<td>2026-11-24</td>
 <td>🔬 化疗前检查</td>
 <td>长海医院</td>
 <td class="status-cell">⏳ 待定</td>
 </tr>
 <tr class="warning">
-<td>2026-11-19</td>
+<td>2026-11-26</td>
 <td>💉 第五疗程·第3次化疗</td>
 <td>华山医院</td>
 <td class="status-cell">⏳ 待定</td>
@@ -830,13 +837,13 @@
 </table>
 </div>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<div class="alert">🛌 <strong>11-20 ~ 11-30：</strong>休整期，骨髓恢复</div>
+<div class="alert">🛌 <strong>11-27 ~ 12-07：</strong>休整期，骨髓恢复</div>
 </div>
 </details>
 <details class="course-details course-details--pending" id="course-80486">
-<summary class="course-head"><span class="course-title">第六疗程（AG方案）</span><span class="course-tag">⏸ 未开始 · 预排 12-03 ~ 12-17（依据后续 CT 评估）</span></summary>
+<summary class="course-head"><span class="course-title">第六疗程（AG方案）</span><span class="course-tag">⏸ 未开始 · 预排 12-10 ~ 12-24（依据后续 CT 评估；含延期 +7 天）</span></summary>
 <div class="course-block course-block--pending">
-<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-02）增强 CT 评估结果调整</div>
+<div class="alert alert-info"><strong>📅 预排计划：</strong>以下日期为基于标准 AG 4 周节奏的预排，最终执行需根据第 4 疗程结束后（约 11-05）增强 CT 评估结果调整</div>
 <h3 class="subsection-title">第六疗程·第1周</h3>
 <div class="table-wrap">
 <table>
@@ -850,13 +857,13 @@
 </thead>
 <tbody>
 <tr class="warning">
-<td>2026-12-01</td>
+<td>2026-12-08</td>
 <td>🔬 化疗前检查</td>
 <td>长海医院</td>
 <td class="status-cell">⏳ 待定</td>
 </tr>
 <tr class="warning">
-<td>2026-12-03</td>
+<td>2026-12-10</td>
 <td>💉 第六疗程·第1次化疗</td>
 <td>华山医院</td>
 <td class="status-cell">⏳ 待定</td>
@@ -877,13 +884,13 @@
 </thead>
 <tbody>
 <tr class="warning">
-<td>2026-12-08</td>
+<td>2026-12-15</td>
 <td>🔬 化疗前检查</td>
 <td>长海医院</td>
 <td class="status-cell">⏳ 待定</td>
 </tr>
 <tr class="warning">
-<td>2026-12-10</td>
+<td>2026-12-17</td>
 <td>💉 第六疗程·第2次化疗</td>
 <td>华山医院</td>
 <td class="status-cell">⏳ 待定</td>
@@ -904,13 +911,13 @@
 </thead>
 <tbody>
 <tr class="warning">
-<td>2026-12-15</td>
+<td>2026-12-22</td>
 <td>🔬 化疗前检查</td>
 <td>长海医院</td>
 <td class="status-cell">⏳ 待定</td>
 </tr>
 <tr class="warning">
-<td>2026-12-17</td>
+<td>2026-12-24</td>
 <td>💉 第六疗程·第3次化疗</td>
 <td>华山医院</td>
 <td class="status-cell">⏳ 待定</td>
@@ -919,7 +926,7 @@
 </table>
 </div>
 <h3 class="subsection-title">休整期（第4周）</h3>
-<div class="alert">🛌 <strong>12-18 ~ 12-28：</strong>休整期，骨髓恢复</div>
+<div class="alert">🛌 <strong>12-25 ~ 2027-01-04：</strong>休整期，骨髓恢复</div>
 <h3 class="subsection-title">第六疗程评估</h3>
 <div class="table-wrap">
 <table>
@@ -933,10 +940,16 @@
 </thead>
 <tbody>
 <tr class="warning">
-<td>暂未排定</td>
-<td class="cell-long">增强CT评估（第 6 疗程结束后是否复查，待第 4 疗程 CT 后由主治确定）</td>
+<td>2026-12-31<br/><span style="font-size:12px;opacity:.75">（日历已排）</span></td>
+<td class="cell-long">增强CT评估（第 6 疗程结束后；是否复查最终由主治在第 4 疗程 CT 后确定）</td>
 <td>华山医院</td>
-<td class="status-cell">⏳ 待定</td>
+<td class="status-cell">⏳ 待定（日历已排 12-31；是否复查最终由主治确认）</td>
+</tr>
+<tr class="warning">
+<td>2027-01-04<br/><span style="font-size:12px;opacity:.75">（日历已排）</span></td>
+<td class="cell-long">🩺 主治医生门诊（华山·胰腺外科）<br/><span style="font-size:12px;opacity:.75">（第 6 疗程结束后，看 12-31 增强 CT 结果）</span></td>
+<td>华山医院</td>
+<td class="status-cell cell-long">⏳ 待定（日历已排 2027-01-04 13:15；判疗效并定后续维持方案）</td>
 </tr>
 </tbody>
 </table>
@@ -1324,7 +1337,7 @@
 <td><strong>AG（当前方案）</strong></td>
 <td>白蛋白结合型紫杉醇 + 吉西他滨</td>
 <td>CSCO 2024 转移性胰腺癌一线 Ⅰ 级推荐（1A 类）</td>
-<td class="cell-long">✅ <strong>正在执行</strong>：已执行 11 次（第四疗程进行中，下次 10-22）</td>
+<td class="cell-long">✅ <strong>正在执行</strong>：已执行 11 次（第四疗程进行中，下次 10-29，原定 10-22 因重度中性粒细胞减少延期）</td>
 </tr>
 <tr>
 <td>单药</td>
@@ -1412,7 +1425,7 @@
 <h3 class="subsection-title">治疗路径建议（CSCO 2024 指南 + 07-29 基因检测）</h3>
 <details class="alert-collapse success"><summary>🛤️ 推荐治疗路径（化疗 → 评估 → 维持/二线）</summary><div class="alert-body">
 <strong>推荐治疗路径：</strong><br/>
-            1. <strong>当前：</strong>AG 方案化疗（CSCO 1A 类证据；<strong>第四疗程·第2次化疗已于 10-15 完成，累计第 11 次</strong>；下次 10-22（10-21 血象低于门槛，待主治判定）；计划共 6 疗程 18 次）<br/>
+            1. <strong>当前：</strong>AG 方案化疗（CSCO 1A 类证据；<strong>第四疗程·第2次化疗已于 10-15 完成，累计第 11 次</strong>；下次 10-29（原定 10-22，因 10-21 血象中性粒细胞 0.80↓ = 重度中性粒细胞减少，延期一周）；计划共 6 疗程 18 次）<br/>
             2. <strong>评估节点：</strong>09-03 增强 CT 已做（09-07 判读 SD，续定 AG）；下次增强 CT 于第 4 疗程结束后（约 11 月初）；维持治疗待 6 疗程结束后讨论。CA19-9 趋势作为动态监测<br/>
             3. <strong>基因检测（07-29 已出报告）：</strong><br/>
             　 • <strong>BRCA1/2 阴性（胚系 + 体细胞均阴性）</strong> → 奥拉帕利 / 尼拉帕利 <strong>不直接适用</strong>（即使未来更换含铂方案）<br/>
@@ -1453,9 +1466,9 @@
 </ol>
 <strong>对未来路径的影响：</strong>
 <ul>
-<li>✅ <strong>短期（已执行）：</strong>第三疗程 09-10 / 09-17 / 09-24 三次<strong>全部按期完成</strong>（09-22 血象门槛不达，主治判定按期给药并加用长效 G-CSF）；<strong class="ok">第四疗程·第2次化疗已于 10-15 完成（累计第 11 次）</strong>，下次 10-22（10-21 血象低于门槛，待主治判定）；尿路感染<strong class="ok">09-22 尿常规恢复正常 → 已痊愈</strong>（同日泌尿外科医嘱已达停药标准，余药服完即停）</li>
+<li>✅ <strong>短期（已执行）：</strong>第三疗程 09-10 / 09-17 / 09-24 三次<strong>全部按期完成</strong>（09-22 血象门槛不达，主治判定按期给药并加用长效 G-CSF）；<strong class="ok">第四疗程·第2次化疗已于 10-15 完成（累计第 11 次）</strong>，下次 10-29（原定 10-22，因 10-21 血象中性粒细胞 0.80↓ = 重度中性粒细胞减少，延期一周）；尿路感染<strong class="ok">09-22 尿常规恢复正常 → 已痊愈</strong>（同日泌尿外科医嘱已达停药标准，余药服完即停）</li>
 <li>🩸 <strong>10-07 化疗前检查（最新）：</strong>WBC <strong>21.39↑</strong>／中性粒细胞 61.0%（骨髓已自主恢复，给药门槛 WBC ≥3.0 且中性粒 ≥1.5 <strong>宽裕达标</strong>）；HGB <strong>115↓</strong>（恰在下限）；<strong class="abn">CA19-9 41.14 ↑</strong>（参考 &lt;37，为 09-22 的 34.72 之后<strong>首次回升超出上限</strong>）；<strong>尿酸 408↑／尿素 9.8↑／甘油三酯 2.49↑</strong> —— 既往各次均正常，本轮<strong>首次同向偏高</strong></li>
-<li>⚠️ <strong>中期（第 4 疗程结束后 · 约 2026-11-02 增强 CT）：</strong>若仍为 SD → 继续完成 6 疗程；<strong>CA19-9 在 34–42 区间的波动属化疗后常见的一过性升高，不以单点回升自行减停治疗，以增强 CT 为准</strong>；维持方案待 6 疗程结束后与主治讨论（CSCO 1B 类替吉奥为候选；无 BRCA 突变故奥拉帕利排除）</li>
+<li>⚠️ <strong>中期（第 4 疗程结束后 · 约 2026-11-05 增强 CT）：</strong>若仍为 SD → 继续完成 6 疗程；<strong>CA19-9 在 34–42 区间的波动属化疗后常见的一过性升高，不以单点回升自行减停治疗，以增强 CT 为准</strong>；维持方案待 6 疗程结束后与主治讨论（CSCO 1B 类替吉奥为候选；无 BRCA 突变故奥拉帕利排除）</li>
 <li>🔭 <strong>长期：</strong>关注 KRAS G12D 临床试验入组时机（Daraxonrasib / IMM-1-104 / YL-17231 等 I/II 期）</li>
 </ul>
 </div>
@@ -2036,7 +2049,8 @@
 </div>
 </div><div class="panel prose" id="panel-notes"><h2 class="section-title">待完成事项</h2>
 <details class="alert-collapse default" open=""><summary>📋 待完成事项</summary><div class="alert-body">
-            • 📅 <strong class="critical-date">10-22（周四）华山·第四疗程·第3次化疗</strong>（⚠️ 10-21 血象 WBC 1.78↓ / 中性粒 0.80↓ <strong>低于给药门槛</strong>，是否按期执行、是否先升白由主治判定）<br/>
+            • 💉 <strong class="critical-date">10-22（周四）08:00 长海·肿瘤科门诊 —— 开长效升白针（艾贝格司亭α）</strong>（原定当天的华山化疗已延期；同日康复医学科门诊已改至 10-27 08:00）<br/>
+            • 📅 <strong class="critical-date">10-29（周四）华山·第四疗程·第3次化疗</strong>（⏸ <strong>原定 10-22，因 10-21 血象中性粒细胞 0.80↓ = 重度中性粒细胞减少，延期一周</strong>；后续化疗 / 增强 CT / 主治门诊同步顺延 7 天）<br/>
             • 🌡️ 谷底期每日测体温并记录 —— 10-08 化疗后窗口 <strong>10-15 ~ 10-22</strong>；10-15 化疗后顺延至 <strong>10-22 ~ 10-29</strong>（10-21 已测：WBC 1.78↓ / 中性粒 0.80↓ 处谷底，<strong class="critical-date">发热 ≥38℃ 立即急诊</strong>）<br/>
             • 🩸 谷底期复查血常规（窗口内复查，确认谷底深度）<br/>
             • 🔬 检索 <strong>KRAS G12D</strong> 胰腺癌临床试验；关注靶向药审批动态
@@ -2075,7 +2089,7 @@
 <td>—</td>
 <td><strong>09-03 增强 CT：SD（病情稳定）</strong></td>
 <td>09-07 专家门诊判读，决议继续 AG 方案</td>
-<td class="highlight cell-long">✅ 稳定；下次评估在第 4 疗程结束后（约 2026-11-02）</td>
+<td class="highlight cell-long">✅ 稳定；下次评估在第 4 疗程结束后（约 2026-11-05）</td>
 </tr>
 </tbody>
 </table>
@@ -2222,7 +2236,7 @@
             • 正常参考上限 <strong>37 U/mL</strong>（受胆道梗阻、炎症、Lewis 抗原状态影响）<br/>
             • <strong>本患者趋势：</strong>07-21 317.8 → 07-28 190.46 → 08-11 139.42 → 08-18 79.24 → 08-26 79.45 → 09-08 41.20 → 09-15 42.77 → <strong class="ok">09-22 34.72（首次降至 37 以下）</strong>，较峰值累计下降 <strong>约 89%</strong> → <strong class="abn">10-07 回升至 41.14</strong> → <strong class="abn">10-13 38.39</strong> → <strong class="ok">10-21 27.45（明确落入参考范围，本轮新低，累计下降约 91%）</strong>；单次波动<strong>不构成影像学进展证据</strong><br/>
             • <strong class="critical-date">最新 10-21 报告（27.45，参考 &lt;37）已出</strong>（10-20 长海·肿瘤科门诊开单、10-21 07:39 采血，第四疗程·第3次化疗前检查），原件已入病历目录；同批本次未开 CEA<br/>
-            • <strong>判读注意：</strong>CA19-9 在 34–42 区间的波动属化疗后常见的<strong>一过性升高</strong>，单点判读无意义；仍以 <strong>09-03 增强 CT「SD 病情稳定」</strong>与<strong>第 4 疗程结束后（约 11-02）增强 CT</strong>为准；<strong>不可据单点波动自行减停治疗</strong><br/>
+            • <strong>判读注意：</strong>CA19-9 在 34–42 区间的波动属化疗后常见的<strong>一过性升高</strong>，单点判读无意义；仍以 <strong>09-03 增强 CT「SD 病情稳定」</strong>与<strong>第 4 疗程结束后（约 11-05）增强 CT</strong>为准；<strong>不可据单点波动自行减停治疗</strong><br/>
             • <strong>同批其他标志物（09-15 核医学）：</strong>CEA 1.64（&lt;5，正常）／<strong>CA72-4 3.69</strong>（&lt;9.8，正常）<br/>
             • 化疗后一过性升高机制：肿瘤细胞坏死后释放 CA19-9 入血，<strong>可能提示治疗反应</strong>，但不能单独确认疗效<br/>
             • 复发时 CA19-9 升高往往早于影像学诊断，但<strong>不能作为主要依据</strong>；升高时先排查良性病（胆道梗阻 / 胰腺炎 / 胆道感染 / 肝硬化 / 肠道炎症）<br/>
@@ -2293,7 +2307,7 @@
 <details class="alert-collapse info"><summary>📋 影像评估节奏（09-03 已完成；下次 = 第 4 疗程结束后）</summary><div class="alert-body">
 <strong>📋 影像评估节奏：</strong><br/>
             • <strong>已完成：</strong>2026-09-03 增强 CT（09-07 门诊判读 <strong>SD 病情稳定</strong>，决议继续 AG）<br/>
-            • <strong class="critical-date">下次评估：第 4 疗程结束后（约 2026-11-02）</strong>；此后是否复查由主治在第 6 疗程结束后确定<br/>
+            • <strong class="critical-date">下次评估：第 4 疗程结束后（约 2026-11-05）</strong>；此后是否复查由主治在第 6 疗程结束后确定<br/>
             • <strong>说明：</strong>化疗期间 CA19-9 趋势作为动态监测指标，不能替代影像
         </div></details>
 <details class="alert-collapse info"><summary>🧬 基因检测结果（07-29 迈景基因）· 主线仍为 AG 方案</summary><div class="alert-body">
