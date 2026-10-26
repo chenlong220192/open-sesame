@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="康复追踪">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a7d6b" />
+      <stop offset="1" stop-color="#1e4a3d" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g)" />
+  <!-- 心电图：档案类页面用「监测」而不是「十字」，避免与医疗机构标识混淆 -->
+  <path d="M12 33h7l4-10 6.5 19 4.5-9h18" fill="none" stroke="#fff" stroke-width="4.4"
+        stroke-linecap="round" stroke-linejoin="round" />
+</svg>
