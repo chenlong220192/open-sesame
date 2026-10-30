@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>需求分析说明书 | Health Buddy 健康伙伴</title>
 <meta name="author" content="Health Buddy 项目组">
-<meta name="description" content="Health Buddy（健康伙伴）需求分析说明书 HB-SRS-001 v0.1.0">
+<meta name="description" content="Health Buddy（健康伙伴）需求分析说明书 HB-SRS-001 v0.2.0">
 <meta name="theme-color" content="#0D3B45">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3E%3Cpath%20d='M24%2043S5%2031.5%205%2017.8C5%2010.7%2010.6%205%2017.5%205c3.4%200%206.5%201.5%206.5%201.5S27.1%205%2030.5%205C37.4%205%2043%2010.7%2043%2017.8%2043%2031.5%2024%2043%2024%2043Z'%20fill='%23E3F2F1'%20stroke='%230E7C7B'%20stroke-width='3'%20stroke-linejoin='round'/%3E%3Cpath%20d='M13%2022h5l3-6%204.5%2012%203-7%202.5%204h4'%20fill='none'%20stroke='%230D3B45'%20stroke-width='3'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
 <style>
 
 :root{
@@ -347,7 +348,7 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
     </svg>
     <span class="brand-t">需求分析说明书</span>
   </div>
-  <span class="brand-s">HB-SRS-001 · v0.1.0 · Health Buddy</span>
+  <span class="brand-s">HB-SRS-001 · v0.2.0 · Health Buddy</span>
   <div class="spacer"></div>
   <div class="tools">
     <label class="search">
@@ -377,7 +378,7 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <li><a href="#doc-capability" class="lv1" data-target="#doc-capability"><span class="num">04</span>能力范围</a><ul class="sub"><li><a href="#capability--1" data-target="#capability--1">1. 能力地图</a></li><li><a href="#capability--2" data-target="#capability--2">2. 一期能力详述（边界级，非设计级）</a></li><li><a href="#capability--3" data-target="#capability--3">3. 一期明确不做</a></li><li><a href="#capability--4" data-target="#capability--4">4. 一期建议交付顺序</a></li><li><a href="#capability--5" data-target="#capability--5">5. 待确认</a></li></ul></li>
 <li><a href="#doc-nfr" class="lv1" data-target="#doc-nfr"><span class="num">05</span>非功能需求</a><ul class="sub"><li><a href="#nfr--1" data-target="#nfr--1">1. 性能</a></li><li><a href="#nfr--2" data-target="#nfr--2">2. 可用性</a></li><li><a href="#nfr--3" data-target="#nfr--3">3. 安全</a></li><li><a href="#nfr--4" data-target="#nfr--4">4. 隐私与合规</a></li><li><a href="#nfr--5" data-target="#nfr--5">5. 可维护性</a></li><li><a href="#nfr--6" data-target="#nfr--6">6. 可扩展性</a></li><li><a href="#nfr--7" data-target="#nfr--7">7. 兼容性</a></li><li><a href="#nfr--8" data-target="#nfr--8">8. 成本</a></li><li><a href="#nfr--9" data-target="#nfr--9">9. 待收敛项</a></li></ul></li>
 <li><a href="#doc-risk" class="lv1" data-target="#doc-risk"><span class="num">06</span>风险登记册</a><ul class="sub"><li><a href="#risk--p0" data-target="#risk--p0">P0 · 必须处理</a></li><li><a href="#risk--p1" data-target="#risk--p1">P1 · 需关注</a></li><li><a href="#risk--p2" data-target="#risk--p2">P2 · 可接受（记录备查）</a></li><li><a href="#risk--_1" data-target="#risk--_1">合规专项登记（不展开方案）</a></li><li><a href="#risk--_2" data-target="#risk--_2">变更记录</a></li></ul></li>
-<li><a href="#doc-open-questions" class="lv1" data-target="#doc-open-questions"><span class="num">07</span>待调研项</a><ul class="sub"><li><a href="#open-questions--_1" data-target="#open-questions--_1">汇总表</a></li><li><a href="#open-questions--ow-001" data-target="#open-questions--ow-001">OW-001 · 数据库选型</a></li><li><a href="#open-questions--ow-002" data-target="#open-questions--ow-002">OW-002 · 对象存储方案</a></li><li><a href="#open-questions--ow-003-ocr-ai" data-target="#open-questions--ow-003-ocr-ai">OW-003 · OCR 与 AI 能力来源 ← 核心调研项</a></li><li><a href="#open-questions--ow-004" data-target="#open-questions--ow-004">OW-004 · 前端工程拆分策略</a></li><li><a href="#open-questions--ow-005" data-target="#open-questions--ow-005">OW-005 · 认证与授权方案</a></li><li><a href="#open-questions--ow-006" data-target="#open-questions--ow-006">OW-006 · 成员授权共管是否一期开放</a></li><li><a href="#open-questions--ow-007" data-target="#open-questions--ow-007">OW-007 · 大屏方案 ← 用户明确处于调研阶段</a></li><li><a href="#open-questions--ow-008" data-target="#open-questions--ow-008">OW-008 · 提醒 / 待办是否进一期</a></li><li><a href="#open-questions--ow-009" data-target="#open-questions--ow-009">OW-009 · 主数据字典来源</a></li><li><a href="#open-questions--ow-010-fhir-r4" data-target="#open-questions--ow-010-fhir-r4">OW-010 · 是否采纳 FHIR R4 作为内部信息模型</a></li><li><a href="#open-questions--ow-011" data-target="#open-questions--ow-011">OW-011 · 异步任务框架选型</a></li><li><a href="#open-questions--ow-012" data-target="#open-questions--ow-012">OW-012 · 部署形态</a></li><li><a href="#open-questions--_9" data-target="#open-questions--_9">变更记录</a></li></ul></li>
+<li><a href="#doc-open-questions" class="lv1" data-target="#doc-open-questions"><span class="num">07</span>待调研项</a><ul class="sub"><li><a href="#open-questions--_1" data-target="#open-questions--_1">汇总表</a></li><li><a href="#open-questions--ow-001" data-target="#open-questions--ow-001">OW-001 · 数据库选型</a></li><li><a href="#open-questions--ow-002" data-target="#open-questions--ow-002">OW-002 · 对象存储方案</a></li><li><a href="#open-questions--ow-003-ocr-ai" data-target="#open-questions--ow-003-ocr-ai">OW-003 · OCR 与 AI 能力来源 ← 核心调研项</a></li><li><a href="#open-questions--ow-004" data-target="#open-questions--ow-004">OW-004 · 前端工程拆分策略</a></li><li><a href="#open-questions--ow-005" data-target="#open-questions--ow-005">OW-005 · 认证与授权方案</a></li><li><a href="#open-questions--ow-006" data-target="#open-questions--ow-006">OW-006 · 成员授权共管是否一期开放</a></li><li><a href="#open-questions--ow-007" data-target="#open-questions--ow-007">OW-007 · 大屏方案 ← 用户明确处于调研阶段</a></li><li><a href="#open-questions--ow-008" data-target="#open-questions--ow-008">OW-008 · 提醒 / 待办是否进一期</a></li><li><a href="#open-questions--ow-009" data-target="#open-questions--ow-009">OW-009 · 主数据字典来源</a></li><li><a href="#open-questions--ow-010-fhir-r4" data-target="#open-questions--ow-010-fhir-r4">OW-010 · 是否采纳 FHIR R4 作为内部信息模型</a></li><li><a href="#open-questions--ow-011" data-target="#open-questions--ow-011">OW-011 · 异步任务框架选型</a></li><li><a href="#open-questions--ow-012" data-target="#open-questions--ow-012">OW-012 · 部署形态</a></li><li><a href="#open-questions--ow-013-v02" data-target="#open-questions--ow-013-v02">OW-013 · 微信公众号能力边界与平台规则（v0.2 新增）← 通道前提</a></li><li><a href="#open-questions--ow-014-spring-ai-spring-boot-4-v02" data-target="#open-questions--ow-014-spring-ai-spring-boot-4-v02">OW-014 · Spring AI 与 Spring Boot 4 兼容版本（v0.2 新增）</a></li><li><a href="#open-questions--ow-015-poc-vs-apiv02" data-target="#open-questions--ow-015-poc-vs-apiv02">OW-015 · 模型路由 POC：本地模型 vs 云端 API（v0.2 新增）← 成本与准确率的关键</a></li><li><a href="#open-questions--ow-016-rag-v02" data-target="#open-questions--ow-016-rag-v02">OW-016 · 知识库 / RAG 引入时机与选型（v0.2 新增）</a></li><li><a href="#open-questions--ow-017-v02" data-target="#open-questions--ow-017-v02">OW-017 · 分析报告的联网资料来源与可信度规范（v0.2 新增）</a></li><li><a href="#open-questions--_9" data-target="#open-questions--_9">变更记录</a></li></ul></li>
   </ul>
 </nav>
 
@@ -404,9 +405,9 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
     </div>
     <div class="cover-meta-r">
       <div class="cm-row"><span>文档编号</span><b>HB-SRS-001</b></div>
-      <div class="cm-row"><span>文档版本</span><b>v0.1.0</b></div>
+      <div class="cm-row"><span>文档版本</span><b>v0.2.0</b></div>
       <div class="cm-row"><span>文档状态</span><b>草案</b></div>
-      <div class="cm-row"><span>编制日期</span><b>2026-10-03</b></div>
+      <div class="cm-row"><span>编制日期</span><b>2026-10-30</b></div>
     </div>
   </div>
 
@@ -416,19 +417,20 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
     <p class="cover-lead">
       本文档集定义 <strong>Health Buddy（健康伙伴）</strong> 的建设目标、用户角色、信息模型、
       能力范围、非功能需求与风险登记。产品定位为面向家庭的 AI 健康伙伴 ——
-      用户上传医疗报告、医院单据、病历照片，系统落盘后经 OCR 与 AI 结构化解读，
-      为每一位家庭成员生成专属、持续演进的健康视图。
+      用户经由 Web、微信公众号、微信小程序上传医疗报告、医院单据、病历照片（含语音、PDF、Excel），
+      系统落盘后经 OCR 与 AI 结构化自动入档；AI 结合成员数据与公开网络资料生成综合分析报告，
+      并提供对话式查询能力，为每一位家庭成员生成专属、持续演进的健康视图。
     </p>
     <p class="cover-lead cover-lead-2">
-      <strong>当前阶段</strong>：需求分析进行中。功能设计与架构设计尚未开始，
-      相关结论以本说明书为准，未定事项统一登记于「待调研项」。
+      <strong>当前阶段</strong>：需求分析进行中（v0.2 按项目所有者 2026-10-30 新需求重写）。
+      功能设计与架构设计尚未开始，相关结论以本说明书为准，未定事项统一登记于「待调研项」。
     </p>
   </div>
 
   <div class="cover-stats">
     <div class="stat"><b>10</b><span>篇文档</span></div>
-    <div class="stat"><b>130</b><span>个章节</span></div>
-    <div class="stat"><b>88</b><span>张表格</span></div>
+    <div class="stat"><b>147</b><span>个章节</span></div>
+    <div class="stat"><b>97</b><span>张表格</span></div>
     <div class="stat"><b>5</b><span>层信息对象</span></div>
   </div>
 
@@ -439,11 +441,11 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
         <h4>本期必做</h4>
         <ul>
           <li>账户体系与家庭成员管理</li>
-          <li>原件上传与落盘</li>
-          <li>OCR 识别 + AI 结构化抽取</li>
-          <li>健康档案与趋势查看</li>
-          <li>用户健康大屏（可定制）</li>
-          <li>系统管理员后台</li>
+          <li>原件上传与落盘（Web / 公众号 / 小程序）</li>
+          <li>OCR / 语音识别 + AI 结构化自动入档</li>
+          <li>健康档案、趋势与成员专属大屏</li>
+          <li>AI 对话助手 + AI 综合分析报告</li>
+          <li>管理端模型配置（任务路由，热生效）</li>
         </ul>
       </div>
       <div class="scope-col out">
@@ -451,8 +453,8 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
         <ul>
           <li>多租户（账户即数据边界）</li>
           <li>运营数据大屏（二期）</li>
-          <li>移动端 App（远期）</li>
-          <li>成员授权共管（二期）</li>
+          <li>原生移动端 App（远期）</li>
+          <li>成员授权共管（待定）</li>
           <li>医学诊断（红线）</li>
           <li>在线问诊与商城</li>
         </ul>
@@ -462,8 +464,8 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
         <ul>
           <li>后端 Java 25 + Spring Boot 4</li>
           <li>前端 Vue 3</li>
+          <li>微信小程序 + 公众号（一期通道）</li>
           <li>前后端分离，同仓分目录</li>
-          <li>移动端远期规划</li>
         </ul>
       </div>
     </div>
@@ -788,6 +790,54 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <td>医院、科室、检验项目、药品、疾病等字典</td>
 <td>数据可聚合分析的前提</td>
 </tr>
+<tr>
+<td>微信公众号</td>
+<td><code>WeChatOfficialAccount</code></td>
+<td>一期入档通道之一：发送消息即触发自动入档</td>
+<td>能力边界待实测（OW-013）</td>
+</tr>
+<tr>
+<td>微信小程序</td>
+<td><code>MiniProgram</code></td>
+<td>一期通道之一：上传、入档进度、轻量查看</td>
+<td>不等同于原生 App（D-011 仍为远期）</td>
+</tr>
+<tr>
+<td>模型网关</td>
+<td><code>ModelGateway</code></td>
+<td>所有 AI 调用的统一收口组件：路由、限流、熔断、降级、成本计量</td>
+<td>业务代码不得直连模型 API（D-017）</td>
+</tr>
+<tr>
+<td>模型配置</td>
+<td><code>ModelConfig</code></td>
+<td>单个 AI 服务的供应商、密钥、并发、单价等参数，管理端可增删改查</td>
+<td>密钥加密存储</td>
+</tr>
+<tr>
+<td>任务-模型路由</td>
+<td><code>ModelRoute</code></td>
+<td>任务类型 → 主模型 + 降级链的映射表</td>
+<td>混合省钱（本地/云端）的落点（D-016）</td>
+</tr>
+<tr>
+<td>对话会话</td>
+<td><code>ChatSession</code> / <code>ChatMessage</code></td>
+<td>用户与 AI 助手的会话与消息</td>
+<td>成员边界在会话创建时锁定（NFR-S-13）</td>
+</tr>
+<tr>
+<td>AI 分析报告</td>
+<td><code>AnalysisReport</code></td>
+<td>AI 结合成员数据与联网资料生成的综合报告</td>
+<td>仅供参考、强制免责声明（D-015）</td>
+</tr>
+<tr>
+<td>入档</td>
+<td>Ingestion</td>
+<td>原件经识别、结构化、确认后写入健康档案的全过程</td>
+<td>入档流程<strong>异步</strong>执行，进度可查</td>
+</tr>
 </tbody>
 </table></div>
 <h2 id="glossary--_2">数据形态分类</h2>
@@ -955,6 +1005,41 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <td>用户明确的业务主线</td>
 <td>—</td>
 </tr>
+<tr>
+<td>D-013</td>
+<td>2026-10-30</td>
+<td><strong>微信生态通道纳入一期</strong>：微信公众号（消息触发自动入档）+ 微信小程序（上传、进度、轻量查看）</td>
+<td>项目所有者明确要求「公众号发送即入档」；小程序属轻量通道，不改变 D-011 对<strong>原生 App</strong> 的远期定位</td>
+<td>仅 Web 上传</td>
+</tr>
+<tr>
+<td>D-014</td>
+<td>2026-10-30</td>
+<td><strong>AI 对话助手纳入一期</strong>：自然语言查档案、触发分析报告，流式输出，带免责声明</td>
+<td>项目所有者明确要求对话能力</td>
+<td>仅表单式查询</td>
+</tr>
+<tr>
+<td>D-015</td>
+<td>2026-10-30</td>
+<td><strong>AI 综合分析报告纳入一期</strong>：结合成员数据与联网公开资料生成，可下载/打印；输出仅供参考、需医生评判，强制免责声明</td>
+<td>项目所有者明确要求</td>
+<td>仅单指标解读</td>
+</tr>
+<tr>
+<td>D-016</td>
+<td>2026-10-30</td>
+<td><strong>管理端配置化</strong>：模型配置、任务-模型路由、提示词模板、系统参数全部入库管理，在线修改热生效；不为换模型/调提示词停机重启</td>
+<td>项目所有者要求「最大程度配置化，少改代码少重启」</td>
+<td>配置文件 + 重启生效</td>
+</tr>
+<tr>
+<td>D-017</td>
+<td>2026-10-30</td>
+<td>所有模型调用收敛至<strong>统一模型网关</strong>，按任务类型路由到不同模型（本地/云端混合），支持降级链与限流熔断</td>
+<td>成本控制（简单任务走本地/低价模型）+ 可替换性（NFR-M-04 的延伸）；业务代码不直连模型 API</td>
+<td>各业务模块直连模型 API</td>
+</tr>
 </tbody>
 </table></div>
 <h2 id="decision-log--_2">二、待定决策</h2>
@@ -1008,6 +1093,31 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <td>是否引入 FHIR R4 作为内部信息模型标准</td>
 <td>信息模型、数据模型</td>
 </tr>
+<tr>
+<td>OD-009</td>
+<td>微信公众号能力边界与平台规则（文件消息支持、回复窗口、类目资质）</td>
+<td>C19 公众号通道</td>
+</tr>
+<tr>
+<td>OD-010</td>
+<td>Spring AI 与 Spring Boot 4 兼容版本（不兼容则自封装，不阻塞）</td>
+<td>AI 接入层实现</td>
+</tr>
+<tr>
+<td>OD-011</td>
+<td>模型路由划分：本地模型 vs 云端 API（POC 数据支撑）</td>
+<td>C23 任务路由、成本模型</td>
+</tr>
+<tr>
+<td>OD-012</td>
+<td>知识库 / RAG 引入时机与选型（倾向一期不引入现成产品）</td>
+<td>二期能力规划</td>
+</tr>
+<tr>
+<td>OD-013</td>
+<td>分析报告联网资料来源与可信度规范</td>
+<td>C22 分析报告</td>
+</tr>
 </tbody>
 </table></div>
 <h2 id="decision-log--_3">三、变更记录</h2>
@@ -1023,12 +1133,17 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <td>2026-10-01</td>
 <td>建档，录入 D-001 ~ D-012</td>
 </tr>
+<tr>
+<td>2026-10-30</td>
+<td>按项目所有者新需求追加 D-013 ~ D-017（微信生态入一期、AI 对话、AI 分析报告、配置化、模型网关）；新增待定 OD-009 ~ OD-013</td>
+</tr>
 </tbody>
 </table></div>
 </section>
 <section class="doc" id="doc-vision">
 <h1 id="vision--01">01 · 愿景与范围</h1>
-<p>状态：草案 v0.1 · 阶段：需求分析 · 不涉及功能设计与架构</p>
+<p>状态：草案 v0.2 · 阶段：需求分析 · 不涉及功能设计与架构
+（v0.2 · 2026-10-30 按项目所有者口述新需求重写：微信生态入档、AI 对话、AI 综合分析报告、管理端模型配置化）</p>
 <h2 id="vision--1">1. 一句话定位</h2>
 <div class="callout quote">
 <p><strong>Health Buddy 是一个面向家庭的 AI 健康伙伴：用户上传医疗报告、医院单据、病历照片，系统自动 OCR 识别与 AI 解读，为每一位家庭成员生成专属、持续演进的健康视图。</strong></p>
@@ -1080,6 +1195,12 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <td>子女想管，但没工具</td>
 <td>单账户多成员，一人管全家</td>
 </tr>
+<tr>
+<td>P7</td>
+<td>归档动作太「重」</td>
+<td>想起时要开电脑、登录、传文件</td>
+<td>微信公众号直接发消息/图片即自动入档，随手完成</td>
+</tr>
 </tbody>
 </table></div>
 <h2 id="vision--3">3. 产品目标（本期）</h2>
@@ -1109,7 +1230,19 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 </tr>
 <tr>
 <td>G5 提供专属大屏</td>
-<td>每个家庭可自定义大屏展示内容与布局</td>
+<td>每个成员有独立、美观的 dashboard，展示基础信息、体检、报告、用药、检查与健康/饮食建议</td>
+</tr>
+<tr>
+<td>G6 微信随手入档</td>
+<td>在公众号发送文字、图片、语音等即自动触发入档；前端与小程序可见实时入档进度</td>
+</tr>
+<tr>
+<td>G7 对话式获取健康信息</td>
+<td>用户用自然语言（如「分析昨天的体检报告」）即可驱动系统完成查询与报告生成</td>
+</tr>
+<tr>
+<td>G8 AI 综合分析报告</td>
+<td>AI 结合成员数据与公开网络资料生成全方位分析报告，可下载、打印；输出仅供参考并强制免责声明</td>
 </tr>
 </tbody>
 </table></div>
@@ -1132,15 +1265,15 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 </tr>
 <tr>
 <td>不做医学诊断</td>
-<td><strong>AI 输出仅作信息整理与科普，不构成医疗建议</strong> —— 这是必须写进用户协议的红线</td>
+<td><strong>AI 输出仅作信息整理与科普，不构成医疗建议，需由医生评判</strong> —— 这是必须写进用户协议的红线</td>
 </tr>
 <tr>
 <td>不做多租户</td>
 <td>账户本身即数据边界（见 D-005）</td>
 </tr>
 <tr>
-<td>不做移动端 App</td>
-<td>远期规划（见 D-011）</td>
+<td>不做原生移动端 App</td>
+<td>远期规划（见 D-011）；微信小程序与公众号已提前至一期（见 D-013），不受本条约束</td>
 </tr>
 <tr>
 <td>一期不做运营数据大屏</td>
@@ -1188,19 +1321,19 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <tbody>
 <tr>
 <td><strong>一期必做</strong></td>
-<td>账户体系、成员管理、原件上传与落盘、OCR、AI 结构化、档案查看、用户健康大屏、系统管理员后台</td>
+<td>账户体系、成员管理、原件上传与落盘（Web / 公众号 / 小程序）、OCR 与语音识别、AI 结构化自动入档、入档进度展示、档案查看、成员专属健康大屏、AI 对话助手、AI 综合分析报告、AI 免责声明机制、系统管理员后台（含模型配置与任务路由，热生效）</td>
 </tr>
 <tr>
 <td><strong>一期可裁剪</strong></td>
-<td>AI 解读深度、提醒功能、数据导出</td>
+<td>提醒功能、数据导出、AI 解读深度、本地模型混合路由（POC 后定）</td>
 </tr>
 <tr>
 <td><strong>二期</strong></td>
-<td>运营数据大屏、成员授权共管、报告批量导入、设备/可穿戴接入</td>
+<td>运营数据大屏、成员授权共管、报告批量导入、设备/可穿戴接入、知识库（RAG）</td>
 </tr>
 <tr>
 <td><strong>远期</strong></td>
-<td>移动端 App、多语言、开放 API、第三方机构对接</td>
+<td>原生移动端 App、多语言、开放 API、第三方机构对接、开放公众用户（SaaS 化，见 D-008）</td>
 </tr>
 </tbody>
 </table></div>
@@ -1240,11 +1373,13 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <ul>
 <li>一期是否包含「提醒/待办」功能？若无，「伙伴感」如何体现？（→ <a href="#doc-open-questions">>OW-008</a>）</li>
 <li>「AI 解读」的边界与免责声明措辞需单独评审（→ 风险 R-002）</li>
+<li>微信公众号对文件消息（PDF/Excel）的支持范围需实测（→ <a href="#doc-open-questions">>OW-013</a>）</li>
+<li>本地模型与云端模型的任务路由划分需 POC 验证（→ <a href="#doc-open-questions">>OW-015</a>）</li>
 </ul>
 </section>
 <section class="doc" id="doc-users">
 <h1 id="users--02">02 · 用户与角色</h1>
-<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<p>状态：草案 v0.2 · 阶段：需求分析</p>
 <h2 id="users--1">1. 角色总览</h2>
 <p><strong>关键设计前提</strong>：本系统<strong>只有两类真实账号</strong> —— 系统管理员、注册用户。家庭成员<strong>不是账号</strong>，是注册用户管理的对象。</p>
 <div class="tw"><table>
@@ -1314,6 +1449,10 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <td>代用户上传报告</td>
 </tr>
 <tr>
+<td>维护 AI 模型配置、任务-模型路由与提示词模板（增删改查，热生效）</td>
+<td>在模型配置之外查看或导出用户数据</td>
+</tr>
+<tr>
 <td>查看审计日志（谁在何时做了什么操作）</td>
 <td>删除审计日志</td>
 </tr>
@@ -1338,7 +1477,7 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
       │
 ② 创建家庭成员（本人 + 家人），填写基本信息
       │
-③ 上传医疗原件（拍照 / 传 PDF / 传截图）
+③ 上传医疗原件（入口：Web 上传 / 微信小程序 / 微信公众号直接发送）
       │
 ④ 等待处理，查看识别结果  ←── 可修正 AI 抽错的字段
       │
@@ -1480,6 +1619,18 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <td>❌</td>
 </tr>
 <tr>
+<td>与 AI 对话 / 生成分析报告</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>维护 AI 模型配置与任务路由</td>
+<td>✅</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
 <td>维护主数据字典</td>
 <td>✅</td>
 <td>❌</td>
@@ -1513,7 +1664,7 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 </section>
 <section class="doc" id="doc-info-model">
 <h1 id="info-model--03">03 · 信息模型清单</h1>
-<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<p>状态：草案 v0.2 · 阶段：需求分析</p>
 <div class="callout quote">
 <p><strong>本文回答一个问题：系统要管理哪些信息。</strong>
 <strong>不涉及</strong>数据库表结构、字段类型、索引、关系建模 —— 那些属架构设计阶段。
@@ -1541,8 +1692,8 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <tr>
 <td><strong>L2 健康数据层</strong></td>
 <td>定义「健康事实本身」</td>
-<td>14</td>
-<td>就诊、诊断、用药、过敏、疫苗、体征、检验、影像、病历、手术、家族史、生活方式、提醒、目标</td>
+<td>15</td>
+<td>就诊、诊断、用药、过敏、疫苗、体征、检验、影像、病历、手术、家族史、生活方式、提醒、目标、AI 分析报告</td>
 </tr>
 <tr>
 <td><strong>L3 文件与处理层</strong></td>
@@ -1559,8 +1710,8 @@ mark{background:#FDBB2E;color:var(--ink);border-radius:2px;padding:0 2px;}
 <tr>
 <td><strong>L5 系统与运营层</strong></td>
 <td>定义「平台自身如何运转」</td>
-<td>5</td>
-<td>角色权限、审计日志、主数据、系统配置、运营统计</td>
+<td>8</td>
+<td>角色权限、审计日志、主数据、系统配置、运营统计、AI 模型配置、任务-模型路由、对话会话</td>
 </tr>
 </tbody>
 </table></div>
@@ -2431,6 +2582,57 @@ L1 账户与主体   └──────────────────�
 </tr>
 </tbody>
 </table></div>
+<h3 id="info-model--315-ai-analysisreportv02">3.15 AI 分析报告 <code>AnalysisReport</code>（v0.2 新增）</h3>
+<p>针对单个成员生成的综合分析报告（如「全方位体检分析」），可下载、打印。<strong>它是 AI 产出，不是医疗结论</strong>，必须携带免责声明。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>归属成员</td>
+<td>单一成员；报告内容<strong>只能</strong>引用该成员的数据</td>
+</tr>
+<tr>
+<td>报告类型</td>
+<td>单次报告分析 / 阶段性综合报告 / 指定主题（如「昨天的体检报告」）</td>
+</tr>
+<tr>
+<td>输入数据范围</td>
+<td>引用的健康记录 ID 列表 + 时间窗 —— 可审计「报告看了哪些数据」</td>
+</tr>
+<tr>
+<td>联网资料引用</td>
+<td>资料标题、URL、访问时间、摘要 —— 可追溯「报告参考了什么」</td>
+</tr>
+<tr>
+<td>生成配置</td>
+<td>模型标识 + 提示词模板版本（记录版本，换模型后可解释差异）</td>
+</tr>
+<tr>
+<td>输出形态</td>
+<td>HTML（在线预览）/ PDF（下载与打印）</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>生成中 / 已完成 / 失败（失败须对用户可见可解释，见 NFR-A-04）</td>
+</tr>
+<tr>
+<td>免责声明版本</td>
+<td>报告尾部的免责声明文案版本号</td>
+</tr>
+<tr>
+<td>操作记录</td>
+<td>生成时间、下载/打印记录</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout note">
+<p><strong>设计要点</strong>：报告的「输入数据范围」与「联网资料引用」是两个必留字段 —— AI 报告要能回答「你看了我哪些数据、参考了哪些资料」，否则无从校验、无从信任。</p>
+</div>
 <hr>
 <h2 id="info-model--4-l3">4. L3 文件与处理层</h2>
 <p>这层是产品差异化的技术底座。<strong>核心原则：原件不可变，加工过程可重跑、可追溯。</strong></p>
@@ -2487,6 +2689,10 @@ L1 账户与主体   └──────────────────�
 <tr>
 <td>不可变性</td>
 <td>不提供覆盖写；替换 = 新文件 + 关联</td>
+</tr>
+<tr>
+<td><strong>上传通道</strong></td>
+<td>Web 前端 / 微信小程序 / 微信公众号（公众号发送即触发入档）</td>
 </tr>
 </tbody>
 </table></div>
@@ -2843,6 +3049,97 @@ L1 账户与主体   └──────────────────�
 <h3 id="info-model--64-systemconfig">6.4 系统配置 <code>SystemConfig</code></h3>
 <p>键值配置：文件大小上限、支持的格式、OCR 并发数、AI 模型参数、功能开关等。</p>
 <h3 id="info-model--65">6.5 运营统计（二期）</h3>
+<h3 id="info-model--66-ai-modelconfigv02">6.6 AI 模型配置 <code>ModelConfig</code>（v0.2 新增）← <strong>管理端可增删改查</strong></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>供应商 / 接入地址 / 鉴权密钥</td>
+<td>密钥加密存储，禁止明文入库</td>
+</tr>
+<tr>
+<td>模型名称 / 能力标签</td>
+<td>多模态视觉 / ASR / 文本抽取 / 长文本生成 / 对话</td>
+</tr>
+<tr>
+<td>调用参数</td>
+<td>超时、最大并发数、限流阈值、重试策略</td>
+</tr>
+<tr>
+<td>成本参数</td>
+<td>单价（输入/输出 token），供成本核算（NFR-O-02）</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>启用 / 停用 / 熔断中</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="info-model--67-modelroutev02">6.7 任务-模型路由 <code>ModelRoute</code>（v0.2 新增）← <strong>混合省钱的核心</strong></h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任务类型</td>
+<td>OCR / 语音转写 / 结构化抽取 / 分析报告 / 对话 / 单据分类</td>
+</tr>
+<tr>
+<td>主模型 + <strong>降级链</strong></td>
+<td>主模型熔断或超时后自动降级到备用模型</td>
+</tr>
+<tr>
+<td>适用范围</td>
+<td>简单任务可路由到本地/低价模型，复杂任务路由到云端强模型</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout quote">
+<p><strong>设计意图</strong>：换模型、加模型、混合省钱（如基础图像识别走本地模型）都是改这张表 —— <strong>不改代码、不停机重启</strong>（见 NFR-M-06、D-016/D-017）。</p>
+</div>
+<h3 id="info-model--68-chatsession-chatmessagev02">6.8 对话会话 <code>ChatSession</code> / <code>ChatMessage</code>（v0.2 新增）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>会话归属</td>
+<td>账户 + 当前操作的<strong>目标成员</strong>（成员边界在会话创建时锁定）</td>
+</tr>
+<tr>
+<td>消息角色</td>
+<td>用户 / 助手 / 工具调用结果</td>
+</tr>
+<tr>
+<td>引用工具</td>
+<td>查档案、触发报告任务等（记录调用与结果摘要）</td>
+</tr>
+<tr>
+<td>模型标识 + 提示词版本</td>
+<td>可追溯</td>
+</tr>
+<tr>
+<td>状态</td>
+<td>进行中 / 已结束</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout warn">
+<p>⚠️ <strong>隐私要点</strong>：对话消息属于派生健康数据，同受成员隔离约束（见 §7 <code>ownerAccountId</code>/<code>memberId</code> 与风险 R-013）；调试日志禁止全量打印对话与健康数据。</p>
+</div>
 <hr>
 <h2 id="info-model--7">7. 跨对象通用字段</h2>
 <p>所有持久化对象建议统一携带：</p>
@@ -3054,6 +3351,11 @@ L1 账户与主体   └──────────────────�
 <td>数据<strong>导出与删除</strong>能力</td>
 <td>合规底线（即使合规后置），也是用户信任来源</td>
 </tr>
+<tr>
+<td>14</td>
+<td><strong>AI 上下文的成员边界</strong>（v0.2 新增）</td>
+<td>进入大模型的任何请求必须先限定到单一成员；AI 工具调用由后端强制注入成员条件，模型传参不可覆盖 —— 否则对话/报告功能会把 A 的数据混进 B 的上下文。见风险 R-013</td>
+</tr>
 </tbody>
 </table></div>
 <hr>
@@ -3107,12 +3409,22 @@ L1 账户与主体   └──────────────────�
 <td>影像是否支持 DICOM？</td>
 <td>存储与展示复杂度显著上升</td>
 </tr>
+<tr>
+<td>9</td>
+<td>分析报告的联网资料来源与可信度规范（v0.2 新增）</td>
+<td>见 <a href="#doc-open-questions">>OW-017</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td>对话会话数据保留期限（v0.2 新增）</td>
+<td>派生健康数据的保留策略</td>
+</tr>
 </tbody>
 </table></div>
 </section>
 <section class="doc" id="doc-capability">
 <h1 id="capability--04">04 · 能力范围</h1>
-<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<p>状态：草案 v0.2 · 阶段：需求分析</p>
 <div class="callout warn">
 <p>⚠️ <strong>本文只界定「一期做什么、不做什么」，不描述功能设计。</strong>
 这里没有交互流程、界面布局、接口定义、业务规则细化 —— 那些属于 <span class="xref-dead">>功能设计</a>（未开始）。
@@ -3225,7 +3537,7 @@ L1 账户与主体   └──────────────────�
 <tr>
 <td>C14</td>
 <td>系统管理员后台</td>
-<td>✅ 账户管理、主数据维护、审计日志</td>
+<td>✅ 账户管理、主数据维护、审计日志、<strong>模型配置与任务路由</strong></td>
 <td>运营统计</td>
 <td>权限细分</td>
 </tr>
@@ -3238,10 +3550,10 @@ L1 账户与主体   └──────────────────�
 </tr>
 <tr>
 <td>C16</td>
-<td>移动端</td>
+<td>原生移动端 App</td>
 <td>❌</td>
 <td>❌</td>
-<td>✅</td>
+<td>✅（微信小程序已提前至一期，见 C20）</td>
 </tr>
 <tr>
 <td>C17</td>
@@ -3256,6 +3568,48 @@ L1 账户与主体   └──────────────────�
 <td>❌</td>
 <td>❌</td>
 <td>✅</td>
+</tr>
+<tr>
+<td>C19</td>
+<td>微信公众号通道</td>
+<td>✅ 发送文字/图片/语音自动触发入档；进度回复</td>
+<td>文件消息能力扩围（待实测）</td>
+<td>模板消息主动提醒</td>
+</tr>
+<tr>
+<td>C20</td>
+<td>微信小程序</td>
+<td>✅ 上传、入档进度、档案与大屏轻量查看</td>
+<td>功能对齐 Web</td>
+<td>——</td>
+</tr>
+<tr>
+<td>C21</td>
+<td>AI 对话助手</td>
+<td>✅ 自然语言问答、查档案、触发分析报告任务</td>
+<td>主动陪伴式对话</td>
+<td>——</td>
+</tr>
+<tr>
+<td>C22</td>
+<td>AI 综合分析报告</td>
+<td>✅ 结合成员数据 + 联网公开资料，可下载/打印，带免责声明</td>
+<td>定期自动生成</td>
+<td>健康画像演进</td>
+</tr>
+<tr>
+<td>C23</td>
+<td>模型配置与任务路由</td>
+<td>✅ 管理端增删改查、降级链、热生效</td>
+<td>用量与成本统计大屏</td>
+<td>自训模型接入</td>
+</tr>
+<tr>
+<td>C24</td>
+<td>系统配置化</td>
+<td>✅ 提示词模板、阈值、开关，在线修改不重启</td>
+<td>配置灰度与回滚</td>
+<td>——</td>
 </tr>
 </tbody>
 </table></div>
@@ -3273,13 +3627,14 @@ L1 账户与主体   └──────────────────�
 </ul>
 <h3 id="capability--c3">C3 原件上传与落盘</h3>
 <ul>
-<li><strong>要能</strong>：上传 jpg/png/heic/pdf；单文件大小有上限；上传即落盘并生成可追溯记录；相同文件（哈希一致）识别为重复并提示；查看原件；删除原件（需考虑级联影响）。</li>
-<li><strong>边界</strong>：不做批量上传（一期）；不做邮件/微信导入。</li>
+<li><strong>要能</strong>：上传 jpg/png/heic/pdf（Web）；<strong>微信公众号</strong>发送文字/图片/语音直接触发入档（语音为 AMR 需转码）；<strong>微信小程序</strong>上传与进度查看；单文件大小有上限；上传即落盘并生成可追溯记录；相同文件（哈希一致）识别为重复并提示；查看原件；删除原件（需考虑级联影响）。</li>
+<li><strong>边界</strong>：不做批量上传（一期）；公众号对 PDF/Excel 等文件消息的支持范围<strong>待实测</strong>（OW-013），不支持时以小程序上传兜底。</li>
 </ul>
 <h3 id="capability--c4-ocr">C4 OCR 识别</h3>
 <ul>
 <li><strong>要能</strong>：识别中文医疗单据文本；给出整体与逐块置信度；多页 PDF 逐页处理。</li>
 <li><strong>边界</strong>：不承诺 100% 准确率；低质量图片需给出「识别质量差，建议重拍」的明确反馈而非静默失败。</li>
+<li><strong>路由</strong>（v0.2 新增）：识别类任务可路由到本地/低价模型（经任务-模型路由配置，见 C23），以降低成本。</li>
 </ul>
 <h3 id="capability--c5-ai">C5 AI 结构化抽取</h3>
 <ul>
@@ -3341,8 +3696,38 @@ L1 账户与主体   └──────────────────�
 </ul>
 <h3 id="capability--c14">C14 系统管理员后台</h3>
 <ul>
-<li><strong>要能</strong>：账户查询 / 禁用 / 启用 / 重置密码；主数据（医院、科室、检验项目、药品、疾病）CRUD；审计日志查询。</li>
+<li><strong>要能</strong>：账户查询 / 禁用 / 启用 / 重置密码；主数据（医院、科室、检验项目、药品、疾病）CRUD；审计日志查询；<strong>AI 模型配置 CRUD、任务-模型路由配置、提示词模板管理（在线修改，热生效，见 C23/C24）</strong>。</li>
 <li><strong>边界</strong>（硬约束）：管理员<strong>不可查看任何用户健康数据</strong>。</li>
+</ul>
+<h3 id="capability--c19-v02">C19 微信公众号通道（v0.2 新增）</h3>
+<ul>
+<li><strong>要能</strong>：关注绑定账户；在对话中发送文字、图片、语音（AMR 转码）即自动触发入档流水线；通过回复告知受理与完成状态；入档失败可见可解释。</li>
+<li><strong>边界</strong>：受微信客服消息回复窗口等平台规则约束（OW-013）；文件类消息支持范围待实测。</li>
+</ul>
+<h3 id="capability--c20-v02">C20 微信小程序（v0.2 新增）</h3>
+<ul>
+<li><strong>要能</strong>：上传各类原件；查看实时入档进度；浏览成员档案与大屏（轻量版）。</li>
+<li><strong>边界</strong>：一期不追求功能对齐 Web；管理后台不进小程序。</li>
+</ul>
+<h3 id="capability--c21-ai-v02">C21 AI 对话助手（v0.2 新增）</h3>
+<ul>
+<li><strong>要能</strong>：前端自然语言对话（流式输出）；理解意图后查档案、触发分析报告任务；回答带免责声明。</li>
+<li><strong>边界</strong>（红线，同 C6）：不做诊断、不给用药建议；<strong>成员隔离在构造 AI 请求前强制生效</strong>，AI 工具调用由后端注入成员条件（见 NFR-S-13、R-013）。</li>
+</ul>
+<h3 id="capability--c22-ai-v02">C22 AI 综合分析报告（v0.2 新增）</h3>
+<ul>
+<li><strong>要能</strong>：由对话或页面触发；AI 结合成员数据与联网公开资料生成报告；在线预览、下载、打印；报告记录输入数据范围与资料引用（信息模型 §3.15）。</li>
+<li><strong>边界</strong>（红线，同 C6）：输出仅供参考，需医生评判；强制免责声明。</li>
+</ul>
+<h3 id="capability--c23-v02">C23 模型配置与任务路由（v0.2 新增）</h3>
+<ul>
+<li><strong>要能</strong>：管理端对模型（供应商/密钥/并发/限流/单价）增删改查；按任务类型配置主模型与降级链；密钥加密存储。</li>
+<li><strong>价值</strong>：换模型、扩模型、本地/云端混合省钱均为改配置，不改代码（D-016/D-017）。</li>
+</ul>
+<h3 id="capability--c24-v02">C24 系统配置化（v0.2 新增）</h3>
+<ul>
+<li><strong>要能</strong>：提示词模板（带版本）、阈值、功能开关在线修改并热生效。</li>
+<li><strong>边界</strong>：代码升级仍需正常发版；配置化不等于免发版。</li>
 </ul>
 <hr>
 <h2 id="capability--3">3. 一期明确不做</h2>
@@ -3359,8 +3744,8 @@ L1 账户与主体   └──────────────────�
 <td>账户即边界，见 D-005</td>
 </tr>
 <tr>
-<td>移动端 App</td>
-<td>远期，见 D-011</td>
+<td>原生移动端 App</td>
+<td>远期，见 D-011（小程序/公众号已提前至一期，见 D-013）</td>
 </tr>
 <tr>
 <td>运营数据大屏</td>
@@ -3390,6 +3775,10 @@ L1 账户与主体   └──────────────────�
 <td>设备直连</td>
 <td>远期，见 C17</td>
 </tr>
+<tr>
+<td>现成知识库产品（RAG 平台）整体引入</td>
+<td>健康数据需深度掌控成员隔离与模型路由，倾向自建轻量方案，见 OW-016</td>
+</tr>
 </tbody>
 </table></div>
 <hr>
@@ -3407,21 +3796,28 @@ L1 账户与主体   └──────────────────�
 阶段 D：伙伴感
   用户健康大屏（预置模板）→ 大屏自定义 → 提醒
 
-阶段 E：打磨
+阶段 E：智能服务（v0.2 新增）
+  模型网关与任务路由 → AI 对话助手 → AI 综合分析报告
+
+阶段 F：微信生态（v0.2 新增）
+  公众号消息入档（文字/图片/语音）→ 小程序上传与进度 → 进度回传
+
+阶段 G：打磨
   导出、异常反馈、性能与体验优化
 </code></pre>
-<p><strong>核心判断</strong>：<strong>阶段 B 是整条链路风险最高的部分</strong>（OCR 与 AI 的准确率、单据类型覆盖面、成本），应尽早打通端到端最小可用版本，用真实单据验证可行性，再决定后续投入。不要等前端做完了才发现识别效果不达标。</p>
+<p><strong>核心判断</strong>：<strong>阶段 B 是整条链路风险最高的部分</strong>（OCR 与 AI 的准确率、单据类型覆盖面、成本），应尽早打通端到端最小可用版本，用真实单据验证可行性，再决定后续投入。不要等前端做完了才发现识别效果不达标。<strong>阶段 E/F 依赖阶段 B 的流水线稳定，且公众号文件消息能力需先行实测（OW-013）。</strong></p>
 <hr>
 <h2 id="capability--5">5. 待确认</h2>
 <ul>
 <li>C11 提醒、C12 目标、C13 导出 是否全部进一期？</li>
 <li>一期优先支持哪几类单据？（建议：检验报告 + 处方/用药 + 门诊病历）</li>
-<li>阶段 A~E 的排期需在功能设计阶段细化。</li>
+<li>本地模型与云端模型的路由划分（C23）需 POC 数据支撑（OW-015）。</li>
+<li>阶段 A~G 的排期需在功能设计阶段细化。</li>
 </ul>
 </section>
 <section class="doc" id="doc-nfr">
 <h1 id="nfr--05">05 · 非功能需求</h1>
-<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<p>状态：草案 v0.2 · 阶段：需求分析</p>
 <div class="callout quote">
 <p>说明：本文只写<strong>约束与底线</strong>，不写实现方案。具体技术手段在架构设计阶段确定。
 标注 <code>待定</code> 的项需在架构设计阶段收敛为具体数值。</p>
@@ -3484,6 +3880,18 @@ L1 账户与主体   └──────────────────�
 <td>NFR-P-08</td>
 <td>大屏刷新</td>
 <td>手动刷新响应 &lt; 2 s</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-09</td>
+<td>AI 对话首字响应（P95）</td>
+<td>&lt; 3 s（流式输出，首 token 可感知）</td>
+<td>待定</td>
+</tr>
+<tr>
+<td>NFR-P-10</td>
+<td>入档进度可见性</td>
+<td>受理即时返回；进度状态延迟 &lt; 5 s</td>
 <td>待定</td>
 </tr>
 </tbody>
@@ -3596,6 +4004,16 @@ L1 账户与主体   └──────────────────�
 <td>数据出域约束</td>
 <td>上传的医疗原件若送第三方 OCR/AI，需明确告知用户（<strong>见风险 R-003</strong>）</td>
 </tr>
+<tr>
+<td>NFR-S-13</td>
+<td><strong>AI 上下文成员隔离</strong>（v0.2 新增）</td>
+<td>任何进入大模型的请求（对话、报告、抽取）必须只包含目标成员的数据；AI 工具调用（如查档案）由后端强制注入成员边界，模型传参不可覆盖；这是隔离的最后一道防线，<strong>发生在构造请求之前</strong>（见风险 R-013）</td>
+</tr>
+<tr>
+<td>NFR-S-14</td>
+<td>AI 请求日志脱敏（v0.2 新增）</td>
+<td>模型调用的请求/响应日志禁止全量记录健康数据；审计记录「谁的数据何时被哪个模型处理」</td>
+</tr>
 </tbody>
 </table></div>
 <hr>
@@ -3687,6 +4105,10 @@ L1 账户与主体   └──────────────────�
 <td>NFR-M-05</td>
 <td>数据库变更需版本化迁移脚本</td>
 </tr>
+<tr>
+<td>NFR-M-06</td>
+<td><strong>管理端配置热生效</strong>（v0.2 新增）：模型配置、任务-模型路由、提示词模板、系统参数支持在线修改并即时生效；不为换模型、改提示词、调阈值而停机重启</td>
+</tr>
 </tbody>
 </table></div>
 <div class="callout quote">
@@ -3761,6 +4183,10 @@ L1 账户与主体   └──────────────────�
 <td>NFR-X-04</td>
 <td>上传格式：jpg / jpeg / png / heic / pdf</td>
 </tr>
+<tr>
+<td>NFR-X-05</td>
+<td>微信通道格式（v0.2 新增）：公众号语音为 AMR，需转码后处理；Excel 需解析为文本后入档流程</td>
+</tr>
 </tbody>
 </table></div>
 <div class="callout quote">
@@ -3791,6 +4217,11 @@ L1 账户与主体   └──────────────────�
 <td>NFR-O-03</td>
 <td>需有成本上限保护机制</td>
 <td>防止滥用或异常消耗</td>
+</tr>
+<tr>
+<td>NFR-O-04</td>
+<td>成本护栏（v0.2 新增）</td>
+<td>每任务 token 预算；每成员/每日调用量上限；相同文件（哈希一致）不重复解析；超限告警而非静默失败</td>
 </tr>
 </tbody>
 </table></div>
@@ -3833,12 +4264,22 @@ L1 账户与主体   └──────────────────�
 <td>成本模型与定价</td>
 <td>商业化前</td>
 </tr>
+<tr>
+<td>6</td>
+<td>NFR-S-13 成员隔离的技术落实方案（工具注入、上下文组装）</td>
+<td>架构设计</td>
+</tr>
+<tr>
+<td>7</td>
+<td>NFR-M-06 热生效机制选型（配置表 + 事件刷新 / 配置中心）</td>
+<td>架构设计</td>
+</tr>
 </tbody>
 </table></div>
 </section>
 <section class="doc" id="doc-risk">
 <h1 id="risk--06">06 · 风险登记册</h1>
-<p>状态：草案 v0.1 · 阶段：需求分析</p>
+<p>状态：草案 v0.2 · 阶段：需求分析</p>
 <div class="callout quote">
 <p>当前策略：<strong>先做功能原型，合规后置</strong>（<a href="#doc-decision-log">>D-010</a>）。
 因此本文的作用是<strong>登记风险、标注后果、给出触发条件</strong>，不展开方案设计。
@@ -3944,7 +4385,7 @@ L1 账户与主体   └──────────────────�
 </tr>
 <tr>
 <td>缓解方向</td>
-<td>① 选型时评估服务商数据处理协议<br>② 上传即告知用户数据将被送往何处<br>③ 评估本地模型方案（数据不出域）<br>④ 传输与存储加密</td>
+<td>① 选型时评估服务商数据处理协议<br>② 上传即告知用户数据将被送往何处<br>③ 评估本地模型方案（数据不出域）<br>④ 传输与存储加密<br>⑤ <strong>大模型调用同样适用</strong>（v0.2 强化）：对话与分析报告会把成员健康数据送入模型上下文，按任务路由评估各供应商条款；敏感任务可路由到本地模型兜底</td>
 </tr>
 <tr>
 <td>关联</td>
@@ -4078,6 +4519,76 @@ L1 账户与主体   └──────────────────�
 </tr>
 </tbody>
 </table></div>
+<h3 id="risk--r-013-ai-v02">R-013 · AI 对话与报告生成中的成员数据越权（v0.2 新增）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>对话助手与分析报告功能引入了「AI 主动取数」的场景：若 AI 工具调用（如查档案）未强制限定当前成员，或报告任务误引用了其他成员的数据，就会把 A 的健康信息混入 B 的上下文 —— 医疗数据串档是最不可接受的故障</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>中</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>严重</td>
+</tr>
+<tr>
+<td>触发条件</td>
+<td>任一 AI 请求的上下文包含非目标成员数据（可通过专项测试暴露）</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① 隔离发生在<strong>构造 AI 请求之前</strong>：上下文组装只取目标成员数据（NFR-S-13）<br>② AI 工具调用由后端强制注入成员条件，模型传参不可覆盖<br>③ 报告记录「输入数据范围」字段，可审计引用了哪些数据（信息模型 §3.15）<br>④ 上线前专项测试：A 账号经任何途径（对话/报告/进度/原件）拿不到 B 成员数据</td>
+</tr>
+<tr>
+<td>关联</td>
+<td>NFR-S-13、NFR-S-14、<a href="#doc-info-model">>信息模型 §9 第 14 条</a></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="risk--r-014-v02">R-014 · 微信公众号能力边界与平台规则不确定（v0.2 新增）</h3>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>项</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>描述</td>
+<td>一期依赖公众号「随手发消息即入档」，但公众号对文件类消息（PDF/Excel）的支持范围、客服消息回复窗口、语音 AMR 处理、医疗健康类内容的平台规则与资质要求，均可能限制设计预期</td>
+</tr>
+<tr>
+<td>可能性</td>
+<td>高</td>
+</tr>
+<tr>
+<td>影响</td>
+<td>较大</td>
+</tr>
+<tr>
+<td>触发条件</td>
+<td>实测发现文件消息不可用 / 平台审核要求医疗类资质</td>
+</tr>
+<tr>
+<td>缓解方向</td>
+<td>① 开发前实测消息能力边界（OW-013）<br>② 小程序上传作为文件类内容的兜底通道（架构上两条通道同等一等公民）<br>③ 调研小程序类目资质与内容审核规则<br>④ 进度回传同时支持公众号回复与小程序内查看，不押注单一通道</td>
+</tr>
+<tr>
+<td>关联</td>
+<td><a href="#doc-open-questions">>OW-013</a>、C19/C20</td>
+</tr>
+</tbody>
+</table></div>
 <hr>
 <h2 id="risk--p2">P2 · 可接受（记录备查）</h2>
 <div class="tw"><table>
@@ -4180,6 +4691,10 @@ L1 账户与主体   └──────────────────�
 <tr>
 <td>2026-10-01</td>
 <td>建档，登记 R-001 ~ R-012</td>
+</tr>
+<tr>
+<td>2026-10-30</td>
+<td>v0.2：按新需求强化 R-003（大模型出域），新增 R-013（AI 成员越权）、R-014（微信公众号能力边界）</td>
 </tr>
 </tbody>
 </table></div>
@@ -4287,6 +4802,41 @@ L1 账户与主体   └──────────────────�
 <td>技术</td>
 <td>待调研</td>
 <td>架构设计</td>
+</tr>
+<tr>
+<td>OW-013</td>
+<td><strong>微信公众号能力边界与平台规则</strong>（文件消息、回复窗口、类目资质）</td>
+<td>平台 + 合规</td>
+<td>待调研</td>
+<td>C19 公众号通道</td>
+</tr>
+<tr>
+<td>OW-014</td>
+<td>Spring AI 与 Spring Boot 4 的兼容版本</td>
+<td>技术</td>
+<td>待调研</td>
+<td>AI 接入层实现</td>
+</tr>
+<tr>
+<td>OW-015</td>
+<td><strong>模型路由 POC：本地模型 vs 云端 API</strong>（各任务准确率与成本）</td>
+<td>技术 + 成本</td>
+<td>待调研</td>
+<td>C23 任务路由、成本模型</td>
+</tr>
+<tr>
+<td>OW-016</td>
+<td>知识库 / RAG 引入时机与选型</td>
+<td>产品 + 技术</td>
+<td>待调研</td>
+<td>二期能力规划</td>
+</tr>
+<tr>
+<td>OW-017</td>
+<td>分析报告的联网资料来源与可信度规范</td>
+<td>产品 + 合规</td>
+<td>待调研</td>
+<td>C22 分析报告</td>
 </tr>
 </tbody>
 </table></div>
@@ -4748,6 +5298,131 @@ L1 账户与主体   └──────────────────�
 </table></div>
 <p><strong>调研要点</strong>：开发环境的数据是否可脱离真实敏感数据（<strong>建议全部用合成/脱敏数据</strong>）。</p>
 <hr>
+<h2 id="open-questions--ow-013-v02">OW-013 · 微信公众号能力边界与平台规则（v0.2 新增）← <strong>通道前提</strong></h2>
+<p>一期「公众号随手入档」依赖以下能力，<strong>均需按官方文档复核 + 实测</strong>，不得凭印象决策：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>待确认项</th>
+<th>影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>消息类型支持范围：文字/图片/语音之外，<strong>PDF、Excel 等文件消息是否可用</strong></td>
+<td>决定公众号能否独立承担全部入档上传；不支持则小程序兜底</td>
+</tr>
+<tr>
+<td>2</td>
+<td>客服消息回复窗口（48 小时交互限制）与条数限制的现行规则</td>
+<td>决定入档进度如何回传</td>
+</tr>
+<tr>
+<td>3</td>
+<td>公众号语音消息格式（AMR）与时长限制</td>
+<td>转码方案</td>
+</tr>
+<tr>
+<td>4</td>
+<td>小程序类目资质：医疗健康类内容是否需要特殊资质</td>
+<td>能否上线</td>
+</tr>
+<tr>
+<td>5</td>
+<td>平台对医疗健康类内容/服务的审核规则</td>
+<td>文案与功能边界</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>调研产出</strong>：结论写入决策记录；公众号不可承载的能力明确降级到小程序/H5，并在 C3/C19 边界中注明。</p>
+<hr>
+<h2 id="open-questions--ow-014-spring-ai-spring-boot-4-v02">OW-014 · Spring AI 与 Spring Boot 4 兼容版本（v0.2 新增）</h2>
+<p>技术栈已定 Java 25 + Spring Boot 4（D-002）。Spring AI 对 Boot 4 的兼容版本<strong>未验证</strong>。</p>
+<p><strong>调研要点</strong>
+1. Spring AI 与 Spring Boot 4 兼容的最低版本（实测验证，非看宣传）。
+2. 若暂不兼容：评估「RestClient + 自封装 OpenAI 兼容协议客户端」路线 —— <strong>不构成阻塞</strong>，模型调用本质是 HTTP + JSON。
+3. 决策产出写入决策记录，标注依据等级。</p>
+<hr>
+<h2 id="open-questions--ow-015-poc-vs-apiv02">OW-015 · 模型路由 POC：本地模型 vs 云端 API（v0.2 新增）← <strong>成本与准确率的关键</strong></h2>
+<p>任务-模型路由（C23）的划分不能拍脑袋，需 POC 数据支撑：</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>任务类型</th>
+<th>候选本地模型方向</th>
+<th>候选云端方向</th>
+<th>POC 验收</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图像 OCR / 单据识别</td>
+<td>开源多模态模型（如 Qwen-VL 系）</td>
+<td>云端多模态 API</td>
+<td>真实单据逐字段准确率</td>
+</tr>
+<tr>
+<td>语音转写（AMR→文本）</td>
+<td>Whisper 级开源模型</td>
+<td>云端 ASR</td>
+<td>医疗词汇准确率</td>
+</tr>
+<tr>
+<td>结构化抽取</td>
+<td>——（倾向云端）</td>
+<td>云端文本模型</td>
+<td>字段抽取 + 主数据映射成功率</td>
+</tr>
+<tr>
+<td>分析报告 / 对话</td>
+<td>——（倾向云端）</td>
+<td>云端长文本模型</td>
+<td>质量 + 成本</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>调研要点</strong>：GPU 成本与运维 vs 云端按量成本（NFR-O-01~04）；敏感任务本地兜底的价值（R-003）。</p>
+<hr>
+<h2 id="open-questions--ow-016-rag-v02">OW-016 · 知识库 / RAG 引入时机与选型（v0.2 新增）</h2>
+<p><strong>当前倾向（推测，需评审）</strong>：一期<strong>不引入</strong>现成知识库产品（Dify / FastGPT 类）。理由：健康数据需深度掌控成员隔离与模型路由，且一期核心诉求（成员数据查询 + 联网公开资料）不需要向量检索。</p>
+<div class="tw"><table>
+<thead>
+<tr>
+<th>需求</th>
+<th>一期方案</th>
+<th>二期评估</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>对话查档案</td>
+<td>function calling 结构化查询</td>
+<td>——</td>
+</tr>
+<tr>
+<td>报告的公开资料</td>
+<td>搜索 API + 网页抽取</td>
+<td>建立医疗常识语料库（pgvector 起步）</td>
+</tr>
+<tr>
+<td>报告原文语义检索</td>
+<td>不做</td>
+<td>pgvector → 量大再评估 Milvus</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+<h2 id="open-questions--ow-017-v02">OW-017 · 分析报告的联网资料来源与可信度规范（v0.2 新增）</h2>
+<p>AI 报告要结合公开网络资料（G8），需先定规范再实现：</p>
+<ol>
+<li><strong>来源选型</strong>：搜索 API 候选与合规性、网页正文抽取方案。</li>
+<li><strong>可信度</strong>：优先权威来源（如临床指南、权威科普机构）；每条引用记录标题/URL/访问时间（信息模型 §3.15）。</li>
+<li><strong>内容安全</strong>：AI 生成的健康内容措辞边界（与 R-002 免责声明机制一致）；引用内容版权。</li>
+<li><strong>时效性</strong>：资料访问时间入库，避免旧资料误导。</li>
+</ol>
+<hr>
 <h2 id="open-questions--_9">变更记录</h2>
 <div class="tw"><table>
 <thead>
@@ -4760,6 +5435,10 @@ L1 账户与主体   └──────────────────�
 <tr>
 <td>2026-10-01</td>
 <td>建档，登记 OW-001 ~ OW-012</td>
+</tr>
+<tr>
+<td>2026-10-30</td>
+<td>v0.2：新增 OW-013 ~ OW-017（微信通道、Spring AI 兼容性、模型路由 POC、知识库时机、联网资料规范）</td>
 </tr>
 </tbody>
 </table></div>
